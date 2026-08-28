@@ -9,7 +9,11 @@ import { useRef, useState } from 'react';
  */
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-export default function DescargaDocs() {
+export default function DescargaDocs({
+  doc = 'ambos',
+  rotuloPropuesta = 'Propuesta de ley con las modificaciones',
+  nombreDefecto = 'Documentos Propuesta S-0809-2026.zip',
+} = {}) {
   const dialogRef = useRef(null);
   const [email, setEmail] = useState('');
   const [estado, setEstado] = useState(null); // null | 'bajando' | 'ok' | mensaje de error
@@ -24,7 +28,7 @@ export default function DescargaDocs() {
       const r = await fetch('/api/descarga', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim(), doc: 'ambos' }),
+        body: JSON.stringify({ email: email.trim(), doc }),
       });
       if (!r.ok) {
         const cuerpo = await r.json().catch(() => ({}));
@@ -33,7 +37,7 @@ export default function DescargaDocs() {
       const blob = await r.blob();
       const nombre = /filename="([^"]+)"/.exec(
         r.headers.get('Content-Disposition') || ''
-      )?.[1] || 'Documentos Propuesta S-0809-2026.zip';
+      )?.[1] || nombreDefecto;
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -73,7 +77,7 @@ export default function DescargaDocs() {
             <p className="pl-desc-ayuda">El paquete incluye los dos documentos:</p>
             <ul className="pl-desc-lista">
               <li>
-                <strong>Propuesta de ley con las modificaciones</strong>
+                <strong>{rotuloPropuesta}</strong>
                 <span>Word · texto completo con control de cambios</span>
               </li>
               <li>

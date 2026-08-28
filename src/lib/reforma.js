@@ -3,4 +3,5 @@
 export const SECCIONES_REFORMA = [
   { id: 'analisis', label: 'Análisis Proyecto Secretaría Energía', to: '/reforma-ley-27640' },
   { id: 'propuesta', label: 'Propuesta modificaciones al Proyecto', to: '/propuesta-s0809-2026' },
+  { id: 'optimizada', label: 'Propuesta optimizada', to: '/propuesta-optimizada' },
 ];

@@ -117,7 +117,9 @@ def bloques_de_popup(pop):
         if 'pl-kpis' in cl:
             bloques.append({'tipo': 'kpis', 'items': [
                 {'valor': re.sub(r'\s+', ' ', next(k.buscar(lambda n: 'pl-kpi-valor' in n.clase())).texto()).strip(),
-                 'label': re.sub(r'\s+', ' ', next(k.buscar(lambda n: 'pl-kpi-label' in n.clase())).texto()).strip()}
+                 'label': re.sub(r'\s+', ' ', next(k.buscar(lambda n: 'pl-kpi-label' in n.clase())).texto()).strip(),
+                 'neg': 'pl-kpi-neg' in k.clase(),
+                 'compacto': 'pl-kpi-compacto' in k.clase()}
                 for k in h.hijos if isinstance(k, Nodo) and 'pl-kpi' in k.clase()
             ]})
         elif 'pl-flujo' in cl and 'flecha' not in cl:

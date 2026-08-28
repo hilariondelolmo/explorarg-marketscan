@@ -1,0 +1,212 @@
+/* Adaptación a papel del diseño existente. No define una paleta ni una
+   tipografía propias: sólo resuelve apertura, paginación y desbordes. */
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 12mm 15mm;
+  }
+
+  :root {
+    --gutter: 0;
+    --max-width: none;
+    color-scheme: light;
+  }
+
+  html,
+  body {
+    width: auto;
+    min-height: 0;
+    background: #fff !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  body {
+    font-size: 10pt;
+  }
+
+  .top-nav,
+  .section-nav,
+  .site-footer,
+  .ar-descargar,
+  .pl-oblea-descarga,
+  .ar-restaurar,
+  .ar-notas-link {
+    display: none !important;
+  }
+
+  .impreso-ley .ar-sticky,
+  .impreso-ley .pl-sticky {
+    position: static;
+    border-bottom: 0;
+  }
+
+  .impreso-ley .articulo-reforma .marco,
+  .impreso-ley .propuesta-ley .marco,
+  .impreso-ley .ar-sticky .marco,
+  .impreso-ley .propuesta-ley .pl-encabezado,
+  .impreso-ley .propuesta-ley .pl-marco {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .impreso-ley .ar-sticky .marco,
+  .impreso-ley .propuesta-ley .pl-encabezado {
+    padding-top: 0;
+  }
+
+  .impreso-ley .ar-contenido .marco,
+  .impreso-ley .propuesta-ley .pl-marco {
+    padding-top: 5mm;
+    padding-bottom: 0;
+  }
+
+  .impreso-ley .articulo-reforma,
+  .impreso-ley .propuesta-ley .pl-cuerpo {
+    font-size: 10pt;
+    line-height: 1.48;
+  }
+
+  .impreso-ley .articulo-reforma .ar-encabezado,
+  .impreso-ley .propuesta-ley .pl-encabezado {
+    break-after: avoid-page;
+  }
+
+  .impreso-ley .articulo-reforma .apertura,
+  .impreso-ley .articulo-reforma .grupo,
+  .impreso-ley .propuesta-ley .pl-print-intro,
+  .impreso-ley .propuesta-ley .pl-ley > h2.pl-titulo {
+    break-before: page;
+  }
+
+  .impreso-ley .articulo-reforma .apertura-inicial {
+    break-before: auto;
+  }
+
+  .impreso-ley .articulo-reforma .grupo {
+    display: block !important;
+    margin-top: 0;
+    padding-top: 4mm;
+  }
+
+  .impreso-ley .articulo-reforma details {
+    break-before: page;
+    break-inside: auto;
+    margin: 0;
+  }
+
+  .impreso-ley .articulo-reforma details:first-of-type {
+    break-before: auto;
+  }
+
+  .impreso-ley .articulo-reforma summary {
+    break-after: avoid-page;
+  }
+
+  .impreso-ley .articulo-reforma .cuerpo,
+  .impreso-ley .articulo-reforma table,
+  .impreso-ley .articulo-reforma blockquote,
+  .impreso-ley .articulo-reforma svg,
+  .impreso-ley .pl-kpis,
+  .impreso-ley .pl-flujo,
+  .impreso-ley .pl-tabla-scroll,
+  .impreso-ley .pl-imagen,
+  .impreso-ley .pl-chart {
+    break-inside: avoid-page;
+  }
+
+  .impreso-ley .articulo-reforma svg {
+    max-height: 235mm;
+  }
+
+  .impreso-ley .propuesta-ley {
+    break-before: page;
+  }
+
+  .impreso-ley .propuesta-ley .pl-encabezado {
+    padding-bottom: 5mm;
+  }
+
+  .impreso-ley .pl-obleas-intro,
+  .impreso-ley section.pl-art-informe > .pl-obleas {
+    display: none;
+  }
+
+  .impreso-ley .pl-print-intro {
+    padding: 0;
+    border-top: 0;
+  }
+
+  .impreso-ley .pl-print-panel {
+    display: block;
+    width: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0 0 5mm;
+    border: 1px solid var(--rule-soft);
+    box-shadow: none;
+    break-before: page;
+    break-inside: auto;
+  }
+
+  .impreso-ley .pl-print-panel:first-child {
+    break-before: auto;
+  }
+
+  .impreso-ley .pl-print-panel .pl-dialog-marco {
+    display: block;
+    max-height: none;
+  }
+
+  .impreso-ley .pl-print-panel header {
+    break-after: avoid-page;
+  }
+
+  .impreso-ley .pl-print-panel .pl-dialog-texto {
+    overflow: visible;
+  }
+
+  .impreso-ley .pl-print-paneles {
+    margin-top: 5mm;
+  }
+
+  .impreso-ley section.pl-art-informe {
+    break-before: page;
+    break-inside: auto;
+    padding-top: 3mm;
+  }
+
+  .impreso-ley section.pl-art:not(.pl-art-informe) {
+    break-inside: avoid-page;
+  }
+
+  .impreso-ley .pl-chart {
+    min-height: 210px;
+  }
+
+  .impreso-ley .recharts-responsive-container {
+    min-height: 210px;
+  }
+
+  .impreso-ley .pl-popups {
+    display: none !important;
+  }
+
+  .impreso-ley .pl-fund-ctrl {
+    display: none;
+  }
+
+  .impreso-ley .pl-fund-propuesta {
+    display: block;
+    margin-top: 4mm;
+    padding-top: 4mm;
+    border-top: 1px solid var(--rule-soft);
+  }
+
+  a,
+  a:visited {
+    color: inherit;
+  }
+}

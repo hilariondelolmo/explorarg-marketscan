@@ -95,7 +95,7 @@ OVERRIDES = {
         'reemplazar un producto nacional renovable por combustible fósil, en '
         'una porción relevante importado, con el efecto inverso al declarado '
         'sobre emisiones y balanza comercial. Un texto que reproduce la '
-        'facultad discrecional sin piso, causal tasada ni plazo no regula '
+        'facultad discrecional sin piso, causal definida ni plazo no regula '
         'ese comportamiento: lo habilita nuevamente con el resultado a la '
         'vista.</p>'
     ),
@@ -265,7 +265,7 @@ CONFRONTACIONES = [
                'afectación: la herramienta exacta con la que se vació el mandato '
                'durante dieciséis años, con un déficit acumulado de 2,8 millones de '
                'toneladas.',
-        corrige='La facultad queda tasada: solo reducción temporal por imposibilidad '
+        corrige='La facultad deja de ser abierta: solo reducción temporal por imposibilidad '
                 'técnica o insuficiencia física acreditada, mediante acto fundado y '
                 'sin afectar los mínimos. El aumento prometido queda; la puerta de '
                 'escape, no.',
@@ -280,7 +280,7 @@ CONFRONTACIONES = [
                'mezcladoras y el efecto inverso al declarado sobre emisiones y '
                'balanza comercial. El texto base rehabilitaba ese mecanismo sin '
                'consecuencia alguna por incumplir.',
-        corrige='El corte se protege con causales tasadas, la importación se limita '
+        corrige='El corte solo puede tocarse por las causas que la propia ley enumera, la importación se limita '
                 'a comparaciones entre bienes equivalentes y el incumplimiento pasa '
                 'a estar tipificado y sancionado.',
         arts=[12, 26, 33]),

@@ -1,0 +1,573 @@
+/* Láminas A3 apaisadas (420×297) de la Propuesta S80926PL.
+   Pieza de impresión: la hoja es siempre clara (papel), independiente del
+   tema del sitio. En pantalla las hojas se apilan escaladas al ancho;
+   en papel manda @page A3 landscape y cada lámina es una página. */
+
+.impreso-a3 {
+  --mesa: #f1efea;
+  background: var(--mesa);
+  padding: 26px 22px 40px;
+}
+
+.impreso-a3 .a3-marco {
+  margin: 0 auto 26px;
+  width: fit-content;
+  height: var(--a3-alto, auto);
+}
+
+/* ── la hoja ── */
+.a3-lamina {
+  --papel: #ffffff;
+  --tinta: #1a1a1a;
+  --tinta-2: #374151;
+  --tinta-suave: #6b7280;
+  --regla: #e5e2dc;
+  --regla-fuerte: #d1cdc7;
+  --violeta: #6941c6;
+  --violeta-palido: #f5f1fc;
+  --rojo: #dc2626;
+  --rojo-palido: #fdf1f0;
+  --verde: #4d8b31;
+  --navy: #173b57;
+
+  /* base tipográfica por plantilla de densidad */
+  --a3-base: 8.2pt;
+  --a3-analisis: 8pt;
+
+  width: 420mm;
+  height: 297mm;
+  padding: 10mm 11mm 8mm;
+  background: var(--papel);
+  color: var(--tinta);
+  box-shadow: 0 6px 22px rgba(26, 26, 26, 0.14);
+  display: flex;
+  flex-direction: column;
+  font-size: var(--a3-base);
+  line-height: 1.4;
+  transform: scale(var(--a3-escala, 1));
+  transform-origin: top left;
+}
+
+/* la lámina compacta absorbe los artículos más cargados */
+.a3-lamina[data-ajuste='compacta'] { --a3-analisis: 7.8pt; }
+
+/* global.css da a section un padding vertical de 5rem y una línea
+   superior pensados para el sitio: dentro de la hoja las secciones son
+   bloques de lámina, sin regla propia */
+.a3-lamina section { padding: 0; border-top: 0; }
+
+/* ── cabecera ── */
+.a3-cab {
+  display: flex;
+  align-items: flex-start;
+  gap: 7mm;
+  padding-bottom: 3.2mm;
+  border-bottom: 0.6mm solid var(--tinta);
+}
+
+.a3-cab-num { display: flex; flex-direction: column; }
+
+.a3-cab-art {
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--tinta-suave);
+  text-transform: uppercase;
+  margin-bottom: 1.6mm;
+}
+
+.a3-cab-nro {
+  font-family: var(--font-brand);
+  font-weight: 800;
+  font-size: 42pt;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.a3-cab-tit { flex: 1; padding-top: 1mm; }
+
+.a3-cab-tit h1 {
+  font-family: var(--font-display);
+  font-size: 21pt;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.08;
+  text-wrap: balance;
+  margin: 0;
+}
+
+.a3-cab-baj {
+  margin: 1.6mm 0 0;
+  font-size: 9.2pt;
+  line-height: 1.35;
+  color: var(--tinta-2);
+  max-width: 175mm;
+}
+
+.a3-cab-der {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.4mm;
+  padding-top: 0.5mm;
+}
+
+.a3-cab-proy {
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tinta-2);
+}
+
+.a3-cab-proy small {
+  display: block;
+  font-size: 7pt;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--tinta-suave);
+  margin-top: 0.6mm;
+}
+
+.a3-cab-marca { display: flex; align-items: center; gap: 1.8mm; }
+.a3-cab-marca img { width: 5.4mm; height: 5.4mm; }
+.a3-cab-marca b { font-family: var(--font-brand); font-weight: 800; font-size: 8.4pt; letter-spacing: 0.04em; }
+.a3-cab-marca i { font-style: normal; font-size: 7.4pt; color: var(--tinta-suave); }
+
+.a3-cab-folio { font-size: 7pt; color: var(--tinta-suave); letter-spacing: 0.05em; }
+.a3-cab-folio b { color: var(--tinta); font-weight: 700; }
+
+/* ── cuerpo: tres franjas según plantilla ── */
+.a3-cuerpo {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  /* franjas idénticas en todas las láminas (feedback HDO 25/08):
+     el artículo en dos columnas · normas y justificación · datos */
+  grid-template-columns: 148mm 86mm 1fr;
+  /* una sola fila a la altura exacta del cuerpo: cada franja recorta
+     su propio exceso en vez de estirar la hoja */
+  grid-template-rows: 100%;
+  gap: 0 6mm;
+  padding-top: 4mm;
+}
+
+.a3-blq { min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+.a3-analisis { display: flex; flex-direction: column; gap: 4mm; min-height: 0; overflow: hidden; }
+
+/* normas nunca se encoge: si el conjunto excede, el recorte cae al final
+   de la justificación (visible), no una línea de cada bloque */
+.a3-analisis > .a3-blq { flex: 0 0 auto; overflow: visible; }
+
+/* hojas de continuación: mismos anchos; los slots fluidos aprovechan el
+   ancho que les toque con columnas automáticas */
+.a3-continuacion .a3-just-cont {
+  column-width: 70mm;
+  column-gap: 6mm;
+  column-fill: auto;
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.a3-blq-cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3mm;
+  margin-bottom: 2.6mm;
+}
+
+.a3-oblea {
+  display: inline-block;
+  font-size: 7.4pt;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 1.1mm 3.2mm;
+  border-radius: 999px;
+  border: 0.45mm solid currentColor;
+  white-space: nowrap;
+}
+
+.a3-oblea-ley { color: var(--tinta); }
+.a3-oblea-normas { color: var(--violeta); }
+.a3-oblea-just { color: var(--rojo); }
+.a3-oblea-datos { color: var(--verde); }
+
+.a3-blq-nota { font-size: 6.8pt; color: var(--tinta-suave); text-align: right; }
+
+.a3-lamina ins {
+  color: var(--rojo);
+  text-decoration: underline;
+  text-underline-offset: 0.45mm;
+  text-decoration-thickness: 0.2mm;
+}
+
+.a3-lamina del { color: var(--tinta-suave); }
+
+.a3-lamina p { margin: 0 0 1.8mm; }
+
+/* el artículo */
+.a3-ley-texto {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  columns: 2;
+  column-gap: 6mm;
+  column-fill: auto;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+/* la separación vertical va entre el artículo y el análisis (no entre
+   las dos columnas del texto legal); centrada en el canal de 6mm sin
+   alterar el ancho útil de la franja, y arranca a la altura del texto,
+   no de las obleas de título */
+.a3-lamina .a3-ley .a3-ley-texto {
+  border-right: 1px solid var(--regla);
+  padding-right: 3mm;
+  margin-right: -3mm;
+}
+
+/* el margen negativo deja el borde fuera de la caja de la franja y el
+   overflow:hidden de .a3-blq lo recortaba: la franja del artículo libera
+   su recorte (el texto ya lo recorta .a3-ley-texto por su cuenta) */
+.a3-lamina .a3-ley { overflow: visible; }
+
+.a3-ley-texto p { text-align: justify; }
+.a3-ley-texto strong { font-weight: 800; letter-spacing: 0.01em; }
+
+/* tablas dentro del texto legal (p. ej. los cupos del art. 40): toman el
+   ancho completo de la franja partiendo las columnas */
+.a3-ley-texto table {
+  column-span: all;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 7pt;
+  line-height: 1.3;
+  margin: 1.5mm 0 2mm;
+}
+
+.a3-ley-texto th,
+.a3-ley-texto td { border: 1px solid var(--regla); padding: 0.9mm 1.5mm; vertical-align: top; }
+.a3-ley-texto th { background: var(--tinta); color: #fff; font-weight: 700; }
+.a3-ley-texto td p, .a3-ley-texto th p { margin: 0; text-align: left; }
+
+/* normas + justificación */
+.a3-analisis p,
+.a3-analisis li {
+  font-size: var(--a3-analisis);
+  line-height: 1.38;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+.a3-normas-intro { color: var(--tinta-2); margin-bottom: 1.8mm; }
+
+.a3-normas-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8mm;
+  counter-reset: norma;
+}
+
+.a3-normas-lista li { position: relative; padding-left: 6.4mm; counter-increment: norma; }
+
+.a3-normas-lista li::before {
+  content: counter(norma);
+  position: absolute;
+  left: 0;
+  top: 0.2mm;
+  width: 4.6mm;
+  height: 4.6mm;
+  border-radius: 50%;
+  background: var(--violeta-palido);
+  color: var(--violeta);
+  font-size: 7.6pt;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── respaldo en datos: estructura del popup reordenada en grilla ── */
+.a3-datos-cuerpo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2mm 5mm;
+  align-items: start;
+  align-content: start;
+}
+
+
+.a3-datos-cuerpo > p {
+  /* HDO 25/08: el texto del respaldo corre siempre en una sola columna */
+  grid-column: 1 / -1;
+  font-size: var(--a3-analisis);
+  line-height: 1.36;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  margin: 0;
+}
+
+.a3-datos-cuerpo > .pl-kpis,
+.a3-datos-cuerpo > .pl-flujo,
+.a3-datos-cuerpo > .pl-tabla-scroll { grid-column: 1 / -1; }
+
+/* el gráfico de serie larga y las piezas marcadas a mano toman todo el
+   ancho */
+.a3-datos-cuerpo:not([data-cols='1']) > .a3-chart-destacado,
+.a3-datos-cuerpo:not([data-cols='1']) > .a3-span { grid-column: 1 / -1; }
+
+.a3-lamina[data-ajuste='compacta'] .a3-datos-cuerpo > p { font-size: 7.6pt; }
+
+/* en la hoja de continuación los derrames llenan tres pistas parejas y
+   nada reclama el ancho completo */
+.a3-continuacion .a3-datos-cuerpo { grid-template-columns: repeat(3, 1fr); }
+.a3-continuacion .a3-datos-cuerpo > .a3-chart-destacado,
+.a3-continuacion .a3-datos-cuerpo > .a3-span { grid-column: auto; }
+.a3-continuacion .a3-datos-cuerpo > p { grid-column: 1 / -1; }
+
+/* kpis: siempre llenan el ancho exacto del bloque */
+.a3-datos .pl-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 2.4mm;
+}
+
+.a3-datos .pl-kpi { min-width: 0; }
+
+.a3-datos .pl-kpi {
+  border: 1px solid var(--regla-fuerte);
+  border-top: 0.8mm solid var(--verde);
+  padding: 1.6mm 2.2mm 1.4mm;
+}
+
+.a3-datos .pl-kpi-neg { border-top-color: var(--rojo); }
+
+.a3-datos .pl-kpi-valor {
+  display: block;
+  font-size: 13.5pt;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--verde);
+  font-variant-numeric: tabular-nums;
+}
+
+.a3-datos .pl-kpi-neg .pl-kpi-valor { color: var(--rojo); }
+
+.a3-datos .pl-kpi-label {
+  display: block;
+  font-size: 6.4pt;
+  line-height: 1.32;
+  color: var(--tinta-suave);
+  margin-top: 0.6mm;
+}
+
+/* el kpi compacto repite el remate del flujo: sale cuando hay flujo */
+.a3-datos[data-flujo] .pl-kpi-compacto { display: none; }
+
+/* flujo causal */
+.a3-datos .pl-flujo { display: flex; align-items: stretch; gap: 1.8mm; }
+
+.a3-datos .pl-flujo-paso {
+  flex: 1;
+  border: 1px solid var(--regla-fuerte);
+  padding: 1.5mm 2.2mm;
+}
+
+.a3-datos .pl-flujo-paso strong { display: block; font-size: 7.6pt; font-weight: 700; }
+.a3-datos .pl-flujo-paso span { font-size: 6.8pt; color: var(--tinta-suave); }
+
+.a3-datos .pl-flujo-paso:last-child { background: var(--rojo-palido); border-color: var(--rojo); }
+.a3-datos .pl-flujo-paso:last-child strong { color: var(--rojo); }
+
+.a3-datos .pl-flujo-flecha { align-self: center; color: var(--tinta-suave); font-size: 10pt; }
+
+/* charts (Recharts por portal) y sus marcos. El alto lo fija el propio
+   componente (240px): forzarlo por CSS desincroniza el svg de su caja y
+   en el PDF queda angosto */
+.a3-datos .pl-chart { min-height: 0; }
+
+.a3-datos .pl-chart-box {
+  margin: 0;
+  border: 1px solid var(--regla);
+  padding: 1.8mm 2mm 1.2mm;
+}
+
+.a3-datos .pl-chart-box figcaption { margin-bottom: 1mm; }
+.a3-datos .pl-chart-titulo { font-size: 7.6pt; font-weight: 700; }
+.a3-datos .pl-chart-nota { font-size: 6.4pt; color: var(--tinta-suave); margin-left: 1.2mm; display: inline; }
+
+/* los selectores de ventana y controles interactivos no van en papel */
+.a3-datos .chart-range-selector,
+.a3-datos .chart-card-toggle,
+.a3-datos .pl-chart button { display: none !important; }
+
+/* párrafo y cuadro que viajan juntos como una sola pieza a lo ancho */
+.a3-datos-cuerpo > .a3-grupo { grid-column: 1 / -1; }
+.a3-continuacion .a3-datos-cuerpo > .a3-grupo { grid-column: 1 / -1; }
+.a3-grupo > p { margin-bottom: 2mm; }
+.a3-grupo .gestion-barra { margin-top: 0.6mm; }
+
+/* tarjetas de gestión y ranking (componentes del dashboard) compactadas;
+   el margen inferior de 2rem es del sitio, no de la lámina */
+.a3-datos .gestion-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8mm; margin: 0; }
+
+/* el cuadro de eficacia va sin recuadro externo (HDO) */
+.a3-grupo .chart-card,
+.a3-grupo .pl-chart-box { border: 0; padding: 0; }
+
+/* dentro de un grupo a lo ancho, las cuatro gestiones van en fila,
+   repartiéndose el ancho exacto del bloque */
+.a3-grupo .gestion-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.a3-grupo .gestion-card { min-width: 0; overflow-wrap: break-word; }
+
+.a3-datos .gestion-card { padding: 1.5mm 2mm; border-radius: 1mm; }
+.a3-datos .gestion-card-nombre { font-size: 7.4pt; }
+.a3-datos .gestion-card-periodo { font-size: 6.2pt; }
+.a3-datos .gestion-card-valor { font-size: 12.5pt; }
+.a3-datos .gestion-card-detalle,
+.a3-datos .gestion-card-deficit { font-size: 6.2pt; line-height: 1.3; }
+.a3-datos .gestion-barra { margin-top: 1mm; }
+
+.a3-datos .chart-card { padding: 1.8mm 2mm; border: 1px solid var(--regla); border-radius: 0; box-shadow: none; }
+.a3-datos .chart-card-header { margin-bottom: 1mm; }
+.a3-datos .chart-card-title { font-size: 7.6pt; }
+.a3-datos .chart-card-subtitle { font-size: 6.4pt; }
+
+/* cuadros del dashboard (mh-*): sin los márgenes del sitio; la fuente
+   del cuadro ya está en el pie de la lámina */
+.a3-datos .mh-cuadro { margin: 0; }
+.a3-datos .mh-subtitulo { margin: 0 0 2mm; }
+.a3-datos .mh-cuadro .note { display: none; }
+
+/* tablas del informe */
+.a3-datos .pl-tabla-scroll { overflow: visible; }
+
+.a3-datos table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 7pt;
+  line-height: 1.3;
+}
+
+.a3-datos th,
+.a3-datos td {
+  border: 1px solid var(--regla);
+  padding: 1mm 1.6mm;
+  text-align: left;
+  vertical-align: top;
+}
+
+.a3-datos th { background: var(--verde); color: #fff; font-weight: 700; }
+.a3-datos td p, .a3-datos th p { margin: 0; }
+
+/* imágenes de evidencia ("Click para ampliar" es de la web) */
+.a3-datos .pl-imagen { margin: 0; }
+.a3-datos .pl-imagen img { max-width: 100%; height: auto; display: block; border: 1px solid var(--regla); }
+.a3-datos .pl-imagen figcaption { display: none; }
+
+/* las infografías grandes llenan su segmento de la hoja de continuación,
+   acotadas al alto útil para no derramar a una hoja más */
+.a3-continuacion .a3-datos-cuerpo > .a3-pagina-propia,
+.a3-continuacion .a3-datos-cuerpo > .a3-figura-grande { grid-column: 1 / -1; justify-self: start; }
+
+/* hoja de infografías: el bloque entero se encoge al ancho de los
+   cuadros y se apoya en el borde derecho; la oblea del título queda
+   alineada con el borde izquierdo de los cuadros */
+.a3-continuacion .a3-blq.a3-datos:has(.a3-figura-grande) {
+  margin-left: auto;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.a3-continuacion .a3-datos-cuerpo:has(> .a3-figura-grande) { display: block; }
+
+.a3-continuacion .a3-datos-cuerpo:has(> .a3-figura-grande) > .a3-figura-grande {
+  margin-left: auto;
+  width: fit-content;
+}
+
+.a3-continuacion .a3-pagina-propia img,
+.a3-continuacion .a3-figura-grande img {
+  width: auto;
+  max-width: 100%;
+  max-height: 205mm;
+  margin: 0;
+  border: 0;
+}
+
+/* dos infografías en la misma hoja: se reparten el alto útil, con aire
+   entre una y otra */
+.a3-continuacion .a3-datos-cuerpo:has(> .a3-figura-grande ~ .a3-figura-grande) .a3-figura-grande img {
+  max-height: 101mm;
+}
+
+.a3-continuacion .a3-datos-cuerpo > .a3-figura-grande + .a3-figura-grande { margin-top: 9mm; }
+
+/* ── lámina final: articulado restante ── */
+.a3-lamina-resto .a3-resto-texto {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  columns: 4;
+  column-gap: 6mm;
+  column-fill: auto;
+  column-rule: 1px solid var(--regla);
+  font-size: 8.4pt;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+.a3-lamina-resto .a3-resto-art { margin-bottom: 3mm; }
+.a3-lamina-resto .a3-resto-art p { text-align: justify; margin-bottom: 1.6mm; }
+.a3-lamina-resto .a3-blq-cab { margin-top: 4mm; }
+
+
+/* ── pie ── */
+.a3-pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6mm;
+  border-top: 1px solid var(--regla-fuerte);
+  margin-top: 3.5mm;
+  padding-top: 2mm;
+}
+
+.a3-pie span { font-size: 6.6pt; color: var(--tinta-suave); }
+.a3-pie b { color: var(--tinta-2); font-weight: 600; }
+
+/* ── papel ── */
+@media print {
+  @page { size: A3 landscape; margin: 0; }
+
+  html, body { background: #fff !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+
+  .top-nav, .site-footer { display: none !important; }
+
+  .impreso-a3 { background: #fff; padding: 0; }
+  .impreso-a3 .a3-marco { margin: 0; width: auto; height: auto; }
+
+  .a3-lamina {
+    /* medio milímetro por debajo del alto de página: sin él, los
+       redondeos de Chrome generan hojas en blanco intercaladas */
+    height: 296.5mm;
+    transform: none !important;
+    box-shadow: none;
+    break-after: page;
+  }
+
+  /* sin salto tras la última hoja: evita una página en blanco al final */
+  .a3-marco:last-child .a3-lamina { break-after: auto; }
+}

@@ -958,3 +958,33 @@ section.pl-art-informe {
     margin-bottom: 0.7rem;
   }
 }
+
+/* ── aviso de la Propuesta optimizada (al entrar a esta versión) ── */
+.pl-aviso {
+  max-width: min(520px, calc(100vw - 2rem));
+}
+
+.pl-aviso-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+.pl-aviso-secundario {
+  appearance: none;
+  border: 1.5px solid var(--rule);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.45rem 1.1rem;
+  cursor: pointer;
+}
+
+.pl-aviso-secundario:hover {
+  color: var(--ink);
+  border-color: var(--ink-muted);
+}

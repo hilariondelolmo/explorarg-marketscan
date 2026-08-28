@@ -19,12 +19,22 @@ import './ReformaLey.css';
  * completo. Pedido HDO: al navegar no debe verse otro tema por debajo
  * ni por encima del elegido.
  */
-export default function ReformaLey() {
+export default function ReformaLey({ printMode = false }) {
   const ref = useRef(null);
 
   useEffect(() => {
     const raiz = ref.current;
     if (!raiz) return undefined;
+
+    // La edición impresa no reconstruye el artículo: muestra el mismo
+    // contenido del sitio con todos sus paneles abiertos. El filtrado por
+    // capítulos y los controles de navegación pertenecen sólo a la web.
+    if (printMode) {
+      raiz.querySelectorAll('details').forEach((detalle) => {
+        detalle.open = true;
+      });
+      return undefined;
+    }
     const destinos = { art2: 'g-art2', b1: 'g-b1', b2: 'g-b2', b3: 'g-b3', conc: 'g-conc', b4: 'g-b4', ref: 'g-ref' };
 
     // El esquema principal llega a los bordes del contenedor; en celular
@@ -141,7 +151,7 @@ export default function ReformaLey() {
       if (svgPrincipal) envoltura.before(svgPrincipal);
       envoltura.remove();
     };
-  }, []);
+  }, [printMode]);
 
   return (
     <>

@@ -23,6 +23,11 @@ const DOCS = {
     nombre: 'Documentos Propuesta S-0809-2026.zip',
     mime: 'application/zip',
   },
+  'ambos-optimizada': {
+    archivo: 'documentos-s0809-2026-optimizada.zip',
+    nombre: 'Documentos Propuesta optimizada S-0809-2026.zip',
+    mime: 'application/zip',
+  },
   propuesta: {
     archivo: 'propuesta-ley-s0809-2026-modificaciones.docx',
     nombre: 'Propuesta de ley S-0809-2026 con modificaciones.docx',

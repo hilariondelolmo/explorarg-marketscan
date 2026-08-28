@@ -29,6 +29,7 @@ const PUBLIC = path.join(__dirname, '..', 'public');
 const INK = '1A1A1A';
 const MUTED = '6B7280';
 const VERDE = '4D8B31';
+const ROJO = 'DC2626'; // --accent-alert del sitio (tema claro), tarjetas pl-kpi-neg
 const FONDO = 'F9F8F6';
 const FILETE = 'ECEAE6';
 const ANCHO = 9638; // DXA útiles en A4 con márgenes de 2 cm
@@ -65,7 +66,12 @@ function celdaKpi(item, anchoCelda) {
     children: [
       new Paragraph({
         spacing: { after: 60 },
-        children: [new TextRun({ text: item.valor, bold: true, size: 30, color: INK })],
+        children: [new TextRun({
+          text: item.valor,
+          bold: true,
+          size: item.compacto ? 24 : 30,
+          color: item.neg ? ROJO : INK,
+        })],
       }),
       new Paragraph({
         children: [new TextRun({ text: item.label, size: 17, color: MUTED })],

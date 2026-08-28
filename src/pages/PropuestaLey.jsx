@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import SectionNav from '../components/SectionNav.jsx';
 import { SECCIONES_REFORMA } from '../lib/reforma.js';
 import { HECHOS_CHARTS } from '../components/propuesta/HechosCharts.jsx';
@@ -37,9 +38,29 @@ const FUND_LEYENDAS = {
   fundprop: 'Fundamentos redactados para la propuesta de cambios · oprimir para volver',
 };
 
-export default function PropuestaLey() {
+export default function PropuestaLey({ printMode = false }) {
   const raizRef = useRef(null);
   const dialogRef = useRef(null);
+  const avisoRef = useRef(null);
+  const navigate = useNavigate();
+
+  // Aviso al entrar (decisión HDO 2026-08-28): en la instancia actual de
+  // discusión del dictamen la recomendación es la Propuesta optimizada.
+  // Se muestra una vez por sesión de navegación; la elección se respeta.
+  useEffect(() => {
+    if (printMode) return;
+    if (sessionStorage.getItem('pl-aviso-optimizada')) return;
+    avisoRef.current?.showModal();
+  }, [printMode]);
+
+  const elegirAviso = (irAOptimizada) => {
+    try {
+      sessionStorage.setItem('pl-aviso-optimizada', '1');
+    } catch { /* navegación privada: se mostrará de nuevo */ }
+    avisoRef.current?.close();
+    if (irAOptimizada) navigate('/propuesta-optimizada');
+  };
+
   const [pop, setPop] = useState(null); // {titulo, sub, tipo, html}
   const [nodosChart, setNodosChart] = useState([]);
   const [fundEstado, setFundEstado] = useState('inicial');
@@ -59,6 +80,7 @@ export default function PropuestaLey() {
   // El contenido del diálogo entra por innerHTML: recién después del
   // render existen los placeholders donde van los gráficos
   useEffect(() => {
+    if (printMode) return;
     if (!pop) {
       setNodosChart([]);
       return;
@@ -66,7 +88,95 @@ export default function PropuestaLey() {
     setNodosChart([
       ...(dialogRef.current?.querySelectorAll('.pl-chart[data-chart]') ?? []),
     ]);
-  }, [pop]);
+  }, [pop, printMode]);
+
+  // Para papel, cada popup se materializa inmediatamente debajo del
+  // artículo que lo invoca. Se reutiliza exactamente la estructura visual
+  // del diálogo web (encabezado, color semántico, KPIs, tablas y gráficos).
+  useEffect(() => {
+    if (!printMode) return undefined;
+    const raiz = raizRef.current;
+    if (!raiz) return undefined;
+
+    const fuentes = [...raiz.querySelectorAll('.pl-popups > .pl-pop')];
+    const insertados = [];
+
+    const crearPanel = (fuente) => {
+      const tipo = fuente.dataset.tipo;
+      const tono = ['normas', 'articulado'].includes(tipo)
+        ? 'normas'
+        : ['hechos', 'cambios'].includes(tipo)
+          ? 'hechos'
+          : tipo === 'confronta'
+            ? 'confronta'
+            : 'just';
+      const panel = document.createElement('div');
+      panel.className = `pl-dialog pl-dialog-${tono} pl-print-panel`;
+      panel.dataset.tipo = tipo;
+
+      const marco = document.createElement('div');
+      marco.className = 'pl-dialog-marco';
+      const encabezado = document.createElement('header');
+      const titulos = document.createElement('div');
+      const subtitulo = document.createElement('div');
+      subtitulo.className = 'pl-dialog-sub';
+      subtitulo.textContent = fuente.dataset.sub || '';
+      const titulo = document.createElement('h2');
+      titulo.textContent = fuente.dataset.titulo || '';
+      titulos.append(subtitulo, titulo);
+      encabezado.append(titulos);
+
+      const texto = document.createElement('div');
+      texto.className = 'pl-dialog-texto';
+      [...fuente.childNodes].forEach((nodo) => texto.append(nodo.cloneNode(true)));
+      marco.append(encabezado, texto);
+      panel.append(marco);
+      return panel;
+    };
+
+    const intro = document.createElement('section');
+    intro.className = 'pl-print-intro';
+    fuentes
+      .filter((fuente) => fuente.dataset.art === 'intro')
+      .forEach((fuente) => intro.append(crearPanel(fuente)));
+    const ley = raiz.querySelector('.pl-ley');
+    if (ley && intro.childElementCount) {
+      ley.before(intro);
+      insertados.push(intro);
+    }
+
+    raiz.querySelectorAll('section.pl-art-informe[id^="art-"]').forEach((articulo) => {
+      const numero = articulo.id.replace('art-', '');
+      const paneles = document.createElement('div');
+      paneles.className = 'pl-print-paneles';
+      ['normas', 'just', 'hechos'].forEach((tipo) => {
+        const fuente = fuentes.find(
+          (item) => item.dataset.art === numero && item.dataset.tipo === tipo
+        );
+        if (fuente) paneles.append(crearPanel(fuente));
+      });
+      if (paneles.childElementCount) {
+        articulo.append(paneles);
+        insertados.push(paneles);
+      }
+    });
+
+    const confronta = fuentes.find(
+      (fuente) => fuente.dataset.art === 'intro' && fuente.dataset.tipo === 'confronta'
+    );
+    // La confrontación ya se incluye dentro de la apertura. Los popups
+    // conf-* repiten sus dos columnas y por eso no se duplican en papel.
+    if (confronta) confronta.dataset.printIncluido = 'true';
+
+    setNodosChart([
+      ...raiz.querySelectorAll('.pl-print-panel .pl-chart[data-chart]'),
+    ]);
+
+    return () => {
+      setNodosChart([]);
+      insertados.forEach((nodo) => nodo.remove());
+    };
+  }, [printMode]);
 
   const abrirPop = (art, tipo) => {
     const fuente = raizRef.current?.querySelector(
@@ -184,7 +294,7 @@ export default function PropuestaLey() {
         />
       </div>
 
-      <dialog
+      {!printMode && <dialog
         ref={dialogRef}
         className={`pl-dialog pl-dialog-${
           ['normas', 'articulado'].includes(pop?.tipo) ? 'normas'
@@ -226,7 +336,67 @@ export default function PropuestaLey() {
           const Chart = HECHOS_CHARTS[nodo.dataset.chart];
           return Chart ? createPortal(<Chart />, nodo, nodo.dataset.chart) : null;
         })}
-      </dialog>
+      </dialog>}
+      {printMode && nodosChart.map((nodo) => {
+        const Chart = HECHOS_CHARTS[nodo.dataset.chart];
+        return Chart ? createPortal(<Chart />, nodo, nodo.dataset.chart) : null;
+      })}
+
+      {!printMode && (
+        <dialog
+          ref={avisoRef}
+          className="pl-dialog pl-aviso"
+          onClick={(e) => {
+            if (e.target === avisoRef.current) elegirAviso(false);
+          }}
+          onClose={() => {
+            try {
+              sessionStorage.setItem('pl-aviso-optimizada', '1');
+            } catch { /* sin storage */ }
+          }}
+        >
+          <div className="pl-dialog-marco">
+            <header>
+              <div>
+                <div className="pl-dialog-sub">Recomendación</div>
+                <h2>Hay una versión para esta etapa</h2>
+              </div>
+              <button
+                type="button"
+                className="pl-dialog-cerrar"
+                onClick={() => elegirAviso(false)}
+                aria-label="Cerrar"
+              >
+                ×
+              </button>
+            </header>
+            <div className="pl-dialog-texto">
+              <p>
+                En la instancia actual de discusión del dictamen, la
+                recomendación es ceñirse a la <strong>Propuesta optimizada</strong>,
+                diagramada a tales efectos: conserva solo las modificaciones que
+                la reglamentación no puede suplir.
+              </p>
+              <div className="pl-aviso-acciones">
+                <button
+                  type="button"
+                  className="pl-desc-boton"
+                  onClick={() => elegirAviso(true)}
+                >
+                  Ir a la Propuesta optimizada (recomendado)
+                </button>
+                <button
+                  type="button"
+                  className="pl-aviso-secundario"
+                  onClick={() => elegirAviso(false)}
+                >
+                  Quedarme en esta versión
+                </button>
+              </div>
+            </div>
+          </div>
+        </dialog>
+      )}
     </div>
   );
 }
