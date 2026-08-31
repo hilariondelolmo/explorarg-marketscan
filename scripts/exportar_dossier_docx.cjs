@@ -201,7 +201,8 @@ const hijos = [];
 hijos.push(new Paragraph({
   spacing: { after: 60 },
   children: [new TextRun({
-    text: 'PROPUESTA DE LEY S80926PL - REVISIÓN HDO DEL 11.08.2026 SOBRE VERSIÓN SE 260729',
+    text: (spec.portada && spec.portada.titulo)
+      || 'PROPUESTA DE LEY S80926PL - REVISIÓN HDO DEL 11.08.2026 SOBRE VERSIÓN SE 260729',
     bold: true, size: 14, color: MUTED,
   })],
 }));
