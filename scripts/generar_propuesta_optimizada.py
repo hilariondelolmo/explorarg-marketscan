@@ -22,7 +22,7 @@ from generar_propuesta_html import (  # noqa: E402
 
 CARPETA = ('/Users/hilariondelolmo/Desktop/01. Notas, articulos/Ley Ejecutivo/'
            'Finales/Propuestas Secretaria de Energia/Ultima Version/')
-DOCX = CARPETA + '2026.08.27 Propuesta ley S80926PL SE_260729 cc HDO rev1.docx'
+DOCX = CARPETA + '2026.09.01 Propuesta ley S80926PL SE_260729 cc HDO rev2.docx'
 SALIDA = str(Path(__file__).parent.parent / 'src/content/propuesta-optimizada.html')
 BLOB_COMPLETA = str(Path(__file__).parent.parent / 'src/content/propuesta-s80926pl.html')
 
@@ -64,7 +64,9 @@ POPUP_OVERRIDES = {
         'biodiesel computable, aunque el artículo 2° funda el interés '
         'público en la transición hacia energías más limpias; el régimen '
         'podía reconocer por igual volúmenes con reducciones de emisiones '
-        'materialmente distintas.</p>'),
+        'materialmente distintas. Tercero, la excepción al corte para la '
+        'generación eléctrica comprendía en forma genérica a las centrales, '
+        'lo que permitía eludir el mandato con motores diésel comunes.</p>'),
     (12, 'just'): (
         '<p>Se fija un piso físico: el porcentaje que cada mezclador debe '
         'incorporar es igual al obligatorio, con una única deducción '
@@ -82,7 +84,11 @@ POPUP_OVERRIDES = {
         'acreditada, mediante acto fundado, por seis meses renovables una '
         'única vez y sin afectar el porcentaje del Segmento Competitivo '
         'Empresas No Integradas; cesada la causa o vencido el plazo, el '
-        'porcentaje se restablece de pleno derecho.</p>'),
+        'porcentaje se restablece de pleno derecho.</p>'
+        '<p>La excepción para la generación de energía eléctrica queda '
+        'limitada a turbinas: no alcanza al gasoil destinado a motores '
+        'alternativos de combustión interna, incluidos los de encendido '
+        'por compresión usados para generar electricidad.</p>'),
     (14, 'normas'): (
         '<p>El texto base describía el mecanismo como ofertas que las '
         'partes negociaban hasta arribar a un acuerdo mutuo. En un mercado '
@@ -140,7 +146,7 @@ POPUP_OVERRIDES = {
         'declaran de carácter exclusivamente informativo y de referencia: '
         'ninguna puede convertirse en precio máximo, mínimo ni condición de '
         'adjudicación, porque el precio del mandato se forma en la subasta '
-        'del artículo 14. Se incorporan además la paridad de importación '
+        'del artículo 14. Se incorporan además la paridad de exportación '
         'del metanol -insumo concentrado en un único proveedor- y la '
         'publicación de los volúmenes consumidos y precios del combustible '
         'coprocesado y de su componente biogénico certificado, de modo que '
