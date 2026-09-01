@@ -101,6 +101,7 @@ export default function PropuestaOptimizada() {
             doc="ambos-optimizada"
             rotuloPropuesta="Propuesta de ley optimizada"
             nombreDefecto="Documentos Propuesta optimizada S-0809-2026.zip"
+            rotuloCuadro="Cuadro de correspondencia"
           />
           <div className="kicker">Análisis · Proyecto de Ley S-0809/2026</div>
           <h1>Propuesta optimizada</h1>

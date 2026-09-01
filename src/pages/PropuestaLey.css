@@ -988,3 +988,9 @@ section.pl-art-informe {
   color: var(--ink);
   border-color: var(--ink-muted);
 }
+
+/* rótulo de tema bajo el número de artículo en el cuadro "versión senador" */
+table.pl-cuadro td p.pl-cuadro-tema {
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+}

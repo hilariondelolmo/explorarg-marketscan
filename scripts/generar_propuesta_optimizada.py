@@ -354,6 +354,120 @@ def aplicar_overrides(pop, base, tipo):
     return pop
 
 
+
+# ── Cuadro de correspondencia "versión senador" (decisión HDO 01/09) ───
+# Reemplaza en el popup a la tabla original del informe. Es el mismo
+# contenido del Word "2026.09.01 Cuadro Correspondencia Propuesta
+# Optimizada" (validado idéntico): qué establece el oficial, qué se
+# propone y para qué. Cada fila salta a su artículo (data-art).
+CUADRO_SENADOR = [
+    (3, '3°', 'Objetivos',
+     'Los objetivos de la política nacional no contienen ninguna pauta para valorar el desempeño ambiental de los biocombustibles.',
+     'Se agrega como objetivo expreso el desarrollo de los biocombustibles de segunda generación y la reducción certificada de emisiones.',
+     'La transición hacia energías más limpias que el proyecto declara pasa a ser una pauta operativa, no una frase.'),
+    (5, '5°', 'Exportaciones',
+     'Ordena promover las exportaciones de manera genérica, sin ninguna medida concreta.',
+     'La Autoridad deberá gestionar, junto a Cancillería, que las elaboradoras no integradas accedan al régimen de exportación a la Unión Europea (Decisión UE 2019/245), hoy reservado de hecho a las grandes integradas. Se agrega la facultad de reconocer y fiscalizar las certificaciones.',
+     'Corrige una exclusión de origen estatal: quienes nunca pudieron exportar son hoy los únicos fuera del canal europeo.'),
+    (6, '6°', 'Definiciones',
+     'No define el biodiesel de segunda generación ni el componente renovable del coprocesamiento, aunque el régimen les asigna efectos económicos y fiscales.',
+     'Se definen ambos con umbrales verificables (90% de reducción certificada para la segunda generación) y se establece que solo computa lo medido y certificado.',
+     'Todo beneficio del régimen recae sobre magnitudes que se pueden medir y auditar.'),
+    (10, '10', 'Registro',
+     'El silencio administrativo positivo a los 10 días permitiría iniciar actividades industriales sin verificación técnica ni de seguridad.',
+     'El silencio positivo queda limitado a la inscripción registral.',
+     'Registro ágil sin habilitar la operación de instalaciones no verificadas.'),
+    (12, '12', 'Corte de gasoil',
+     'La Autoridad puede modificar el porcentaje obligatorio por causales abiertas, sin plazo ni piso: la misma facultad con la que el corte se cumplió solo 3 de los últimos 16 años.',
+     'Solo puede aumentarlo. La reducción exige causa técnica acreditada, dura como máximo 6 meses renovables una vez y el porcentaje se restablece automáticamente. Se agrega un piso físico de incorporación y un umbral ambiental del 60% de reducción certificada.',
+     'Cierra el mecanismo documentado con el que se vació el mandato durante dieciséis años.'),
+    (13, '13', 'Corte de naftas',
+     'La misma facultad abierta de reducción, que además contradice los mínimos de 6% caña y 6% maíz que el propio artículo fija.',
+     'Igual regla que el 12: solo aumentar; reducir con causa, plazo y restablecimiento automático, respetando los mínimos por materia prima.',
+     'La facultad queda compatible con la estructura de la propia ley.'),
+    (14, '14', 'Mecanismo de comercialización',
+     'Las partes negocian "hasta arribar a un acuerdo mutuo": frente a una demanda donde 4 compañías concentran el 98% de las compras, eso consagra el poder de veto del comprador.',
+     'Subasta con adjudicación por orden de mérito, precio único de cierre, demanda declarada vinculante y obligaciones de entrega y de retiro. El biodiesel de segunda generación computa doble, con cupo y tope de precio (1,5 veces el cierre) fijados en la ley.',
+     'Elimina el veto del comprador dominante sin volver al precio administrado que ya fracasó: diez resoluciones fuera de la ley y dieciséis meses de precios bajo la propia fórmula.'),
+    (14, '14', 'Transparencia',
+     'Solo exige un registro interno de los contratos resultantes.',
+     'Registro público y trazable de las operaciones y publicación analítica de los resultados de cada ronda.',
+     'Un mercado obligatorio creado por ley debe poder controlarse desde afuera.'),
+    (15, '15', 'Contratos a término',
+     'Contratos bilaterales libres, sin procedimiento, publicidad ni duración máxima.',
+     'Solo a través del Mercado Electrónico, con plazo máximo de 6 meses y nueva solicitud abierta para renovar; durante la transición no pueden tocar el segmento de las no integradas.',
+     'La previsibilidad contractual no puede usarse para cerrar el mercado por fuera de la concurrencia.'),
+    (16, '16', 'Precios de referencia',
+     'Publica paridades de importación sin definir su función: podrían convertirse por vía reglamentaria en precios administrados.',
+     'Las paridades son exclusivamente informativas. Se agregan la paridad del metanol (insumo concentrado en un único proveedor) y la publicación de volúmenes y precios del coprocesado.',
+     'Referencias que informan y transparentan, sin reinstalar el precio administrado.'),
+    (18, '18', 'Coprocesamiento',
+     'El refinador puede computar contra el corte la materia prima ingresada al proceso: una magnitud que nadie mide ni certifica, hasta el 3%.',
+     'Pasa a ser una categoría aparte y optativa, con tope del 5%: computa únicamente el componente biogénico certificado (reducción mínima del 55%), no es biodiesel, no satisface el corte ni desplaza los volúmenes de la tabla.',
+     'Solo cuenta lo medido y certificado; el actor dominante no cumple el mandato con magnitudes inverificables.'),
+    (24, '24', 'Importaciones',
+     'Autoriza importar comparando bienes heterogéneos (producto terminado contra materia prima), sin igualdad de condiciones.',
+     'La comparación debe hacerse sobre bases equivalentes: calidad, entrega, tratamiento tributario y demás condiciones verificables.',
+     'Evita una apertura discrecional fundada en una comparación que no puede practicarse.'),
+    (31, '31', 'Infracciones',
+     'El régimen sancionatorio no tipifica las conductas propias del nuevo sistema de subastas, créditos y certificaciones.',
+     'Se tipifican: certificación falsa, doble cómputo, demanda ficticia, incumplimiento de entrega o retiro, manipulación de ofertas y adulteración de trazabilidad.',
+     'Incumplir deja de ser gratis: bajo el régimen vigente no consta sanción alguna pese al déficit acumulado.'),
+    (34, '34', 'Exención tributaria',
+     'Exime de ICL e ICO2 a la porción coprocesada sin exigir su medición: el beneficio recae sobre una cantidad que nadie determina.',
+     'La exención queda limitada a la cantidad del componente biogénico certificado.',
+     'El beneficio fiscal se paga sobre una base verificable, igual que el biodiesel con el que compite.'),
+    (36, '36', 'Definiciones de la transición',
+     'Las definiciones de empresa integrada, no integrada y grupo económico rigen solo durante la transición, aunque hay obligaciones permanentes dirigidas a esos sujetos.',
+     'Pasan a regir para toda la ley. Se definen además el cómputo máximo (crédito de segunda generación) y el cómputo mínimo que debe abastecerse con biodiesel físico.',
+     'Las obligaciones permanentes conservan sujeto y magnitud determinables después de 2031.'),
+    (37, '37', 'Prórroga de la transición',
+     'Ordena evaluar el mercado, pero la evaluación no produce ninguna consecuencia: los resguardos caen por calendario aunque persista la concentración.',
+     'Informe público al Congreso 6 meses antes del vencimiento. La transición se prorroga automáticamente por 36 meses si se verifican 2 de 4 indicadores objetivos (cantidad de oferentes, concentración de compras, acceso al aceite a valores FAS, acceso al cupo europeo); también si el informe no se publica.',
+     'La salida de la transición depende de datos verificables, no de la discrecionalidad del funcionario de turno. Dos de los cuatro indicadores se verificarían hoy.'),
+    (38, '38', 'Tabla de cupos',
+     'La tabla agrupa en una misma obligación conceptos heterogéneos: no permite distinguir qué parte del 10% es producto físico y qué parte es cómputo.',
+     'La tabla separa el segmento de las no integradas, el crédito de segunda generación y el biodiesel físico, y muestra el corte resultante en volumen real año por año.',
+     'Una obligación que se puede verificar y fiscalizar: el incumplimiento deja de ser indetectable por diseño.'),
+    (39, '39', 'Límites de concentración',
+     'El límite del 14% por empresa rige solo dentro del segmento de las no integradas; el volumen faltante puede negociarse libremente por fuera del sistema.',
+     'Los límites del 14% por empresa y por grupo económico se aplican a todo el biodiesel físico del mandato, en cualquier segmento o modalidad. El faltante se suma a la subasta del período siguiente.',
+     'Sin vías laterales para reconcentrar el mercado ni para eludir la subasta: bajo el régimen vigente el faltante fue la regla, no la excepción.'),
+    (39, '39', 'Acceso a la materia prima',
+     'No contiene ninguna regla sobre el acceso al aceite, el insumo que explica más de tres cuartas partes del costo y que venden los grupos que compiten aguas abajo.',
+     'Las integradas que produzcan o comercialicen materias primas deben garantizar condiciones objetivas y no discriminatorias, con precios libremente pactados, en aplicación complementaria de la Ley 27.442.',
+     'Protege el acceso al insumo esencial gobernando conductas, no precios.'),
+    (40, '40', 'Derogación de la Ley 27.640',
+     'Deroga la Ley 27.640 al día siguiente de la publicación, aunque el sistema que la reemplaza (mercado, registros, garantías, certificación) todavía no existe.',
+     'La derogación difiere sus efectos hasta que la Autoridad declare operativos los mecanismos de la nueva ley, con un máximo de 12 meses; los actos del régimen anterior conservan validez hasta su reemplazo.',
+     'Sucesión ordenada entre regímenes, sin vacío de abastecimiento.'),
+]
+
+
+def tabla_cuadro_senador():
+    out = ['<div class="pl-tabla-scroll"><table class="pl-cuadro">',
+           '<tr><th><p>Artículo</p></th>'
+           '<th><p>Qué establece el proyecto oficial</p></th>'
+           '<th><p>Qué se propone</p></th>'
+           '<th><p>Para qué</p></th></tr>']
+    for nro, rot, tema, ofi, prop, para in CUADRO_SENADOR:
+        out.append(
+            f'<tr class="pl-cuadro-fila" data-art="{nro}">'
+            f'<td><p>{rot}</p><p class="pl-cuadro-tema">{tema}</p></td>'
+            f'<td><p>{ofi}</p></td>'
+            f'<td><p><ins>{prop}</ins></p></td>'
+            f'<td><p>{para}</p></td></tr>')
+    out.append('</table></div>')
+    return ''.join(out)
+
+
+def reemplazar_tabla_cuadro(pop):
+    i = pop.find('<div class="pl-tabla-scroll">')
+    f = pop.find('</table>') + len('</table></div>')
+    assert i > 0
+    return pop[:i] + tabla_cuadro_senador() + pop[f:]
+
+
 # Filas del cuadro de correspondencia: numeración del informe -> optimizada.
 # cc15 (Registro) y cc20 (Integradas) quedaron fusionados dentro de los
 # arts. 14 y 39: sus filas se remapean ahí (dos filas pueden compartir
@@ -454,6 +568,7 @@ def extraer_popups_remapeados():
         pop = bloque_div(m.start())
         if tipo == 'cuadro':
             pop = remapear_cuadro(pop)
+            pop = reemplazar_tabla_cuadro(pop)
         if tipo == 'objeto':
             viejo = ('Este informe fundamenta las modificaciones introducidas al '
                      'proyecto de ley (versión SE 260729) en la revisión HDO del '

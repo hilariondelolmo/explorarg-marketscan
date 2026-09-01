@@ -13,6 +13,7 @@ export default function DescargaDocs({
   doc = 'ambos',
   rotuloPropuesta = 'Propuesta de ley con las modificaciones',
   nombreDefecto = 'Documentos Propuesta S-0809-2026.zip',
+  rotuloCuadro = null,
 } = {}) {
   const dialogRef = useRef(null);
   const [email, setEmail] = useState('');
@@ -74,7 +75,9 @@ export default function DescargaDocs({
             </button>
           </header>
           <div className="pl-dialog-texto">
-            <p className="pl-desc-ayuda">El paquete incluye los dos documentos:</p>
+            <p className="pl-desc-ayuda">
+              El paquete incluye los {rotuloCuadro ? 'tres' : 'dos'} documentos:
+            </p>
             <ul className="pl-desc-lista">
               <li>
                 <strong>{rotuloPropuesta}</strong>
@@ -84,6 +87,12 @@ export default function DescargaDocs({
                 <strong>Fundamentos jurídicos y respaldo en datos</strong>
                 <span>PDF · informe completo, artículo por artículo</span>
               </li>
+              {rotuloCuadro && (
+                <li>
+                  <strong>{rotuloCuadro}</strong>
+                  <span>PDF · qué se cambia y para qué, con la síntesis de la evidencia</span>
+                </li>
+              )}
             </ul>
             <p className="pl-desc-ayuda">
               Ingresá tu dirección de email para descargarlos.
