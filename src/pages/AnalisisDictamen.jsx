@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import SectionNav from '../components/SectionNav.jsx';
 import { SECCIONES_REFORMA } from '../lib/reforma.js';
 import contenido from '../content/analisis-dictamen.html?raw';
@@ -35,7 +36,9 @@ export default function AnalisisDictamen() {
           <p className="bajada">
             Las Comisiones de Minería, Energía y Combustibles y de Presupuesto y
             Hacienda del Senado emitieron dictamen de mayoría sobre el Proyecto
-            S-809/26. A continuación el análisis, artículo por artículo, de qué
+            S-809/26; las firmas que lo sostienen, comisión por comisión, están en
+            el <Link to="/mapa-firmas">Mapa de firmas</Link>. A continuación el
+            análisis, artículo por artículo, de qué
             cambió respecto del proyecto oficial, qué recogió de la{' '}
             <a href="/propuesta-optimizada">Propuesta optimizada</a>, qué quedó
             afuera, el impacto esperado en el mercado y los ajustes que la
