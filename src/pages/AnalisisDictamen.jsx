@@ -34,6 +34,7 @@ export default function AnalisisDictamen() {
             afuera, el impacto esperado en el mercado y los ajustes que la
             instancia del recinto todavía permite.
           </p>
+          <div className="ad-byline">por Hilarion Del Olmo / Presidente / Explora S.A.</div>
         </div>
       </div>
 
