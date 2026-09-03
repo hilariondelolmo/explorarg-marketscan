@@ -13,7 +13,13 @@ const DASHBOARDS = [
 
 // Rutas de la sección Reforma (el link se marca activo en ambas; la
 // sub-barra de la sección vive en las páginas)
-const RUTAS_REFORMA = ['/reforma-ley-27640', '/propuesta-s0809-2026'];
+const RUTAS_REFORMA = [
+  '/reforma-ley-27640',
+  '/propuesta-s0809-2026',
+  '/propuesta-optimizada',
+  '/analisis-dictamen',
+  '/mapa-firmas',
+];
 
 const MQ_ANGOSTO = '(max-width: 560px)';
 

@@ -1,0 +1,438 @@
+/* Mapa de firmas: planilla interactiva del plenario de comisiones.
+   Comparte el marco y el encabezado de PropuestaLey.css (clases pl-);
+   lo propio va con prefijo mf-. Colores semánticos y de bloque sobre
+   los tokens del sitio, con ajuste para el tema oscuro. */
+
+.mapa-firmas {
+  --mf-ok: var(--accent-bio);
+  --mf-ok-bg: color-mix(in srgb, var(--accent-bio) 14%, transparent);
+  --mf-warn: var(--accent-oil);
+  --mf-warn-bg: color-mix(in srgb, var(--accent-oil) 14%, transparent);
+  --mf-on: var(--accent-exp);
+  --mf-on-ink: #ffffff;
+  --mf-lla: #5b44b8;
+  --mf-ucr: #b33a3a;
+  --mf-pro: #a8790a;
+  --mf-prov: #546575;
+  --mf-cf: #237f79;
+  --mf-vac: #8a949e;
+  --mf-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+:root[data-theme='dark'] .mapa-firmas {
+  --mf-on-ink: #0a0e12;
+  --mf-lla: #a493ea;
+  --mf-ucr: #e07a7a;
+  --mf-pro: #e0b94a;
+  --mf-prov: #a3b3c2;
+  --mf-cf: #5cc2bb;
+  --mf-vac: #6b7683;
+}
+
+.mapa-firmas .pl-encabezado {
+  padding-bottom: 6px;
+}
+
+.mapa-firmas .pl-encabezado .bajada {
+  text-align: left;
+}
+
+.mf-exptes {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  margin: 0 0 4px;
+}
+
+/* ── contador pegajoso: queda bajo la nav y la sub-barra al scrollear ── */
+.mf-tally {
+  position: sticky;
+  top: calc(var(--nav-h) + 38px);
+  z-index: 90;
+  background: var(--bg);
+  padding: 10px 0 8px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 12px;
+}
+
+.mf-contadores {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.mf-contador {
+  background: var(--bg-3);
+  border: 1px solid var(--rule-soft);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: grid;
+  gap: 5px;
+}
+
+.mf-contador-rotulo {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.mf-contador-num {
+  font-family: var(--mf-mono);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.mf-contador-num small {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink-muted);
+}
+
+.mf-barra {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--rule-soft);
+  overflow: hidden;
+}
+
+.mf-barra i {
+  display: block;
+  height: 100%;
+  background: var(--mf-warn);
+  transition: width 0.25s ease;
+}
+
+.mf-contador.ok .mf-barra i {
+  background: var(--mf-ok);
+}
+
+.mf-pill {
+  justify-self: start;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 4px 7px;
+  border-radius: 999px;
+  background: var(--mf-warn-bg);
+  color: var(--mf-warn);
+}
+
+.mf-contador.ok .mf-pill {
+  background: var(--mf-ok-bg);
+  color: var(--mf-ok);
+}
+
+.mf-veredicto {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+/* ── escenarios ── */
+.mf-presets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0 16px;
+}
+
+.mf-preset {
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1;
+  padding: 7px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-exp);
+  background: transparent;
+  color: var(--accent-exp);
+  transition: background 0.15s;
+}
+
+.mf-preset:hover {
+  background: color-mix(in srgb, var(--accent-exp) 10%, transparent);
+}
+
+.mf-preset:focus-visible,
+.mf-sen:focus-visible {
+  outline: 2px solid var(--accent-exp);
+  outline-offset: 2px;
+}
+
+.mf-ayuda {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+}
+
+/* ── las dos comisiones ── */
+.mf-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+@media (min-width: 820px) {
+  .mf-cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.mf-com h2 {
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin: 0 0 2px;
+}
+
+.mf-com-sub {
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  margin: 0 0 10px;
+}
+
+.mf-grupo {
+  margin: 0 0 12px;
+}
+
+.mf-grupo-cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 0 5px;
+}
+
+.mf-grupo-n {
+  font-family: var(--mf-mono);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.mf-grupo-n b {
+  color: var(--ink);
+}
+
+.mf-chip {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 7px;
+  border-radius: 4px;
+  border: 1px solid currentColor;
+}
+
+.mf-chip-lla { color: var(--mf-lla); }
+.mf-chip-ucr { color: var(--mf-ucr); }
+.mf-chip-pro { color: var(--mf-pro); }
+.mf-chip-prov { color: var(--mf-prov); }
+.mf-chip-cf { color: var(--mf-cf); }
+.mf-chip-vac { color: var(--mf-vac); border-style: dashed; }
+
+.mf-lista {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+@media (min-width: 1100px) {
+  .mf-lista {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.mf-sen {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  width: 100%;
+  padding: 6px 9px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.mf-sen:hover {
+  border-color: var(--ink-muted);
+}
+
+.mf-sen::before {
+  content: '';
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--ink-muted);
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 13px;
+  text-align: center;
+}
+
+.mf-sen.firmado {
+  background: var(--mf-on);
+  border-color: var(--mf-on);
+  color: var(--mf-on-ink);
+}
+
+.mf-sen.firmado::before {
+  content: '✓';
+  background: var(--mf-on-ink);
+  color: var(--mf-on);
+  border-color: var(--mf-on-ink);
+}
+
+.mf-sen-txt {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.mf-sen-n {
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.mf-sen-s {
+  font-size: 0.7rem;
+  line-height: 1.2;
+  color: var(--ink-muted);
+}
+
+.mf-sen.firmado .mf-sen-s {
+  color: var(--mf-on-ink);
+  opacity: 0.82;
+}
+
+.mf-x2 {
+  margin-left: auto;
+  flex: none;
+  font-family: var(--mf-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 3px 5px;
+  border-radius: 3px;
+  border: 1px solid currentColor;
+  opacity: 0.85;
+}
+
+.mf-vac-fila {
+  display: grid;
+  gap: 6px;
+  max-width: 360px;
+  margin-bottom: 6px;
+}
+
+.mf-vac-fila i {
+  height: 24px;
+  border: 1px dashed var(--mf-vac);
+  border-radius: 4px;
+  background: repeating-linear-gradient(
+    135deg,
+    transparent 0 6px,
+    color-mix(in srgb, var(--mf-vac) 22%, transparent) 6px 8px
+  );
+}
+
+.mf-vac-nota {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+}
+
+/* ── bloques de texto ── */
+.mf-txt {
+  margin-top: 26px;
+  max-width: 68ch;
+}
+
+.mf-txt h2 {
+  font-size: 1.1rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin: 0 0 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+
+.mf-txt ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 7px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.mf-kv {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.mf-kv-fila {
+  display: grid;
+  grid-template-columns: 5.2rem 1fr;
+  gap: 4px 12px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.mf-kv dt {
+  font-family: var(--mf-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-exp);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.mf-kv dd {
+  margin: 0;
+}
+
+.mf-fuentes {
+  margin-top: 26px;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+@media (max-width: 480px) {
+  .mf-kv-fila {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mf-barra i,
+  .mf-sen,
+  .mf-preset {
+    transition: none;
+  }
+}
