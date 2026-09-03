@@ -1,0 +1,132 @@
+/* Análisis del dictamen de comisión: estados por artículo y bloques
+   de síntesis. Complementa a PropuestaLey.css (clases pl-). */
+
+/* chips de estado de cada artículo frente a la propuesta */
+.ad-chip {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.12rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.ad-chip-adoptado {
+  background: color-mix(in srgb, var(--accent-exp) 16%, transparent);
+  color: var(--accent-exp);
+}
+
+.ad-chip-parcial {
+  background: color-mix(in srgb, #b7791f 18%, transparent);
+  color: #a16207;
+}
+
+.ad-chip-no {
+  background: color-mix(in srgb, var(--accent-alert) 14%, transparent);
+  color: var(--accent-alert);
+}
+
+.ad-chip-propio {
+  background: color-mix(in srgb, var(--ink-muted) 16%, transparent);
+  color: var(--ink-muted);
+}
+
+:root[data-theme='dark'] .ad-chip-parcial {
+  color: #d9a441;
+}
+
+/* fichas por artículo */
+.ad-ficha {
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  margin: 0.9rem 0;
+}
+
+.ad-ficha h4 {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.ad-ficha p {
+  margin: 0.35rem 0;
+  font-size: 0.86rem;
+}
+
+.ad-ficha .ad-rotulo {
+  font-weight: 600;
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-right: 0.3rem;
+}
+
+/* lista priorizada de ajustes */
+.ad-ajustes {
+  counter-reset: ajuste;
+  list-style: none;
+  padding-left: 0;
+}
+
+.ad-ajustes li {
+  counter-increment: ajuste;
+  position: relative;
+  padding-left: 2.4rem;
+  margin: 0.75rem 0;
+}
+
+.ad-ajustes li::before {
+  content: counter(ajuste);
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 50%;
+  background: var(--accent-exp);
+  color: var(--bg);
+  font-weight: 700;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* riesgos: mecanismo causal */
+.ad-riesgo {
+  border-left: 3px solid var(--accent-alert);
+  border-radius: 0;
+  padding: 0.15rem 0 0.15rem 0.9rem;
+  margin: 0.8rem 0;
+}
+
+.ad-riesgo strong {
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+/* firma del autor al cierre (mismo tono que la firma de la Reforma) */
+.ad-firma {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+  margin-top: 2rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  text-align: right;
+}
+
+.ad-firma span:first-child {
+  color: var(--ink);
+  font-weight: 600;
+}
