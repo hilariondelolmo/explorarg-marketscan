@@ -23,6 +23,13 @@ export default function AnalisisDictamen() {
       <SectionNav sections={SECCIONES_REFORMA} />
       <div className="pl-sticky">
         <div className="marco pl-encabezado">
+          <a
+            className="pl-oblea pl-oblea-descarga"
+            href="/docs/analisis-dictamen-comision.pdf"
+            download="Análisis del dictamen de comisión - Ley de biocombustibles.pdf"
+          >
+            Descargar PDF
+          </a>
           <div className="kicker">Análisis · Dictamen de comisión · 03/09/2026</div>
           <h1>El dictamen, contra el espejo de la propuesta</h1>
           <p className="bajada">
