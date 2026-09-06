@@ -23,7 +23,7 @@ DOCX_PROP = CARPETA + '2026.08.11 Propuesta ley S80926PL SE_260729 cc HDO.docx'
 DOCX_INF = CARPETA + '2026_08_17_Informe_fundamentos_S80926PL_Evidencia_factica_rev3.docx'
 DOCX_AMPL = CARPETA + ('Informe_fundamentos_modificaciones_S80926PL_'
                        '11-08-2026_AMPLIADO_DATOS.docx')
-SALIDA = '/Users/hilariondelolmo/Explora_projects/Explorarg_Marketscan/src/content/propuesta-s80926pl.html'
+SALIDA = '/Users/hilariondelolmo/Explora_projects/explorarg-marketscan/src/content/propuesta-s80926pl.html'
 
 ARTS_INFORME = [3, 5, 6, 10, 12, 13, 14, 15, 16, 17, 19, 20, 26, 28, 33, 36, 38, 39, 40, 41, 42]
 

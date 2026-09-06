@@ -37,7 +37,7 @@ npm run preview      # previsualiza el build en http://localhost:4173
 ## Estructura
 
 ```
-biodiesel-argentina-dashboard/
+explorarg-marketscan/
 ├── .github/
 │   ├── workflows/                  # CI activa
 │   └── workflows-templates/        # Templates de deploy (mover a workflows/ para activar)

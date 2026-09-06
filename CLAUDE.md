@@ -1,6 +1,6 @@
-# Explorarg_Marketscan - sitio explorarg.com
+# explorarg-marketscan - sitio explorarg.com
 
-Reemplazo del sitio Wix de Explora: tablero del mercado de biodiésel, marco legal, propuesta de ley S-0809/2026, análisis del dictamen, láminas A3. React 18 + Vite, sin framework de CSS. Repo GitHub `biodiesel-argentina-dashboard` (público) con Vercel: **cada push a `main` publica**.
+Reemplazo del sitio Wix de Explora: tablero del mercado de biodiésel, marco legal, propuesta de ley S-0809/2026, análisis del dictamen, láminas A3. React 18 + Vite, sin framework de CSS. Repo GitHub `explorarg-marketscan` (público, ex biodiesel-argentina-dashboard; el proyecto Vercel conserva el nombre viejo) con Vercel: **cada push a `main` publica**.
 
 - Dev: `npm run dev` en el puerto 5273 (`.claude/launch.json`, lanzador en `~/Explora_projects/Iniciar/Marketscan.command`).
 - Páginas en `src/pages/`, contenido HTML generado en `src/content/`, datos en `src/data/`.
