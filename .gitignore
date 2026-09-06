@@ -54,3 +54,6 @@ HANDOFF_claude_code.md
 __pycache__/
 .env*
 .vercel
+
+# Salidas generadas (PDF, DOCX, PNG de impresión) - se regeneran con scripts/
+output/
