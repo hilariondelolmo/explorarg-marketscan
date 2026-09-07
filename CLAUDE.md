@@ -4,6 +4,7 @@ Reemplazo del sitio Wix de Explora: tablero del mercado de biodiésel, marco leg
 
 - Dev: `npm run dev` en el puerto 5273 (`.claude/launch.json`, lanzador en `~/Explora_projects/Iniciar/Marketscan.command`).
 - Páginas en `src/pages/`, contenido HTML generado en `src/content/`, datos en `src/data/`.
+- Datos de los tableros: `python3 scripts/regenerate_data.py` regenera `src/data/*.json` desde los hypers y el Excel maestro de `/Volumes/comun` (lanzador `~/Explora_projects/Iniciar/Marketscan - Regenerar datos.command`, acepta `--dry-run`). Deja los cambios sin commitear.
 - `scripts/` (Python y Node) generan el HTML de la propuesta, láminas, booklets y DOCX. Salidas en `output/` (ignorado) y descargables en `descargas/` y `public/docs/`.
 - Detalle fino de la etapa actual: `HANDOFF_claude_code.md` (ignorado por git) y `HANDOFF_LAMINAS_A3.md`.
 - Reglas: las de `~/Explora_projects/CLAUDE.md`. Commits y pushes los decide HDO. Guion corto, nunca raya larga.
