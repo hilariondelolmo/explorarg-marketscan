@@ -45,10 +45,12 @@ const decode = (t) => t.replace(/&(nbsp|amp|lt|gt|quot|#39);/g, (m) => ENT[m] ||
 const limpiar = (t) => decode(t).replace(/\s+/g, ' ');
 
 /** [[texto, bold, color?]] de un fragmento inline; <strong> → bold,
- *  <ins>/<a> → texto plano, <span class="ad-chip …"> → texto entre corchetes. */
+ *  <ins> → rojo (texto agregado al dictamen), <a> → texto plano,
+ *  <span class="ad-chip …"> → texto entre corchetes. */
 function runsDe(html) {
   const out = [];
   let bold = false;
+  let ins = false;
   // toda etiqueta que no sea inline conocida (p, div, h4, br...) se descarta
   const limpio = html.replace(/<\/?(?!(?:strong|b|ins|a|span)\b)[a-z][a-z0-9]*\b[^>]*>/gi, ' ');
   const re = /<\/?(strong|b|ins|a|span)\b[^>]*>|[^<]+/g;
@@ -59,6 +61,7 @@ function runsDe(html) {
       const cierre = tok.startsWith('</');
       const tag = m[1];
       if (tag === 'strong' || tag === 'b') bold = !cierre;
+      else if (tag === 'ins') ins = !cierre;
       else if (tag === 'span' && !cierre && /ad-chip/.test(tok)) out.push(['[', false, MUTED]);
       else if (tag === 'span' && cierre) out.push([']', false, MUTED]);
       continue;
@@ -66,7 +69,7 @@ function runsDe(html) {
     const txt = decode(tok).replace(/\s+/g, ' ');
     if (!txt) continue;
     const enChip = out.length && out[out.length - 1][0] === '[' && out[out.length - 1][2] === MUTED;
-    out.push([txt, bold, enChip ? MUTED : undefined]);
+    out.push([txt, bold, enChip ? MUTED : (ins ? ROJO : undefined)]);
   }
   // colapsar y recortar bordes
   const runs = [];
@@ -304,7 +307,7 @@ function renderTabla(b) {
   return [new Table({ width: { size: ANCHO, type: WidthType.DXA }, columnWidths: anchos, rows }), espacio(120)];
 }
 
-for (const sec of html.matchAll(/<section class="pl-art[^"]*">([\s\S]*?)<\/section>/g)) {
+for (const sec of html.matchAll(/<section\b[^>]*class="pl-art[^"]*"[^>]*>([\s\S]*?)<\/section>/g)) {
   for (const b of bloquesDe(sec[1])) {
     if (b.tag === 'h2') {
       if (hijos.length && hijos[hijos.length - 1].esEspacio) hijos.pop();
