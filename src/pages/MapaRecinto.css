@@ -1,0 +1,274 @@
+/* Mapa del recinto: hemiciclo de 72 bancas con tres estados por senador.
+   Hereda el marco, contadores, presets y listas de MapaFirmas.css (mf-);
+   lo propio va con prefijo mr-. */
+
+.mapa-recinto {
+  --mf-pj: #2f6db5;
+  --mf-fcs: #3d8fb0;
+  --mr-contra: var(--mf-warn);
+}
+
+:root[data-theme='dark'] .mapa-recinto {
+  --mf-pj: #7fb0ea;
+  --mf-fcs: #7cc4de;
+}
+
+.mf-chip-pj { color: var(--mf-pj); }
+.mf-chip-fcs { color: var(--mf-fcs); }
+
+/* tres contadores en vez de dos */
+.mr-contadores {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* en móvil los tres contadores siguen en fila, más chicos, y el bloque
+   deja de ser pegajoso para no tapar media pantalla */
+@media (max-width: 640px) {
+  .mapa-recinto .mf-tally {
+    position: static;
+  }
+
+  .mr-contadores {
+    gap: 6px;
+  }
+
+  .mr-contadores .mf-contador {
+    padding: 7px 8px;
+  }
+
+  .mr-contadores .mf-contador-num {
+    font-size: 1.25rem;
+  }
+
+  .mr-contadores .mf-contador-rotulo {
+    font-size: 0.62rem;
+  }
+
+  .mr-contadores .mf-pill {
+    font-size: 0.64rem;
+  }
+}
+
+/* ── hemiciclo ── */
+.mr-hemi {
+  margin: 6px 0 22px;
+}
+
+.mr-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 980px;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+/* color de bloque por banca: cada clase fija el color base */
+.mr-b-pj { --mr-c: var(--mf-pj); }
+.mr-b-fcs { --mr-c: var(--mf-fcs); }
+.mr-b-cf { --mr-c: var(--mf-cf); }
+.mr-b-prov { --mr-c: var(--mf-prov); }
+.mr-b-ucr { --mr-c: var(--mf-ucr); }
+.mr-b-pro { --mr-c: var(--mf-pro); }
+.mr-b-lla { --mr-c: var(--mf-lla); }
+
+.mr-banca {
+  cursor: pointer;
+  outline: none;
+}
+
+.mr-banca circle {
+  fill: var(--mr-c);
+  stroke: var(--mr-c);
+  stroke-width: 3;
+  transition: fill-opacity 0.15s, stroke-width 0.15s;
+}
+
+/* ausente: apagada */
+.mr-banca.ausente circle {
+  fill-opacity: 0.16;
+  stroke-opacity: 0.35;
+  stroke-width: 1.5;
+}
+
+/* a favor: llena con tilde */
+.mr-banca.favor circle {
+  fill-opacity: 1;
+}
+
+/* en contra: hueca con borde grueso y cruz */
+.mr-banca.contra circle {
+  fill: var(--bg);
+  fill-opacity: 1;
+  stroke-width: 4;
+}
+
+.mr-marca {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.mr-banca.contra .mr-marca {
+  stroke: var(--mr-contra);
+  stroke-width: 3.5;
+}
+
+.mr-banca:hover circle,
+.mr-banca:focus-visible circle {
+  stroke: var(--ink);
+}
+
+.mr-centro text {
+  text-anchor: middle;
+  fill: var(--ink);
+  font-family: var(--mf-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.mr-centro-num {
+  font-size: 38px;
+  font-weight: 600;
+}
+
+.mr-centro-num.favor { fill: var(--mf-ok); }
+.mr-centro-num.contra { fill: var(--mr-contra); }
+
+.mr-centro-rot {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 500;
+  fill: var(--ink-muted);
+}
+
+.mr-foco {
+  margin: 8px 0 0;
+  min-height: 1.4em;
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--ink-muted);
+}
+
+.mr-foco b {
+  color: var(--ink);
+}
+
+.mr-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 14px;
+  margin-top: 10px;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+.mr-ley-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.mr-ley-item i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.mr-ley-favor {
+  background: var(--ink-muted);
+}
+
+.mr-ley-contra {
+  border: 3px solid var(--ink-muted);
+}
+
+.mr-ley-ausente {
+  background: color-mix(in srgb, var(--ink-muted) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink-muted) 40%, transparent);
+}
+
+.mr-ley-bloque {
+  background: var(--mr-c);
+}
+
+.mr-ley-sep {
+  flex-basis: 100%;
+  height: 0;
+}
+
+@media (min-width: 820px) {
+  .mr-ley-sep {
+    flex-basis: auto;
+    width: 1px;
+    height: 14px;
+    background: var(--rule);
+  }
+}
+
+/* ── lista por bloque ── */
+.mr-bloques {
+  display: grid;
+  gap: 4px;
+}
+
+.mr-lista {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 700px) {
+  .mr-lista {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .mr-lista {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.mr-sen {
+  min-height: 42px;
+}
+
+.mr-sen.favor {
+  background: var(--mf-on);
+  border-color: var(--mf-on);
+  color: var(--mf-on-ink);
+}
+
+.mr-sen.favor::before {
+  content: '✓';
+  background: var(--mf-on-ink);
+  color: var(--mf-on);
+  border-color: var(--mf-on-ink);
+}
+
+.mr-sen.favor .mf-sen-s {
+  color: var(--mf-on-ink);
+  opacity: 0.82;
+}
+
+.mr-sen.contra {
+  border: 2px solid var(--mr-contra);
+  padding: 5px 8px;
+}
+
+.mr-sen.contra::before {
+  content: '✕';
+  color: var(--mr-contra);
+  border-color: var(--mr-contra);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mr-banca circle {
+    transition: none;
+  }
+}

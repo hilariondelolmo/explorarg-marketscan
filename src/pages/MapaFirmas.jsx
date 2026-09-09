@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import SectionNav from '../components/SectionNav.jsx';
 import { SECCIONES_REFORMA } from '../lib/reforma.js';
 import {
@@ -227,7 +228,9 @@ export default function MapaFirmas() {
           dictamen de mayoría exige la firma de más de la mitad de los miembros
           reglamentarios de cada comisión (art. 105 del Reglamento): 10 de 19 y 9 de 17,
           con las bancas vacantes contadas en la base. Tocá un nombre para marcar su
-          firma; los senadores con ×2 integran las dos comisiones y cuentan en ambas.
+          firma; los senadores con ×2 integran las dos comisiones y cuentan en ambas. La
+          votación en el recinto, con los 72 senadores, está en el{' '}
+          <Link to="/mapa-recinto">Mapa del recinto</Link>.
         </p>
         <p className="mf-exptes">Expedientes en tratamiento: {PLENARIO.expedientes}.</p>
       </div>

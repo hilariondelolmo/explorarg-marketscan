@@ -37,7 +37,8 @@ export default function AnalisisDictamen() {
             Las Comisiones de Minería, Energía y Combustibles y de Presupuesto y
             Hacienda del Senado emitieron dictamen de mayoría sobre el Proyecto
             S-809/26; las firmas que lo sostienen, comisión por comisión, están en
-            el <Link to="/mapa-firmas">Mapa de firmas</Link>. A continuación el
+            el <Link to="/mapa-firmas">Mapa de firmas</Link> y los votos del recinto en el{' '}
+            <Link to="/mapa-recinto">Mapa del recinto</Link>. A continuación el
             análisis, artículo por artículo, de qué
             cambió respecto del proyecto oficial, qué recogió de la{' '}
             <a href="/propuesta-optimizada">Propuesta optimizada</a>, qué quedó

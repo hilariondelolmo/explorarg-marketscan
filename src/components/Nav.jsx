@@ -18,6 +18,7 @@ const RUTAS_REFORMA = [
   '/propuesta-s0809-2026',
   '/propuesta-optimizada',
   '/analisis-dictamen',
+  '/mapa-recinto',
   '/mapa-firmas',
 ];
 

@@ -15,6 +15,7 @@ const PropuestaLey = lazy(() => import('./pages/PropuestaLey.jsx'));
 const PropuestaOptimizada = lazy(() => import('./pages/PropuestaOptimizada.jsx'));
 const AnalisisDictamen = lazy(() => import('./pages/AnalisisDictamen.jsx'));
 const MapaFirmas = lazy(() => import('./pages/MapaFirmas.jsx'));
+const MapaRecinto = lazy(() => import('./pages/MapaRecinto.jsx'));
 const ImpresoLey = lazy(() => import('./pages/ImpresoLey.jsx'));
 const ImpresoA3 = lazy(() => import('./pages/ImpresoA3.jsx'));
 const ExportGrafico = lazy(() => import('./pages/ExportGrafico.jsx'));
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="/propuesta-optimizada" element={<PropuestaOptimizada />} />
           <Route path="/analisis-dictamen" element={<AnalisisDictamen />} />
           <Route path="/mapa-firmas" element={<MapaFirmas />} />
+          <Route path="/mapa-recinto" element={<MapaRecinto />} />
           <Route path="/impreso-reforma-27640" element={<ImpresoLey />} />
           <Route path="/impreso-a3" element={<ImpresoA3 />} />
           <Route path="/export-grafico/:id" element={<ExportGrafico />} />

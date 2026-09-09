@@ -6,4 +6,5 @@ export const SECCIONES_REFORMA = [
   { id: 'optimizada', label: 'Propuesta optimizada', to: '/propuesta-optimizada' },
   { id: 'dictamen', label: 'Análisis del dictamen', to: '/analisis-dictamen' },
   { id: 'firmas', label: 'Mapa de firmas', to: '/mapa-firmas' },
+  { id: 'recinto', label: 'Mapa del recinto', to: '/mapa-recinto' },
 ];
