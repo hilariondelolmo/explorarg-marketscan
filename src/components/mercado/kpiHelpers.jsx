@@ -7,6 +7,13 @@ export function mesOffset(fecha, n) {
   return `${String(Math.floor(t / 12)).padStart(4, '0')}-${String((t % 12) + 1).padStart(2, '0')}`;
 }
 
+/** Cantidad de meses entre dos fechas "YYYY-MM", ambas inclusive. */
+export function mesesEntre(desde, hasta) {
+  const [y1, m1] = desde.split('-').map(Number);
+  const [y2, m2] = hasta.split('-').map(Number);
+  return (y2 * 12 + m2) - (y1 * 12 + m1) + 1;
+}
+
 /** Variación relativa entre dos valores del mismo indicador, con flecha. */
 export function Delta({ actual, base, etiqueta, formatoBase }) {
   if (base == null || actual == null || base === 0) return null;

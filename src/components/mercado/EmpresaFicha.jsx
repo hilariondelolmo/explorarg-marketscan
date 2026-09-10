@@ -4,7 +4,7 @@ import {
 } from 'recharts';
 import empresasData from '../../data/empresas.json';
 import KPIs from '../KPIs.jsx';
-import { mesOffset, Delta } from './kpiHelpers.jsx';
+import { mesOffset, mesesEntre, Delta } from './kpiHelpers.jsx';
 import { fmt } from '../../lib/format.js';
 import ChartTooltip from '../charts/ChartTooltip.jsx';
 import '../charts/Chart.css';
@@ -98,7 +98,7 @@ export default function EmpresaFicha({ seccion }) {
     };
   }, [sel, empresas, grupos]);
 
-  const { serieAnual, serieMensual, fin, u12, u12py } = useMemo(() => {
+  const { serieAnual, serieMensual, fin, inicio, acum } = useMemo(() => {
     const porAnio = new Map();
     for (const [f, prod, cupo, vc, xq, exp] of emp.serie) {
       const y = f.slice(0, 4);
@@ -138,9 +138,8 @@ export default function EmpresaFicha({ seccion }) {
       Exportaciones: exp ? Math.round(exp) : 0,
       cumplimiento: cupo > 0 ? (vc / cupo) * 100 : null,
     }));
-    // KPIs: acumulado de los últimos 12 meses de vida activa (para el
-    // mercado completo coincide con el último mes publicado) y el período
-    // de 12 meses inmediato anterior, para la variación.
+    // Acumulador para los KPIs: suma (desde, hasta] de la serie. La ventana
+    // concreta la fija el rango elegido, más abajo.
     const acum = (desde, hasta) => {
       const a = { prod: 0, cupo: 0, vc: 0, exp: 0 };
       for (const [f, prod, cupo, vc, , exp] of emp.serie) {
@@ -153,15 +152,24 @@ export default function EmpresaFicha({ seccion }) {
       }
       return a;
     };
-    const fin = hastaMes;
-    return {
-      serieAnual: sa,
-      serieMensual: sm,
-      fin,
-      u12: fin ? acum(mesOffset(fin, -12), fin) : null,
-      u12py: fin ? acum(mesOffset(fin, -24), mesOffset(fin, -12)) : null,
-    };
+    return { serieAnual: sa, serieMensual: sm, fin: hastaMes, inicio: desdeMes, acum };
   }, [emp]);
+
+  // Ventana de los KPIs: sigue el rango elegido para el gráfico (12m / 5
+  // años / 10 años / Todo), siempre en meses cerrados hasta el último mes
+  // de vida activa. Anual/Mensual solo cambia el dibujo del gráfico, no
+  // los KPIs (decisión HDO 10/09/2026). El delta compara contra el período
+  // inmediato anterior de igual largo; con "Todo" no hay anterior.
+  const { u12, u12py, mesesKpi } = useMemo(() => {
+    if (!fin) return { u12: null, u12py: null, mesesKpi: 0 };
+    const meses = rango.anios === null ? mesesEntre(inicio, fin) : rango.anios * 12;
+    const desde = mesOffset(fin, -meses);
+    return {
+      u12: acum(desde, fin),
+      u12py: rango.anios === null ? null : acum(mesOffset(fin, -2 * meses), desde),
+      mesesKpi: meses,
+    };
+  }, [fin, inicio, acum, rango]);
 
   const serieBase = anual
     ? serieAnual.filter((s) =>
@@ -171,18 +179,24 @@ export default function EmpresaFicha({ seccion }) {
     ? serieBase
     : serieBase.slice(-(anual ? rango.anios : rango.anios * 12));
 
-  // Ventana de los KPIs en el título de cada tarjeta: "Jul 25 / Jun 26"
-  // (últimos 12 meses de vida activa - para una empresa que cesó, el rango
-  // lo dice solo). El delta compara contra los 12 meses previos.
+  // Ventana de los KPIs bajo el título: "Jul 25 / Jun 26" (hasta el
+  // último mes de vida activa - para una empresa que cesó, el rango lo
+  // dice solo). La leyenda enuncia el período acumulado una sola vez.
   const mesCorto = (f) => {
     const m = fmt.monthShort(f); // "jul 2025"
     return m.charAt(0).toUpperCase() + m.slice(1, 3) + ' ' + m.slice(-2);
   };
-  const ventana = fin ? `${mesCorto(mesOffset(fin, -11))} / ${mesCorto(fin)}` : '';
+  const ventana = fin ? `${mesCorto(mesOffset(fin, -(mesesKpi - 1)))} / ${mesCorto(fin)}` : '';
+  const periodoKpi = rango.anios === null
+    ? `Acumulado serie completa (${mesesKpi} meses)`
+    : rango.anios === 1
+      ? 'Acumulado últimos 12 meses'
+      : `Acumulado últimos ${rango.anios} años`;
+  const etiquetaPrev = rango.anios === 1 ? '12 Ms Prev' : `${rango.anios} Años Prev`;
   const delta12 = (actual, base, formato) => (
     <Delta
       actual={actual} base={base}
-      etiqueta="12 Ms Prev" formatoBase={formato}
+      etiqueta={etiquetaPrev} formatoBase={formato}
     />
   );
 
@@ -191,27 +205,27 @@ export default function EmpresaFicha({ seccion }) {
         {
           label: 'Producción',
           value: <>{fmt.int(u12.prod)} <span className="kpi-unidad">ton</span></>,
-          delta: delta12(u12.prod, u12py.prod, `${fmt.compact(u12py.prod)} ton`),
+          delta: u12py && delta12(u12.prod, u12py.prod, `${fmt.compact(u12py.prod)} ton`),
         },
-        (u12.cupo > 0 || u12.vc > 0 || u12py.vc > 0) && {
+        (u12.cupo > 0 || u12.vc > 0 || u12py?.vc > 0) && {
           label: 'Ventas al corte',
           value: <>{fmt.int(u12.vc)} <span className="kpi-unidad">ton</span></>,
-          delta: delta12(u12.vc, u12py.vc, `${fmt.compact(u12py.vc)} ton`),
+          delta: u12py && delta12(u12.vc, u12py.vc, `${fmt.compact(u12py.vc)} ton`),
         },
         u12.cupo > 0 && {
           label: 'Cumplimiento',
           value: fmt.pct((u12.vc / u12.cupo) * 100, 0),
           sub: 'del cupo asignado',
           tone: (u12.vc / u12.cupo) * 100 >= 95 ? 'pos' : 'neg',
-          delta: u12py.cupo > 0
+          delta: u12py?.cupo > 0
             ? delta12(u12.vc / u12.cupo, u12py.vc / u12py.cupo,
                 fmt.pct((u12py.vc / u12py.cupo) * 100, 0))
             : null,
         },
-        (u12.exp > 0 || u12py.exp > 0) && {
+        (u12.exp > 0 || u12py?.exp > 0) && {
           label: 'Exportaciones',
           value: <>{fmt.int(u12.exp)} <span className="kpi-unidad">ton</span></>,
-          delta: delta12(u12.exp, u12py.exp, `${fmt.compact(u12py.exp)} ton`),
+          delta: u12py && delta12(u12.exp, u12py.exp, `${fmt.compact(u12py.exp)} ton`),
         },
         emp.categoria && {
           label: 'Categoría',
@@ -295,7 +309,7 @@ export default function EmpresaFicha({ seccion }) {
           El período acumulado se enuncia una sola vez, fuera de las cajas */}
       {kpis.length > 0 && (
         <>
-          <p className="kpi-periodo">Acumulado últimos 12 meses · {ventana}</p>
+          <p className="kpi-periodo">{periodoKpi} · {ventana}</p>
           <KPIs items={kpis} />
         </>
       )}
