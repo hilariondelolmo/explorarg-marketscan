@@ -10,6 +10,7 @@ Fuentes (requiere /Volumes/comun montado):
   - Mercado Argentino Derivados Petroleo Table.hyper → ventas GO G2+G3 (corte real)
   - ARGENTINA BIODIESEL MARKET REV FINAL.xlsx → PROD CAPACITY, HOLDING, CAMARAS
   - Lineas para grafico corte obligatorio.xlsx → % corte obligatorio mensual
+  - Plantas procesadoras aceite.geojson  → plantas de molienda de aceite (mapa)
 
 Uso:
     python3 scripts/regenerate_data.py [--dry-run]
@@ -47,6 +48,7 @@ SRC = {
     "derivados":   VOL / "EXP MKTS DATABASES/Revision Actual/Mercado Argentino Derivados Petroleo Table.hyper",
     "maestro":     VOL / "EXP MKTSCAN - MARKET ANALYSIS/BIODIESEL/Revision Actual/ARGENTINA BIODIESEL MARKET REV FINAL.xlsx",
     "corte_oblig": VOL / "EXP MKTSCAN - DATASOURCES/Revision Actual/Lineas para grafico corte obligatorio.xlsx",
+    "aceiteras":   VOL / "EXP MKTS DATABASES/Revision Actual/Geojson Maps/Plantas procesadoras aceite.geojson",
     # Evidencia fáctica de la Propuesta S80926PL (oblea "Los hechos hablan")
     "precio_local": VOL / "EXP MKTS DATABASES/Revision Actual/Tableau Biodiesel Local Straight.hyper",
     "precio_963":  VOL / "EXP MKTS DATABASES/Revision Actual/Precio Bio 963-2023.hyper",
@@ -433,6 +435,64 @@ def extraer_capacidad():
             lng=float(lng) if lng not in (None, "") else None,
         ))
     return serie, plantas
+
+
+TIPO_PLANTA_ACEITE = {
+    "Productora de aceite": "Productora de aceite",
+    "Refineria y Productora de aceiete": "Refinería y productora de aceite",
+}
+
+
+# Empresa canónica por CUIT: el geojson repite la misma firma con distintas
+# grafías ("Cargill S.A.C.I." / "Cargill SACI Pto."). Molinos Agro y Molinos
+# Río de la Plata vienen con el mismo CUIT en la fuente.
+EMPRESA_ACEITE_POR_CUIT = {
+    "30-70086991-8": "Bunge Argentina S.A.",
+    "30-50679216-5": "Cargill S.A.C.I.",
+    "33-50673744-9": "COFCO Argentina S.A.",
+    "33-50223222-9": "Oleaginosa Moreno Hnos. S.A.",
+    "30-50095962-9": "Vicentin S.A.I.C.",
+    "30-50085862-8": "Molinos Agro / Molinos Río de la Plata",
+    "30-52671272-9": "LDC Argentina S.A.",
+    "30-70959089-4": "Renova S.A.",
+    "30-50168439-9": "Buyatti S.A.I.C.A.",
+}
+
+
+def extraer_plantas_aceite():
+    """Plantas de molienda de aceite (geojson del pipeline Tableau, campos
+    truncados a 10 caracteres al estilo shapefile). Capacidades en tn/día."""
+    data = json.loads(SRC["aceiteras"].read_text(encoding="utf-8"))
+    plantas = []
+    for i, f in enumerate(data["features"]):
+        pr = f["properties"]
+        geo = f.get("geometry") or {}
+        coords = geo.get("coordinates") if geo.get("type") == "Point" else None
+        tipo_src = (pr.get("TIPO_PLANT") or "").strip()
+        check(tipo_src in TIPO_PLANTA_ACEITE,
+              f"Planta de aceite con tipo desconocido: {pr.get('ESTABLECIM')!r} → {tipo_src!r}")
+        check(pr.get("TN_PROD_DI") is not None,
+              f"Planta de aceite sin molienda diaria: {pr.get('ESTABLECIM')!r}")
+        establecimiento = nfc(str(pr["ESTABLECIM"]).strip())
+        cuit = pr.get("CUIL")
+        plantas.append(dict(
+            id=i,
+            establecimiento=establecimiento,
+            empresa=EMPRESA_ACEITE_POR_CUIT.get(cuit, establecimiento),
+            cuit=cuit,
+            localidad=nfc(str(pr["LOCALIDAD"]).strip()) if pr.get("LOCALIDAD") else None,
+            departamento=nfc(str(pr["DEPARTAMEN"]).strip()) if pr.get("DEPARTAMEN") else None,
+            provincia=nfc(str(pr["PROVINCIA"]).strip()) if pr.get("PROVINCIA") else None,
+            grano=nfc(str(pr["GRANO"]).strip()) if pr.get("GRANO") else None,
+            tipo=TIPO_PLANTA_ACEITE[tipo_src],
+            molienda_tn_dia=float(pr["TN_PROD_DI"]),
+            refinado_tn_dia=float(pr["TN_REFI_DI"]) if pr.get("TN_REFI_DI") is not None else None,
+            lat=float(coords[1]) if coords else None,
+            lng=float(coords[0]) if coords else None,
+        ))
+    check(len(plantas) > 0, "El geojson de plantas de aceite no tiene features")
+    plantas.sort(key=lambda p: -p["molienda_tn_dia"])
+    return plantas
 
 
 def extraer_camaras():
@@ -843,6 +903,7 @@ def main():
         form_serie, form_periodos = extraer_formulas(hy)
         cumpli = extraer_cumpli_petro(hy)
         cap_serie, plantas = extraer_capacidad()
+        plantas_aceite = extraer_plantas_aceite()
         camaras = extraer_camaras()
         evidencia = extraer_evidencia(hy)
     finally:
@@ -911,6 +972,8 @@ def main():
               "Mercado Argentino Derivados Petroleo Table.hyper"], dry)
     escribir("capacidad.json", dict(serie=cap_serie, plantas=plantas),
              ["PROD CAPACITY + HOLDING (Excel maestro)"], dry)
+    escribir("plantas_aceite.json", dict(plantas=plantas_aceite),
+             ["Plantas procesadoras aceite.geojson (Geojson Maps)"], dry)
     escribir("corte.json", dict(
         mensual=agg["corte_mensual"], anual=agg["corte_anual"],
         densidad_bio=DENSIDAD_BIO,

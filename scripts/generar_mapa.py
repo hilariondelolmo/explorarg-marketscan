@@ -3,9 +3,11 @@
 Genera src/data/mapa_argentina.json: contornos de provincias como paths SVG,
 disueltos desde el topojson de departamentos del pipeline Tableau.
 
-Se corre una sola vez (o si cambia el topojson). Proyección equirectangular
-simple; los parámetros quedan en el JSON para proyectar las plantas en React
-con la misma fórmula.
+Se corre una sola vez (o si cambia el topojson). Proyección Web Mercator (la
+misma de las teselas satelitales, así el fondo satelital encaja debajo de las
+provincias); los parámetros quedan en el JSON para proyectar las plantas en
+React con la misma fórmula:  x = (lon - lon_min) * kx ;
+y = (merc(lat_max) - merc(lat)) * ky  con  merc(lat) = ln(tan(pi/4 + lat/2)).
 
 Uso:  python3 scripts/generar_mapa.py
 """
@@ -23,6 +25,13 @@ except ImportError:
 
 SRC = Path("/Volumes/comun/01. TABLEAU/EXP MKTS DATABASES/Revision Actual/"
            "Geojson Maps/departamentos-argentina.topojson")
+# Países limítrofes: Natural Earth 1:50m (dominio público). Se descarga una
+# vez a la caché local; el JSON de salida guarda solo los contornos recortados.
+NE_URL = ("https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/"
+          "geojson/ne_50m_admin_0_countries.geojson")
+NE_CACHE = Path.home() / ".cache" / "explorarg" / "ne_50m_admin_0_countries.geojson"
+VECINOS = ["Chile", "Bolivia", "Paraguay", "Brazil", "Uruguay", "Peru"]
+RECORTE = (-80.0, -58.0, -45.0, -15.0)  # lon_min, lat_min, lon_max, lat_max
 OUT = Path(__file__).resolve().parent.parent / "src" / "data" / "mapa_argentina.json"
 
 ANCHO = 520  # px del viewBox; el alto sale de la relación de aspecto
@@ -64,6 +73,24 @@ def geometria(geom, arcos):
     raise ValueError(geom["type"])
 
 
+def cargar_vecinos():
+    """Contornos de los países limítrofes, recortados a la zona del mapa."""
+    from shapely.geometry import shape, box
+    if not NE_CACHE.exists():
+        import urllib.request
+        NE_CACHE.parent.mkdir(parents=True, exist_ok=True)
+        print(f"Descargando Natural Earth a {NE_CACHE}…")
+        urllib.request.urlretrieve(NE_URL, NE_CACHE)
+    datos = json.load(open(NE_CACHE, encoding="utf-8"))
+    marco = box(*RECORTE)
+    salida = {}
+    for f in datos["features"]:
+        nombre = f["properties"].get("NAME") or f["properties"].get("ADMIN")
+        if nombre in VECINOS:
+            salida[nombre] = shape(f["geometry"]).buffer(0).intersection(marco)
+    return salida
+
+
 def main():
     if not SRC.exists():
         sys.exit(f"No se encuentra {SRC} — ¿está montado /Volumes/comun?")
@@ -84,15 +111,18 @@ def main():
     # Bounding box continental (excluye Antártida e islas lejanas del viewBox)
     lon_min, lon_max = -73.6, -53.6
     lat_min, lat_max = -55.2, -21.7
-    lat_media = math.radians((lat_min + lat_max) / 2)
-    kx = ANCHO / ((lon_max - lon_min) * math.cos(lat_media))
-    alto = round((lat_max - lat_min) / ((lon_max - lon_min) * math.cos(lat_media)) * ANCHO)
-    ky = alto / (lat_max - lat_min)
+    def merc(lat):
+        lat = max(-85.0, min(85.0, lat))  # el topojson llega a la Antártida (-90)
+        return math.log(math.tan(math.pi / 4 + math.radians(lat) / 2))
+
+    kx = ANCHO / (lon_max - lon_min)          # unidades por grado de longitud
+    ky = kx * 180 / math.pi                   # unidades por unidad de Mercator (conforme)
+    alto = round((merc(lat_max) - merc(lat_min)) * ky)
 
     def proyectar(lon, lat):
         return (
-            round((lon - lon_min) * math.cos(lat_media) * kx, 1),
-            round((lat_max - lat) * ky, 1),
+            round((lon - lon_min) * kx, 1),
+            round((merc(lat_max) - merc(lat)) * ky, 1),
         )
 
     def a_path(shp):
@@ -112,14 +142,23 @@ def main():
         provincias.append({"nombre": prov, "path": a_path(union)})
         print(f"  ✓ {prov}")
 
+    vecinos = []
+    for nombre, shp in sorted(cargar_vecinos().items()):
+        if shp.is_empty:
+            continue
+        vecinos.append({"nombre": nombre, "path": a_path(shp.simplify(SIMPLIFICAR))})
+        print(f"  ✓ vecino: {nombre}")
+
     salida = {
         "viewBox": f"0 0 {ANCHO} {alto}",
         "proyeccion": {
-            "lon_min": lon_min, "lat_max": lat_max, "lat_media_deg":
-                (lat_min + lat_max) / 2, "kx": kx, "ky": ky,
+            "tipo": "mercator", "lon_min": lon_min, "lat_max": lat_max,
+            "lat_min": lat_min, "lon_max": lon_max, "kx": kx, "ky": ky,
         },
         "provincias": provincias,
-        "fuente": "departamentos-argentina.topojson (pipeline Tableau Explora), disuelto por provincia",
+        "vecinos": vecinos,
+        "fuente": "departamentos-argentina.topojson (pipeline Tableau Explora), disuelto por provincia; "
+                  "países limítrofes de Natural Earth 1:50m (dominio público)",
     }
     OUT.write_text(json.dumps(salida, ensure_ascii=False), encoding="utf-8")
     print(f"\n✓ {OUT.name} ({OUT.stat().st_size // 1024} KB, {len(provincias)} provincias)")

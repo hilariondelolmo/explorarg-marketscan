@@ -35,22 +35,279 @@
 }
 
 /* --- Mapa de plantas --- */
+/* Sectores y filtros quedan fijos bajo la sub-nav al scrollear, como los
+   bloques fijos de Principales Indicadores y la Matriz (top nav + sub-nav). */
+.mapa-cabecera {
+  position: sticky;
+  top: calc(var(--nav-h) + 40px);
+  z-index: 94;
+  background: var(--bg);
+  padding-top: 2.2rem; /* mismo aire que .page-section bajo la sub-nav */
+  box-shadow: 0 -3px 0 var(--bg);
+}
+
+.mapa-cabecera .section-intro {
+  margin-bottom: 1rem;
+}
+
+.mapa-sectores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0.9rem;
+}
+
+.mapa-sector {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.82rem;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.mapa-sector:hover {
+  color: var(--ink);
+}
+
+.mapa-sector.activo {
+  color: var(--ink);
+  font-weight: 650;
+  border-bottom-color: var(--accent-exp);
+}
+
+.mapa-sector-n {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  background: var(--bg-3);
+  border-radius: 999px;
+  padding: 0.05rem 0.45rem;
+}
+
+.mapa-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.8rem;
+  min-height: 2rem;
+  padding-bottom: 0.9rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+/* Al ancho de escritorio todos los filtros van en una sola línea: los
+   selectores se achican antes que saltar de renglón */
+@media (min-width: 1100px) {
+  .mapa-filtros {
+    flex-wrap: nowrap;
+  }
+  .mapa-filtros .chart-range-selector,
+  .mapa-filtros .mapa-select span {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  .mapa-filtros .mapa-select {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+  .mapa-filtros .mapa-select select {
+    min-width: 0;
+    max-width: 220px;
+  }
+}
+
+/* Interruptor Mapa / Satelital, a la derecha de la fila de sectores */
+.mapa-switch {
+  margin-left: auto;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.mapa-switch span.activo {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.mapa-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.mapa-switch-pista {
+  position: relative;
+  width: 34px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--bg-3);
+  border: 1px solid var(--rule);
+  transition: background 0.15s;
+}
+
+.mapa-switch-boton {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--ink-2);
+  transition: transform 0.15s, background 0.15s;
+}
+
+.mapa-switch input:checked + .mapa-switch-pista {
+  background: var(--accent-exp);
+  border-color: var(--accent-exp);
+}
+
+.mapa-switch input:checked + .mapa-switch-pista .mapa-switch-boton {
+  transform: translateX(16px);
+  background: #fff;
+}
+
+.mapa-switch input:focus-visible + .mapa-switch-pista {
+  outline: 2px solid var(--accent-exp);
+  outline-offset: 2px;
+}
+
+.mapa-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+}
+
+.mapa-select select {
+  font: inherit;
+  font-size: 0.78rem;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 0.3rem 0.5rem;
+  max-width: 260px;
+}
+
+/* Símbolos de la leyenda de sectores */
+.mapa-simbolo {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.mapa-simbolo.biodiesel { background: var(--accent-bio); }
+.mapa-simbolo.aceite { background: var(--accent-oil); }
+.mapa-simbolo.cuadrado { border-radius: 0; }
+.mapa-simbolo.refinerias { background: var(--ink-2); }
+.mapa-simbolo.rombo { border-radius: 0; transform: rotate(45deg) scale(0.85); }
+.mapa-simbolo.metanol { background: var(--accent-alert); }
+
+/* Grilla: mapa grande a la izquierda, panel angosto a la derecha */
 .mapa-plantas-wrap {
   display: grid;
-  grid-template-columns: minmax(280px, 480px) 1fr;
-  gap: 2rem;
+  grid-template-columns: minmax(320px, 1fr) minmax(220px, 270px);
+  gap: 1.5rem;
   align-items: start;
+}
+
+.mapa-lienzo {
+  position: relative;
 }
 
 .mapa-svg {
   width: 100%;
   height: auto;
+  display: block;
+  cursor: grab;
+  touch-action: none; /* el arrastre lo maneja el mapa */
+}
+
+.mapa-svg:active {
+  cursor: grabbing;
+}
+
+/* Botones de zoom y recentrado, arriba a la izquierda del mapa */
+.mapa-controles-zoom {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mapa-controles-zoom button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.mapa-controles-zoom button:hover {
+  background: var(--bg-3);
+}
+
+.mapa-controles-zoom button.recentrar {
+  margin-top: 4px;
+  font-size: 1.15rem;
+  color: var(--ink-muted);
+}
+
+.mapa-controles-zoom button.recentrar.activo {
+  color: var(--accent-exp);
+  border-color: var(--accent-exp);
+}
+
+/* Países limítrofes, más claros que la Argentina; límites provinciales un
+   poco más marcados que antes */
+.mapa-svg .vecino {
+  fill: var(--mapa-vecino);
+  stroke: var(--mapa-limite);
+  stroke-width: 0.6;
 }
 
 .mapa-svg .provincia {
-  fill: var(--bg-3);
-  stroke: var(--rule);
-  stroke-width: 0.7;
+  fill: var(--mapa-tierra);
+  stroke: var(--mapa-limite);
+  stroke-width: 1;
+}
+
+/* Tierra del mapa dibujado: un gris apenas más oscuro que el fondo de la página */
+.mapa-plantas {
+  --mapa-tierra: #ECEAE6;
+  --mapa-vecino: #F5F4F1;
+  --mapa-limite: #B9B4AC;
+}
+
+:root[data-theme="dark"] .mapa-plantas,
+html.dark .mapa-plantas {
+  --mapa-tierra: #1E2833;
+  --mapa-vecino: #151C25;
+  --mapa-limite: #3A4553;
 }
 
 .mapa-svg .planta {
@@ -68,8 +325,130 @@
   fill-opacity: 1;
 }
 
+.mapa-svg .planta.aceite { fill: var(--accent-oil); }
+.mapa-svg .planta.refinerias { fill: var(--ink-2); fill-opacity: 0.9; }
+.mapa-svg .planta.metanol { fill: var(--accent-alert); fill-opacity: 0.9; }
+
+/* Fondo satelital: las provincias quedan solo como contorno claro y los
+   puntos llevan halo blanco para destacar sobre la imagen */
+.mapa-svg.satelital .provincia {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.75);
+  stroke-width: 1.2;
+}
+
+.mapa-svg.satelital .vecino {
+  display: none; /* en satelital la imagen ya muestra los países */
+}
+
+.mapa-svg.satelital .planta {
+  fill-opacity: 0.95;
+  stroke: #fff;
+  stroke-width: 1.5;
+}
+
+.mapa-svg.satelital .radio-proveedores {
+  fill: #fff;
+  fill-opacity: 0.12;
+  stroke: #fff;
+  stroke-width: 1.6;
+}
+
+.mapa-svg .mapa-atribucion {
+  fill: #fff;
+  fill-opacity: 0.85;
+  paint-order: stroke;
+  stroke: rgba(0, 0, 0, 0.5);
+  stroke-width: 0.6;
+  pointer-events: none;
+}
+
+/* Distancia a refinerías: líneas rectas desde la elaboradora a cada refinería */
+.mapa-svg .ruta {
+  fill: none;
+  stroke: var(--ink-2);
+  stroke-opacity: 0.4;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  pointer-events: none;
+  transition: stroke-opacity 0.15s;
+}
+
+.mapa-svg .ruta.activa {
+  stroke: var(--accent-exp);
+  stroke-opacity: 1;
+  stroke-width: 2.5;
+}
+
+/* Sobre satelital las rutas van en amarillo y la resaltada en blanco */
+.mapa-svg.satelital .ruta {
+  stroke: #FFD600;
+  stroke-opacity: 0.9;
+  stroke-width: 1.6;
+}
+
+.mapa-svg.satelital .ruta.activa {
+  stroke: #FFFFFF;
+  stroke-opacity: 1;
+  stroke-width: 2.8;
+}
+
+/* Distancia a proveedores: círculo de alcance alrededor de la elaboradora */
+.mapa-svg .radio-proveedores {
+  fill: var(--accent-bio);
+  fill-opacity: 0.06;
+  stroke: var(--accent-bio);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 3;
+  pointer-events: none;
+}
+
+/* Tooltip a media distancia del punto; por defecto arriba a la izquierda:
+   su esquina inferior derecha queda en (left, top) */
+.mapa-tooltip {
+  position: absolute;
+  z-index: 2;
+  transform: translate(-100%, -100%);
+  max-width: 240px;
+  pointer-events: none;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  box-shadow: var(--sombra-panel);
+  padding: 0.5rem 0.7rem;
+  font-size: 0.75rem;
+  color: var(--ink-2);
+}
+
+.mapa-tooltip.derecha { transform: translate(0, -100%); }
+.mapa-tooltip.abajo { transform: translate(-100%, 0); }
+.mapa-tooltip.derecha.abajo { transform: none; }
+
+.mapa-tooltip-titulo {
+  font-weight: 650;
+  color: var(--ink);
+  margin-bottom: 0.2rem;
+}
+
+.mapa-tooltip-linea {
+  line-height: 1.35;
+}
+
+/* El panel de la derecha queda detenido al scrollear en cualquier sentido:
+   MapaPlantas lo fija por código (position: fixed) en la columna que le
+   reserva .mapa-detalle-col, debajo del bloque fijo del encabezado. */
+.mapa-detalle-col {
+  min-height: 1px;
+}
+
 .mapa-detalle {
   font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* el alto lo fija MapaPlantas; scrollea solo la lista */
+  z-index: 93; /* debajo del bloque fijo del encabezado (94) */
+  background: var(--bg);
 }
 
 .mapa-detalle-titulo {
@@ -85,12 +464,30 @@
 }
 
 .mapa-lista {
-  max-height: 420px;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
   padding-right: 0.5rem;
+  /* Barra de scroll fina y sin pista: con "mostrar barras siempre" la pista
+     clásica se veía como una línea vertical al costado del mapa */
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+}
+
+.mapa-lista::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mapa-lista::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mapa-lista::-webkit-scrollbar-thumb {
+  background: var(--rule);
+  border-radius: 3px;
 }
 
 .mapa-lista-row {
@@ -109,13 +506,30 @@
   color: var(--ink);
 }
 
+.mapa-lista-row.central {
+  font-weight: 650;
+  border-bottom: 1px solid var(--rule-soft);
+  margin-bottom: 0.3rem;
+}
+
 .mapa-lista-cap {
   color: var(--ink-muted);
   font-variant-numeric: tabular-nums;
 }
 
+.mapa-lista-loc {
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+}
+
+.mapa-lista-vacia {
+  color: var(--ink-muted);
+  cursor: default;
+}
+
 @media (max-width: 780px) {
   .mapa-plantas-wrap { grid-template-columns: 1fr; }
+  .mapa-lista { max-height: 420px; }
 }
 
 /* --- El mercado hoy: grilla 4 indicadores × 4 horizontes ---
@@ -697,6 +1111,7 @@ section.page-section-compacta {
 @media (max-width: 720px) {
   .mz-controles-sticky,
   .pi-sticky,
+  .mapa-cabecera,
   .pi-seccion .mh-selectores {
     position: static;
     box-shadow: none;

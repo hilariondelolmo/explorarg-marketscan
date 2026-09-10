@@ -164,8 +164,9 @@ const SECTIONS = [
   },
   {
     id: 'plantas', label: 'Plantas', title: 'Mapa de plantas',
-    intro: 'Las plantas de biodiesel del país, con su capacidad instalada.',
+    intro: 'Cuatro sectores en un mismo mapa: las plantas de biodiesel en operación con su capacidad instalada, las plantas de molienda de aceite, las refinerías de hidrocarburos y la planta de metanol de Plaza Huincul. Cada sector tiene sus propios filtros.',
     Comp: MapaPlantas,
+    encabezadoPropio: true, // fija encabezado, sectores y filtros al scrollear
   },
   {
     id: 'corte-real', label: 'Corte real', title: 'Gas oil y corte real',
