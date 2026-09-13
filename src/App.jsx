@@ -18,6 +18,7 @@ const MapaFirmas = lazy(() => import('./pages/MapaFirmas.jsx'));
 const MapaRecinto = lazy(() => import('./pages/MapaRecinto.jsx'));
 const ImpresoLey = lazy(() => import('./pages/ImpresoLey.jsx'));
 const ImpresoA3 = lazy(() => import('./pages/ImpresoA3.jsx'));
+const Infografia = lazy(() => import('./pages/Infografia.jsx'));
 const ExportGrafico = lazy(() => import('./pages/ExportGrafico.jsx'));
 
 function ScrollToTop() {
@@ -49,6 +50,7 @@ export default function App() {
           <Route path="/mapa-recinto" element={<MapaRecinto />} />
           <Route path="/impreso-reforma-27640" element={<ImpresoLey />} />
           <Route path="/impreso-a3" element={<ImpresoA3 />} />
+          <Route path="/infografia" element={<Infografia />} />
           <Route path="/export-grafico/:id" element={<ExportGrafico />} />
         </Routes>
       </Suspense>

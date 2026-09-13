@@ -1,0 +1,431 @@
+/* Infografía del mercado de biodiesel - hojas A3 apaisadas (420×297).
+   Pieza de impresión: la hoja es siempre clara (papel), independiente del
+   tema del sitio. En pantalla las hojas se apilan escaladas al ancho; en
+   papel manda @page A3 landscape y cada hoja es una página. */
+
+.infografia {
+  --mesa: #f1efea;
+  background: var(--mesa);
+  padding: 26px 22px 40px;
+}
+
+.infografia .ig-marco {
+  margin: 0 auto 26px;
+  width: fit-content;
+  height: var(--ig-alto, auto);
+}
+
+.ig-vacio { text-align: center; color: #6b7280; padding: 3rem 0; }
+
+/* ── la hoja ── */
+.ig-hoja {
+  --papel: #ffffff;
+  --tinta: #1a1a1a;
+  --tinta-2: #374151;
+  --tinta-suave: #6b7280;
+  --regla: #e5e2dc;
+  --regla-fuerte: #d1cdc7;
+  --verde: #4d8b31;
+  --ambar: #b45309;
+  --navy: #1e3a8a;
+  --rojo: #dc2626;
+  --mapa-tierra: #ECEAE6;
+  --mapa-vecino: #F5F4F1;
+  --mapa-limite: #B9B4AC;
+  --mapa-agua: #FFFFFF;
+
+  width: 420mm;
+  height: 297mm;
+  padding: 9mm 11mm 6mm;
+  background: var(--papel);
+  color: var(--tinta);
+  box-shadow: 0 6px 22px rgba(26, 26, 26, 0.14);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-size: 8.2pt;
+  line-height: 1.4;
+  transform: scale(var(--ig-escala, 1));
+  transform-origin: top left;
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+}
+
+/* global.css da a section padding vertical y línea superior pensados para
+   el sitio: dentro de la hoja las secciones son bloques */
+.ig-hoja section { padding: 0; border-top: 0; }
+.ig-hoja h1, .ig-hoja p { margin: 0; }
+
+/* ── cabecera ── */
+.ig-cab {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8mm;
+  padding-bottom: 2.6mm;
+  border-bottom: 0.6mm solid var(--tinta);
+}
+
+.ig-kicker {
+  display: block;
+  font-size: 7.4pt;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-bottom: 1.4mm;
+}
+
+.ig-cab h1 {
+  font-family: var(--font-display);
+  font-size: 24pt;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.ig-cab-baj {
+  margin-top: 1.6mm;
+  font-size: 9pt;
+  color: var(--tinta-2);
+}
+
+.ig-cab-der {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.3mm;
+  padding-top: 0.5mm;
+  flex-shrink: 0;
+}
+
+.ig-cab-proy {
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tinta-2);
+}
+
+.ig-cab-proy small {
+  display: block;
+  font-size: 7pt;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--tinta-suave);
+  margin-top: 0.6mm;
+}
+
+.ig-cab-autor { font-size: 7.6pt; color: var(--tinta-2); letter-spacing: 0.01em; }
+.ig-cab-autor b { font-weight: 700; color: var(--tinta); }
+
+.ig-cab-marca { display: flex; align-items: center; gap: 1.8mm; }
+.ig-cab-marca img { width: 5.4mm; height: 5.4mm; }
+.ig-cab-marca b { font-family: var(--font-brand); font-weight: 800; font-size: 8.4pt; letter-spacing: 0.04em; }
+.ig-cab-marca i { font-style: normal; font-size: 7.4pt; color: var(--tinta-suave); }
+.ig-cab-folio { font-size: 7pt; color: var(--tinta-suave); letter-spacing: 0.05em; }
+
+/* ── KPIs ── */
+.ig-kpis { margin-top: 3mm; }
+
+.ig-kpi-periodo {
+  font-size: 6.8pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  margin-bottom: 1.4mm;
+}
+
+.ig-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--regla-fuerte);
+  border: 1px solid var(--regla-fuerte);
+  border-radius: 1mm;
+  overflow: hidden;
+}
+
+.ig-kpi { background: var(--papel); padding: 2.4mm 3.2mm 2.2mm; }
+
+.ig-kpi-label {
+  font-size: 6.6pt;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--tinta-suave);
+  margin-bottom: 1.4mm;
+}
+
+.ig-kpi-val {
+  font-size: 18pt;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--tinta);
+}
+
+.ig-kpi-unidad { font-size: 8pt; font-weight: 500; color: var(--tinta-suave); letter-spacing: 0; }
+.ig-kpi-sub { font-size: 7pt; color: var(--tinta-suave); margin-top: 0.8mm; }
+.ig-kpi-delta { font-size: 6.8pt; color: var(--tinta-suave); margin-top: 0.9mm; line-height: 1.35; }
+.ig-kpi-delta .pos { color: var(--verde); font-weight: 700; }
+.ig-kpi-delta .neg { color: var(--rojo); font-weight: 700; }
+.ig-kpi.tone-pos .ig-kpi-val { color: var(--verde); }
+.ig-kpi.tone-neg .ig-kpi-val { color: var(--rojo); }
+.ig-kpi.tone-info .ig-kpi-val { color: var(--navy); }
+
+/* ── bloques ── */
+.ig-blq-cab {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4mm;
+  border-bottom: 1px solid var(--regla-fuerte);
+  padding-bottom: 1.2mm;
+  margin-bottom: 1.6mm;
+}
+
+.ig-oblea {
+  font-size: 8.4pt;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--tinta);
+}
+
+.ig-blq-nota { font-size: 6.8pt; color: var(--tinta-suave); text-align: right; }
+
+.ig-chart { margin-top: 3.2mm; }
+.ig-chart .recharts-wrapper { display: block; }
+
+.ig-leyenda {
+  display: flex;
+  gap: 6mm;
+  font-size: 6.8pt;
+  color: var(--tinta-2);
+  margin-top: 0.8mm;
+  padding-left: 12mm;
+}
+
+.ig-leyenda i {
+  display: inline-block;
+  width: 3mm;
+  height: 2mm;
+  border-radius: 0.4mm;
+  margin-right: 1.4mm;
+  vertical-align: 0.1mm;
+}
+
+/* ── paneles ── */
+.ig-paneles {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 6mm;
+  margin-top: 3.2mm;
+  flex: 1;
+  min-height: 0;
+}
+
+.ig-panel { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+.ig-panel-resumen { font-size: 8pt; color: var(--tinta-2); margin-bottom: 1.8mm; }
+.ig-panel-resumen b { color: var(--tinta); font-weight: 700; }
+
+.ig-panel-cuerpo {
+  display: flex;
+  gap: 3.5mm;
+  align-items: flex-start;
+  min-height: 0;
+}
+
+.ig-mapa {
+  flex-shrink: 0;
+  border: 1px solid var(--regla);
+  border-radius: 1mm;
+  overflow: hidden;
+  background: var(--mapa-agua);
+}
+
+/* ── mapa estático ── */
+.mapa-estatico { display: block; }
+.mapa-estatico .mapa-fondo { fill: var(--mapa-agua); }
+.mapa-estatico .vecino { fill: var(--mapa-vecino); stroke: var(--mapa-limite); stroke-width: 0.5; }
+.mapa-estatico .provincia { fill: var(--mapa-tierra); stroke: var(--mapa-limite); stroke-width: 0.8; }
+
+.mapa-estatico .radio-proveedores {
+  fill: var(--verde);
+  fill-opacity: 0.07;
+  stroke: var(--verde);
+  stroke-width: 1.1;
+  stroke-dasharray: 4 3;
+}
+
+.mapa-estatico .ruta {
+  fill: none;
+  stroke: var(--tinta-2);
+  stroke-opacity: 0.5;
+  stroke-width: 1;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.mapa-estatico .ruta.suave { stroke: var(--ambar); stroke-opacity: 0.3; stroke-width: 0.8; }
+.mapa-estatico .ruta.recta { stroke-dasharray: 3 3; }
+.mapa-estatico .ruta.puerto { stroke: var(--navy); stroke-opacity: 0.9; stroke-width: 1.5; }
+
+.mapa-estatico .planta { fill: var(--verde); fill-opacity: 0.85; stroke: #fff; stroke-width: 0.6; }
+.mapa-estatico .planta.aceite { fill: var(--ambar); fill-opacity: 0.72; }
+.mapa-estatico .planta.refinerias { fill: var(--tinta-2); fill-opacity: 0.95; }
+.mapa-estatico .planta.puerto { fill: var(--navy); fill-opacity: 1; }
+.mapa-estatico .planta.origen { fill: var(--verde); fill-opacity: 1; stroke: #fff; stroke-width: 1.3; }
+
+.mapa-estatico .mapa-etiqueta {
+  fill: var(--tinta-2);
+  font-family: var(--font-display);
+  font-weight: 600;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 2.6px;
+  stroke-linejoin: round;
+}
+
+.mapa-estatico .mapa-etiqueta.origen { fill: var(--verde); font-weight: 800; }
+
+/* ── tablas ── */
+.ig-tabla {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 7.4pt;
+  line-height: 1.25;
+}
+
+.ig-tabla th {
+  text-align: left;
+  font-size: 6.2pt;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  padding: 0 1.4mm 1mm;
+  border-bottom: 1px solid var(--tinta);
+  white-space: nowrap;
+  vertical-align: bottom;
+  line-height: 1.2;
+}
+
+.ig-tabla td {
+  padding: 1.05mm 1.4mm;
+  border-bottom: 1px solid var(--regla);
+  vertical-align: top;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ig-tabla td:first-child, .ig-tabla th:first-child { color: var(--tinta-suave); padding-left: 0.6mm; }
+.ig-tabla .num { text-align: right; }
+.ig-tabla td.num:first-child { text-align: right; }
+.ig-tabla tfoot td { border-bottom: 0; border-top: 1px solid var(--tinta); font-weight: 700; }
+.ig-tabla .ig-tabla-resto td { color: var(--tinta-suave); font-style: italic; }
+.ig-tabla .ig-tabla-vacia { color: var(--tinta-suave); font-style: italic; text-align: center; }
+.ig-tabla .ig-tabla-puerto td { background: #eef2fb; font-weight: 700; color: var(--navy); }
+
+.ig-rombo {
+  display: inline-block;
+  width: 2.2mm;
+  height: 2.2mm;
+  background: var(--navy);
+  transform: rotate(45deg) scale(0.8);
+  border-radius: 0.2mm;
+}
+
+/* portada y grupo: mapa a la izquierda, cuadro ancho a la derecha */
+.ig-paneles-portada { grid-template-columns: 96mm minmax(0, 1fr); }
+.ig-paneles-grupo { grid-template-columns: 150mm minmax(0, 1fr); }
+.ig-tabla-indice { font-size: 7.1pt; }
+.ig-tabla-indice td { padding-top: 0.55mm; padding-bottom: 0.55mm; }
+/* en los paneles a columna el cuadro no se estira a lo alto (sí en el ranking, que llena la hoja) */
+.ig-panel > .ig-tabla { flex: none; }
+.ig-ranking .ig-panel > .ig-tabla { flex: 1; }
+.ig-tabla .num.pos { color: var(--verde); font-weight: 600; }
+.ig-tabla .num.neg { color: var(--rojo); font-weight: 600; }
+.mapa-estatico .planta.otras { fill: var(--tinta-suave); fill-opacity: 0.35; }
+.mapa-estatico .mapa-etiqueta.lugar { fill: var(--tinta-suave); font-weight: 500; font-style: italic; }
+
+/* ranking: siete cuadros en línea */
+.ig-ranking {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr) repeat(5, minmax(0, 1fr));
+  gap: 4.5mm;
+  margin-top: 4mm;
+  flex: 1;
+  min-height: 0;
+}
+.ig-ranking .ig-panel-resumen { font-size: 6.8pt; color: var(--tinta-suave); margin-bottom: 1.2mm; }
+.ig-tabla-ranking { font-size: 7.6pt; }
+.ig-tabla-ranking td { padding-top: 1.1mm; padding-bottom: 1.1mm; }
+
+/* resumen de proveedores por grupo */
+.ig-kpi-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.ig-tabla-resumen { margin-top: 3.5mm; font-size: 9pt; }
+.ig-tabla-resumen th { font-size: 6.8pt; }
+.ig-tabla-resumen td { padding-top: 1.5mm; padding-bottom: 1.5mm; }
+.ig-tabla-resumen small { color: var(--tinta-suave); font-size: 7.6pt; font-weight: 500; }
+.ig-tabla-resumen .ig-res-nombre { padding-left: 4mm; }
+.ig-tabla-resumen .ig-res-cab td { background: #f3f1ec; font-weight: 700; border-top: 1px solid var(--regla-fuerte); }
+.ig-tabla-resumen .ig-res-cab.seccion td { background: #eef2fb; }
+.ig-tabla-resumen tfoot td { background: #e9e6df; color: var(--tinta); border-top: 0.5mm solid var(--tinta); border-bottom: 0.3mm solid var(--tinta); }
+.ig-tabla-resumen td.cob { font-weight: 700; }
+.ig-tabla-resumen .tono-pos { color: var(--verde); }
+.ig-tabla-resumen .tono-warn { color: var(--ambar); }
+.ig-tabla-resumen .tono-neg { color: var(--rojo); }
+.ig-tabla-resumen .tono-nulo { color: var(--tinta-suave); }
+.ig-tabla-resumen tfoot .ig-barra { background: #fff; }
+
+.ig-barra { position: relative; height: 3mm; background: var(--regla); border-radius: 0.5mm; overflow: hidden; }
+.ig-barra-relleno { position: absolute; left: 0; top: 0; bottom: 0; background: var(--verde); border-radius: 0.5mm; }
+.ig-barra.tono-warn .ig-barra-relleno { background: var(--ambar); }
+.ig-barra.tono-neg .ig-barra-relleno { background: var(--rojo); }
+.ig-barra-marca { position: absolute; left: 25%; top: -0.4mm; bottom: -0.4mm; width: 0.35mm; background: var(--tinta); }
+
+/* ── pie ── */
+.ig-pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6mm;
+  border-top: 1px solid var(--regla-fuerte);
+  margin-top: 2.5mm;
+  padding-top: 1.6mm;
+}
+
+.ig-pie span { font-size: 6.4pt; color: var(--tinta-suave); }
+.ig-pie span:last-child { white-space: nowrap; }
+.ig-pie b { color: var(--tinta-2); font-weight: 600; }
+
+/* ── papel ── */
+@media print {
+  @page { size: A3 landscape; margin: 0; }
+
+  html, body { background: #fff !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+
+  .top-nav, .site-footer { display: none !important; }
+
+  .infografia { background: #fff; padding: 0; }
+  .infografia .ig-marco { margin: 0; width: auto; height: auto; }
+
+  .ig-hoja {
+    /* medio milímetro por debajo del alto de página: sin él, los
+       redondeos de Chrome generan hojas en blanco intercaladas */
+    height: 296.5mm;
+    transform: none !important;
+    box-shadow: none;
+    break-after: page;
+  }
+
+  .ig-marco:last-child .ig-hoja { break-after: auto; }
+}

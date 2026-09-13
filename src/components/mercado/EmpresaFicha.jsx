@@ -4,7 +4,7 @@ import {
 } from 'recharts';
 import empresasData from '../../data/empresas.json';
 import KPIs from '../KPIs.jsx';
-import { mesOffset, mesesEntre, Delta } from './kpiHelpers.jsx';
+import { mesOffset, mesesEntre, sumaSerie, ventanaActiva, acumular, Delta } from './kpiHelpers.jsx';
 import { fmt } from '../../lib/format.js';
 import ChartTooltip from '../charts/ChartTooltip.jsx';
 import '../charts/Chart.css';
@@ -17,25 +17,6 @@ import { useChartColors } from '../../lib/theme.jsx';
  * serie: [fecha, prod, cupo, ventas_corte, xquota, exportaciones]
  */
 const TODAS = '__todas__';
-
-// Serie agregada de un conjunto de empresas: suma mes a mes. El % de
-// cumplimiento que se deriva sale de los volúmenes agregados
-// (Σventas/Σcupo), nunca de promediar porcentajes.
-const sumaSerie = (lista) => {
-  const porFecha = new Map();
-  for (const e of lista) {
-    for (const [f, prod, cupo, vc, xq, exp] of e.serie) {
-      const c = porFecha.get(f) || [f, 0, 0, 0, 0, 0];
-      c[1] += prod || 0;
-      c[2] += cupo || 0;
-      c[3] += vc || 0;
-      c[4] += xq || 0;
-      c[5] += exp || 0;
-      porFecha.set(f, c);
-    }
-  }
-  return [...porFecha.values()].sort((a, b) => (a[0] < b[0] ? -1 : 1));
-};
 
 // Ventana temporal del gráfico, como en Evolución de ventas: "12m" solo
 // tiene sentido en la vista mensual (en anual cae a 5 años).
@@ -124,10 +105,7 @@ export default function EmpresaFicha({ seccion }) {
     // Ventana mensual: la vida activa de LA EMPRESA (una empresa inactiva
     // hoy mostraría vacío si se usara el calendario). El recorte 12m/5a/10a
     // se aplica después, sobre esta ventana.
-    const activos = emp.serie.filter(([, prod, cupo, vc, xq, exp]) =>
-      (prod || 0) + (cupo || 0) + (vc || 0) + (xq || 0) + (exp || 0) > 0);
-    const hastaMes = activos.length ? activos.at(-1)[0] : null;
-    const desdeMes = activos.length ? activos[0][0] : null;
+    const { desde: desdeMes, hasta: hastaMes } = ventanaActiva(emp.serie);
     const sm = emp.serie
       .filter(([f]) => hastaMes && f >= desdeMes && f <= hastaMes)
       .map(([f, , cupo, vc, xq, exp]) => ({
@@ -140,18 +118,7 @@ export default function EmpresaFicha({ seccion }) {
     }));
     // Acumulador para los KPIs: suma (desde, hasta] de la serie. La ventana
     // concreta la fija el rango elegido, más abajo.
-    const acum = (desde, hasta) => {
-      const a = { prod: 0, cupo: 0, vc: 0, exp: 0 };
-      for (const [f, prod, cupo, vc, , exp] of emp.serie) {
-        if (f > desde && f <= hasta) {
-          a.prod += prod || 0;
-          a.cupo += cupo || 0;
-          a.vc += vc || 0;
-          a.exp += exp || 0;
-        }
-      }
-      return a;
-    };
+    const acum = (desde, hasta) => acumular(emp.serie, desde, hasta);
     return { serieAnual: sa, serieMensual: sm, fin: hastaMes, inicio: desdeMes, acum };
   }, [emp]);
 

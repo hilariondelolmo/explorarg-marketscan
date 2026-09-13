@@ -2,11 +2,12 @@
 """
 Calcula con OSRM (ruteo libre sobre OpenStreetMap) el recorrido por ruta desde
 cada elaboradora de biodiesel en operación hasta cada refinería (o hasta cada
-aceitera, con --aceiteras), y escribe src/data/rutas_refinerias.json o
-rutas_aceiteras.json con kilómetros, minutos y el trazado simplificado.
+aceitera, con --aceiteras; o hasta cada puerto de puertos.json, con --puertos),
+y escribe src/data/rutas_refinerias.json, rutas_aceiteras.json o
+rutas_puertos.json con kilómetros, minutos y el trazado simplificado.
 
 Uso:
-    python3 scripts/calcular_rutas.py [--aceiteras] [--dry-run] [--solo-faltantes]
+    python3 scripts/calcular_rutas.py [--aceiteras | --puertos] [--dry-run] [--solo-faltantes]
 
 Con --aceiteras solo se calculan los pares a menos de MAX_RECTA_KM en línea
 recta (los únicos que pueden entrar en el radio máximo del análisis).
@@ -28,6 +29,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 DATA = RAIZ / "src" / "data"
 OUT_REFINERIAS = DATA / "rutas_refinerias.json"
 OUT_ACEITERAS = DATA / "rutas_aceiteras.json"
+OUT_PUERTOS = DATA / "rutas_puertos.json"
 MAX_RECTA_KM = 320  # aceiteras: radio máximo del análisis (300 km) con margen
 OSRM = "https://router.project-osrm.org/route/v1/driving/"
 PAUSA = 0.25          # segundos entre consultas (cortesía con el servidor público)
@@ -44,7 +46,10 @@ def cargar_origenes():
             if p["lat"] is not None and p["lng"] is not None and condicion.get(p["empresa"]) == "ON"]
 
 
-def cargar_destinos(aceiteras):
+def cargar_destinos(aceiteras, puertos=False):
+    if puertos:
+        datos = json.load(open(DATA / "puertos.json", encoding="utf-8"))
+        return [dict(d, planta=d["puerto"]) for d in datos["puertos"]]
     if aceiteras:
         datos = json.load(open(DATA / "plantas_aceite.json", encoding="utf-8"))
         return [dict(d, planta=d["establecimiento"]) for d in datos["plantas"]
@@ -112,9 +117,10 @@ def main():
     dry = "--dry-run" in sys.argv
     solo_faltantes = "--solo-faltantes" in sys.argv
     aceiteras = "--aceiteras" in sys.argv
-    OUT = OUT_ACEITERAS if aceiteras else OUT_REFINERIAS
+    puertos = "--puertos" in sys.argv
+    OUT = OUT_PUERTOS if puertos else OUT_ACEITERAS if aceiteras else OUT_REFINERIAS
     origenes = cargar_origenes()
-    destinos = cargar_destinos(aceiteras)
+    destinos = cargar_destinos(aceiteras, puertos)
     pares = [(o, d) for o in origenes for d in destinos
              if not aceiteras or recta_km(o, d) <= MAX_RECTA_KM]
     previas = {}
@@ -123,7 +129,7 @@ def main():
         # Se descartan las rutas de plantas o destinos que ya no están
         vigentes = {f"{o['empresa']}|{d['id']}" for o, d in pares}
         previas = {k: v for k, v in previas.items() if k in vigentes}
-    print(f"{len(origenes)} elaboradoras × {len(destinos)} {'aceiteras' if aceiteras else 'refinerías'}"
+    print(f"{len(origenes)} elaboradoras × {len(destinos)} {'puertos' if puertos else 'aceiteras' if aceiteras else 'refinerías'}"
           f" → {len(pares)} rutas a calcular ({len(previas)} ya calculadas)")
 
     rutas, faltantes = dict(previas), []

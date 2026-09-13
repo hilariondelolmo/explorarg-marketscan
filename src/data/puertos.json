@@ -1,0 +1,17 @@
+{
+  "puertos": [
+    {
+      "id": 0,
+      "puerto": "Puerto General San Martín",
+      "empresa": "Terminales portuarias del Gran Rosario",
+      "localidad": "Puerto General San Martín",
+      "provincia": "SANTA FE",
+      "lat": -32.7167,
+      "lng": -60.7333,
+      "nota": "Punto de referencia: la ciudad-puerto sobre el Paraná (32°43'S 60°44'O). Destino de exportación, aparte de las refinerías."
+    }
+  ],
+  "meta": {
+    "nota": "Puertos de referencia para la distancia de cada elaboradora al punto de exportación (pedido HDO 10/09/2026). Coordenadas de referencia, ajustables a mano; las rutas se recalculan con scripts/calcular_rutas.py --puertos."
+  }
+}
