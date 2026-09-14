@@ -20,6 +20,7 @@ const RUTAS_REFORMA = [
   '/analisis-dictamen',
   '/mapa-recinto',
   '/mapa-firmas',
+  '/cinco-minutos',
 ];
 
 const MQ_ANGOSTO = '(max-width: 560px)';

@@ -20,6 +20,7 @@ const ImpresoLey = lazy(() => import('./pages/ImpresoLey.jsx'));
 const ImpresoA3 = lazy(() => import('./pages/ImpresoA3.jsx'));
 const Infografia = lazy(() => import('./pages/Infografia.jsx'));
 const ExportGrafico = lazy(() => import('./pages/ExportGrafico.jsx'));
+const CincoMinutos = lazy(() => import('./pages/CincoMinutos.jsx'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -51,6 +52,7 @@ export default function App() {
           <Route path="/impreso-reforma-27640" element={<ImpresoLey />} />
           <Route path="/impreso-a3" element={<ImpresoA3 />} />
           <Route path="/infografia" element={<Infografia />} />
+          <Route path="/cinco-minutos" element={<CincoMinutos />} />
           <Route path="/export-grafico/:id" element={<ExportGrafico />} />
         </Routes>
       </Suspense>

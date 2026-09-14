@@ -7,4 +7,5 @@ export const SECCIONES_REFORMA = [
   { id: 'dictamen', label: 'Análisis del dictamen', to: '/analisis-dictamen' },
   { id: 'firmas', label: 'Mapa de firmas', to: '/mapa-firmas' },
   { id: 'recinto', label: 'Mapa del recinto', to: '/mapa-recinto' },
+  { id: 'cinco-minutos', label: 'Lo que no entra en 5 minutos', to: '/cinco-minutos' },
 ];

@@ -1,0 +1,98 @@
+{
+  "seccion": "Lo que no entra en 5 minutos",
+  "entregas": [
+    {
+      "id": "la-argentina-segun-cepreb",
+      "numero": 1,
+      "titulo": "La Argentina según CEPREB",
+      "fecha": "2026-09-14",
+      "bajada": "CEPREB sostiene que el costo del aceite depende de la distancia a Puerto General San Martín. Puesta sobre el mapa, con los datos públicos de la Secretaría de Energía, la afirmación no resiste: el aceite está donde está el grano.",
+      "video": "/video/cinco-minutos/la-argentina-segun-cepreb.mp4",
+      "poster": "/video/cinco-minutos/la-argentina-segun-cepreb-poster.jpg",
+      "duracion": "6:40",
+      "transcripcion": [
+        {
+          "t": "0:00",
+          "cuadro": "Presentación",
+          "texto": "Cuando el Congreso debate una ley, convoca a especialistas y cámaras del sector, que hablan por sus asociados. Cada expositor dispone de cinco minutos: alcanzan para una conclusión, no para las evidencias que la sostienen. En ese vacío prospera el sesgo de autoridad: sin tiempo ni datos para contrastar, el prestigio de quien habla ocupa el lugar de la evidencia, y una afirmación no demostrada termina influyendo en decisiones públicas. Por eso, y ante el debate de una nueva ley de biocombustibles, en Explorarg inauguramos una sección: tomaremos afirmaciones del debate legislativo y las contrastaremos con los datos. No preguntaremos quién tiene autoridad, sino qué resiste la evidencia. La primera es de CEPREB. Dice así:"
+        },
+        {
+          "t": "0:47",
+          "cuadro": "La afirmación de CEPREB",
+          "texto": "CEPREB sostiene que el costo de la materia prima depende de la distancia al puerto de Rosario, su kilómetro cero del aceite. Antes de discutirlo, veamos qué implica: si fuera cierto, ¿qué mapa productivo deberíamos esperar? Dibujémoslo, empezando por quienes compran el aceite."
+        },
+        {
+          "t": "1:06",
+          "cuadro": "Elaboradoras no integradas",
+          "texto": "Seis plantas de biodiesel son integradas: muelen su propia soja y el aceite no lo compran, lo producen. La afirmación de CEPREB habla de las otras, las que salen a comprarlo: las 23 que aparecen sobre el mapa, con un diámetro proporcional a su capacidad de producción. En el cuadro de la derecha, al lado de cada una, hay dos datos que van a servir después: cuánto puede producir y cuánto del cupo cumplió desde 2010. Ahora que ubicamos a las elaboradoras de biodiesel, ¿por qué no ubicar también a las de aceite, tal como las supone la hipótesis de CEPREB?"
+        },
+        {
+          "t": "1:41",
+          "cuadro": "La Argentina según CEPREB",
+          "texto": "Si CEPREB tuviera razón, la Argentina tendría una sola aceitera, en Puerto General San Martín, y cada planta tendría que ir a buscar el aceite hasta ahí. El listado las ordena de la más lejana a la más cercana, con los kilómetros reales por ruta. En esa Argentina, ese orden sería también el orden del costo de compra de la materia prima. Pero un momento: si el precio de venta del biodiesel lo fija la Secretaría de Energía y es igual para todos los elaboradores, entonces un costo mayor debería notarse en algo. Por ejemplo, en cuánto del cupo cumple cada una. Pongamos las dos listas una al lado de la otra."
+        },
+        {
+          "t": "2:18",
+          "cuadro": "Cuadros I y II",
+          "texto": "Si la hipótesis fuera cierta, las líneas irían derechas: la planta más lejana, abajo en los dos cuadros; la más cercana, arriba en los dos. Miren lo que pasa. Las líneas se cruzan. Tres de las plantas más lejanas del puerto están entre las que más cumplen. Y tres de las más cercanas están últimas. No es que la distancia no cueste nada: es que no decide. Algo más pesa. Y ese algo aparece cuando dejamos de mirar la Argentina de CEPREB y miramos la real."
+        },
+        {
+          "t": "2:49",
+          "cuadro": "La Argentina real",
+          "texto": "Esto es lo que la hipótesis deja fuera del mapa. El aceite no sale de un puerto: sale de las aceiteras, y las aceiteras están donde está el grano. Es cierto que la mayor molienda se concentra sobre el Paraná, en Santa Fe. Pero hay aceiteras en Buenos Aires, en Córdoba, en Entre Ríos, en La Pampa. Y para una planta de biodiesel lo que cuenta no es cuánto muele el país, sino cuánto aceite tiene a la distancia de un camión. Veámoslo de cerca, planta por planta."
+        },
+        {
+          "t": "3:18",
+          "cuadro": "Zoom · Ramallo",
+          "texto": "Primera parada: Ramallo, donde el Grupo Bojanich concentra cinco plantas: Bio Ramallo, Biobal Energy, Biocorba, Refinar Bio y Colalao del Valle. Están a cien kilómetros del puerto, pero eso no importa: a esa misma distancia, a la redonda, tienen diecisiete aceiteras. Aceite para treinta veces lo que pueden producir. Ahora, al otro extremo del país."
+        },
+        {
+          "t": "3:46",
+          "cuadro": "Zoom · Bahía Blanca",
+          "texto": "Biobahía, en Bahía Blanca. Es la planta más lejana del puerto: ochocientos kilómetros. En la Argentina de CEPREB sería la más castigada. En la real, tiene dos aceiteras al lado, con aceite para tres veces su capacidad."
+        },
+        {
+          "t": "4:03",
+          "cuadro": "Zoom · Junín",
+          "texto": "Biobin, en Junín, provincia de Buenos Aires, a doscientos cincuenta kilómetros del puerto. Cuatro aceiteras en el radio: cinco veces y media lo que la planta puede convertir. Sin río, sin puerto, con aceite."
+        },
+        {
+          "t": "4:19",
+          "cuadro": "Zoom · Alvear",
+          "texto": "Diferoil, en Alvear, al lado de Rosario. En el mapa de CEPREB es la planta privilegiada: cincuenta kilómetros del puerto y veintiuna aceiteras alrededor, aceite para trescientas veces su capacidad. Y sin embargo está entre las que menos cumplen el cupo. Aceite no le falta: lo que le pasa no es la distancia."
+        },
+        {
+          "t": "4:41",
+          "cuadro": "Zoom · General Pico",
+          "texto": "Pampa Bio, en General Pico, La Pampa: quinientos kilómetros del puerto. Hubo que ampliar el radio a ciento veinte kilómetros para encontrar aceiteras. Son dos, y alcanzan para casi tres veces su capacidad. Y es una de las plantas que más cumple el cupo desde 2010."
+        },
+        {
+          "t": "4:59",
+          "cuadro": "Zoom · Catriló",
+          "texto": "Enresa, en Catriló, también en La Pampa, más lejos todavía. Con ciento sesenta kilómetros de radio, tres aceiteras y aceite para casi cinco veces su capacidad. Otra de las que más cumplen. Lo mismo, planta por planta, para las veintitrés: veámoslo todo junto."
+        },
+        {
+          "t": "5:21",
+          "cuadro": "Resumen y remate",
+          "texto": "El cuadro completo revela el mismo patrón en las veintitrés plantas: todas cuentan, en su entorno, con más aceite del que podrían transformar en biodiesel. Incluso en el caso menos favorable, la oferta supera en un 30 % las necesidades de la planta; en la mayoría, las excede varias decenas de veces. Cinco minutos bastan para formular dos afirmaciones: a, que el costo de la materia prima puesta en una planta de biodiesel se compone del precio del aceite a la salida de la planta productora y del costo de transportarlo hasta la planta elaboradora; y b, que ese transporte depende de la distancia entre la planta de biodiesel y el puerto. Demostrar, como acabamos de hacer, que el transporte sí depende de la distancia, pero no de la distancia al puerto, exige algo más de tiempo. La distancia relevante es la que separa a la planta de biodiesel del proveedor más cercano con capacidad de molienda disponible. La conclusión es clara: el planteo de CEPREB es errado. Busca establecer una categorización de las empresas según su distancia al puerto que los datos no verifican. Todas las plantas tienen, en un radio de cien kilómetros, o de hasta doscientos cincuenta en las zonas más aisladas, aceite suficiente para cubrir su producción anual; y la mayoría, para varias veces esa producción."
+        }
+      ],
+      "fuentes": [
+        "Secretaría de Energía de la Nación: plantas en operación, capacidad instalada, cupos y ventas al corte (2010-2026).",
+        "Aceiteras: relevamiento de plantas procesadoras de aceite, octubre de 2024.",
+        "Distancias por ruta: OSRM sobre OpenStreetMap.",
+        "Supuestos: aceite anual = molienda diaria × 19 % × 300 días; 1 t de aceite ≈ 1 t de biodiesel."
+      ],
+      "relacionados": [
+        {
+          "to": "/mercado/plantas",
+          "label": "Mapa de plantas y proveedores de aceite"
+        },
+        {
+          "to": "/infografia",
+          "label": "Infografía del mercado, planta por planta"
+        }
+      ]
+    }
+  ]
+}
