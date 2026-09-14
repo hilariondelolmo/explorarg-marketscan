@@ -113,6 +113,13 @@ GRUPO_OVERRIDE = {
     "BIO NOGOYA S.A.": "GRUPO BOLZÁN",
     "HÉCTOR A. BOLZAN Y CÍA. S.R.L.": "GRUPO BOLZÁN",
 }
+# Ubicación de plantas que el maestro no trae (decisión HDO 2026-09-14): Colalao del Valle S.A. opera en el
+# Parque Industrial COMIRSA II (Calle 24 s/n), Ramallo, no en Malvinas Argentinas (domicilio del registro).
+# El punto es el mismo de las otras plantas Bojanich del parque (Bio Ramallo / Refinar Bio / Biocorba).
+LOCALIDAD_OVERRIDE = {"COLALAO DEL VALLE S.A.": "RAMALLO"}
+COORDENADAS_OVERRIDE = {"COLALAO DEL VALLE S.A.": (-33.4010, -60.1430)}
+# Erratas del geojson de aceiteras (se corrigen al extraer)
+LOCALIDAD_ACEITE_FIX = {"Taratagal": "Tartagal"}
 
 # Renombres de grupos económicos (decisión HDO 2026-08-04)
 ALIAS_GRUPOS = {
@@ -224,7 +231,7 @@ def extraer_detalle(hy):
             fecha=fecha, empresa=alias_empresa(empresa),
             categoria=CATEGORIA_OVERRIDE.get(empresa, r[2]),
             grupo=grupo, supergrupo=SUPERGRUPOS.get(grupo),
-            provincia=r[4], localidad=r[5], explora=(r[6] == "Y"),
+            provincia=r[4], localidad=LOCALIDAD_OVERRIDE.get(empresa, r[5]), explora=(r[6] == "Y"),
             prod=r[7] or 0, cupo=r[8] or 0, vc=r[9] or 0,
             xq=r[10] or 0, cotab=r[11] or 0, exp=r[12] or 0,
             petroleras={alias_petrolera(PETROLERAS_COLS[i], fecha): v
@@ -426,8 +433,11 @@ def extraer_capacidad():
         if not (r and r[0]):
             continue
         lat, lng = r[6], r[7]
+        nombre = alias_empresa(nfc(str(r[0]).strip()))
+        if nombre in COORDENADAS_OVERRIDE and lat in (None, ""):
+            lat, lng = COORDENADAS_OVERRIDE[nombre]
         plantas.append(dict(
-            empresa=alias_empresa(nfc(str(r[0]).strip())),
+            empresa=nombre,
             holding=alias_empresa(nfc(str(r[1]).strip())) if r[1] else None,
             capacidad=float(r[2]) if r[2] is not None else None,
             segmento=r[3], grupo=r[4],
@@ -480,7 +490,7 @@ def extraer_plantas_aceite():
             establecimiento=establecimiento,
             empresa=EMPRESA_ACEITE_POR_CUIT.get(cuit, establecimiento),
             cuit=cuit,
-            localidad=nfc(str(pr["LOCALIDAD"]).strip()) if pr.get("LOCALIDAD") else None,
+            localidad=LOCALIDAD_ACEITE_FIX.get(nfc(str(pr["LOCALIDAD"]).strip()), nfc(str(pr["LOCALIDAD"]).strip())) if pr.get("LOCALIDAD") else None,
             departamento=nfc(str(pr["DEPARTAMEN"]).strip()) if pr.get("DEPARTAMEN") else None,
             provincia=nfc(str(pr["PROVINCIA"]).strip()) if pr.get("PROVINCIA") else None,
             grano=nfc(str(pr["GRANO"]).strip()) if pr.get("GRANO") else None,

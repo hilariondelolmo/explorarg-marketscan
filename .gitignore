@@ -57,3 +57,6 @@ __pycache__/
 
 # Salidas generadas (PDF, DOCX, PNG de impresión) - se regeneran con scripts/
 output/
+
+# Archivos de bloqueo de Word
+~$*

@@ -32,6 +32,8 @@ from __future__ import annotations
 
 import json
 import math
+import os
+import time
 import sys
 from pathlib import Path
 
@@ -40,6 +42,15 @@ from PIL import Image, ImageDraw, ImageFont
 RAIZ = Path(__file__).resolve().parent.parent
 DATA = RAIZ / "src" / "data"
 OUT_DIR = RAIZ / "output" / "video"
+# Duraciones reales de la locución (las escribe scripts/generar_locucion_elevenlabs.py): la línea de tiempo se
+# calcula a partir de ellas más un aire fijo. Si falta un bloque, vale el respaldo escrito en cada constante.
+LOCUCION = OUT_DIR / "voz_hdo" / "eleven" / "duraciones.json"
+_DUR = json.loads(LOCUCION.read_text()) if LOCUCION.exists() else {}
+AIRE = 0.3  # silencio después de cada bloque, medido desde donde termina de hablar (HDO 14/09: lo más corto posible)
+
+
+def dur_bloque(i, respaldo):
+    return round(float(_DUR.get(f"b{i:02d}", respaldo)), 1)
 FUENTE_INTER = Path.home() / "Library/Fonts/Inter-Variable.ttf"
 FUENTE_INTER_IT = Path.home() / "Library/Fonts/Inter-Italic-Variable.ttf"
 ICONO = RAIZ / "public/brand/explorarg-icon.png"
@@ -322,39 +333,42 @@ def r_aceite(p, ss=SS):
 
 
 # ── guion ──
-# Tarjeta de presentación (la voz en off saluda y anuncia la sección nueva)
-# Tarjeta inicial (HDO 13/09/2026): quién habla y qué se está tratando en el Senado
+# Tarjeta de presentación (HDO 14/09/2026): sin nombre ni cargo. Explorarg propone discutir el fondo y no la
+# autoridad: la pantalla lleva el método en tres líneas; la voz (bloque 0 del mezclador) lleva el diagnóstico.
 PRESENTACION = dict(
-    titulo="Privilegios o libertad: el Congreso decide",
-    bloques=[
-        (3.0, "EL PUNTO DE PARTIDA",
-         "La Ley 27.640 partió al sector en tres compartimentos estancos y benefició a unos en detrimento de otros: las "
-         "integradas exportadoras recibieron US$ 2.040 millones por diferencial de retenciones y cuatro petroleras mezcladoras "
-         "ganaron US$ 920 millones por incumplir el corte. A las no integradas, en cambio, se les prohibió exportar, se las topeó "
-         "en 50 kt/año, no recibieron subsidio alguno y se las sometió a operar en quebranto con un precio político."),
-        (10.0, "QUÉ SE ESTÁ TRATANDO",
-         "El Senado debate el proyecto oficial S-0809/2026, que deroga la 27.640: corte al 10%, precio por acuerdo entre "
-         "partes y una franja para las no integradas que baja de 7,5% a 3%. El dictamen se firmó el 3 de septiembre; la sesión del 10 se cayó."),
-        (17.0, "LO QUE CADA UNO PIDE",
-         "Integradas, no integradas regionales (CEPREB), petroleras y Gobierno tiran de la cuerda para llevar agua a su molino. "
-         "La salida es una ley que desactive los privilegios y abra la competencia. Empezamos por la afirmación de CEPREB."),
-    ],
+    linea="NUEVA SECCIÓN EN EXPLORARG.COM",
+    titulo="Lo que no entra en cinco minutos",   # HDO 14/09
+    bajada=["Tomamos afirmaciones formuladas en el debate legislativo sobre biocombustibles, y en particular sobre el biodiesel.",
+            "Las contrastamos con los datos.",
+            "Vemos cuáles resisten la evidencia."],
+    entrega="Primera entrega · La Argentina según CEPREB",
 )
-# Tiempos ajustados a la locución del guion (prueba con voz sintética a 175 ppm, 11/09)
-PRESENTACION_FIN = 30.0
-INTRO_DESFASE = 29.4
+# Tiempos ajustados a la locución de Fernando (ElevenLabs, turbo v2.5; bloques en output/video/voz_hdo/eleven), 13/09/2026
+PRESENTACION_FIN = 0.6 + dur_bloque(0, 40.3) + AIRE   # el bloque 0 arranca a los 0,6 s
+INTRO_DESFASE = PRESENTACION_FIN - 0.6
 # (las frases van al ritmo de la locución del guion: docs/…Guion de audio…)
+# Cuadro 2 (HDO 14/09/2026): en pantalla los hechos (comunicados, kilómetro cero, "afirmada, nunca demostrada");
+# la voz (bloque 1 del mezclador) saca la consecuencia y abre el mapa. Tiempos al ritmo de la locución de Fernando.
 INTRO = [
-    dict(t=0.8 + INTRO_DESFASE, texto="¿Pensaste alguna vez", tam=42, peso=600, color="tinta2"),
-    dict(t=2.6 + INTRO_DESFASE, texto="en las implicancias de la afirmación que CEPREB repite?", tam=42, peso=600, color="tinta2"),
-    dict(t=4.8 + INTRO_DESFASE, texto="«El costo de la materia prima queda determinado por la distancia a Puerto General San Martín»", tam=40, peso=800, color="ambar", italica=True),
-    dict(t=8.4 + INTRO_DESFASE, texto="¿Cómo sería la Argentina si eso fuera cierto?", tam=42, peso=600, color="tinta"),
+    dict(t=0.8 + INTRO_DESFASE, texto="Desde el inicio del debate por la reforma de la ley, CEPREB sostuvo que las plantas más "
+         "alejadas del Puerto de Rosario cargan con un mayor costo logístico: el que resulta de la diferencia de distancia "
+         "con las plantas más cercanas a ese puerto.", tam=32, peso=600, color="tinta2"),
+    dict(t=4.5 + INTRO_DESFASE, texto="Primero dijo Puerto de Rosario; después, Puerto General San Martín. Es un detalle: podrían haber propuesto "
+         "Chicago, para el caso es igual de ridículo.",
+         tam=32, peso=600, color="tinta2"),
+    dict(t=4.5 + INTRO_DESFASE, texto="Comunicados de CEPREB del 25 de septiembre y del 13 de octubre de 2025.",
+         tam=20, peso=500, color="suave"),
+    dict(t=9.0 + INTRO_DESFASE, texto="Una desventaja afirmada, nunca demostrada.", tam=36, peso=800, color="ambar"),
+    dict(t=12.5 + INTRO_DESFASE, texto="Antes de discutirla, pensemos qué significa. Si fuera cierta, ¿qué deberíamos encontrar?",
+         tam=32, peso=600, color="tinta"),
+    dict(t=16.5 + INTRO_DESFASE, texto="¿Qué Argentina configura esta afirmación?", tam=38, peso=800, color="tinta"),
 ]
-INTRO_FIN = 13.0 + INTRO_DESFASE
-T1, T2 = 13.6 + INTRO_DESFASE, 24.6 + INTRO_DESFASE
-T2B = T2 + 19.5          # cuadro por distancia vs. cuadro por cumplimiento
-T3 = T2B + 24.0
-T4 = T3 + 12.2
+INTRO_FIN = 1.0 + dur_bloque(1, 35.1) + AIRE + INTRO_DESFASE   # el bloque 1 arranca a los 1,0 s del desfase
+T1 = INTRO_FIN + 0.6
+T2 = T1 + 0.2 + dur_bloque(2, 37.1) + AIRE
+T2B = T2 + 0.2 + dur_bloque(3, 34.8) + AIRE          # cuadro por distancia vs. cuadro por cumplimiento
+T3 = T2B + 0.3 + dur_bloque(4, 33.0) + AIRE
+T4 = T3 + 0.2 + dur_bloque(5, 31.3) + AIRE
 ESCENAS = [
     dict(t0=T1, titulo="Elaboradoras no integradas de biodiesel",
          sub=f"Las {len(BIO)} plantas no integradas en operación: las que compran el aceite. El tamaño de cada punto es proporcional a su capacidad instalada.",
@@ -363,7 +377,7 @@ ESCENAS = [
          sub="Una sola aceitera, en Puerto General San Martín: todo el aceite saldría de ahí y todas las plantas comprarían en el mismo lugar.",
          leyenda=[("verde", f"Elaboradoras no integradas · {len(BIO)}"), ("ambar", "Aceitera según CEPREB · 1")]),
     dict(t0=T2B, titulo="Si la distancia mandara, el cumplimiento seguiría el mismo orden",
-         sub="A la izquierda, las 22 plantas por distancia por ruta a Puerto General San Martín. A la derecha, por cumplimiento del cupo acumulado desde 2010. Cada línea une la misma planta en los dos cuadros.",
+         sub=f"A la izquierda, las {len(BIO)} plantas por distancia por ruta a Puerto General San Martín. A la derecha, por cumplimiento del cupo acumulado desde 2010. Cada línea une la misma planta en los dos cuadros.",
          leyenda=[]),
     dict(t0=T3, titulo="La Argentina real",
          sub="54 aceiteras repartidas por el país, cada una con su molienda. El aceite está donde está el grano, no en un solo puerto.",
@@ -376,6 +390,17 @@ ESCENAS = [
          leyenda=[("verde", f"Elaboradoras no integradas · {len(BIO)}"), ("ambar", "Aceiteras · 54")]),
 ]
 FUNDIDO = 0.6
+
+# Escena 4: aceiteras y molienda por provincia (para el cuadro de la Argentina real)
+_PROV = {"CORDOBA": "Córdoba", "ENTRE RIOS": "Entre Ríos", "SANTIAGO DEL ESTERO": "Santiago del Estero"}
+def _por_provincia():
+    acc = {}
+    for a in ACEITERAS:
+        prov = (a.get("provincia") or "").upper()
+        c, m = acc.get(prov, (0, 0.0))
+        acc[prov] = (c + 1, m + (a.get("molienda_tn_dia") or 0))
+    return sorted([(_PROV.get(k, k.title()), c, m) for k, (c, m) in acc.items()], key=lambda x: -x[2])
+ACEITE_PROV = _por_provincia()
 
 # Cruce distancia / cumplimiento: las que están lejos y cumplen, y las que están cerca y no
 LEJOS_CUMPLEN = {"PAMPA BIO S.A.", "ENRESA", "DIASER S.A."}
@@ -431,11 +456,14 @@ def armar_paradas():
 
 
 PARADAS = armar_paradas()
-PARADA_T0, PARADA_DUR, PARADA_TRANS = T4 + 0.3, 10.0, 1.6
-T5 = PARADA_T0 + len(PARADAS) * PARADA_DUR  # resumen final: el mapa vuelve al país
+PARADA_T0, PARADA_TRANS = T4 + 0.3, 1.6
+# Cada parada dura lo que dura su locución (bloques 6 a 11) más el aire; mínimo 8 s para el zoom
+PARADA_DURS = [round(max(8.0, 0.3 + dur_bloque(6 + k, 10.5) + AIRE), 1) for k in range(len(PARADAS))]
+PARADA_INICIOS = [round(PARADA_T0 + sum(PARADA_DURS[:k]), 1) for k in range(len(PARADAS))]
+T5 = PARADA_T0 + sum(PARADA_DURS)  # resumen final: el mapa vuelve al país
 ESCENAS[5]["t0"] = T5
 RESUMEN_T0 = T5 + 1.8
-DURACION = T5 + 24.0
+DURACION = T5 + 1.5 + dur_bloque(12, 19.4) + 2.5   # el bloque 12 arranca a los 1,5 s; 2,5 s de cierre
 
 
 # ── resumen final: cada planta con su radio, aceiteras, molienda, aceite y cobertura ──
@@ -491,8 +519,8 @@ def parada_en(t):
     """Parada activa del zoom (índice, avance de la transición 0..1) o (None, 0)."""
     if t < PARADA_T0 or t >= T5:
         return None, 0.0
-    i = min(len(PARADAS) - 1, int((t - PARADA_T0) // PARADA_DUR))
-    return i, suavizar_io((t - PARADA_T0 - i * PARADA_DUR) / PARADA_TRANS)
+    i = max(k for k, t0 in enumerate(PARADA_INICIOS) if t >= t0)
+    return i, suavizar_io((t - PARADA_INICIOS[i]) / PARADA_TRANS)
 
 
 def encuadre_en(t):
@@ -525,10 +553,10 @@ def panel_parada(d, t, alpha, x0, x1, parada, i_par):
         x += 24 * SS + f.getlength(texto) + 30 * SS
     if parada is None:
         return
-    t_par = t - PARADA_T0 - i_par * PARADA_DUR
+    t_par = t - PARADA_INICIOS[i_par]
     vis = suavizar((t_par - 0.5) / 0.5) * alpha
-    if t_par > PARADA_DUR - 0.35:
-        vis *= 1 - suavizar((t_par - (PARADA_DUR - 0.35)) / 0.3)
+    if t_par > PARADA_DURS[i_par] - 0.35:
+        vis *= 1 - suavizar((t_par - (PARADA_DURS[i_par] - 0.35)) / 0.3)
     if vis <= 0:
         return
     y = 258 * SS
@@ -764,7 +792,7 @@ def cuadro(t, icono):
             circulo(capa, a_px(p["lng"], p["lat"], vb), r_bio(p) * k, COL["verde"], 0.85 * min(1, k), (255, 255, 255), 1 * SS)
     # ── escena 4: círculo de alcance de la parada ──
     if en_zoom:
-        crece = suavizar((t - PARADA_T0 - i_par * PARADA_DUR - PARADA_TRANS + 0.3) / 0.6)
+        crece = suavizar((t - PARADA_INICIOS[i_par] - PARADA_TRANS + 0.3) / 0.6)
         if crece > 0:
             xy = a_px(parada["lng"], parada["lat"], vb)
             r = km_a_unidades(parada["km"], parada["lat"]) * (MAPA_W / vb[2]) * SS * crece
@@ -833,7 +861,7 @@ def cuadro(t, icono):
                stroke_width=3 * SS, stroke_fill=(255, 255, 255), anchor="ls")
         # nombre de la empresa junto al punto (dos renglones si son varias plantas)
         nombres = [razon_corta(p["empresa"]) for p in parada["plantas"]]
-        lineas = [" · ".join(nombres)] if len(nombres) <= 2 else [" · ".join(nombres[:2]), " · ".join(nombres[2:])]
+        lineas = [" · ".join(nombres[i:i + 2]) for i in range(0, len(nombres), 2)]  # de a dos nombres por renglón
         for i, linea in enumerate(lineas):
             d.text((cx + 30 * SS, cy - 14 * SS - (len(lineas) - 1) * 13 * SS + i * 26 * SS), linea, font=fuente(22, 800),
                    fill=col, stroke_width=3 * SS, stroke_fill=(255, 255, 255))
@@ -849,30 +877,31 @@ def cuadro(t, icono):
     ancho = x1 - x0
     d.text((x0, 76 * SS), "INFOGRAFÍA · MERCADO DE BIODIESEL EN ARGENTINA", font=fuente(17, 700), fill=COL["verde"])
     if idx < 0 and t < PRESENTACION_FIN + 0.6:
-        # tarjeta de presentación: quién habla y la sección nueva
+        # tarjeta de presentación: explorarg anuncia la sección nueva (sin nombre ni cargo)
         apag = 1 - suavizar((t - PRESENTACION_FIN) / 0.5)
         vis = suavizar((t - 0.6) / 0.7) * apag
+        y = 150 * SS
         if vis > 0:
-            d.text((x0, 150 * SS), "Hilarión del Olmo", font=fuente(36, 800), fill=mezclar(COL["tinta"], vis))
-            d.text((x0, 196 * SS), "Presidente de Explora S.A.", font=fuente(22, 500), fill=mezclar(COL["tinta2"], vis))
-            vis_t = suavizar((t - 1.6) / 0.7) * apag
-            if vis_t > 0:
-                f_tit = fuente(40, 800)
-                lin_t = envolver(PRESENTACION["titulo"], f_tit, ancho)
-                for i, linea in enumerate(lin_t):
-                    d.text((x0, (248 + i * 48) * SS), linea, font=f_tit, fill=mezclar(COL["tinta"], vis_t))
-                d.text((x0, (256 + len(lin_t) * 48) * SS), "La reforma de la Ley 27.640 de biocombustibles", font=fuente(22, 500), fill=mezclar(COL["tinta2"], vis_t))
-            y = (312 + len(envolver(PRESENTACION["titulo"], fuente(40, 800), ancho)) * 48) * SS
-            f_lab, f_txt = fuente(16, 700), fuente(21, 450)
-            for t_b, rotulo, texto in PRESENTACION["bloques"]:
-                vis_b = suavizar((t - t_b) / 0.7) * apag
-                lineas = envolver(texto, f_txt, ancho)
-                if vis_b > 0:
-                    desplaz = int((1 - vis_b) * 14 * SS)
-                    d.text((x0, y + desplaz), rotulo, font=f_lab, fill=mezclar(COL["verde"], vis_b))
-                    for i, linea in enumerate(lineas):
-                        d.text((x0, y + desplaz + (25 + i * 29) * SS), linea, font=f_txt, fill=mezclar(COL["tinta2"], vis_b))
-                y += (25 + len(lineas) * 29 + 20) * SS
+            d.text((x0, y), PRESENTACION["linea"], font=fuente(18, 700), fill=mezclar(COL["verde"], vis))
+            f_tit = fuente(46, 800)
+            lin_t = envolver(PRESENTACION["titulo"], f_tit, ancho)
+            for i, linea in enumerate(lin_t):
+                d.text((x0, y + (40 + i * 56) * SS), linea, font=f_tit, fill=mezclar(COL["tinta"], vis))
+            y += (40 + len(lin_t) * 56 + 22) * SS
+        vis_b = suavizar((t - (0.6 + dur_bloque(0, 40.3) * 0.58)) / 0.7) * apag   # cuando la voz llega a "Para enfrentar este problema"
+        if vis_b > 0:
+            f_baj = fuente(24, 450)
+            for parrafo in PRESENTACION["bajada"]:
+                lin_b = envolver(parrafo, f_baj, ancho)
+                for i, linea in enumerate(lin_b):
+                    d.text((x0, y + i * 33 * SS), linea, font=f_baj, fill=mezclar(COL["tinta2"], vis_b))
+                y += (len(lin_b) * 33 + 12) * SS
+            y += 22 * SS
+        vis_e = suavizar((t - (0.6 + dur_bloque(0, 40.3) * 0.96)) / 0.7) * apag   # cuando dice "La primera proviene de CEPREB"
+        if vis_e > 0:
+            f_ent = fuente(24, 700)
+            for i, linea in enumerate(envolver(PRESENTACION["entrega"], f_ent, ancho)):
+                d.text((x0, y + i * 33 * SS), linea, font=f_ent, fill=mezclar(COL["ambar"], vis_e))
     if idx < 0:
         apagado = 1 - suavizar((t - INTRO_FIN) / 0.6)
         y = 190 * SS
@@ -920,6 +949,28 @@ def cuadro(t, icono):
                 d.text((x0 + 30 * SS, y), texto, font=f_ley, fill=mezclar(COL["tinta2"], alpha))
                 y += 36 * SS
             y += 26 * SS
+            # escena 4 (la Argentina real): aceiteras y molienda por provincia (HDO 14/09: la pantalla lleva los hechos)
+            if j == 3:
+                vis_t = suavizar((t - T3 - 4.0) / 0.6) * alpha
+                if vis_t > 0:
+                    d.text((x0, y), "ACEITERAS POR PROVINCIA · PLANTAS · MOLIENDA T/DÍA · PARTICIPACIÓN",
+                           font=fuente(14, 700), fill=mezclar(COL["suave"], vis_t))
+                    yy = y + 34 * SS
+                    f_fila, f_val = fuente(21, 500), fuente(21, 700)
+                    total = sum(m for _, _, m in ACEITE_PROV)
+                    for n, (prov, cant, mol) in enumerate(ACEITE_PROV + [("Total", len(ACEITERAS), total)]):
+                        vis = suavizar((t - T3 - 4.4 - n * 0.25) / 0.5) * alpha
+                        if vis <= 0:
+                            continue
+                        es_total = prov == "Total"
+                        f_n = f_val if es_total else f_fila
+                        if es_total:
+                            d.line([(x0, yy - 4 * SS), (x1, yy - 4 * SS)], fill=mezclar(COL["suave"], vis), width=int(1.5 * SS))
+                        d.text((x0, yy), prov, font=f_n, fill=mezclar(COL["tinta"] if es_total else COL["tinta2"], vis))
+                        d.text((x0 + 430 * SS, yy), str(cant), font=f_n, fill=mezclar(COL["tinta"], vis), anchor="ra")
+                        d.text((x0 + 610 * SS, yy), miles(mol), font=f_n, fill=mezclar(COL["tinta"], vis), anchor="ra")
+                        d.text((x1, yy), f"{mol / total * 100:.0f} %", font=f_n, fill=mezclar(COL["verde"], vis), anchor="ra")
+                        yy += 33 * SS
             # escena 1: listado de las plantas a medida que aparecen (capacidad y cumplimiento)
             if j == 0:
                 t1 = T1 + 0.6
@@ -985,6 +1036,20 @@ def cuadro(t, icono):
     return im.resize((ANCHO, ALTO), Image.LANCZOS)
 
 
+_ICONO_PROCESO = None
+
+
+def _iniciar_proceso():
+    """Cada proceso carga el ícono una vez; los datos y las fuentes ya vienen con el módulo."""
+    global _ICONO_PROCESO
+    _ICONO_PROCESO = Image.open(ICONO).convert("RGBA")
+
+
+def _render_cuadro(args):
+    i, fps = args
+    return cuadro(i / fps, _ICONO_PROCESO).tobytes()
+
+
 def main() -> int:
     args = sys.argv[1:]
     fps = int(args[args.index("--fps") + 1]) if "--fps" in args else FPS
@@ -994,7 +1059,7 @@ def main() -> int:
     print(f"· {len(PARADAS)} paradas del zoom · duración {DURACION:.1f} s")
 
     if "--preview" in args:
-        tiempos = [24.0, 31.5, 37.0] + [PARADA_T0 + i * PARADA_DUR + 2.4 for i in range(len(PARADAS))]
+        tiempos = [24.0, 31.5, 37.0] + [t0 + 2.4 for t0 in PARADA_INICIOS]
         if "--t" in args:
             tiempos = [float(x) for x in args[args.index("--t") + 1].split(",")]
         for t in tiempos:
@@ -1004,18 +1069,35 @@ def main() -> int:
         return 0
 
     import imageio_ffmpeg
-    n = int(DURACION * fps)
+    hasta = float(args[args.index("--hasta") + 1]) if "--hasta" in args else DURACION  # render parcial (revisión)
+    desde = float(args[args.index("--desde") + 1]) if "--desde" in args else 0.0      # rehacer solo la cola
+    n = int(min(DURACION, hasta) * fps)
+    i0 = int(round(desde * fps))
     escritor = imageio_ffmpeg.write_frames(
         str(salida), (ANCHO, ALTO), fps=fps, quality=8, codec="libx264",
         pix_fmt_out="yuv420p", macro_block_size=8, output_params=["-movflags", "+faststart"],
     )
     escritor.send(None)
-    for i in range(n):
-        escritor.send(cuadro(i / fps, icono).tobytes())
-        if i % (fps * 5) == 0:
-            print(f"  {i / fps:5.1f} s / {DURACION:.0f} s", flush=True)
+    # Render en paralelo (HDO 14/09): cada cuadro depende solo de su segundo, así que se reparten entre procesos.
+    # El orden lo garantiza imap; la imagen es idéntica a la del render en un solo proceso.
+    nucleos = int(args[args.index("--nucleos") + 1]) if "--nucleos" in args else max(1, (os.cpu_count() or 2) - 1)
+    t_ini = time.time()
+    if nucleos > 1:
+        from multiprocessing import Pool
+        with Pool(nucleos, initializer=_iniciar_proceso) as pool:
+            for k, datos in enumerate(pool.imap(_render_cuadro, ((i, fps) for i in range(i0, n)), chunksize=4)):
+                escritor.send(datos)
+                i = i0 + k
+                if i % (fps * 5) == 0:
+                    print(f"  {i / fps:5.1f} s / {n / fps:.0f} s", flush=True)
+    else:
+        for i in range(i0, n):
+            escritor.send(cuadro(i / fps, icono).tobytes())
+            if i % (fps * 5) == 0:
+                print(f"  {i / fps:5.1f} s / {n / fps:.0f} s", flush=True)
     escritor.close()
-    print(f"✓ {salida.relative_to(RAIZ) if salida.is_relative_to(RAIZ) else salida} ({salida.stat().st_size // 1024} KB, {n} cuadros)")
+    print(f"  render: {time.time() - t_ini:.0f} s con {nucleos} proceso(s)")
+    print(f"✓ {salida.relative_to(RAIZ) if salida.is_relative_to(RAIZ) else salida} ({salida.stat().st_size // 1024} KB, {n - i0} cuadros desde el {i0})")
     return 0
 
 
