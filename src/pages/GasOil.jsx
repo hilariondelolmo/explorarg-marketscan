@@ -14,13 +14,14 @@ const SECTIONS = [
     title: 'Precio del gas oil en surtidor',
     intro: 'El relevamiento de precios de la Resolución SE 1104/2004: qué paga el público por el gas oil en cada provincia y bandera, y cómo se movió mes a mes.',
     Comp: PrecioSurtidor,
-    encabezadoPropio: true, // encabezado, filtros y KPI quedan fijos al scrollear
+    encabezadoPropio: true, // encabezado, filtros y cajas quedan fijos al scrollear (bloque fijo)
   },
   {
     id: 'estructura', label: 'Estructura del mercado', tableau: 'MARKET STRUCTURE',
     title: 'Estructura del mercado local',
-    intro: 'Por dónde pasa el gas oil: canal de distribución, tipo de negocio y canal de comercialización, en volumen.',
+    intro: 'Por dónde pasa el gas oil: canal de distribución, tipo de negocio y canal de comercialización, en volumen, con los mismos filtros que el precio en surtidor.',
     Comp: EstructuraMercado,
+    encabezadoPropio: true,
   },
   {
     id: 'ranking', label: 'Ranking de precios', tableau: 'RANKING Actualizado',
@@ -31,8 +32,9 @@ const SECTIONS = [
   {
     id: 'canales', label: 'Minorista y mayorista', tableau: 'ARG GO MARKET BTB BTC',
     title: 'Mercado minorista y mayorista',
-    intro: 'Precio ponderado del gas oil grado 2 y grado 3 por canal de distribución y comercialización, y el gas oil importado.',
+    intro: 'Precio ponderado del gas oil grado 2 y grado 3 en el canal minorista y en el mayorista, con los mismos filtros que el precio en surtidor, y el gas oil importado.',
     Comp: MinoristaMayorista,
+    encabezadoPropio: true,
   },
 ];
 

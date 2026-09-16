@@ -1,21 +1,26 @@
 // Acceso y cálculo sobre los datos del mercado de gas oil
-// (src/data/gasoil_precios.json y gasoil_ranking.json, generados por
+// (src/data/gasoil_precios.json y gasoil_ranking.json en el bundle, y el
+// relevamiento fino en public/data/, todos generados por
 // scripts/regenerate_gasoil.py desde el relevamiento SE Res. 1104/2004).
-import precios from '../data/gasoil_precios.json';
+// Imports nombrados del JSON: los bloques que ninguna sección lee (canales,
+// flujos, eess: cruces precalculados de la primera versión) quedan fuera del
+// bundle sin tocar el generador.
+import {
+  meses as MESES_JSON, ultimo_mes as ULTIMO_MES_JSON, provincias as PROVINCIAS_JSON, banderas as BANDERAS_JSON,
+  canales_distribucion as CANALES_DIST_JSON, canales_comercializacion as CANALES_COM_JSON,
+  tipos_negocio as TIPOS_NEGOCIO_JSON, meta as META_PRECIOS_JSON,
+} from '../data/gasoil_precios.json';
 import ranking from '../data/gasoil_ranking.json';
 import mapa from '../data/mapa_argentina.json';
 
-export const MESES = precios.meses;
-export const ULTIMO_MES = precios.ultimo_mes;
-export const PROVINCIAS = precios.provincias;
-export const BANDERAS = precios.banderas;
-export const CANALES_DIST = precios.canales_distribucion;
-export const CANALES_COM = precios.canales_comercializacion;
-export const TIPOS_NEGOCIO = precios.tipos_negocio;
-export const CANALES = precios.canales;
-export const FLUJOS = precios.flujos;
-export const EESS = precios.eess;
-export const META_PRECIOS = precios.meta;
+export const MESES = MESES_JSON;
+export const ULTIMO_MES = ULTIMO_MES_JSON;
+export const PROVINCIAS = PROVINCIAS_JSON;
+export const BANDERAS = BANDERAS_JSON;
+export const CANALES_DIST = CANALES_DIST_JSON;
+export const CANALES_COM = CANALES_COM_JSON;
+export const TIPOS_NEGOCIO = TIPOS_NEGOCIO_JSON;
+export const META_PRECIOS = META_PRECIOS_JSON;
 
 export const PRODUCTOS = ranking.productos;
 export const IMPORTACIONES = ranking.importaciones;
@@ -25,11 +30,6 @@ export const CPI_US = new Map(ranking.cpi_us);
 export const META_RANKING = ranking.meta;
 
 export const IDX_MES = new Map(MESES.map((f, i) => [f, i]));
-
-// Posición de cada campo en las filas compactas de los JSON
-export const COL = {
-  canales: { mes: 0, cd: 1, cc: 2, 2: { w: 3, s: 4, c: 5, n: 6 }, 3: { w: 7, s: 8, c: 9, n: 10 } },
-};
 
 // --- Relevamiento fino (public/data/gasoil_retail.json): cruce mes × provincia
 // × bandera × canal distribución × tipo de negocio × canal comercialización,
@@ -121,39 +121,6 @@ export function convertir(valorArs, fecha, tipo) {
   if (!tc) return null;
   const usdL = valorArs / tc;
   return tipo.ton ? (usdL * 1000) / DENSIDAD_GO : usdL;
-}
-
-/**
- * Precio ponderado por volumen, agrupado por `clave`.
- *   rows    filas compactas (RETAIL o CANALES)
- *   layout  COL.retail o COL.canales
- *   filtro  (fila) => bool, o null
- *   clave   (fila) => clave de agrupación
- *   campo   's' surtidor · 'c' con impuestos · 'n' sin impuestos
- *   grado   2 o 3
- * Devuelve Map(clave → { precio, w (m3 ponderador), e (EESS con precio) }).
- * Un precio 0 es "sin dato" (la SE carga 0 de surtidor fuera del canal al público).
- */
-export function ponderar(rows, layout, filtro, clave, campo, grado) {
-  const L = layout[grado];
-  const out = new Map();
-  for (const r of rows) {
-    if (filtro && !filtro(r)) continue;
-    const p = r[L[campo]];
-    const w = r[L.w];
-    if (!p || !w) continue;
-    const k = clave(r);
-    let a = out.get(k);
-    if (!a) {
-      a = { w: 0, pw: 0, e: 0 };
-      out.set(k, a);
-    }
-    a.w += w;
-    a.pw += p * w;
-    if (L.e != null) a.e += r[L.e] || 0;
-  }
-  for (const a of out.values()) a.precio = a.pw / a.w;
-  return out;
 }
 
 /** Ventanas del selector de rango: primer mes incluido. */
