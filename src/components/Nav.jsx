@@ -8,6 +8,7 @@ const DASHBOARDS = [
   { to: '/mercado', label: 'Biodiesel - Principales Indicadores' },
   { to: '/mercado/matriz', label: 'Biodiesel - Detalle de ventas' },
   { to: '/gestion', label: 'Biodiesel - Cumplimiento Corte' },
+  { to: '/gas-oil', label: 'Gas Oil - Mercado de gas oil' },
   { label: 'Biodiesel - Primas y Precios Relativos', disabled: true },
 ];
 
@@ -28,7 +29,7 @@ const MQ_ANGOSTO = '(max-width: 560px)';
 export default function Nav() {
   const { theme, toggle } = useTheme();
   const { pathname } = useLocation();
-  const enDashboards = pathname.startsWith('/mercado') || pathname.startsWith('/gestion');
+  const enDashboards = pathname.startsWith('/mercado') || pathname.startsWith('/gestion') || pathname.startsWith('/gas-oil');
   const enReforma = RUTAS_REFORMA.some((r) => pathname.startsWith(r));
 
   // En móvil no hay hover (y iOS no enfoca botones al tocar): el desplegable

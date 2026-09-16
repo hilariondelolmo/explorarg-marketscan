@@ -60,3 +60,7 @@ output/
 
 # Archivos de bloqueo de Word
 ~$*
+
+# Grabaciones de pantalla de HDO y sus transcripciones/fotogramas (revisión por video)
+docs/*.mov
+docs/grabacion_*

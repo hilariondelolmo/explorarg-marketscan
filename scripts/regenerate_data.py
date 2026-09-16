@@ -1011,6 +1011,11 @@ def main():
     else:
         print("\nTerminado sin advertencias.")
 
+    # Mercado de gas oil (workbook 05): JSON propios, mismo criterio de validación
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import regenerate_gasoil
+    regenerate_gasoil.generar(dry)
+
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,575 @@
+/* Página Mercado de Gas Oil: réplica de los tableros del workbook 05 */
+
+.go-seccion .go-controles {
+  margin-bottom: 1.2rem;
+}
+.go-controles .empresa-select {
+  max-width: 260px;
+}
+
+/* --- Precio surtidor: mapa a la izquierda, tarjetas y tabla a la derecha --- */
+.go-surtidor-grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 400px) minmax(0, 1fr);
+  gap: 1.2rem;
+  align-items: start;
+  margin-bottom: 1.2rem;
+}
+.go-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-width: 0;
+}
+.go-lateral .kpi-grid {
+  margin-bottom: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.go-charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+@media (max-width: 960px) {
+  .go-surtidor-grid,
+  .go-charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Mapa coroplético --- */
+.go-mapa-card {
+  padding-bottom: 0.6rem;
+}
+.go-mapa {
+  position: relative;
+  width: 100%;
+  margin-top: 0.4rem;
+}
+.go-mapa svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.go-mapa .go-vecino {
+  fill: var(--bg-4);
+  stroke: var(--rule);
+  stroke-width: 0.6px;
+}
+.go-mapa .go-prov {
+  stroke: var(--bg);
+  stroke-width: 0.9px;
+  cursor: pointer;
+  transition: fill-opacity 0.15s;
+}
+.go-mapa .go-prov:hover {
+  stroke: var(--ink);
+  stroke-width: 1.2px;
+}
+.go-mapa .go-prov.activa {
+  stroke: var(--ink);
+  stroke-width: 1.6px;
+}
+.go-mapa .go-prov.apagada {
+  fill-opacity: 0.08 !important;
+}
+.go-mapa .go-eess circle {
+  stroke: var(--bg);
+  stroke-width: 0.35px;
+  fill-opacity: 0.85;
+  pointer-events: none;
+}
+.go-mapa-tooltip {
+  position: absolute;
+  transform: translate(14px, -50%);
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  box-shadow: var(--sombra-panel);
+  padding: 0.55rem 0.75rem;
+  font-size: 0.78rem;
+  min-width: 190px;
+  pointer-events: none;
+  z-index: 5;
+}
+.go-mapa-tooltip.izquierda {
+  transform: translate(calc(-100% - 14px), -50%);
+}
+.go-mapa-tooltip-titulo {
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: var(--ink);
+}
+.go-mapa-tooltip-fila {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.go-escala {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  margin: 0.5rem 0.2rem 0;
+}
+.go-escala-barra {
+  flex: 1;
+  height: 8px;
+  border-radius: 2px;
+}
+.go-leyenda-banderas {
+  margin-top: 0.5rem;
+}
+
+/* --- Tabla por bandera --- */
+.go-tabla {
+  width: 100%;
+  font-size: 0.82rem;
+  border-collapse: collapse;
+}
+.go-tabla th,
+.go-tabla td {
+  padding: 0.4rem 0.55rem;
+  border-bottom: 1px solid var(--rule-soft);
+  white-space: nowrap;
+}
+.go-tabla th {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  font-weight: 600;
+  text-align: left;
+}
+.go-tabla .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.go-tabla tbody tr {
+  cursor: pointer;
+}
+.go-tabla tbody tr:hover {
+  background: var(--bg-3);
+}
+.go-tabla tbody tr.activa {
+  background: var(--bg-4);
+  font-weight: 600;
+}
+.go-tabla tfoot td {
+  font-weight: 700;
+  border-top: 1px solid var(--rule);
+  border-bottom: none;
+}
+.go-swatch {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  margin-right: 0.45rem;
+  vertical-align: middle;
+}
+.go-nota {
+  margin-top: 1.2rem;
+}
+
+/* --- Botón Play del ranking y tablas --- */
+.go-play {
+  cursor: pointer;
+  font-weight: 600;
+}
+.go-play.activo {
+  border-color: var(--accent-oil);
+  color: var(--accent-oil);
+}
+.go-tabla-quieta tbody tr {
+  cursor: default;
+}
+.go-tabla tbody tr.oculta {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+.go-ranking-grid {
+  margin-bottom: 1.2rem;
+}
+.go-sankey svg {
+  overflow: visible;
+}
+
+/* --- Dropdown de tipos de negocio --- */
+.go-tipos-panel {
+  min-width: 360px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.go-tipos-acciones {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.2rem 0.5rem 0.5rem;
+  border-bottom: 1px solid var(--rule-soft);
+  margin-bottom: 0.3rem;
+}
+.go-tipos-acciones button {
+  background: none;
+  border: none;
+  color: var(--accent-exp);
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0;
+}
+.go-tipos-acciones button:hover {
+  text-decoration: underline;
+}
+.go-tipos-panel .mh-dropdown-item span {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.8rem;
+}
+
+/* --- Fila única de filtros: etiqueta arriba de cada control, grilla de
+   columnas fijas y todos los controles de la misma altura --- */
+.go-filtros {
+  display: grid;
+  grid-template-columns: 92fr 180fr 118fr 140fr 190fr 120fr 190fr 140fr;
+  gap: 0.6rem 0.7rem;
+  align-items: start;
+  margin-bottom: 1.4rem;
+}
+.go-filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+.go-filtro label,
+.go-filtro-label {
+  color: var(--ink-muted);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1rem;
+  height: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.go-filtro .empresa-select,
+.go-filtro .mh-dropdown-boton,
+.go-filtro .chart-range-selector {
+  box-sizing: border-box;
+  height: 34px;
+  min-width: 0;
+  max-width: none;
+  width: 100%;
+  margin: 0;
+}
+.go-filtro .empresa-select {
+  font-size: 0.82rem;
+  line-height: 1;
+  padding: 0 1.5rem 0 0.55rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%236b7280' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.55rem center;
+}
+.go-filtro .mh-dropdown {
+  width: 100%;
+}
+.go-filtro .mh-dropdown-boton {
+  font-size: 0.82rem;
+  padding: 0 0.55rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.go-filtro .mh-dropdown-boton > :first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.go-filtro .chart-range-selector {
+  display: inline-flex;
+  align-items: stretch;
+  padding: 2px;
+}
+.go-filtro .chart-range-selector button {
+  font-size: 0.78rem;
+  padding: 0 0.55rem;
+  line-height: 1;
+}
+@media (max-width: 1100px) {
+  .go-filtros {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (max-width: 720px) {
+  .go-filtros {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* --- Bloque fijo: encabezado, filtros y tarjetas quedan pegados bajo la
+   sub-nav al scrollear (patrón de Principales Indicadores) --- */
+.go-sticky {
+  position: sticky;
+  top: calc(var(--nav-h) + 40px);
+  z-index: 94;
+  background: var(--bg);
+  padding-top: 2.2rem; /* mismo aire que .page-section bajo la sub-nav */
+  padding-bottom: 0.2rem;
+  box-shadow: 0 -3px 0 var(--bg);
+  margin-bottom: 0.4rem;
+}
+.go-sticky .go-filtros {
+  margin-bottom: 0.9rem;
+}
+.go-kpis-fila {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 0;
+}
+.go-kpis-fila .kpi-card {
+  padding: 0.8rem 1rem;
+}
+.go-kpis-fila .kpi-val {
+  font-size: 1.3rem;
+}
+@media (max-width: 960px) {
+  .go-kpis-fila {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 720px) {
+  .go-sticky {
+    position: static;
+    box-shadow: none;
+  }
+}
+
+/* --- Mapa acostado (escritorio) y cuadro desplegable --- */
+.go-mapa.horizontal svg {
+  max-height: 540px;
+  margin: 0 auto;
+}
+.go-desplegable {
+  padding: 0;
+  margin-bottom: 1.2rem;
+}
+.go-desplegable-boton {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  background: none;
+  border: none;
+  padding: 0.9rem 1.1rem;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: var(--font-display);
+}
+.go-desplegable-boton:hover {
+  background: var(--bg-3);
+}
+.go-desplegable-boton .chart-card-subtitle {
+  flex: 1;
+}
+.go-desplegable-flecha {
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+}
+.go-desplegable.abierto .go-desplegable-boton {
+  border-bottom: 1px solid var(--rule-soft);
+}
+.go-desplegable .mh-tabla-scroll {
+  padding: 0.4rem 0.6rem 0.6rem;
+}
+
+/* Desplegable dentro del bloque fijo: pegado a los filtros, tabla acotada */
+.go-sticky .go-desplegable {
+  margin: 0 0 0.7rem;
+  border: 1px solid var(--rule-soft);
+  border-radius: 4px;
+}
+.go-sticky .go-desplegable-boton {
+  padding: 0.55rem 0.9rem;
+}
+.go-sticky .go-desplegable .mh-tabla-scroll {
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+/* --- Dos mapas verticales, uno al lado del otro --- */
+.go-mapas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+.go-mapas .go-mapa svg {
+  max-height: 640px;
+  margin: 0 auto;
+}
+@media (max-width: 720px) {
+  .go-mapas {
+    grid-template-columns: 1fr;
+  }
+}
+.go-mapa .go-eess circle {
+  pointer-events: auto;
+  cursor: pointer;
+}
+.go-mapa .go-eess circle.activo {
+  stroke: var(--ink);
+  stroke-width: 1.4px;
+  fill-opacity: 1;
+}
+.go-quitar-boca {
+  background: var(--bg-3);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  color: var(--ink-2);
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+}
+
+/* --- Operador: caja de búsqueda con lista --- */
+.go-filtros {
+  grid-template-columns: 92fr 180fr 118fr 140fr 190fr 120fr 190fr 140fr;
+}
+.go-op-caja {
+  position: relative;
+}
+.go-op-caja input.empresa-select {
+  background-image: none;
+  padding-right: 1.6rem;
+  cursor: text;
+}
+.go-op-limpiar {
+  position: absolute;
+  right: 0.35rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--ink-muted);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.2rem;
+}
+.go-op-limpiar:hover {
+  color: var(--ink);
+}
+
+/* --- Etiquetas de precio sobre las provincias y tooltip con separadores --- */
+.go-mapa .go-etiqueta {
+  font-size: 10px;
+  fill: var(--ink);
+  font-variant-numeric: tabular-nums;
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 2.5px;
+  stroke-linejoin: round;
+}
+.go-mapa .go-etiqueta .fuerte {
+  font-weight: 700;
+}
+.go-mapa-tooltip-sep {
+  border-top: 1px solid var(--rule-soft);
+  margin: 0.3rem 0;
+}
+.go-mapa-tooltip {
+  min-width: 230px;
+}
+
+
+/* --- Desplegables lado a lado (título arriba, detalle debajo) y cuerpo a lo ancho --- */
+.go-desplegables {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 0.5rem;
+}
+.go-desplegables .go-desplegable-boton {
+  position: relative;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  border: 1px solid var(--rule-soft);
+  border-radius: 4px;
+  padding: 0.55rem 2rem 0.55rem 0.9rem;
+  background: var(--bg-2);
+}
+.go-desplegables .go-desplegable-boton:hover,
+.go-desplegables .go-desplegable-boton.abierto {
+  background: var(--bg-3);
+}
+.go-desplegables .go-desplegable-boton .chart-card-subtitle {
+  display: block;
+  flex: none;
+  line-height: 1.3;
+}
+.go-desplegables .go-desplegable-flecha {
+  position: absolute;
+  right: 0.8rem;
+  top: 0.7rem;
+}
+.go-desplegable-cuerpo {
+  border: 1px solid var(--rule-soft);
+  border-radius: 4px;
+  background: var(--bg-2);
+  padding: 0.4rem 0.6rem 0.6rem;
+  margin-bottom: 0.7rem;
+}
+.go-desplegable-cuerpo.mh-tabla-scroll {
+  max-height: 260px;
+  overflow-y: auto;
+}
+.go-desplegable-cuerpo .kpi-grid {
+  margin: 0.2rem 0 0;
+}
+@media (max-width: 720px) {
+  .go-desplegables {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* --- Cuatro desplegables al mismo nivel; gráficos con vista y rango --- */
+.go-desplegables-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+@media (max-width: 1100px) {
+  .go-desplegables-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 720px) {
+  .go-desplegables-4 {
+    grid-template-columns: 1fr;
+  }
+}
+.go-selectores-grafico {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.go-desplegable-cuerpo + .go-mapas,
+.go-desplegable-cuerpo + .go-charts-grid {
+  margin-top: 0.4rem;
+}
+
+/* Detalle de cada caja: dos líneas como máximo */
+.go-desplegables .go-desplegable-boton .chart-card-subtitle {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-left: 0;
+}
