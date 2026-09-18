@@ -64,3 +64,9 @@ output/
 # Grabaciones de pantalla de HDO y sus transcripciones/fotogramas (revisión por video)
 docs/*.mov
 docs/grabacion_*
+
+# Análisis de la media sanción del 17/9/2026 (estrategia: no publicar) y medios pesados de esa sesión
+HANDOFF_MEDIA_SANCION.md
+docs/2026.09.17 Sesion Senado biocombustibles - 21.33 a 22.49 (Clarin YouTube) 720p.mp4
+docs/2026.09.17 Sesion Senado biocombustibles - 21.33 a 22.49 (Clarin YouTube) audio.m4a
+docs/2026.09.17 Bullrich - ganadores y ganadores (22.05.28) clip.mp4
