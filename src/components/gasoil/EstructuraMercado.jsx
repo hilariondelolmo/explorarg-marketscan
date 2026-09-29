@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
-import { Sankey, Tooltip, Layer, Rectangle, ResponsiveContainer } from 'recharts';
-import { ULTIMO_MES, CANALES_DIST, CANALES_COM, TIPOS_NEGOCIO, ponderarCol, fmtPrecio } from '../../lib/gasoil.js';
+import { ULTIMO_MES, BANDERAS, CANALES_DIST, CANALES_COM, TIPOS_NEGOCIO, ponderarCol, fmtPrecio, colorBandera } from '../../lib/gasoil.js';
 import { fmt } from '../../lib/format.js';
-import { useChartColors } from '../../lib/theme.jsx';
+import { useChartColors, useTheme } from '../../lib/theme.jsx';
 import { useRelevamiento, useCajas, BloqueFijo, CC_PUBLICO, TODAS } from './relevamiento.jsx';
+import SankeyMercado, { NIVELES } from './SankeyMercado.jsx';
+import { paletaSankey } from './coloresSankey.js';
 import '../mercado/Mercado.css';
 import '../charts/Chart.css';
 import '../KPIs.css';
@@ -18,15 +19,18 @@ const abreviarTipo = (t) => t
 const GRADOS = [['ambos', 'Grados 2 y 3'], ['2', 'Grado 2'], ['3', 'Grado 3']];
 
 /**
- * Réplica del tablero "MARKET STRUCTURE": un Sankey con el volumen de gas oil
- * (grados 2 y 3) del relevamiento SE 1104 por canal de distribución → tipo
- * de negocio → canal de comercialización, para un mes, con la misma apertura
- * que Precio surtidor (los ocho filtros; con operador o estación, sus bocas).
- * Decisión HDO (16/09/2026): el ancho es volumen (el workbook usaba precio
- * promedio); el precio ponderado de cada nivel va en las tablas.
+ * Réplica del tablero "MARKET STRUCTURE": un Sankey de cuatro tótems con el
+ * volumen de gas oil (grados 2 y 3) del relevamiento SE 1104 por bandera →
+ * canal de distribución → tipo de negocio → canal de comercialización, para
+ * un mes, con la misma apertura que Precio surtidor (los ocho filtros; con
+ * operador o estación, sus bocas). Decisiones HDO (16 y 17/09/2026): el ancho
+ * es volumen (el workbook usaba precio promedio), el precio va en el tooltip
+ * y en las tablas, y al elegir una categoría de un tótem se marcan sus flujos.
  */
 export default function EstructuraMercado({ seccion }) {
   const C = useChartColors();
+  const { theme } = useTheme();
+  const paleta = useMemo(() => paletaSankey(C, theme, TIPOS_NEGOCIO, CANALES_COM, colorBandera), [C, theme]);
   const F = useRelevamiento({ modo: 'abierto' });
   const {
     DX, listo, error, OPERADORES, operador, conOperador, mes, tipo, conv, cdN, ccN, tiposIdx, cambiarCc, tipos, setTipos, disponibles,
@@ -40,57 +44,89 @@ export default function EstructuraMercado({ seccion }) {
   const datos = useMemo(() => {
     if (!listo) return null;
     const filtro = (i) => fMes(i) && fCanal(i) && fBand(i) && fProv(i);
-    const celdas = new Map(); // "cd|tn|cc" → m³
-    const porCd = new Map();
-    const porTipo = new Map();
-    const porCanal = new Map();
+    const P2 = DX[`${tipo.campo}2`];
+    const P3 = DX[`${tipo.campo}3`];
+    // Celdas = recorridos bandera → canal dist → tipo → canal com, con volumen
+    // (de los grados elegidos) y sumas para el precio ponderado de cada grado
+    const celdas = new Map();
+    const volNivel = [new Map(), new Map(), new Map(), new Map()];
+    const suma = (m, k, v) => m.set(k, (m.get(k) || 0) + v);
     let total = 0;
     let w2 = 0;
     let w3 = 0;
     let publico = 0;
-    const suma = (m, k, v) => m.set(k, (m.get(k) || 0) + v);
     for (let i = 0; i < DX.mes.length; i++) {
       if (!filtro(i)) continue;
-      w2 += DX.w2[i];
-      w3 += DX.w3[i];
-      const v = vol(i);
+      const v2 = DX.w2[i] || 0;
+      const v3 = DX.w3[i] || 0;
+      w2 += v2;
+      w3 += v3;
+      const v = grado === '2' ? v2 : grado === '3' ? v3 : v2 + v3;
       if (!v) continue;
       total += v;
       if (DX.cc[i] === CC_PUBLICO) publico += v;
-      suma(porCd, DX.cd[i], v);
-      suma(porTipo, DX.tn[i], v);
-      suma(porCanal, DX.cc[i], v);
-      suma(celdas, `${DX.cd[i]}|${DX.tn[i]}|${DX.cc[i]}`, v);
+      const ids = [DX.band[i], DX.cd[i], DX.tn[i], DX.cc[i]];
+      const k = ids.join('|');
+      let c = celdas.get(k);
+      if (!c) {
+        c = { ids, v: 0, w2: 0, pw2: 0, w3: 0, pw3: 0 };
+        celdas.set(k, c);
+      }
+      c.v += v;
+      if (P2[i] && v2) { c.w2 += v2; c.pw2 += (P2[i] / 100) * v2; }
+      if (P3[i] && v3) { c.w3 += v3; c.pw3 += (P3[i] / 100) * v3; }
+      ids.forEach((id, n) => suma(volNivel[n], id, v));
     }
-    // Niveles chicos agrupados en "Otros"; los tipos de boca se abrevian para
-    // que no queden dos etiquetas iguales al truncarlas en el diagrama
-    const nombreTipo = (t) => (porTipo.get(t) / total < UMBRAL_OTROS ? 'Otros tipos de negocio' : abreviarTipo(TIPOS_NEGOCIO[t]));
-    const nombreCanal = (c) => (porCanal.get(c) / total < UMBRAL_OTROS ? 'Otros canales' : CANALES_COM[c]);
+    // Nombre de cada valor por nivel; los menores al 1 % se agrupan en "Otros"
+    const LISTAS = [BANDERAS, CANALES_DIST, TIPOS_NEGOCIO, CANALES_COM];
+    const OTROS = ['Otras banderas', null, 'Otros tipos de negocio', 'Otros canales'];
+    const nombre = (n, id) => (OTROS[n] && volNivel[n].get(id) / total < UMBRAL_OTROS ? OTROS[n] : LISTAS[n][id]);
+    const colorDe = (n, nm) => {
+      if (nm === OTROS[n]) return paleta.otros;
+      if (n === 0) return paleta.bandera(nm);
+      if (n === 1) return paleta.distribucion(nm);
+      return (n === 2 ? paleta.tipo : paleta.canal).get(nm) || paleta.otros;
+    };
+    // Nodos por nivel en orden alfabético ("Otros" al final), como el tablero
     const nodes = [];
     const idNodo = new Map();
-    const nodo = (nivel, nombre) => {
-      const k = `${nivel}|${nombre}`;
-      if (!idNodo.has(k)) {
-        idNodo.set(k, nodes.length);
-        nodes.push({ name: nombre, nivel, color: [C.exp, C.oil, C.neutral][nivel] });
-      }
-      return idNodo.get(k);
-    };
-    const enlaces = new Map();
-    for (const [k, v] of celdas) {
-      const [cd, tn, cc] = k.split('|').map(Number);
-      const n0 = nodo(0, CANALES_DIST[cd]);
-      const n1 = nodo(1, nombreTipo(tn));
-      const n2 = nodo(2, nombreCanal(cc));
-      suma(enlaces, `${n0}>${n1}`, v);
-      suma(enlaces, `${n1}>${n2}`, v);
+    for (let n = 0; n < 4; n++) {
+      const nombres = [...new Set([...volNivel[n].keys()].map((id) => nombre(n, id)))]
+        .sort((a, b) => (a === OTROS[n]) - (b === OTROS[n]) || a.localeCompare(b));
+      nombres.forEach((nm, j) => {
+        idNodo.set(`${n}|${nm}`, nodes.length);
+        nodes.push({
+          name: nm, nombre: nm, etiqueta: n === 2 ? abreviarTipo(nm) : nm, nivel: n, color: colorDe(n, nm),
+          cabecera: j === 0 ? NIVELES[n] : null, celdas: new Set(), w2: 0, pw2: 0, w3: 0, pw3: 0,
+        });
+      });
     }
-    const links = [...enlaces.entries()].map(([k, value]) => {
-      const [source, target] = k.split('>').map(Number);
-      return { source, target, value };
-    });
-    return { nodes, links, total, w2, w3, publico, minorista: porCd.get(0) || 0, mayorista: porCd.get(1) || 0 };
-  }, [...claves, grado, C]);
+    // Enlaces entre niveles consecutivos, con las celdas que pasan por cada uno
+    const enlaces = new Map();
+    for (const [k, c] of celdas) {
+      const ruta = c.ids.map((id, n) => idNodo.get(`${n}|${nombre(n, id)}`));
+      for (const ni of ruta) {
+        const nd = nodes[ni];
+        nd.celdas.add(k);
+        nd.w2 += c.w2; nd.pw2 += c.pw2; nd.w3 += c.w3; nd.pw3 += c.pw3;
+      }
+      for (let t = 0; t < 3; t++) {
+        const ke = `${ruta[t]}>${ruta[t + 1]}`;
+        let e = enlaces.get(ke);
+        if (!e) {
+          e = { source: ruta[t], target: ruta[t + 1], value: 0, celdas: new Map(), w2: 0, pw2: 0, w3: 0, pw3: 0 };
+          enlaces.set(ke, e);
+        }
+        e.value += c.v;
+        e.celdas.set(k, c.v);
+        e.w2 += c.w2; e.pw2 += c.pw2; e.w3 += c.w3; e.pw3 += c.pw3;
+      }
+    }
+    return {
+      nodes, links: [...enlaces.values()], total, w2, w3, publico,
+      minorista: volNivel[1].get(0) || 0, mayorista: volNivel[1].get(1) || 0,
+    };
+  }, [...claves, grado, paleta]);
 
   // Tablas por nivel, con volumen y precio ponderado (tipo de precio elegido).
   // Cada tabla ignora el filtro de su propio nivel (como la tabla por bandera
@@ -135,7 +171,7 @@ export default function EstructuraMercado({ seccion }) {
     },
     {
       id: 'sankey', titulo: 'Diagrama de flujos',
-      detalle: `Canal de distribución → tipo de negocio → canal de comercialización · ancho = m³ de gas oil ${etiquetaGrado}`,
+      detalle: `Bandera → canal de distribución → tipo de negocio → canal de comercialización · ancho = m³ de gas oil ${etiquetaGrado}`,
     },
     {
       id: 'canal', titulo: 'Por canal de comercialización',
@@ -226,9 +262,9 @@ export default function EstructuraMercado({ seccion }) {
             <div className="chart-card">
               <div className="chart-card-header">
                 <div>
-                  <span className="chart-card-title">Canal de distribución → tipo de negocio → canal de comercialización</span>
+                  <span className="chart-card-title">Bandera → canal de distribución → tipo de negocio → canal de comercialización</span>
                   <span className="chart-card-subtitle">
-                    {fmt.monthShort(mes)} · {etiquetaCanal}{etiquetaFiltro ? ` · ${etiquetaFiltro}` : ''} · ancho = m³ de gas oil {etiquetaGrado} · niveles con menos del 1% agrupados en "Otros"
+                    {fmt.monthShort(mes)} · {etiquetaCanal}{etiquetaFiltro ? ` · ${etiquetaFiltro}` : ''} · ancho = m³ de gas oil {etiquetaGrado} · pasá el mouse por un nodo o un flujo para ver volumen y precio y marcar su recorrido · clic en un nodo deja la marca, otro clic la suelta · menores al 1% agrupados en "Otros"
                   </span>
                 </div>
                 <div className="go-selectores-grafico">
@@ -241,20 +277,9 @@ export default function EstructuraMercado({ seccion }) {
               </div>
               <div className="chart-card-body go-sankey">
                 {datos.links.length ? (
-                  <ResponsiveContainer width="100%" height={560}>
-                    <Sankey
-                      data={{ nodes: datos.nodes, links: datos.links }}
-                      nodeWidth={12}
-                      nodePadding={14}
-                      linkCurvature={0.5}
-                      iterations={48}
-                      margin={{ top: 10, right: 210, bottom: 10, left: 10 }}
-                      node={<Nodo C={C} />}
-                      link={{ stroke: C.tick, strokeOpacity: 0.18 }}
-                    >
-                      <Tooltip content={<TooltipSankey total={datos.total} />} />
-                    </Sankey>
-                  </ResponsiveContainer>
+                  <SankeyMercado
+                    nodes={datos.nodes} links={datos.links} total={datos.total} unidad={tipo.unidad} conv={conv} C={C}
+                  />
                 ) : (
                   <div className="section-placeholder">Sin volumen relevado para esta selección en {fmt.monthShort(mes)}.</div>
                 )}
@@ -274,43 +299,6 @@ export default function EstructuraMercado({ seccion }) {
           </p>
         </>
       )}
-    </div>
-  );
-}
-
-function Nodo({ x, y, width, height, index, payload, C }) {
-  // Etiquetas siempre a la derecha del nodo; el nivel del medio se abrevia
-  // para no pisar el tercero (el margen derecho del Sankey aloja las últimas)
-  const largo = payload.nivel === 1 ? 30 : 40;
-  const etiqueta = payload.name.length > largo ? `${payload.name.slice(0, largo - 1)}…` : payload.name;
-  return (
-    <Layer key={`nodo-${index}`}>
-      <Rectangle x={x} y={y} width={width} height={height} fill={payload.color} fillOpacity={0.9} />
-      {height > 6 && (
-        <text
-          x={x + width + 6} y={y + height / 2} textAnchor="start" dominantBaseline="middle"
-          fontSize={11} fill={C.ink}
-        >
-          {etiqueta}
-          <tspan fill={C.tick}> {fmt.compact(payload.value)}</tspan>
-        </text>
-      )}
-    </Layer>
-  );
-}
-
-function TooltipSankey({ active, payload, total }) {
-  if (!active || !payload?.length) return null;
-  const p = payload[0].payload;
-  const nombre = p.source && p.target ? `${p.source.name} → ${p.target.name}` : p.name;
-  const v = p.value;
-  return (
-    <div className="chart-tooltip">
-      <div className="chart-tooltip-label">{nombre}</div>
-      <div className="chart-tooltip-row">
-        <div className="chart-tooltip-row-label"><span>Volumen</span></div>
-        <span className="chart-tooltip-row-val">{fmt.int(v)} m³ · {fmt.pct(total ? (v / total) * 100 : 0)}</span>
-      </div>
     </div>
   );
 }

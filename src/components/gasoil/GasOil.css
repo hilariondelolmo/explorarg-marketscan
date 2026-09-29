@@ -573,3 +573,15 @@
   overflow: hidden;
   margin-left: 0;
 }
+
+/* --- Sankey de cuatro tótems (Estructura del mercado) --- */
+.go-sankey-marco {
+  position: relative;
+  width: 100%;
+}
+.go-sankey .recharts-sankey-nodes {
+  cursor: pointer;
+}
+.go-sankey .recharts-sankey-links path {
+  transition: stroke-opacity 0.12s;
+}
