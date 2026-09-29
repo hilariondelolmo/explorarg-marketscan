@@ -327,14 +327,32 @@
   padding: 0 0.55rem;
   line-height: 1;
 }
+/* Pantallas angostas: dos filas de cuatro filtros y, en celular, cuatro de
+   dos. Tipo de negocio pasa a la última columna, así que su panel abre hacia
+   la izquierda como el de provincias. */
 @media (max-width: 1100px) {
   .go-filtros {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .go-f-tipos .mh-dropdown-panel {
+    left: auto;
+    right: 0;
   }
 }
 @media (max-width: 720px) {
   .go-filtros {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  /* Los paneles no pasan del ancho de la pantalla y sus textos bajan de línea */
+  .go-filtro .mh-dropdown-panel {
+    min-width: 0;
+    width: max-content;
+    max-width: calc(100vw - 2 * var(--gutter));
+  }
+  .go-filtro .mh-dropdown-item {
+    height: auto;
+    white-space: normal;
+    overflow: visible;
   }
 }
 
@@ -368,7 +386,9 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-@media (max-width: 720px) {
+/* Hasta 1100 px los filtros van en dos filas o más y el bloque queda muy
+   alto para ir pegado: se va con la página al scrollear */
+@media (max-width: 1100px) {
   .go-sticky {
     position: static;
     box-shadow: none;
@@ -464,9 +484,6 @@
 }
 
 /* --- Operador: caja de búsqueda con lista --- */
-.go-filtros {
-  grid-template-columns: 92fr 180fr 118fr 140fr 190fr 120fr 190fr 140fr;
-}
 .go-op-caja {
   position: relative;
 }
