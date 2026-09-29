@@ -308,6 +308,8 @@ export function FiltrosRelevamiento({ F }) {
         <label htmlFor="go-bandera">Bandera</label>
         <select id="go-bandera" className="empresa-select" value={bandera} onChange={(e) => setBandera(e.target.value)}>
           <option value={TODAS}>Todas</option>
+          {/* la elegida siempre figura, aunque llegue por un clic del Sankey y no tenga precio en el mes */}
+          {bandera !== TODAS && !banderasMes.includes(bandera) && <option value={bandera}>{bandera}</option>}
           {banderasMes.map((b) => <option key={b} value={b}>{b}</option>)}
         </select>
       </div>

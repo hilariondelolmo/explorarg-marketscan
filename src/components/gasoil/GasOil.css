@@ -624,6 +624,10 @@
 .go-sankey .recharts-sankey-nodes {
   cursor: pointer;
 }
+/* Nodos agrupados en "Otros": no filtran con el clic */
+.go-sankey .go-nodo-quieto {
+  cursor: default;
+}
 .go-sankey .recharts-sankey-links path {
   transition: stroke-opacity 0.12s;
 }

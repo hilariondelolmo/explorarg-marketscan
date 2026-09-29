@@ -25,7 +25,10 @@ const GRADOS = [['ambos', 'Grados 2 y 3'], ['2', 'Grado 2'], ['3', 'Grado 3']];
  * un mes, con la misma apertura que Precio surtidor (los ocho filtros; con
  * operador o estación, sus bocas). Decisiones HDO (16 y 17/09/2026): el ancho
  * es volumen (el workbook usaba precio promedio), el precio va en el tooltip
- * y en las tablas, y al elegir una categoría de un tótem se marcan sus flujos.
+ * y en las tablas, y al pasar el mouse por una categoría de un tótem se marcan
+ * sus flujos. El clic en un nodo filtra (29/09/2026): pasa esa categoría al
+ * filtro de arriba que le corresponde, así el diagrama, las tarjetas y las
+ * tablas quedan solo con lo que pasa por ella; otro clic la suelta.
  */
 export default function EstructuraMercado({ seccion }) {
   const C = useChartColors();
@@ -33,8 +36,8 @@ export default function EstructuraMercado({ seccion }) {
   const paleta = useMemo(() => paletaSankey(C, theme, TIPOS_NEGOCIO, CANALES_COM, colorBandera), [C, theme]);
   const F = useRelevamiento({ modo: 'abierto' });
   const {
-    DX, listo, error, OPERADORES, operador, conOperador, mes, tipo, conv, cdN, ccN, tiposIdx, cambiarCc, tipos, setTipos, disponibles,
-    fMes, fBase, fCanal, fBand, fProv, claves, etiquetaCanal, etiquetaFiltro, etiquetaProvincias,
+    DX, listo, error, OPERADORES, operador, conOperador, mes, tipo, conv, cdN, ccN, tiposIdx, cambiarCd, cambiarCc, tipos, setTipos, disponibles,
+    bandera, setBandera, fMes, fBase, fCanal, fBand, fProv, claves, etiquetaCanal, etiquetaFiltro, etiquetaProvincias,
   } = F;
   const [abiertos, alternar] = useCajas({ kpi: false, sankey: true, canal: false, tipo: false });
   const [grado, setGrado] = useState('ambos');
@@ -97,7 +100,7 @@ export default function EstructuraMercado({ seccion }) {
         idNodo.set(`${n}|${nm}`, nodes.length);
         nodes.push({
           name: nm, nombre: nm, etiqueta: n === 2 ? abreviarTipo(nm) : nm, nivel: n, color: colorDe(n, nm),
-          cabecera: j === 0 ? NIVELES[n] : null, celdas: new Set(), w2: 0, pw2: 0, w3: 0, pw3: 0,
+          cabecera: j === 0 ? NIVELES[n] : null, filtrable: nm !== OTROS[n], celdas: new Set(), w2: 0, pw2: 0, w3: 0, pw3: 0,
         });
       });
     }
@@ -163,6 +166,19 @@ export default function EstructuraMercado({ seccion }) {
   const tipoElegido = tipos.size === 1 ? [...tipos][0] : null;
   const elegirTipo = (nombre) => setTipos(tipoElegido === nombre ? new Set(disponibles.tipos) : new Set([nombre]));
   const elegirCanal = (id) => cambiarCc(ccN === id ? TODAS : String(id));
+  // Clic en un nodo del Sankey: su categoría pasa al filtro de su tótem; si ya lo era, lo suelta
+  const elegirNodo = (n) => {
+    if (n.nivel === 0) setBandera(bandera === n.nombre ? TODAS : n.nombre);
+    else if (n.nivel === 1) cambiarCd(cdN === CANALES_DIST.indexOf(n.nombre) ? 'ambos' : String(CANALES_DIST.indexOf(n.nombre)));
+    else if (n.nivel === 2) elegirTipo(n.nombre);
+    else elegirCanal(CANALES_COM.indexOf(n.nombre));
+  };
+  const elegidos = new Set([
+    bandera !== TODAS && `0|${bandera}`,
+    cdN != null && `1|${CANALES_DIST[cdN]}`,
+    tipoElegido && `2|${tipoElegido}`,
+    ccN != null && `3|${CANALES_COM[ccN]}`,
+  ].filter(Boolean));
 
   const cajas = [
     {
@@ -264,7 +280,7 @@ export default function EstructuraMercado({ seccion }) {
                 <div>
                   <span className="chart-card-title">Bandera → canal de distribución → tipo de negocio → canal de comercialización</span>
                   <span className="chart-card-subtitle">
-                    {fmt.monthShort(mes)} · {etiquetaCanal}{etiquetaFiltro ? ` · ${etiquetaFiltro}` : ''} · ancho = m³ de gas oil {etiquetaGrado} · pasá el mouse por un nodo o un flujo para ver volumen y precio y marcar su recorrido · clic en un nodo deja la marca, otro clic la suelta · menores al 1% agrupados en "Otros"
+                    {fmt.monthShort(mes)} · {etiquetaCanal}{etiquetaFiltro ? ` · ${etiquetaFiltro}` : ''} · ancho = m³ de gas oil {etiquetaGrado} · pasá el mouse por un nodo o un flujo para ver volumen y precio y marcar su recorrido · clic en un nodo deja solo lo que pasa por él, otro clic lo suelta · menores al 1% agrupados en "Otros"
                   </span>
                 </div>
                 <div className="go-selectores-grafico">
@@ -279,6 +295,7 @@ export default function EstructuraMercado({ seccion }) {
                 {datos.links.length ? (
                   <SankeyMercado
                     nodes={datos.nodes} links={datos.links} total={datos.total} unidad={tipo.unidad} conv={conv} C={C}
+                    elegidos={elegidos} onNodo={elegirNodo}
                   />
                 ) : (
                   <div className="section-placeholder">Sin volumen relevado para esta selección en {fmt.monthShort(mes)}.</div>

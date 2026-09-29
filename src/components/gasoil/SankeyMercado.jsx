@@ -12,13 +12,18 @@ export const NIVELES = ['Bandera', 'Canal de distribución', 'Tipo de negocio', 
  * HDO: nodos anchos de colores con la etiqueta adentro, flujos del color del
  * nodo de origen, ancho = volumen. Pasar el mouse por un nodo o un flujo
  * marca los recorridos que pasan por ahí (la parte iluminada de cada flujo
- * es la que corresponde); clic en un nodo deja la marca fija; otro clic la
- * suelta. El tooltip trae el volumen y el precio ponderado GO2 y GO3.
+ * es la que corresponde). Clic en un nodo filtra (decisión HDO 29/09/2026):
+ * avisa con onNodo, la sección lo pasa a su filtro y el diagrama se rearma
+ * solo con lo que pasa por ese nodo; otro clic lo suelta. Los nodos que hoy
+ * son filtro van con borde. El tooltip trae el volumen y el precio ponderado
+ * GO2 y GO3.
  *
- *   nodes  [{ name, nombre, etiqueta, nivel, color, cabecera, celdas: Set, w2, pw2, w3, pw3 }]
- *   links  [{ source, target, value, celdas: Map(celda → m³), w2, pw2, w3, pw3 }]
+ *   nodes     [{ name, nombre, etiqueta, nivel, color, cabecera, filtrable, celdas: Set, w2, pw2, w3, pw3 }]
+ *   links     [{ source, target, value, celdas: Map(celda → m³), w2, pw2, w3, pw3 }]
+ *   elegidos  Set('nivel|nombre') de los nodos que hoy son filtro
+ *   onNodo    (nodo) => void: clic en un nodo filtrable (los agrupados en "Otros" no lo son)
  */
-export default function SankeyMercado({ nodes, links, total, unidad, conv, C, alto = 620 }) {
+export default function SankeyMercado({ nodes, links, total, unidad, conv, C, elegidos, onNodo, alto = 620 }) {
   const ref = useRef(null);
   const [ancho, setAncho] = useState(1200);
   useEffect(() => {
@@ -28,20 +33,18 @@ export default function SankeyMercado({ nodes, links, total, unidad, conv, C, al
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
-  const [hover, setHover] = useState(null); // Set de celdas bajo el mouse
-  const [fijo, setFijo] = useState(null);   // { nivel, nombre, celdas } del nodo clickeado
-  const foco = hover || fijo?.celdas || null;
+  const [foco, setFoco] = useState(null); // Set de celdas bajo el mouse
   const nodeWidth = Math.max(64, Math.min(170, Math.round(ancho * 0.14)));
 
   const entrar = (el, tipo) => {
     const p = el.payload;
-    setHover(tipo === 'node' ? p.celdas : new Set(p.celdas.keys()));
+    setFoco(tipo === 'node' ? p.celdas : new Set(p.celdas.keys()));
   };
-  const salir = () => setHover(null);
+  const salir = () => setFoco(null);
   const clic = (el, tipo) => {
-    if (tipo !== 'node') return;
-    const p = el.payload;
-    setFijo((f) => (f && f.nivel === p.nivel && f.nombre === p.nombre ? null : { nivel: p.nivel, nombre: p.nombre, celdas: p.celdas }));
+    if (tipo !== 'node' || !el.payload.filtrable) return;
+    setFoco(null); // el diagrama filtrado se muestra limpio, sin la marca del mouse
+    onNodo?.(el.payload);
   };
 
   return (
@@ -55,7 +58,7 @@ export default function SankeyMercado({ nodes, links, total, unidad, conv, C, al
           iterations={64}
           sort={false}
           margin={{ top: 26, right: 4, bottom: 6, left: 4 }}
-          node={<Nodo C={C} foco={foco} fijo={fijo} />}
+          node={<Nodo C={C} foco={foco} elegidos={elegidos} />}
           link={<Enlace foco={foco} />}
           onMouseEnter={entrar}
           onMouseLeave={salir}
@@ -75,22 +78,22 @@ function intersecta(a, b) {
   return false;
 }
 
-function Nodo({ x, y, width, height, index, payload, C, foco, fijo }) {
+function Nodo({ x, y, width, height, index, payload, C, foco, elegidos }) {
   const apagado = !!foco && !intersecta(payload.celdas, foco);
-  const esFijo = !!fijo && fijo.nivel === payload.nivel && fijo.nombre === payload.nombre;
+  const elegido = !!elegidos?.has(`${payload.nivel}|${payload.nombre}`);
   const color = payload.color;
   const texto = textoSobre(color);
   const maxChars = Math.max(4, Math.floor((width - 8) / 6.4));
   const etiqueta = payload.etiqueta.length > maxChars ? `${payload.etiqueta.slice(0, maxChars - 1)}…` : payload.etiqueta;
   const dosLineas = height >= 30;
   return (
-    <Layer key={`nodo-${index}`}>
+    <Layer key={`nodo-${index}`} className={payload.filtrable ? '' : 'go-nodo-quieto'}>
       {payload.cabecera && (
         <text x={x + width / 2} y={11} textAnchor="middle" fontSize={12} fontWeight={600} fill={C.ink}>{payload.cabecera}</text>
       )}
       <Rectangle
         x={x} y={y} width={width} height={height} fill={color} fillOpacity={apagado ? 0.22 : 1}
-        stroke={esFijo ? C.ink : 'none'} strokeWidth={1.5}
+        stroke={elegido ? C.ink : 'none'} strokeWidth={1.5}
       />
       {height >= 12 && (
         <text
