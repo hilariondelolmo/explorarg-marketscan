@@ -222,10 +222,35 @@
 .go-tipos-acciones button:hover {
   text-decoration: underline;
 }
-.go-tipos-panel .mh-dropdown-item span {
+.go-tipos-panel .mh-dropdown-item span,
+.go-prov-panel .mh-dropdown-item span {
   text-transform: none;
   letter-spacing: 0;
   font-size: 0.8rem;
+}
+
+/* --- Dropdown de provincias: es la última columna de la fila, así que abre
+   hacia la izquierda; las 24 en dos columnas que se leen de arriba abajo --- */
+.mh-dropdown-panel.go-prov-panel {
+  left: auto;
+  right: 0;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  grid-template-rows: auto repeat(var(--filas), auto);
+  grid-auto-flow: column;
+  column-gap: 0.4rem;
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+}
+.go-prov-panel .go-tipos-acciones {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+@media (max-width: 720px) {
+  .mh-dropdown-panel.go-prov-panel {
+    display: flex;
+    max-height: 320px;
+  }
 }
 
 /* --- Fila única de filtros: etiqueta arriba de cada control, grilla de

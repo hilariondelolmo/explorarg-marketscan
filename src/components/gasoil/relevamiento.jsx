@@ -25,12 +25,30 @@ export const TIPOS_RETAIL = new Set([
   'Estación de servicio',
 ]);
 export const CC_PUBLICO = CANALES_COM.indexOf('Al público');
+// Provincias del desplegable ('N/D' no tiene volumen en toda la serie) y sus
+// selecciones prearmadas. "Sin Zona Fría" deja afuera las cinco provincias
+// que definió HDO (29/09/2026); cada sección abre con todas tildadas.
+export const PROVINCIAS_FILTRO = PROVINCIAS.filter((p) => p !== 'N/D');
+const ZONA_FRIA = new Set(['NEUQUEN', 'RIO NEGRO', 'CHUBUT', 'SANTA CRUZ', 'TIERRA DEL FUEGO']);
+export const SIN_ZONA_FRIA = PROVINCIAS_FILTRO.filter((p) => !ZONA_FRIA.has(p));
+const ROTULO_SIN_ZONA_FRIA = 'Sin Zona Fría';
+// Acciones de un desplegable: [rótulo, opciones que deja tildadas (null = todas), ayuda]
+const ACCIONES_TODOS = [['Todos', null], ['Ninguno', []]];
+const ACCIONES_PROVINCIA = [
+  ['Todas', PROVINCIAS_FILTRO],
+  [ROTULO_SIN_ZONA_FRIA, SIN_ZONA_FRIA, 'Todas menos Neuquén, Río Negro, Chubut, Santa Cruz y Tierra del Fuego'],
+  ['Ninguna', []],
+];
+const mismas = (set, lista) => set.size === lista.length && lista.every((p) => set.has(p));
 
 /**
  * Estado de los ocho filtros del relevamiento y carga de los datos finos
  * (public/data/gasoil_retail.json; con operador o estación, su partición por
  * boca). Devuelve el estado, los manejadores, los predicados de filtro sobre
  * el índice de fila y las etiquetas que describen la selección.
+ *
+ * Provincia es multi-selección: con las 24 tildadas no hay filtro (todo el
+ * país); con menos, todo se calcula sobre el conjunto tildado.
  *
  *   modo 'surtidor' (tablero PRECIO SURTIDOR): arranca en minorista, seis tipos
  *        de bocas/estación, al público y precio surtidor; al cambiar el canal de
@@ -57,7 +75,8 @@ export function useRelevamiento({ modo = 'surtidor', conMes = false } = {}) {
   const [operador, setOperador] = useState(null); // índice en D.operadores
   const [opTexto, setOpTexto] = useState('');
   const [boca, setBoca] = useState(null);         // nro de inscripción de la estación
-  const [provincia, setProvincia] = useState(null);
+  const [provincias, setProvincias] = useState(() => new Set(PROVINCIAS_FILTRO)); // provincias tildadas: abre con todas
+  const [baseProv, setBaseProv] = useState(PROVINCIAS_FILTRO); // adonde vuelve el mapa al soltar: Todas o Sin Zona Fría
   const [parte, setParte] = useState(null);       // { k, datos }: partición por boca del operador
   const [mesDatos, setMesDatos] = useState(null); // { f, datos }: bocas relevadas en el mes elegido
 
@@ -84,7 +103,12 @@ export function useRelevamiento({ modo = 'surtidor', conMes = false } = {}) {
   const tipo = tipoPrecio(tipoId);
   const mi = IDX_MES.get(mes);
   const bi = bandera === TODAS ? null : BANDERAS.indexOf(bandera);
-  const pi = provincia ? PROVINCIAS.indexOf(provincia) : null;
+  // Con todas las provincias tildadas no hay filtro: provIdx queda en null
+  const conProvincias = provincias.size < PROVINCIAS_FILTRO.length;
+  const provIdx = useMemo(
+    () => (conProvincias ? new Set([...provincias].map((p) => PROVINCIAS.indexOf(p))) : null),
+    [provincias, conProvincias],
+  );
   const cdN = cd === 'ambos' ? null : Number(cd);
   const ccN = cc === TODAS ? null : Number(cc);
   const tiposIdx = useMemo(() => new Set(TIPOS_NEGOCIO.map((t, i) => (tipos.has(t) ? i : -1)).filter((i) => i >= 0)), [tipos]);
@@ -157,15 +181,37 @@ export function useRelevamiento({ modo = 'surtidor', conMes = false } = {}) {
       setOpTexto(OPERADORES[b[1]] || '');
     }
   };
+  // La base es la última selección prearmada que quedó tildada (Todas o Sin Zona Fría)
+  const cambiarProvincias = (n) => {
+    setProvincias(n);
+    if (mismas(n, PROVINCIAS_FILTRO)) setBaseProv(PROVINCIAS_FILTRO);
+    else if (mismas(n, SIN_ZONA_FRIA)) setBaseProv(SIN_ZONA_FRIA);
+  };
+  // Clic en el mapa: desde la base deja solo esa provincia; con una selección
+  // propia la suma o la saca. Clic afuera (null) o sacar la última vuelve a la base.
+  const enBase = mismas(provincias, baseProv);
+  const elegirProvincia = (p) => {
+    if (p == null) {
+      if (!enBase) setProvincias(new Set(baseProv));
+      return;
+    }
+    if (enBase) {
+      setProvincias(new Set([p]));
+      return;
+    }
+    const n = new Set(provincias);
+    if (n.has(p)) n.delete(p); else n.add(p);
+    cambiarProvincias(n.size ? n : new Set(baseProv));
+  };
 
   // Filtros combinables sobre el índice de fila
   const fBase = (i) => !conOperador || (DX.op[i] === operador && (boca == null || DX.boca[i] === boca));
   const fCanal = (i) => fBase(i) && (cdN == null || DX.cd[i] === cdN) && tiposIdx.has(DX.tn[i]) && (ccN == null || DX.cc[i] === ccN);
   const fBand = (i) => bi == null || DX.band[i] === bi;
-  const fProv = (i) => pi == null || DX.prov[i] === pi;
+  const fProv = (i) => provIdx == null || provIdx.has(DX.prov[i]);
   const fMes = (i) => DX.mes[i] === mi;
   const conv = (v, f = mes) => convertir(v, f, tipo);
-  const claves = [DX, mi, cdN, tiposIdx, ccN, bi, pi, tipo, operador, boca];
+  const claves = [DX, mi, cdN, tiposIdx, ccN, bi, provIdx, tipo, operador, boca];
 
   // Banderas con datos en el mes para la selección de canales (opciones del filtro)
   const banderasMes = useMemo(() => {
@@ -176,13 +222,23 @@ export function useRelevamiento({ modo = 'surtidor', conMes = false } = {}) {
 
   const etiquetaCanal = `${cd === 'ambos' ? 'minorista y mayorista' : cd === '0' ? 'minorista' : 'mayorista'}${ccN != null ? ` · ${CANALES_COM[ccN].toLowerCase()}` : ''}`;
   const bocaSel = boca != null ? BOCAS.get(boca) : null;
+  // Provincias elegidas, en el orden del desplegable: vacío sin filtro, los
+  // nombres hasta tres y la cantidad si son más (en el botón, desde dos);
+  // la selección prearmada lleva su nombre
+  const elegidas = PROVINCIAS_FILTRO.filter((p) => provincias.has(p)).map(nombreProvincia);
+  const cuantas = mismas(provincias, SIN_ZONA_FRIA) ? ROTULO_SIN_ZONA_FRIA
+    : elegidas.length ? `${elegidas.length} provincias` : 'Ninguna provincia';
+  const etiquetaProvincias = !conProvincias ? '' : elegidas.length >= 1 && elegidas.length <= 3 ? elegidas.join(' + ') : cuantas;
+  const resumenProvincias = !conProvincias ? 'Todo el país' : elegidas.length === 1 ? elegidas[0] : cuantas;
   const etiquetaFiltro = [
     bandera !== TODAS && bandera,
     conOperador && OPERADORES[operador],
     bocaSel && `${bocaSel[5]}, ${bocaSel[4]}`,
-    provincia && nombreProvincia(provincia),
+    etiquetaProvincias,
   ].filter(Boolean).join(' · ');
   const ambito = bocaSel ? 'Estación' : conOperador ? 'Operador' : 'País';
+  // Ámbito de los valores que responden al filtro de provincia: "País" solo con todas tildadas
+  const ambitoProv = ambito === 'País' && conProvincias ? etiquetaProvincias : ambito;
   const resumenTipos = tipos.size === disponibles.tipos.length || tipos.size >= TIPOS_NEGOCIO.length
     ? 'Todos los tipos'
     : `${[...tipos].filter((t) => disponibles.tipos.includes(t)).length} de ${disponibles.tipos.length} tipos`;
@@ -192,8 +248,9 @@ export function useRelevamiento({ modo = 'surtidor', conMes = false } = {}) {
     D, DX, listo, error, OPERADORES, BOCAS, operadoresOrden, disponibles, resumenTipos, banderasMes,
     mes, setMes, mi, mesAnterior, tipoId, setTipoId, tipo, cd, cambiarCd, cdN, tipos, setTipos, tiposIdx,
     cc, cambiarCc, ccN, bandera, setBandera, bi, operador, opTexto, elegirOperador, conOperador,
-    boca, elegirBoca, bocaSel, provincia, setProvincia, pi, mesDatos,
-    fBase, fCanal, fBand, fProv, fMes, conv, claves, etiquetaCanal, etiquetaFiltro, ambito,
+    boca, elegirBoca, bocaSel, mesDatos,
+    provincias, cambiarProvincias, provIdx, conProvincias, elegirProvincia, etiquetaProvincias, resumenProvincias,
+    fBase, fCanal, fBand, fProv, fMes, conv, claves, etiquetaCanal, etiquetaFiltro, ambito, ambitoProv,
   };
 }
 
@@ -212,7 +269,7 @@ export function FiltrosRelevamiento({ F }) {
   const {
     mes, setMes, tipoId, setTipoId, cd, cambiarCd, disponibles, tipos, setTipos, resumenTipos,
     cc, cambiarCc, bandera, setBandera, banderasMes, opTexto, elegirOperador, operadoresOrden,
-    provincia, setProvincia,
+    provincias, cambiarProvincias, resumenProvincias,
   } = F;
   return (
     <div className="go-filtros">
@@ -238,7 +295,7 @@ export function FiltrosRelevamiento({ F }) {
       </div>
       <div className="go-filtro go-f-tipos">
         <span className="go-filtro-label">Tipo de negocio</span>
-        <TiposDropdown opciones={disponibles.tipos} seleccion={tipos} resumen={resumenTipos} onCambiar={setTipos} />
+        <DropdownMulti opciones={disponibles.tipos} seleccion={tipos} resumen={resumenTipos} onCambiar={setTipos} />
       </div>
       <div className="go-filtro go-f-cc">
         <label htmlFor="go-cc">Canal de comercialización</label>
@@ -271,11 +328,11 @@ export function FiltrosRelevamiento({ F }) {
         </div>
       </div>
       <div className="go-filtro go-f-prov">
-        <label htmlFor="go-prov">Provincia</label>
-        <select id="go-prov" className="empresa-select" value={provincia || ''} onChange={(e) => setProvincia(e.target.value || null)}>
-          <option value="">Todo el país</option>
-          {PROVINCIAS.filter((p) => p !== 'N/D').map((p) => <option key={p} value={p}>{nombreProvincia(p)}</option>)}
-        </select>
+        <span className="go-filtro-label">Provincia</span>
+        <DropdownMulti
+          opciones={PROVINCIAS_FILTRO} seleccion={provincias} resumen={resumenProvincias} onCambiar={cambiarProvincias}
+          rotulo={nombreProvincia} acciones={ACCIONES_PROVINCIA} clase="go-prov-panel"
+        />
       </div>
     </div>
   );
@@ -316,8 +373,15 @@ export function BloqueFijo({ seccion, tituloDefault, F, cajas, abiertos, alterna
   );
 }
 
-/** Dropdown multi-selección de tipos de negocio (mismo estilo que los sectores de gas oil). */
-export function TiposDropdown({ opciones, seleccion, resumen, onCambiar }) {
+/**
+ * Dropdown multi-selección con casillas (mismo estilo que los sectores de gas
+ * oil), para tipos de negocio y provincias. `rotulo` da el texto de cada
+ * opción; `acciones` son las selecciones prearmadas de arriba del panel;
+ * `clase` es la del panel.
+ */
+export function DropdownMulti({
+  opciones, seleccion, resumen, onCambiar, rotulo = (t) => t, acciones = ACCIONES_TODOS, clase = 'go-tipos-panel',
+}) {
   const [abierto, setAbierto] = useState(false);
   const ref = useRef(null);
   useEffect(() => {
@@ -340,15 +404,16 @@ export function TiposDropdown({ opciones, seleccion, resumen, onCambiar }) {
         <span>{resumen}</span><span className="mh-dropdown-caret">▾</span>
       </button>
       {abierto && (
-        <div className="mh-dropdown-panel go-tipos-panel">
+        <div className={`mh-dropdown-panel ${clase}`} style={{ '--filas': Math.ceil(opciones.length / 2) }}>
           <div className="go-tipos-acciones">
-            <button type="button" onClick={() => onCambiar(new Set(opciones))}>Todos</button>
-            <button type="button" onClick={() => onCambiar(new Set())}>Ninguno</button>
+            {acciones.map(([nombre, lista, ayuda]) => (
+              <button key={nombre} type="button" title={ayuda} onClick={() => onCambiar(new Set(lista || opciones))}>{nombre}</button>
+            ))}
           </div>
           {opciones.map((t) => (
             <label key={t} className="mh-dropdown-item">
               <input type="checkbox" checked={seleccion.has(t)} onChange={() => toggle(t)} />
-              <span>{t}</span>
+              <span>{rotulo(t)}</span>
             </label>
           ))}
         </div>

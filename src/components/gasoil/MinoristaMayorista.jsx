@@ -38,7 +38,7 @@ export default function MinoristaMayorista({ seccion }) {
   const F = useRelevamiento({ modo: 'abierto' });
   const {
     DX, listo, error, OPERADORES, operador, conOperador, mes, mesAnterior, tipo, conv, cd, cdN, ccN, tiposIdx, cambiarCd, cambiarCc,
-    fMes, fBase, fCanal, fBand, fProv, claves, etiquetaCanal, etiquetaFiltro, ambito,
+    fMes, fBase, fCanal, fBand, fProv, claves, etiquetaCanal, etiquetaFiltro, etiquetaProvincias, ambitoProv,
   } = F;
   const [abiertos, alternar] = useCajas({ kpi: false, graficos: true, importado: false, tabla: false });
   const [rango, setRango] = useState('5a');
@@ -172,15 +172,15 @@ export default function MinoristaMayorista({ seccion }) {
         </>
       ) : (
         <>
-          <Tarjeta label={`${ambito} · grado 2 (${u})`} valor={kpi.sel.g2} base={kpi.selAnt?.g2} unidad={u} mesAnt={mesAnterior} />
-          <Tarjeta label={`${ambito} · grado 3 (${u})`} valor={kpi.sel.g3} base={kpi.selAnt?.g3} unidad={u} mesAnt={mesAnterior} />
+          <Tarjeta label={`${ambitoProv} · grado 2 (${u})`} valor={kpi.sel.g2} base={kpi.selAnt?.g2} unidad={u} mesAnt={mesAnterior} />
+          <Tarjeta label={`${ambitoProv} · grado 3 (${u})`} valor={kpi.sel.g3} base={kpi.selAnt?.g3} unidad={u} mesAnt={mesAnterior} />
           {conFosil ? (
             <Tarjeta label={`Gas oil fósil · grado 2 (${u})`} valor={kpi.sel.fosil} base={kpi.selAnt?.fosil} unidad={u} mesAnt={mesAnterior} tono="pos" />
           ) : (
             <div className="kpi-card">
               <div className="kpi-label">Volumen relevado</div>
               <div className="kpi-val">{fmt.compact(kpi.sel.vol)} <span className="kpi-unidad">m³</span></div>
-              <div className="kpi-sub">{fmt.monthShort(mes)} · {etiquetaCanal}</div>
+              <div className="kpi-sub">{fmt.monthShort(mes)} · {etiquetaCanal}{etiquetaProvincias ? ` · ${etiquetaProvincias}` : ''}</div>
             </div>
           )}
           <div className="kpi-card tone-warn">

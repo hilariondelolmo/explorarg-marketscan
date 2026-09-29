@@ -34,7 +34,7 @@ export default function EstructuraMercado({ seccion }) {
   const F = useRelevamiento({ modo: 'abierto' });
   const {
     DX, listo, error, OPERADORES, operador, conOperador, mes, tipo, conv, cdN, ccN, tiposIdx, cambiarCc, tipos, setTipos, disponibles,
-    fMes, fBase, fCanal, fBand, fProv, claves, etiquetaCanal, etiquetaFiltro,
+    fMes, fBase, fCanal, fBand, fProv, claves, etiquetaCanal, etiquetaFiltro, etiquetaProvincias,
   } = F;
   const [abiertos, alternar] = useCajas({ kpi: false, sankey: true, canal: false, tipo: false });
   const [grado, setGrado] = useState('ambos');
@@ -188,7 +188,7 @@ export default function EstructuraMercado({ seccion }) {
       <div className="kpi-card">
         <div className="kpi-label">Volumen relevado</div>
         <div className="kpi-val">{fmt.int(datos.total)} <span className="kpi-unidad">m³</span></div>
-        <div className="kpi-sub">{fmt.monthShort(mes)} · gas oil {etiquetaGrado} · {etiquetaCanal}</div>
+        <div className="kpi-sub">{fmt.monthShort(mes)} · gas oil {etiquetaGrado} · {etiquetaCanal}{etiquetaProvincias ? ` · ${etiquetaProvincias}` : ''}</div>
       </div>
       <div className="kpi-card tone-info">
         <div className="kpi-label">Canal minorista</div>

@@ -31,8 +31,9 @@ export default function PrecioSurtidor({ seccion }) {
   const C = useChartColors();
   const F = useRelevamiento({ modo: 'surtidor', conMes: true });
   const {
-    D, DX, listo, error, OPERADORES, BOCAS, mes, mi, mesAnterior, tipo, cdN, ccN, tiposIdx, bi, pi,
-    bandera, setBandera, operador, conOperador, boca, elegirBoca, bocaSel, provincia, setProvincia, mesDatos,
+    D, DX, listo, error, OPERADORES, BOCAS, mes, mi, mesAnterior, tipo, cdN, ccN, tiposIdx, bi,
+    bandera, setBandera, operador, conOperador, boca, elegirBoca, bocaSel, mesDatos,
+    provincias, provIdx, conProvincias, elegirProvincia, etiquetaProvincias,
     fCanal, fBand, fProv, fMes, conv, claves, etiquetaCanal, etiquetaFiltro, ambito,
   } = F;
   const [rango, setRango] = useState('5a');
@@ -48,9 +49,12 @@ export default function PrecioSurtidor({ seccion }) {
     };
   }, claves);
 
+  // Color del mapa: solo las provincias elegidas entran en la escala
   const valoresMapa = useMemo(() => {
     const m = new Map();
-    if (porProv) for (const [p, a] of porProv.g2) m.set(PROVINCIAS[p], conv(a.precio));
+    if (porProv) {
+      for (const [p, a] of porProv.g2) if (provIdx == null || provIdx.has(p)) m.set(PROVINCIAS[p], conv(a.precio));
+    }
     return m;
   }, [porProv, tipo, mes]);
 
@@ -67,8 +71,8 @@ export default function PrecioSurtidor({ seccion }) {
   };
   const pais = useMemo(() => (listo ? resumen(mes, false) : null), claves);
   const paisAnt = useMemo(() => (listo && mesAnterior ? resumen(mesAnterior, false) : null), claves);
-  const prov = useMemo(() => (listo && provincia ? resumen(mes, true) : null), claves);
-  const provAnt = useMemo(() => (listo && provincia && mesAnterior ? resumen(mesAnterior, true) : null), claves);
+  const prov = useMemo(() => (listo && conProvincias ? resumen(mes, true) : null), claves);
+  const provAnt = useMemo(() => (listo && conProvincias && mesAnterior ? resumen(mesAnterior, true) : null), claves);
 
   const tabla = useMemo(() => {
     if (!listo) return [];
@@ -142,7 +146,7 @@ export default function PrecioSurtidor({ seccion }) {
       if (!tiposIdx.has(M.tn[i])) continue;
       if (ccN != null && M.cc[i] !== ccN) continue;
       if (bi != null && M.band[i] !== bi) continue;
-      if (pi != null && b[3] !== pi) continue;
+      if (provIdx != null && !provIdx.has(b[3])) continue;
       if (conOperador && M.op[i] !== operador) continue;
       if (boca != null && M.boca[i] !== boca) continue;
       const precio = (cent) => (cent ? fmtPrecio(conv(cent / 100), u) : '-');
@@ -168,7 +172,7 @@ export default function PrecioSurtidor({ seccion }) {
     }
     out.sort((a, b) => (a.activo ? 1 : 0) - (b.activo ? 1 : 0)); // la elegida se dibuja última
     return out;
-  }, [D, mesDatos, mes, cdN, tiposIdx, ccN, bi, pi, conOperador, operador, boca, tipo]);
+  }, [D, mesDatos, mes, cdN, tiposIdx, ccN, bi, provIdx, conOperador, operador, boca, tipo]);
 
   const banderasPuntos = useMemo(() => {
     const n = new Map();
@@ -213,8 +217,8 @@ export default function PrecioSurtidor({ seccion }) {
       <Tarjeta label={`${ambito} · grado 3 (${tipo.unidad})`} valor={pais.g3} base={paisAnt?.g3} unidad={tipo.unidad} mesAnt={mesAnterior} />
       {prov ? (
         <>
-          <Tarjeta label={`${nombreProvincia(provincia)} · grado 2`} valor={prov.g2} base={provAnt?.g2} unidad={tipo.unidad} mesAnt={mesAnterior} tono="info" />
-          <Tarjeta label={`${nombreProvincia(provincia)} · grado 3`} valor={prov.g3} base={provAnt?.g3} unidad={tipo.unidad} mesAnt={mesAnterior} tono="info" />
+          <Tarjeta label={`${etiquetaProvincias} · grado 2`} valor={prov.g2} base={provAnt?.g2} unidad={tipo.unidad} mesAnt={mesAnterior} tono="info" />
+          <Tarjeta label={`${etiquetaProvincias} · grado 3`} valor={prov.g3} base={provAnt?.g3} unidad={tipo.unidad} mesAnt={mesAnterior} tono="info" />
         </>
       ) : (
         <>
@@ -233,8 +237,10 @@ export default function PrecioSurtidor({ seccion }) {
     </div>
   );
 
+  // Resumen de la caja: el de las provincias elegidas, como gráficos, tabla y mapas
+  const sel = prov || pais;
   const resumenKpi = listo
-    ? `GO GR2 ${fmtPrecio(pais.g2, tipo.unidad)} · GO GR3 ${fmtPrecio(pais.g3, tipo.unidad)} ${tipo.unidad} · ${fmt.int(pais.eess)} ${pais.eess === 1 ? 'boca' : 'bocas'}`
+    ? `${conProvincias ? `${etiquetaProvincias} · ` : ''}GO GR2 ${fmtPrecio(sel.g2, tipo.unidad)} · GO GR3 ${fmtPrecio(sel.g3, tipo.unidad)} ${tipo.unidad} · ${fmt.int(sel.eess)} ${sel.eess === 1 ? 'boca' : 'bocas'}`
     : 'cargando…';
 
   const cuerpoTabla = (
@@ -266,8 +272,8 @@ export default function PrecioSurtidor({ seccion }) {
               <tr>
                 <td>Total</td>
                 <td className="num">{fmt.int(tabla.reduce((s, r) => s + r.eess, 0))}</td>
-                <td className="num">{fmtPrecio(provincia ? prov?.g2 : pais?.g2, tipo.unidad)}</td>
-                <td className="num">{fmtPrecio(provincia ? prov?.g3 : pais?.g3, tipo.unidad)}</td>
+                <td className="num">{fmtPrecio(sel?.g2, tipo.unidad)}</td>
+                <td className="num">{fmtPrecio(sel?.g3, tipo.unidad)}</td>
                 <td className="num">{fmt.int(tabla.reduce((s, r) => s + r.vol, 0))}</td>
               </tr>
             </tfoot>
@@ -361,12 +367,12 @@ export default function PrecioSurtidor({ seccion }) {
                 <div>
                   <span className="chart-card-title">{tipo.label} [{tipo.unidad}]</span>
                   <span className="chart-card-subtitle">
-                    {fmt.monthShort(mes)} · {etiquetaCanal} · color: precio del grado 2 · pasá el mouse para ver los tres precios · clic en una provincia la selecciona, clic afuera la suelta
+                    {fmt.monthShort(mes)} · {etiquetaCanal} · color: precio del grado 2 · pasá el mouse para ver los tres precios · clic en una provincia la elige, más clics suman o sacan provincias, clic afuera las suelta
                   </span>
                 </div>
               </div>
               <MapaProvincias
-                valores={valoresMapa} color={C.oil} seleccion={provincia} onSeleccion={setProvincia}
+                valores={valoresMapa} color={C.oil} seleccion={conProvincias ? provincias : null} onSeleccion={elegirProvincia}
                 tooltip={tooltipMapa} etiqueta="Precio del gas oil grado 2 por provincia"
               />
               <div className="go-escala">
@@ -380,7 +386,7 @@ export default function PrecioSurtidor({ seccion }) {
                 <div>
                   <span className="chart-card-title">Estaciones</span>
                   <span className="chart-card-subtitle">
-                    {fmt.int(puntos.length)} bocas relevadas en {fmt.monthShort(mes)}{conOperador ? ` de ${OPERADORES[operador]}` : ''}{provincia ? ` en ${nombreProvincia(provincia)}` : ''} · clic en una la selecciona
+                    {fmt.int(puntos.length)} bocas relevadas en {fmt.monthShort(mes)}{conOperador ? ` de ${OPERADORES[operador]}` : ''}{conProvincias ? ` en ${etiquetaProvincias}` : ''} · clic en una la selecciona
                     {bocaSel ? ` · elegida: ${bocaSel[5]}, ${bocaSel[4]}` : ''}
                   </span>
                 </div>
@@ -389,7 +395,8 @@ export default function PrecioSurtidor({ seccion }) {
                 )}
               </div>
               <MapaProvincias
-                valores={null} color={C.oil} seleccion={provincia} onSeleccion={setProvincia} encuadre={provincia}
+                valores={null} color={C.oil} seleccion={conProvincias ? provincias : null} onSeleccion={elegirProvincia}
+                encuadre={conProvincias ? provincias : null}
                 puntos={puntos} onPunto={elegirBoca} etiqueta="Estaciones de servicio relevadas"
               />
               <div className="chart-legend go-leyenda-banderas">

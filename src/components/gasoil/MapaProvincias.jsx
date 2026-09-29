@@ -10,9 +10,9 @@ const MIN_ETIQUETA_PX = 34; // provincias más chicas que esto (alto o ancho en 
  *   valores     Map(provincia → número) que define la intensidad del relleno
  *   etiquetas   Map(provincia → [línea, …]) texto centrado en cada provincia
  *   color       color base (hex) del relleno
- *   seleccion   provincia seleccionada (o null); clic alterna; clic en el fondo la quita
- *   onSeleccion (provincia | null) => void
- *   encuadre    provincia a la que se acerca el mapa (o null: país entero)
+ *   seleccion   Set de provincias elegidas (o null: sin filtro); las demás quedan apagadas
+ *   onSeleccion (provincia | null) => void: clic en una provincia; null = clic en el fondo
+ *   encuadre    Set de provincias a las que se acerca el mapa (o null: país entero)
  *   puntos      [{ id, lng, lat, color, titulo, filas, activo }] o null (capa de estaciones)
  *   onPunto     (id) => void: clic sobre una estación
  *   tooltip     (provincia) => { titulo, filas: [{ label, valor }] } o null
@@ -41,11 +41,14 @@ export default function MapaProvincias({
     return 0.15 + 0.8 * ((v - min) / (max - min));
   };
 
-  // Encuadre: el país entero o la caja de la provincia con un margen
+  // Encuadre: el país entero o la caja que abarca las provincias pedidas, con un margen
   let vb = [VX, VY, VW, VH];
-  const caja = encuadre ? CAJA_PROVINCIA.get(encuadre) : null;
-  if (caja) {
-    const [x0, y0, x1, y1] = caja;
+  const cajas = encuadre ? [...encuadre].map((p) => CAJA_PROVINCIA.get(p)).filter(Boolean) : [];
+  if (cajas.length) {
+    const x0 = Math.min(...cajas.map((c) => c[0]));
+    const y0 = Math.min(...cajas.map((c) => c[1]));
+    const x1 = Math.max(...cajas.map((c) => c[2]));
+    const y1 = Math.max(...cajas.map((c) => c[3]));
     const w = x1 - x0, h = y1 - y0;
     const m = Math.max(w, h) * 0.12;
     vb = [x0 - m, y0 - m, w + 2 * m, h + 2 * m];
@@ -83,17 +86,18 @@ export default function MapaProvincias({
         ))}
         {MAPA.provincias.map((p) => {
           const v = valores?.get(p.nombre);
-          const activa = seleccion === p.nombre;
+          const elegida = !!seleccion?.has(p.nombre);
+          const activa = elegida && seleccion.size === 1; // borde marcado solo con una provincia elegida
           return (
             <path
               key={p.nombre}
-              className={`go-prov ${activa ? 'activa' : ''} ${seleccion && !activa ? 'apagada' : ''}`}
+              className={`go-prov ${activa ? 'activa' : ''} ${seleccion && !elegida ? 'apagada' : ''}`}
               d={p.path}
               vectorEffect="non-scaling-stroke"
               style={{ fill: color, fillOpacity: puntos ? 0.06 : opacidad(v) }}
               onMouseMove={puntos ? undefined : moverProv(p.nombre)}
               onMouseLeave={() => setHover(null)}
-              onClick={() => onSeleccion?.(activa ? null : p.nombre)}
+              onClick={() => onSeleccion?.(p.nombre)}
             />
           );
         })}
