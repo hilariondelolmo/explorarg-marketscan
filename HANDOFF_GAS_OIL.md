@@ -1,6 +1,6 @@
 # Handoff - página Mercado de Gas Oil (`/gas-oil`)
 
-Actualizado: **2026-09-29, sesión 4** (filtro Provincia multi-selección en las tres secciones del relevamiento, **sin commitear**, igual que el Sankey de cuatro tótems de la sesión 3). Commits en `main`: `1a1190c` (página completa) y `43ecdb8` (apertura común), publicados por Vercel.
+Actualizado: **2026-09-29, sesión 4** (filtro Provincia multi-selección en las tres secciones del relevamiento). Commits en `main`: `1a1190c` (página completa), `43ecdb8` (apertura común), `3174b52` (Sankey de cuatro tótems, sesión 3) y `5880704` (filtro Provincia, sesión 4), publicados por Vercel por orden de HDO del 29/09/2026.
 Reglas: las de `CLAUDE.md` (commits y pushes solo con orden de HDO; guion corto; alinear antes de codear).
 
 ## Qué es
@@ -80,7 +80,7 @@ Total `public/data`: **132 MB, ya commiteado y descargable por cualquiera** (Ver
 - Se sacaron las series de variación acumulada de los gráficos (con dos canales quedaban cuatro líneas más); la comparación minorista vs mayorista es el contenido del tablero BTB BTC.
 - Control: jul-2026 sin impuestos GO2 minorista 1.629, mayorista 1.562; GO3 1.794 / 1.619 $/l; total 1.607 / 1.765; importado CIF 987 usd/ton, 100.193 t.
 
-## Filtro Provincia multi-selección (sesión 4, 29/09/2026, sin revisar con HDO)
+## Filtro Provincia multi-selección (sesión 4, 29/09/2026)
 
 Pedido de HDO: en Precio surtidor, Estructura del mercado y Minorista y mayorista el filtro Provincia es un desplegable con casillas para tildar varias, no una sola. Ranking de precios no se toca.
 
@@ -119,7 +119,7 @@ Controles de jul-2026, calculados por fuera con Python sobre `gasoil_retail.json
 6. Sacar del generador los bloques `canales`, `flujos` y `eess` de `gasoil_precios.json` (ya no se leen; 737 KB en git en cada regeneración). Requiere `/Volumes/comun` para regenerar.
 7. En `docs/` hay archivos sin trackear de sesiones anteriores (PDF infografía, transcripciones Senado, video CEPREB v8): HDO no dijo si entran.
 8. Chunk `GasOil` 130 KB (40 KB gz); el resto va por fetch.
-9. Filtro Provincia multi (sesión 4): HDO vio la primera versión ("está perfecto") y pidió el arranque con todas y los botones Todas / Sin Zona Fría / Ninguna; falta que revise esa versión. A validar: tarjetas "País" + selección en Precio surtidor, escala de color del mapa solo con las elegidas, mapa de estaciones acercado a la selección y clic en el mapa con vuelta a la base.
+9. Filtro Provincia multi (sesión 4): HDO vio la primera versión ("está perfecto"), pidió el arranque con todas y los botones Todas / Sin Zona Fría / Ninguna, y ordenó publicar. Quedaron avisadas y sin objeción: tarjetas "País" + selección en Precio surtidor, escala de color del mapa solo con las elegidas, mapa de estaciones acercado a la selección y clic en el mapa con vuelta a la base.
 10. Los cortes responsivos de `.go-filtros` no funcionan: en `GasOil.css` la regla repetida del bloque "Operador: caja de búsqueda con lista" pisa las `@media` de 1100 y 720 px, así que en pantallas angostas los ocho filtros quedan apretados en una fila. Viene de antes de la sesión 4; no se tocó porque cambia cómo se ve la fila aprobada en anchos intermedios.
 
 ## Método de revisión por video (funciona bien)
