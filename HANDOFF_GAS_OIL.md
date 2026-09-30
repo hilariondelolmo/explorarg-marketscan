@@ -7,11 +7,12 @@ Reglas: las de `CLAUDE.md` (commits y pushes solo con orden de HDO; guion corto;
 
 La página Tablas SESCO está hecha y publicada (ver su sección, abajo). HDO estaba pasando pedidos "de a uno" al cierre de la sesión 5 ("tengo más aún"): la sesión 6 arranca esperando el siguiente. Antes de codear, decirle qué se entendió y de qué base salen los datos (regla de HDO para esta página).
 
+Las cinco empresas históricas vinculadas a mano para el corte por empresa (`EMPRESA_BIO_EXTRA` en `scripts/gasoil_sesco.py`: Oil S.A. = Oil Combustibles, Petrolera del Cono Sur = Petrolera del Conosur, Petroil Petróleo y Derivados = Petroil, Enarsa y Energía Derivados del Petróleo) quedaron confirmadas por HDO el 30/09/2026. Las diez mezcladoras de siempre salen del mapa del tablero de biodiésel.
+
 **Esperan una definición de HDO:**
-1. Confirmar las cinco empresas históricas que se vincularon a mano para el corte por empresa (`EMPRESA_BIO_EXTRA` en `scripts/gasoil_sesco.py`): Oil S.A. = Oil Combustibles, Petrolera del Cono Sur = Petrolera del Conosur, Petroil Petróleo y Derivados = Petroil, Enarsa y Energía Derivados del Petróleo. Las diez mezcladoras de siempre salen del mapa del tablero de biodiésel.
-2. Si los títulos de las páginas de la pestaña Ventas ("Mercado minorista y mayorista", "Volumen minorista y mayorista") también cambian; el 30/09 solo se cambió el nombre de la pestaña.
-3. Si el Sankey abre en Resaltar o en Filtrar (hoy Filtrar).
-4. Eje de las estaciones relevadas en los gráficos de volumen: pidió "el eje de la izquierda" y así quedó, con el volumen a la derecha. Falta que lo vea.
+1. Si los títulos de las páginas de la pestaña Ventas ("Mercado minorista y mayorista", "Volumen minorista y mayorista") también cambian; el 30/09 solo se cambió el nombre de la pestaña.
+2. Si el Sankey abre en Resaltar o en Filtrar (hoy Filtrar).
+3. Eje de las estaciones relevadas en los gráficos de volumen: pidió "el eje de la izquierda" y así quedó, con el volumen a la derecha. Falta que lo vea.
 3. Si quiere la apertura Mensual / Anual también en la página de precios de Minorista y mayorista. Hay que definir cómo se promedian el gas oil fósil y el CIF.
 4. Título de la página de Resolución 1104: sigue "Volumen minorista y mayorista". Con dos fuentes de volumen quizás convenga que nombre la fuente.
 5. Rótulo de Brent y WTI en el Ranking: dice "usd/ton" y fuente "EIA", pero los valores salen del informe de regalías de crudo de la SE, cuya hoja dice "USD/m3". No cambia los porcentajes de variación.

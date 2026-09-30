@@ -94,8 +94,8 @@ DENSIDAD = {"go2": DENSIDAD_GO, "go3": DENSIDAD_GO, "go1": DENSIDAD_GO, "go_otro
 # Empresa de SESCO → nombre con que figura como compradora de biodiésel
 # (petroleras.json), para el corte real por empresa. A las mezcladoras que ya
 # mapea regenerate_data.py (MAPA_PETROLERAS_GO) se suman estas, que compraron
-# biodiésel en años anteriores; las que se llaman igual en las dos bases no
-# necesitan entrada.
+# biodiésel en años anteriores (identificación confirmada por HDO el
+# 30/09/2026); las que se llaman igual en las dos bases no necesitan entrada.
 EMPRESA_BIO_EXTRA = {
     "OIL S.A.": "OIL COMBUSTIBLES S.A.",
     "PETROLERA DEL CONO SUR": "PETROLERA DEL CONOSUR S.A.",

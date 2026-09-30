@@ -26,8 +26,9 @@
 /* Carrusel */
 .portada-carrusel {
   position: relative;
+  /* Sin tope de alto: con 540 px y object-fit cover, en escritorio se
+     recortaba el 21% del cuadro (HDO, 30/09/2026: "el video se corta") */
   aspect-ratio: 16 / 9;
-  max-height: 540px;
   width: 100%;
   overflow: hidden;
   border-radius: 4px;
