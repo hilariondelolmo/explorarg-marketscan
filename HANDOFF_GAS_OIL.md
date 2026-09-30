@@ -1,17 +1,17 @@
 # Handoff - página Mercado de Gas Oil (`/gas-oil`)
 
-Actualizado: **2026-09-30, cierre de la sesión 4** (29 y 30/09/2026). **Todo lo hecho está publicado** por orden de HDO. Commits en `main`: `1a1190c` (página completa), `43ecdb8` (apertura común), `3174b52` (Sankey de cuatro tótems), `5880704` (filtro Provincia), `f418e70` (filtros en pantallas angostas), `9f5844c` (el clic del Sankey filtra), `c24713a` (generador: estaciones, Brent y WTI desde regalías, sin reescrituras), `1096089` (datos regenerados el 30/09) y `674d943` (pestañas, menú Precio / Volumen y página de volumen).
+Actualizado: **2026-09-30, cierre de la sesión 5**. **Todo lo hecho está publicado** por orden de HDO. Commits en `main`: `1a1190c` (página completa), `43ecdb8` (apertura común), `3174b52` (Sankey de cuatro tótems), `5880704` (filtro Provincia), `f418e70` (filtros en pantallas angostas), `9f5844c` (el clic del Sankey filtra), `c24713a` (generador: estaciones, Brent y WTI desde regalías, sin reescrituras), `1096089` (datos regenerados el 30/09), `674d943` (pestañas, menú Precio / Volumen y página de volumen) y `ec2993f` (sesión 5: Tablas SESCO, corte por gestión, Sankey resaltar / filtrar).
 Reglas: las de `CLAUDE.md` (commits y pushes solo con orden de HDO; guion corto; alinear antes de codear).
 
 ## Cómo retomar
 
-**Lo que sigue: la página Tablas SESCO** (`/gas-oil/canales-sesco`, componente `src/components/gasoil/TablasSesco.jsx`). Hoy está vacía, con el cartel "En preparación", y ya figura en el menú público: Minorista y mayorista > Volumen > Tablas SESCO. HDO dijo: "armá esto y luego te digo qué debe mostrarse en las tablas SESCO". No adelantar contenido: esperar su definición, decirle qué se entendió y alinear antes de codear.
-
-Pista de fuente, **a confirmar con HDO**: `EXP MKTS DATABASES/Revision Actual/Mercado Argentino Derivados Petroleo Table.hyper` (4,8 MB, 149.067 filas, ene-2010 a jul-2026). Trae ventas por FECHA × PROVINCIA × empresa × SECTOR, con una columna por producto, entre ellas "Gasoil Grado 2 (Común)", "Gasoil Grado 3 (Ultra)" y "Gasoil Grado 1 (Agrogasoil)". Ya la lee `scripts/regenerate_data.py` (clave `derivados`) para `go_sectores.json` y `petroleras.json` del tablero de biodiésel. Sectores: Agro, Al Público, Bunker Cabotaje, Bunker Internacional, Estado, Industrias Petroquímicas, Otras Empresas, S/N, Transporte de Carga, Transporte Ferroviario, Transporte Público de Pasajeros, Usinas Eléctricas. Gas oil de jul-2026 en esa base: 1.260.883 m³ (grado 2 894.897 + grado 3 365.986), contra 824.846 m³ del relevamiento 1104: el relevamiento cubre cerca del 65% de ese total.
+La página Tablas SESCO está hecha y publicada (ver su sección, abajo). HDO estaba pasando pedidos "de a uno" al cierre de la sesión 5 ("tengo más aún"): la sesión 6 arranca esperando el siguiente. Antes de codear, decirle qué se entendió y de qué base salen los datos (regla de HDO para esta página).
 
 **Esperan una definición de HDO:**
-1. Qué se muestra en Tablas SESCO.
-2. Eje de las estaciones relevadas en los gráficos de volumen: pidió "el eje de la izquierda" y así quedó, con el volumen a la derecha. Falta que lo vea.
+1. Confirmar las cinco empresas históricas que se vincularon a mano para el corte por empresa (`EMPRESA_BIO_EXTRA` en `scripts/gasoil_sesco.py`): Oil S.A. = Oil Combustibles, Petrolera del Cono Sur = Petrolera del Conosur, Petroil Petróleo y Derivados = Petroil, Enarsa y Energía Derivados del Petróleo. Las diez mezcladoras de siempre salen del mapa del tablero de biodiésel.
+2. Si los títulos de las páginas de la pestaña Ventas ("Mercado minorista y mayorista", "Volumen minorista y mayorista") también cambian; el 30/09 solo se cambió el nombre de la pestaña.
+3. Si el Sankey abre en Resaltar o en Filtrar (hoy Filtrar).
+4. Eje de las estaciones relevadas en los gráficos de volumen: pidió "el eje de la izquierda" y así quedó, con el volumen a la derecha. Falta que lo vea.
 3. Si quiere la apertura Mensual / Anual también en la página de precios de Minorista y mayorista. Hay que definir cómo se promedian el gas oil fósil y el CIF.
 4. Título de la página de Resolución 1104: sigue "Volumen minorista y mayorista". Con dos fuentes de volumen quizás convenga que nombre la fuente.
 5. Rótulo de Brent y WTI en el Ranking: dice "usd/ton" y fuente "EIA", pero los valores salen del informe de regalías de crudo de la SE, cuya hoja dice "USD/m3". No cambia los porcentajes de variación.
@@ -30,13 +30,13 @@ Réplica en React de cuatro tableros del workbook Tableau
 | Sección | Ruta | Tablero Tableau | Componente | Datos |
 |---|---|---|---|---|
 | Estructura Mercado | `/gas-oil` | MARKET STRUCTURE | `src/components/gasoil/EstructuraMercado.jsx` (Sankey recharts, en volumen) | relevamiento fino (`public/data`) |
-| Minorista y mayorista (menú): Precio | `/gas-oil/canales` | ARG GO MARKET BTB BTC | `MinoristaMayorista.jsx` | relevamiento fino + importaciones |
-| Minorista y mayorista (menú): Volumen, Resolución 1104 | `/gas-oil/canales-volumen` | no tiene, es la de precios en m³ | `MinoristaMayoristaVolumen.jsx` | relevamiento fino + importaciones |
-| Minorista y mayorista (menú): Volumen, Tablas SESCO | `/gas-oil/canales-sesco` | - | `TablasSesco.jsx` (vacía, "En preparación") | a definir por HDO |
+| Ventas (menú): Precio | `/gas-oil/canales` | ARG GO MARKET BTB BTC | `MinoristaMayorista.jsx` | relevamiento fino + importaciones |
+| Ventas (menú): Volumen, Resolución 1104 | `/gas-oil/canales-volumen` | no tiene, es la de precios en m³ | `MinoristaMayoristaVolumen.jsx` | relevamiento fino + importaciones |
+| Ventas (menú): Volumen, Tablas SESCO | `/gas-oil/canales-sesco` | - | `TablasSesco.jsx` ("Ventas de combustibles") | tablas SESCO (`public/data/gasoil_sesco.json`) + biodiésel del tablero |
 | Precio surtidor | `/gas-oil/surtidor` | PRECIO SURTIDOR DASHBOARD (2) | `PrecioSurtidor.jsx` | relevamiento fino |
 | Ranking precios | `/gas-oil/ranking` | RANKING Actualizado | `RankingPrecios.jsx` (carrera de barras con Play) | `gasoil_ranking.json` (bundle) |
 
-Orden y nombres de las pestañas definidos por HDO el 29/09/2026; antes era Precio surtidor / Estructura del mercado / Ranking de precios / Minorista y mayorista, con Precio surtidor en `/gas-oil`. La primera pestaña es la que abre al entrar. La dirección vieja `/gas-oil/estructura` redirige a `/gas-oil`. Los títulos de cada página no cambiaron, solo los nombres de las pestañas. En el resto de este documento las secciones se siguen nombrando como antes ("Estructura del mercado", "Ranking de precios").
+Orden y nombres de las pestañas definidos por HDO el 29/09/2026 (la pestaña "Minorista y mayorista" pasó a llamarse "Ventas" el 30/09); antes era Precio surtidor / Estructura del mercado / Ranking de precios / Minorista y mayorista, con Precio surtidor en `/gas-oil`. La primera pestaña es la que abre al entrar. La dirección vieja `/gas-oil/estructura` redirige a `/gas-oil`. Los títulos de cada página no cambiaron, solo los nombres de las pestañas. En el resto de este documento las secciones se siguen nombrando como antes ("Estructura del mercado", "Ranking de precios").
 
 Página: `src/pages/GasOil.jsx` (sub-nav con `SectionNav`, kicker "Mercado Gas Oil"; las tres secciones con `encabezadoPropio` dibujan su encabezado dentro del bloque fijo). Librería: `src/lib/gasoil.js`. Estilos: `src/components/gasoil/GasOil.css`. Mapa: `MapaProvincias.jsx` (SVG propio, misma proyección que el mapa de plantas).
 
@@ -51,7 +51,7 @@ Página: `src/pages/GasOil.jsx` (sub-nav con `SectionNav`, kicker "Mercado Gas O
 
 Generador: `python3 scripts/regenerate_gasoil.py [--dry-run]` (usar el python de miniforge, único con `tableauhyperapi`; requiere `/Volumes/comun`). `regenerate_data.py` lo llama al final, así el lanzador `Iniciar/Marketscan - Regenerar datos.command` regenera todo (biodiésel y gas oil; no commitea ni publica). Tres cosas del generador desde la sesión 4: llama a `scripts/gasoil_estaciones.py` para agregar al cruce fino la cantidad de estaciones de cada celda; si a Master data le faltan meses de Brent o WTI los toma del informe de regalías; y no reescribe los archivos por boca y por mes cuando traen las mismas filas.
 
-Fuentes (todas en `EXP MKTS DATABASES/Revision Actual/`): `Precio derivados petroleo 1104 minorista y mayorista new.hyper` (relevamiento SE Res. 1104/2004, 6 M filas, 2004-12→2026-07; precio y volumen de cada boca vienen en filas distintas), `Master data database.hyper` (Brent, WTI, TC, CPI US, FoLicht, precios 963, aceite FAS), `Go Imports.hyper` (importaciones de gas oil, CIF), `EESS Localidad departamento provincia.hyper` (padrón geo; `idempresa` = `Nro Inscripción` de la SE). Fuera de esa carpeta: `EXP MKTSCAN - DATASOURCES/Revision Actual/Informe Regalias CRUDO.xlsx`, hoja "Tabla precios (2)", de donde el flujo de Prep saca las columnas BRENT y WTI de Master data y de donde el generador completa los meses que falten.
+Fuentes (todas en `EXP MKTS DATABASES/Revision Actual/`): `Mercado Argentino Derivados Petroleo Table.hyper` (tablas SESCO, ver la sección de Tablas SESCO), `Precio derivados petroleo 1104 minorista y mayorista new.hyper` (relevamiento SE Res. 1104/2004, 6 M filas, 2004-12→2026-07; precio y volumen de cada boca vienen en filas distintas), `Master data database.hyper` (Brent, WTI, TC, CPI US, FoLicht, precios 963, aceite FAS), `Go Imports.hyper` (importaciones de gas oil, CIF), `EESS Localidad departamento provincia.hyper` (padrón geo; `idempresa` = `Nro Inscripción` de la SE). Fuera de esa carpeta: `EXP MKTSCAN - DATASOURCES/Revision Actual/Informe Regalias CRUDO.xlsx`, hoja "Tabla precios (2)", de donde el flujo de Prep saca las columnas BRENT y WTI de Master data y de donde el generador completa los meses que falten.
 
 Salidas:
 - `src/data/gasoil_precios.json` (740 KB en disco): meses, provincias, banderas, canales, tipos de negocio, y tres bloques que **ya nadie lee** (`canales`, `flujos`, `eess`, 737 KB): la lib los importa por nombre y Rollup los deja fuera del bundle. Candidatos a sacar del generador.
@@ -59,8 +59,9 @@ Salidas:
 - `public/data/gasoil_retail.json` (10,1 MB desde el 29/09/2026 por las cuatro columnas de estaciones, antes 8,3 MB; fuera del bundle, fetch al abrir cualquiera de las tres secciones, una sola vez por carga de página): cruce columnar mes × provincia × bandera × canal dist × tipo negocio × canal com (170 k filas, precios en centavos de $/l, `e2` = bocas con precio surtidor) + índice `operadores` (5.333) y `bocas` (7.310; 4.677 con coordenadas).
 - `public/data/gasoil_bocas/0..95.json` (66 MB): filas boca-mes particionadas por operador (índice % 96). Se pide una al elegir operador o estación, en las tres secciones.
 - `public/data/gasoil_mes/<YYYY-MM>.json` (58 MB, 199 archivos): bocas relevadas de cada mes, para el mapa de estaciones (solo Precio surtidor).
+- `public/data/gasoil_sesco.json` (5,2 MB, `scripts/gasoil_sesco.py`): ventas SESCO, cruce mes × provincia × empresa × sector con los valores de cada producto solo donde hay venta (`valores[id] = { i: fila, v: cantidad }`), 111.008 filas, 199 meses, 69 empresas, 12 sectores, 36 productos. Orden fijo: no cambia entre corridas.
 
-Total `public/data`: **132 MB, ya commiteado y descargable por cualquiera** (Vercel lo sirve como estático y el repo es público; HDO lo sabe desde la sesión 2). HDO no decidió si recortar (opción: detalle por boca solo desde 2015, mitad del peso).
+Total `public/data`: **137 MB, ya commiteado y descargable por cualquiera** (Vercel lo sirve como estático y el repo es público; HDO lo sabe desde la sesión 2). HDO no decidió si recortar (opción: detalle por boca solo desde 2015, mitad del peso).
 
 ## Decisiones de cálculo (avisadas a HDO, sin objeción todavía)
 
@@ -143,6 +144,32 @@ Controles de jul-2026 calculados por fuera con Python y verificados en la págin
 
 **Meses incompletos en la fuente:** en volumen se ven como pozos y las barras de estaciones los explican. Ene-2025: 330.107 m³ contra 859.503 de dic-2024 y 817.111 de feb-2025, con 690 bocas distintas contra 4.117 y 4.047. Ene-2017: 213.037 m³ contra 1.112.066 (la SE no publicó el minorista). Mar y abr-2026 vienen con menos bocas (3.211 y 3.088 contra unas 4.100). En precios casi no se nota porque el ponderado sigue siendo representativo. Ojo: en el primer aviso a HDO se le dijeron 1.147 bocas contra unas 5.000; esas cifras salían de sumar `e2` y contaban de más.
 
+## Tablas SESCO (sesión 5, 30/09/2026): `/gas-oil/canales-sesco`, "Ventas de combustibles"
+
+Definida por HDO en la sesión 5, de a un pedido por vez, y publicada en `ec2993f`. Componente `src/components/gasoil/TablasSesco.jsx` (con su propio bloque fijo; no usa `useRelevamiento`), generador `scripts/gasoil_sesco.py` (lo llama `regenerate_gasoil.py`; solo, necesita `/Volumes/comun`).
+
+- **Fuente:** `Mercado Argentino Derivados Petroleo Table.hyper`, que sale de la tabla dinámica de la SE "Ventas, (excluye ventas a empresas del sector)" (`TD_Ventas_mercado.xlsx`): son ventas netas de transferencias entre empresas del sector. Unidades de la SE, leídas de la tabla dinámica: m³ los líquidos; toneladas asfaltos, butano, coque, fuel oil, grasas, mezclas IFO y propano; miles de m³ los gases. Quedan afuera los crudos ("Cuenca ...", "Crudo importado"). Cifra ancla: jul-2026 gas oil grado 2 + 3 de todos los sectores = 1.260.883 m³ (el generador aborta si no da).
+- **Apertura (la misma que Resolución 1104, opción A de HDO):** minorista = sector Al Público, mayorista = los demás. Siete filtros: Mes, Producto (casillas, abre con gas oil grado 2 y 3), Canal de distribución, Sector (casillas; abre **sin** Bunker Cabotaje, Bunker Internacional ni Usinas Eléctricas, botones Todos / Sin bunker ni usinas / Ninguno), Empresa (casillas), Provincia (como en las otras páginas) y Unidad (m³ / ton / bbl / gal: solo la siguen el gas oil, con densidad 0,845, y el biodiésel, 0,885; 6,2898 bbl y 264,172 gal por m³; los demás productos quedan en su unidad y solo se suman los de la misma unidad).
+- **Cajas (cinco):** Resultado del mes (tarjetas), Corte obligatorio vs. real, Gráficos de volumen, Gas oil importado y Tablas de volumen. Abren todas menos la del importado.
+- **Tarjetas:** dos filas de cuatro: Minorista y Mayorista de GO GR2 y de GO GR3; GO Import, GO Total · GR2 + GR3, Biodiésel y Corte real (con el cumplimiento adentro). Selector Mes / Año: por mes trae además el acumulado del año y los últimos 12 meses, cada uno contra el mismo tramo de un año antes; por año, el año del mes elegido (en curso: enero al último mes) contra los mismos meses del año anterior. Números en Km³ / MMm³ (o Kton, MMbbl, MMgal); el entero al pasar el mouse. Rótulos cortos pedidos por HDO: GO GR2, GO GR3, S/Zona Fría, GO Import. Sin recuadro exterior.
+- **Corte real y cumplimiento (definición de HDO, con vuelta atrás incluida):** corte = biodiésel vendido para el corte / gas oil grado 2 + 3 del país sin bunker ni usinas, en m³, **sin sumar el importado y con la Zona Fría adentro** (HDO pidió sacarla y lo revirtió el mismo día por el art. 11 de la Res. SE 689/2022: lo exceptuado se compensa en otras regiones; sin Zona Fría 2025 daría 6,60% en vez del 5,79% publicado). Cumplimiento = corte real / corte obligatorio; para un período, el obligatorio de cada mes ponderado por su gas oil. El biodiésel sale de `corte.json` (país) y de `petroleras.json` (compras por petrolera) del tablero de biodiésel, vía `BIO_MENSUAL`, `BIO_PETROLERAS` y `CORTE_OBLIGATORIO` en `src/lib/gasoil.js`. El corte sigue solo al filtro de empresa (nombres SESCO → nombres del biodiésel en `empresa_bio` del JSON); con provincia, sector o canal filtrados, la tarjeta avisa que no los sigue. En 21 meses la suma por petrolera no da igual al total país (abr-2017, 12.310 m³; el resto menos de 50): con "Todas" se usa el total país.
+- **Gráficos:** uno por producto (hasta cuatro; con más, solo la suma) y el de la suma con la línea Total además de minorista y mayorista; Mensual / Anual y 12 m / 5 a / 10 a / Todo. Gas oil importado en barras, en la unidad elegida. En todos los gráficos de esta página el control va debajo del título, a la izquierda (`.go-sesco .chart-card-header`).
+- **Tablas:** por sector, por empresa, por provincia (mes elegido; clic en una fila deja solo esa categoría, otro clic vuelve a la base) y por período (misma serie que los gráficos, minorista / mayorista / total por producto).
+- **Controles verificados contra la base con Python** (jul-2026, sin bunker ni usinas, todas las empresas): GO2 minorista 369.136 / mayorista 446.438; GO3 240.773 / 98.167; total 1.154.514; todos los sectores 1.260.883; Sin Zona Fría 1.014.066; YPF 662.058; Córdoba + Santa Fe 278.288; naftas 2 + 3 788.272; importado 100.193 t = 118.572 m³; biodiésel 82.424 m³; corte 7,14% y cumplimiento 95,19%; acumulado ene a jul 2026 8.018.326 m³, corte 6,83%, cumplimiento 91,11%; 12 meses 13.845.769 m³, 6,05%, 81,06%; año 2025 13.579.693 m³, 5,79%, 77,68%; YPF jul-2026 corte 7,62%, cumplimiento 101,60%. En toneladas el total de jul-2026 da 975.565, en bbl 7.261.664, en gal 304.990.340. Scripts de control en el scratchpad de la sesión (`sesco_controles*.py`), no en el repo.
+
+## Corte obligatorio vs. corte real (`src/components/gestion/CorteRealChart.jsx`, sesión 5)
+
+Es el gráfico de Gestión y cupo, ahora reutilizado en Tablas SESCO con `datos` (serie de las empresas elegidas) y `detalle`; sin props sigue mostrando `corte.json`. Lo agregado el 30/09 aplica a las dos páginas:
+
+- Con "Gestiones": tres filas arriba del gráfico alineadas con el área de trazado (presidente, secretario/a de Energía, subsecretario del área de hidrocarburos; `SECRETARIOS`, `SUBSECRETARIOS` y `funcionarioDe` en `src/lib/gestiones.js`, con el egreso más alto tratado como "en funciones"). Clic en cualquiera (o en la zona de un presidente dentro del gráfico) deja solo su período; otro clic o "Ver todo el período" vuelve. Nombres: completo, apellido o iniciales según entre; el tooltip trae cargo, nombramiento, fechas y promedios. Vista anual: cada año se asigna al funcionario de junio (las gestiones cortas no aparecen ahí).
+- La fila de presidentes lleva el color de la presidencia como fondo muy claro: celeste FPV y FDT, amarillo Cambiemos, violeta LLA (`COLOR_PRESIDENCIA`; `celeste` y `violeta` nuevos en la paleta de `theme.jsx`). HDO no quiere líneas de color en las filas.
+- "Promedio": corte real promedio de cada presidencia (biodiésel / gas oil de todo el período) en punteado con el color de la presidencia; con un funcionario elegido, el de su gestión. "Cumplimiento": lo mismo con el cumplimiento promedio (biodiésel / mandato del período), punteado fino sobre el eje derecho, sin la línea del 100%. HDO: "el cumplimiento es siempre el promedio del cumplimiento de la gestión de que se trate". Controles (todas las empresas): CFK 7,20% y 92,3%; Macri 9,37% y 93,7%; A. Fernández 4,91% y 65,2%; Milei 6,18% y 82,6%; Aranguren 9,58% y 95,8%; Popik 9,53% y 95,3%.
+- El eje izquierdo llega a 12% y crece de a 3 puntos si una empresa mezcló más.
+
+## Sankey: Resaltar / Filtrar (sesión 5)
+
+Selector "Clic: Resaltar | Filtrar" junto al de grados (abre en Filtrar). Resaltar deja fija la marca del mouse como en Tableau: el mercado sigue entero, cada nodo muestra cuánto de su volumen pasa por lo elegido (m³ y % del nodo; en nodos angostos solo el %), el nodo fijo va con borde punteado y el mouse no cambia nada hasta otro clic (corrección de HDO). Filtrar es lo del 29/09. Los flujos también se clickean: en Resaltar fijan su recorrido; en Filtrar pasan sus dos puntas a los filtros. `SankeyMercado` recibe `modo`, `celdaVol` y `onEnlace`; el tooltip agrega "En la marca". Controles con YPF resaltada en jul-2026: Minorista 316.835 de 598.981 (52,9%), Mayorista 62.415 de 225.865 (27,6%), Agro 44.395 de 120.174 (36,9%), Al público 303.559 de 540.566 (56,2%).
+
 ## Decisiones de las sesiones 2 y 3 a validar con HDO
 
 1. Defaults del modo abierto: ambos canales, todos los tipos y canales, precio **sin impuestos** en $/l (en el commit `1a1190c` Minorista y mayorista arrancaba en surtidor, minorista, al público).
@@ -161,7 +188,8 @@ Las definiciones que esperan a HDO están arriba, en "Cómo retomar".
 4. Hacer estable el orden del índice de bocas del generador (ver "El generador no es estable entre corridas", abajo).
 5. El Excel de regalías lo actualiza un programa que escribe AÑO y MES como fórmulas sin resultado guardado: cada vez que agregue filas, Prep las va a descartar hasta que alguien abra y guarde el archivo en Excel. Arreglo de raíz: que el programa escriba el año y el mes como valores. HDO está avisado; no se tocó.
 6. En `docs/` hay archivos sin trackear de sesiones anteriores (PDF infografía, transcripciones Senado, video CEPREB v8), y `.gitignore`, `CLAUDE.md` y el docx de la locución v8 tienen cambios sin commitear de otras sesiones: HDO no dijo si entran.
-7. Chunk `GasOil` 144 KB (43 KB gz); el resto va por fetch.
+7. Chunk `GasOil` 171 KB (51 KB gz); el resto va por fetch.
+8. Al pasar de un año, `corte.json` y `petroleras.json` (tablero de biodiésel) tienen que llegar al mismo mes que SESCO; si el biodiésel se queda atrás, las tarjetas de biodiésel y corte de ese mes muestran "-".
 
 ## Sesión 4 (29 y 30/09/2026): qué se hizo y por qué
 
@@ -198,9 +226,9 @@ El archivo .js es una expresión `(async () => { ... })()` que se corre en la p�
 ```
 Retomamos la página Mercado de Gas Oil (/gas-oil) del sitio explorarg-marketscan.
 
-Antes de hacer nada, leé completo HANDOFF_GAS_OIL.md, que está en la raíz del repo. Ahí está el estado, los datos, las decisiones de cálculo, los números de control y lo que quedó pendiente. Está todo publicado al 30/09/2026 (último commit de gas oil: 674d943).
+Antes de hacer nada, leé completo HANDOFF_GAS_OIL.md, que está en la raíz del repo. Ahí está el estado, los datos, las decisiones de cálculo, los números de control y lo que quedó pendiente. Está todo publicado al 30/09/2026 (último commit de gas oil: ec2993f, sesión 5: Tablas SESCO, corte por gestión y Sankey resaltar / filtrar).
 
-Lo que sigue es armar la página Tablas SESCO (/gas-oil/canales-sesco), que hoy está vacía con el cartel "En preparación". Yo te voy a decir qué tiene que mostrar. Cuando te lo diga, primero decime qué entendiste y de qué base saldrían los datos, y recién después codeá.
+Te voy a seguir pasando pedidos de a uno, sobre Tablas SESCO, el Sankey de Estructura o lo que surja. Con cada uno, primero decime qué entendiste y de qué base saldrían los datos, y recién después codeá.
 
 Reglas de siempre: commits y pushes solo cuando yo lo ordene; guion corto, nunca raya larga; verificá los números contra un cálculo hecho por fuera de la página y mostrame el resultado en imagen.
 ```
