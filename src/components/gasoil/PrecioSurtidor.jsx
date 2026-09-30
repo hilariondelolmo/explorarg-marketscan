@@ -305,7 +305,7 @@ export default function PrecioSurtidor({ seccion }) {
       {cuerpoKpi}
       {!listo ? (
         <div className="section-placeholder">
-          {conOperador ? `Cargando los datos de ${OPERADORES[operador]}…` : 'Cargando el relevamiento de precios (8 MB, una sola vez)…'}
+          {conOperador ? `Cargando los datos de ${OPERADORES[operador]}…` : 'Cargando el relevamiento de precios (10 MB, una sola vez)…'}
         </div>
       ) : (
         <>

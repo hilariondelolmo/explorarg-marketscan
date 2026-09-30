@@ -33,7 +33,9 @@ export const IDX_MES = new Map(MESES.map((f, i) => [f, i]));
 
 // --- Relevamiento fino (public/data/gasoil_retail.json): cruce mes × provincia
 // × bandera × canal distribución × tipo de negocio × canal comercialización,
-// en columnas. Va fuera del bundle (7,8 MB) y se pide una sola vez.
+// en columnas, con la cantidad de estaciones de cada celda (q y p, ver
+// scripts/gasoil_estaciones.py). Va fuera del bundle (10 MB) y se pide una
+// sola vez.
 let retailPromesa = null;
 export function cargarRetail() {
   if (!retailPromesa) {
@@ -99,6 +101,30 @@ export function ponderarCol(D, filtro, clave, campo, grado) {
     a.e += E[i];
   }
   for (const a of out.values()) a.precio = a.pw / a.w;
+  return out;
+}
+
+/**
+ * Volumen (m³) del relevamiento columnar, sin mirar el tipo de precio: el que
+ * declararon las bocas que informaron algún precio en el mes (las que no
+ * informaron precio no están en los datos).
+ *   D       datos columnares (cargarRetail)
+ *   filtro  (i) => bool, o null
+ *   clave   (i) => clave de agrupación
+ *   grado   2 | 3
+ * Devuelve Map(clave → m³).
+ */
+export function sumarCol(D, filtro, clave, grado) {
+  const W = D[`w${grado}`];
+  const out = new Map();
+  const n = D.mes.length;
+  for (let i = 0; i < n; i++) {
+    if (filtro && !filtro(i)) continue;
+    const w = W[i];
+    if (!w) continue;
+    const k = clave(i);
+    out.set(k, (out.get(k) || 0) + w);
+  }
   return out;
 }
 

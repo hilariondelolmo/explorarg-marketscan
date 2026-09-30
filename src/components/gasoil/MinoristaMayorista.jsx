@@ -214,7 +214,7 @@ export default function MinoristaMayorista({ seccion }) {
       </div>
       <div className="chart-card-body">
         <ResponsiveContainer width="100%" height={300}>
-          <ComposedChart data={series[k]} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+          <ComposedChart data={series[k]} margin={{ top: 10, right: 26, left: 0, bottom: 0 }}>
             <XAxis dataKey="fecha" tick={{ fill: C.tick, fontSize: 11 }} stroke={C.axis} tickFormatter={(v) => fmt.monthShort(v)} minTickGap={40} />
             <YAxis tick={{ fill: C.tick, fontSize: 11 }} stroke={C.axis} tickFormatter={(v) => fmtPrecio(v, u)} domain={['auto', 'auto']} width={58} />
             <Tooltip content={<TooltipSerie unidad={u} />} cursor={{ stroke: C.axis }} />
@@ -248,7 +248,7 @@ export default function MinoristaMayorista({ seccion }) {
       {abiertos.kpi && kpi && <div className="go-desplegable-cuerpo">{tarjetas}</div>}
       {!listo ? (
         <div className="section-placeholder">
-          {conOperador ? `Cargando los datos de ${OPERADORES[operador]}…` : 'Cargando el relevamiento de precios (8 MB, una sola vez)…'}
+          {conOperador ? `Cargando los datos de ${OPERADORES[operador]}…` : 'Cargando el relevamiento de precios (10 MB, una sola vez)…'}
         </div>
       ) : (
         <>

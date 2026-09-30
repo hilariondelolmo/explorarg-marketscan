@@ -265,26 +265,28 @@ export function useCajas(inicial) {
  * Fila única de los ocho filtros del relevamiento, con el título arriba
  * alineado al borde del control (orden del tablero PRECIO SURTIDOR).
  */
-export function FiltrosRelevamiento({ F }) {
+export function FiltrosRelevamiento({ F, sinTipoPrecio = false }) {
   const {
     mes, setMes, tipoId, setTipoId, cd, cambiarCd, disponibles, tipos, setTipos, resumenTipos,
     cc, cambiarCc, bandera, setBandera, banderasMes, opTexto, elegirOperador, operadoresOrden,
     provincias, cambiarProvincias, resumenProvincias,
   } = F;
   return (
-    <div className="go-filtros">
+    <div className={`go-filtros${sinTipoPrecio ? ' go-filtros-7' : ''}`}>
       <div className="go-filtro go-f-mes">
         <label htmlFor="go-mes">Mes</label>
         <select id="go-mes" className="empresa-select" value={mes} onChange={(e) => setMes(e.target.value)}>
           {[...MESES].reverse().map((f) => <option key={f} value={f}>{fmt.monthShort(f)}</option>)}
         </select>
       </div>
-      <div className="go-filtro go-f-tipo">
-        <label htmlFor="go-tipo">Tipo de precio</label>
-        <select id="go-tipo" className="empresa-select" value={tipoId} onChange={(e) => setTipoId(e.target.value)}>
-          {TIPOS_PRECIO.map((t) => <option key={t.id} value={t.id}>{t.label} [{t.unidad}]</option>)}
-        </select>
-      </div>
+      {!sinTipoPrecio && (
+        <div className="go-filtro go-f-tipo">
+          <label htmlFor="go-tipo">Tipo de precio</label>
+          <select id="go-tipo" className="empresa-select" value={tipoId} onChange={(e) => setTipoId(e.target.value)}>
+            {TIPOS_PRECIO.map((t) => <option key={t.id} value={t.id}>{t.label} [{t.unidad}]</option>)}
+          </select>
+        </div>
+      )}
       <div className="go-filtro go-f-cd">
         <label htmlFor="go-cd">Canal de distribución</label>
         <select id="go-cd" className="empresa-select" value={cd} onChange={(e) => cambiarCd(e.target.value)}>
@@ -361,15 +363,16 @@ export function Cajas({ cajas, abiertos, alternar }) {
 /**
  * Bloque fijo de la sección: encabezado, fila de filtros y fila de cajas.
  * Queda pegado bajo la sub-nav al scrollear; los cuerpos de las cajas los
- * dibuja cada sección debajo, en el mismo orden que las cajas.
+ * dibuja cada sección debajo, en el mismo orden que las cajas. Las secciones
+ * de volumen van sin el filtro de tipo de precio.
  */
-export function BloqueFijo({ seccion, tituloDefault, F, cajas, abiertos, alternar }) {
+export function BloqueFijo({ seccion, tituloDefault, F, cajas, abiertos, alternar, sinTipoPrecio = false }) {
   return (
     <div className="go-sticky">
       <p className="section-kicker">Mercado Gas Oil</p>
       <h2>{seccion?.title ?? tituloDefault}</h2>
       {seccion?.intro && <p className="section-intro">{seccion.intro}</p>}
-      <FiltrosRelevamiento F={F} />
+      <FiltrosRelevamiento F={F} sinTipoPrecio={sinTipoPrecio} />
       <Cajas cajas={cajas} abiertos={abiertos} alternar={alternar} />
     </div>
   );
@@ -424,13 +427,13 @@ export function DropdownMulti({
   );
 }
 
-/** Tarjeta KPI de precio con la variación contra el mes anterior. */
-export function Tarjeta({ label, valor, base, unidad, mesAnt, tono }) {
+/** Tarjeta KPI de precio (o de volumen, con `sufijo`) con la variación contra el mes anterior. */
+export function Tarjeta({ label, valor, base, unidad, mesAnt, tono, sufijo }) {
   const d = variacion(valor, base);
   return (
     <div className={`kpi-card ${tono ? `tone-${tono}` : ''}`}>
       <div className="kpi-label">{label}</div>
-      <div className="kpi-val">{fmtPrecio(valor, unidad)}</div>
+      <div className="kpi-val">{fmtPrecio(valor, unidad)}{sufijo && <> <span className="kpi-unidad">{sufijo}</span></>}</div>
       {d != null ? (
         <div className="kpi-sub">
           <span className={d >= 0 ? 'delta-pos' : 'delta-neg'}>{d >= 0 ? '▲' : '▼'}{fmt.pct(Math.abs(d))}</span>
@@ -446,14 +449,15 @@ export function Tarjeta({ label, valor, base, unidad, mesAnt, tono }) {
 /**
  * Tooltip de las series de precio: las variaciones (acumulada, mensual) en %,
  * el resto como precio en la unidad elegida; extraFmt permite un formato
- * propio por dataKey (por ejemplo toneladas).
+ * propio por dataKey (por ejemplo toneladas) y rotulo uno propio para el
+ * título (por ejemplo, avisar que el año en curso está incompleto).
  */
-export function TooltipSerie({ active, payload, label, unidad, anual, extraFmt = {} }) {
+export function TooltipSerie({ active, payload, label, unidad, anual, extraFmt = {}, rotulo }) {
   if (!active || !payload?.length) return null;
   const esPct = (k) => k === 'acumulada' || k === 'mensual';
   return (
     <div className="chart-tooltip">
-      <div className="chart-tooltip-label">{anual ? label : fmt.monthShort(label)}</div>
+      <div className="chart-tooltip-label">{rotulo ? rotulo(label) : anual ? label : fmt.monthShort(label)}</div>
       {payload.filter((p) => p.value != null).map((p) => (
         <div key={p.dataKey} className="chart-tooltip-row">
           <div className="chart-tooltip-row-label">

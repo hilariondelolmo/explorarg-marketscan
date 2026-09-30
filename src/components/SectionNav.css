@@ -27,7 +27,8 @@
   display: none;
 }
 
-.section-nav a {
+.section-nav a,
+.section-nav-trigger {
   display: block;
   padding: 0.55rem 0.7rem;
   color: var(--ink-muted);
@@ -37,13 +38,96 @@
   transition: all 0.15s;
 }
 
-.section-nav a:hover {
+/* Pestaña con menú: un botón que se ve igual que las demás pestañas */
+.section-nav-trigger {
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-family: inherit;
+  line-height: inherit; /* los <button> traen line-height:normal y desalinean la baseline */
+  cursor: pointer;
+}
+
+.section-nav-caret {
+  font-size: 0.65rem;
+  margin-left: 0.1rem;
+}
+
+.section-nav a:hover,
+.section-nav-trigger:hover,
+.section-nav-trigger.abierto {
   color: var(--ink-2);
 }
 
-.section-nav a.active {
+.section-nav a.active,
+.section-nav-trigger.active {
   color: var(--ink);
   border-bottom-color: var(--accent-brand);
+}
+
+/* Menú de una pestaña: va en un portal sobre <body>, anclado bajo su pestaña */
+.section-nav-menu {
+  position: fixed;
+  z-index: 111;
+  margin: 0;
+  padding: 0.4rem;
+  list-style: none;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  box-shadow: var(--sombra-panel);
+}
+
+.section-nav-menu-item {
+  display: block;
+  padding: 0.5rem 0.8rem;
+  color: var(--ink-2);
+  font-size: 0.85rem;
+  border-radius: 2px;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+/* Ítem con menú propio: un botón que se ve como los demás y despliega sus
+   páginas debajo, con sangría */
+.section-nav-menu-grupo {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  width: 100%;
+  background: none;
+  border: none;
+  font-family: inherit;
+  line-height: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.section-nav-menu-grupo:hover {
+  color: var(--accent-brand);
+  background: var(--bg-3);
+}
+
+.section-nav-menu-grupo.contiene {
+  color: var(--ink);
+}
+
+.section-nav-submenu {
+  margin: 0 0 0.2rem;
+  padding: 0 0 0 0.8rem;
+  list-style: none;
+}
+
+a.section-nav-menu-item:hover {
+  color: var(--accent-brand);
+  background: var(--bg-3);
+}
+
+a.section-nav-menu-item.active {
+  color: var(--ink);
+  background: var(--bg-3);
 }
 
 @media (max-width: 560px) {

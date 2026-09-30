@@ -327,6 +327,14 @@
   padding: 0 0.55rem;
   line-height: 1;
 }
+/* Siete filtros (secciones de volumen, sin tipo de precio): la misma fila sin
+   esa columna. Va dentro de un corte para no pisar los de pantalla angosta. */
+@media (min-width: 1101px) {
+  .go-filtros-7 {
+    grid-template-columns: 92fr 118fr 140fr 190fr 120fr 190fr 140fr;
+  }
+}
+
 /* Pantallas angostas: dos filas de cuatro filtros y, en celular, cuatro de
    dos. Tipo de negocio pasa a la última columna, así que su panel abre hacia
    la izquierda como el de provincias. */
@@ -353,6 +361,13 @@
     height: auto;
     white-space: normal;
     overflow: visible;
+  }
+  /* Con siete filtros, Tipo de negocio y Provincia caen en la columna
+     izquierda: sus paneles abren hacia la derecha */
+  .go-filtros-7 .go-f-tipos .mh-dropdown-panel,
+  .go-filtros-7 .go-f-prov .mh-dropdown-panel {
+    left: 0;
+    right: auto;
   }
 }
 
