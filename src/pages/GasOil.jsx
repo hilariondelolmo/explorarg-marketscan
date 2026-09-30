@@ -23,7 +23,7 @@ const SECTIONS = [
     encabezadoPropio: true, // encabezado, filtros y cajas quedan fijos al scrollear (bloque fijo)
   },
   {
-    id: 'canales', label: 'Minorista y mayorista', tableau: 'ARG GO MARKET BTB BTC',
+    id: 'canales', label: 'Ventas', tableau: 'ARG GO MARKET BTB BTC',
     menu: [
       {
         id: 'canales', label: 'Precio',
@@ -44,8 +44,10 @@ const SECTIONS = [
           },
           {
             id: 'canales-sesco', label: 'Tablas SESCO',
-            title: 'Tablas SESCO',
+            title: 'Ventas de combustibles',
+            intro: 'Volumen de combustibles vendido en el mercado interno según las tablas SESCO de la Secretaría de Energía, por sector, empresa y provincia, y el gas oil importado (neto de transferencia entre empresas del sector).',
             Comp: TablasSesco,
+            encabezadoPropio: true,
           },
         ],
       },

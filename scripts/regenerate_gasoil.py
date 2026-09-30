@@ -12,6 +12,8 @@ Fuentes (requiere /Volumes/comun montado):
         en Master data (es la hoja de donde los toma el flujo de Prep)
   - Go Imports.hyper             despachos de importación de gas oil (CIF)
   - EESS Localidad departamento provincia.hyper   estaciones georreferenciadas
+  - Mercado Argentino Derivados Petroleo Table.hyper   ventas al mercado de las
+        tablas SESCO (página Tablas SESCO; lo arma gasoil_sesco.py)
 
 Salidas:
   - gasoil_precios.json  retail (mes × provincia × bandera), canales
@@ -22,6 +24,8 @@ Salidas:
   - public/data/         cruce fino del relevamiento (gasoil_retail.json, con
                          la cantidad de estaciones de cada celda que arma
                          gasoil_estaciones.py), datos por boca y por mes
+  - public/data/gasoil_sesco.json   ventas de combustibles de las tablas SESCO
+                         (mes × provincia × empresa × sector, por producto)
 
 Uso:
     python3 scripts/regenerate_gasoil.py [--dry-run]
@@ -55,6 +59,7 @@ except ImportError:
     sys.exit("Falta tableauhyperapi:  pip3 install tableauhyperapi")
 
 from gasoil_estaciones import COLS_ESTACIONES, NOTA_ESTACIONES, contar_estaciones
+from gasoil_sesco import FUENTE as FUENTE_SESCO, escribir_sesco, extraer_sesco
 
 VOL = Path("/Volumes/comun/01. TABLEAU")
 DB = VOL / "EXP MKTS DATABASES/Revision Actual"
@@ -63,6 +68,7 @@ SRC = {
     "master": DB / "Master data database.hyper",
     "imports": DB / "Go Imports.hyper",
     "eess": DB / "EESS Localidad departamento provincia.hyper",
+    "sesco": FUENTE_SESCO,
 }
 # Informe de regalías de crudo de la SE: de su hoja "Tabla precios (2)" toma el
 # flujo de Prep las columnas BRENT y WTI de Master data. Si la base quedó
@@ -109,7 +115,7 @@ PRODUCTOS_MASTER = {
     "wti": ("WTI", "WTI", "EIA"),
     "diesel_usa": ("Diesel Diesel Consumer Prices USA   (usd/ton)", "Diesel USA al consumidor", "EIA"),
     "fame_ara": ("Biodiesel FAME, CFPP -10 Europe, ARA fob", "Biodiesel FAME ARA fob", "FoLicht"),
-    "bio_963_m": ("MEDIANA", "Biodiesel Res. 963 - Mediana", "Secretaría de Energía"),
+    "bio_963_m": ("MEDIANA", "Biodiesel - Res. 963", "Secretaría de Energía"),
     "aceite_fas": ("JJ Aceite FAS ROSARIO Promedio", "Aceite de soja FAS Rosario", "J.J. Hinrichsen"),
 }
 PRODUCTOS_GO = {
@@ -596,10 +602,12 @@ def generar(dry=False):
         eess = extraer_eess(hy, ix_prov, ix_band)
         master = extraer_master(hy)
         importaciones = extraer_importaciones(hy)
+        sesco, resumen_sesco = extraer_sesco(lambda sql: hy.query("sesco", sql))
     finally:
         hy.close()
     print(f"  retail: {len(retail['mes'])} filas · canales: {len(canales)} · flujos: {len(flujos)} · "
           f"EESS: {len(eess)} · importaciones: {len(importaciones)} meses")
+    print(f"  SESCO: {resumen_sesco}")
     # Cantidad de estaciones de cada celda del cruce, desde los datos por boca
     estaciones = contar_estaciones(retail, partes)
     check(estaciones["sin_celda"] == 0,
@@ -732,6 +740,9 @@ def generar(dry=False):
             destino.write_text(texto, encoding="utf-8")
     print(f"  {'[dry-run] ' if dry else '✓ '}public/data/gasoil_mes/<mes>.json ({len(por_mes)} meses, {total // 1024} KB en total; "
           f"{iguales} con las mismas filas, no se reescriben)")
+
+    # Ventas de las tablas SESCO (página Tablas SESCO), también fuera del bundle
+    escribir_sesco(sesco, dry)
 
     escribir("gasoil_ranking.json", dict(
         desde=DESDE, ultimo_mes=ultimo_mes, densidad_go=DENSIDAD_GO,

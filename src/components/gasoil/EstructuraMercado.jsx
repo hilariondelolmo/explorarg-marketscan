@@ -26,10 +26,14 @@ const GRADOS = [['ambos', 'Grados 2 y 3'], ['2', 'Grado 2'], ['3', 'Grado 3']];
  * operador o estación, sus bocas). Decisiones HDO (16 y 17/09/2026): el ancho
  * es volumen (el workbook usaba precio promedio), el precio va en el tooltip
  * y en las tablas, y al pasar el mouse por una categoría de un tótem se marcan
- * sus flujos. El clic en un nodo filtra (29/09/2026): pasa esa categoría al
- * filtro de arriba que le corresponde, así el diagrama, las tarjetas y las
- * tablas quedan solo con lo que pasa por ella; otro clic la suelta.
+ * sus flujos. El clic tiene dos modos a elección del usuario (30/09/2026):
+ * "Resaltar" deja fija la marca, como el tablero de Tableau, y cada nodo
+ * muestra cuánto de su volumen pasa por lo elegido; "Filtrar" (29/09/2026)
+ * pasa esa categoría al filtro de arriba que le corresponde (un flujo, sus
+ * dos puntas), así el diagrama, las tarjetas y las tablas quedan solo con lo
+ * que pasa por ella; otro clic la suelta.
  */
+const MODOS_CLIC = [['resaltar', 'Resaltar'], ['filtrar', 'Filtrar']];
 export default function EstructuraMercado({ seccion }) {
   const C = useChartColors();
   const { theme } = useTheme();
@@ -41,6 +45,7 @@ export default function EstructuraMercado({ seccion }) {
   } = F;
   const [abiertos, alternar] = useCajas({ kpi: false, sankey: true, canal: false, tipo: false });
   const [grado, setGrado] = useState('ambos');
+  const [modoClic, setModoClic] = useState('filtrar');
   const etiquetaGrado = grado === 'ambos' ? 'grados 2 y 3' : `grado ${grado}`;
   const vol = (i) => (grado === '2' ? DX.w2[i] : grado === '3' ? DX.w3[i] : DX.w2[i] + DX.w3[i]);
 
@@ -127,6 +132,7 @@ export default function EstructuraMercado({ seccion }) {
     }
     return {
       nodes, links: [...enlaces.values()], total, w2, w3, publico,
+      celdaVol: new Map([...celdas].map(([k, c]) => [k, c.v])),
       minorista: volNivel[1].get(0) || 0, mayorista: volNivel[1].get(1) || 0,
     };
   }, [...claves, grado, paleta]);
@@ -179,6 +185,14 @@ export default function EstructuraMercado({ seccion }) {
     tipoElegido && `2|${tipoElegido}`,
     ccN != null && `3|${CANALES_COM[ccN]}`,
   ].filter(Boolean));
+  // Clic en un flujo: sus dos puntas pasan a ser filtro; si ya lo eran las dos, se sueltan
+  const elegirEnlace = (e) => {
+    const puntas = [e.source, e.target].filter((n) => n.filtrable);
+    const yaElegidas = puntas.every((n) => elegidos.has(`${n.nivel}|${n.nombre}`));
+    for (const n of puntas) {
+      if (yaElegidas || !elegidos.has(`${n.nivel}|${n.nombre}`)) elegirNodo(n);
+    }
+  };
 
   const cajas = [
     {
@@ -280,7 +294,9 @@ export default function EstructuraMercado({ seccion }) {
                 <div>
                   <span className="chart-card-title">Bandera → canal de distribución → tipo de negocio → canal de comercialización</span>
                   <span className="chart-card-subtitle">
-                    {fmt.monthShort(mes)} · {etiquetaCanal}{etiquetaFiltro ? ` · ${etiquetaFiltro}` : ''} · ancho = m³ de gas oil {etiquetaGrado} · pasá el mouse por un nodo o un flujo para ver volumen y precio y marcar su recorrido · clic en un nodo deja solo lo que pasa por él, otro clic lo suelta · menores al 1% agrupados en "Otros"
+                    {fmt.monthShort(mes)} · {etiquetaCanal}{etiquetaFiltro ? ` · ${etiquetaFiltro}` : ''} · ancho = m³ de gas oil {etiquetaGrado} · pasá el mouse por un nodo o un flujo para ver volumen y precio y marcar su recorrido · clic en un nodo o en un flujo: {modoClic === 'resaltar'
+                      ? 'deja fija la marca y cada nodo muestra cuánto de su volumen pasa por ahí'
+                      : 'deja solo lo que pasa por ahí'}, otro clic lo suelta · menores al 1% agrupados en "Otros"
                   </span>
                 </div>
                 <div className="go-selectores-grafico">
@@ -289,13 +305,19 @@ export default function EstructuraMercado({ seccion }) {
                       <button key={id} className={grado === id ? 'active' : ''} onClick={() => setGrado(id)}>{l}</button>
                     ))}
                   </div>
+                  <div className="chart-range-selector" title="Qué hace el clic en un nodo o en un flujo del diagrama">
+                    <span className="go-selector-rotulo">Clic</span>
+                    {MODOS_CLIC.map(([id, l]) => (
+                      <button key={id} className={modoClic === id ? 'active' : ''} onClick={() => setModoClic(id)}>{l}</button>
+                    ))}
+                  </div>
                 </div>
               </div>
               <div className="chart-card-body go-sankey">
                 {datos.links.length ? (
                   <SankeyMercado
-                    nodes={datos.nodes} links={datos.links} total={datos.total} unidad={tipo.unidad} conv={conv} C={C}
-                    elegidos={elegidos} onNodo={elegirNodo}
+                    nodes={datos.nodes} links={datos.links} celdaVol={datos.celdaVol} total={datos.total} unidad={tipo.unidad} conv={conv} C={C}
+                    elegidos={elegidos} modo={modoClic} onNodo={elegirNodo} onEnlace={elegirEnlace}
                   />
                 ) : (
                   <div className="section-placeholder">Sin volumen relevado para esta selección en {fmt.monthShort(mes)}.</div>

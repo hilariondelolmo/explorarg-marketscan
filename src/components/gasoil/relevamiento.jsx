@@ -31,15 +31,15 @@ export const CC_PUBLICO = CANALES_COM.indexOf('Al público');
 export const PROVINCIAS_FILTRO = PROVINCIAS.filter((p) => p !== 'N/D');
 const ZONA_FRIA = new Set(['NEUQUEN', 'RIO NEGRO', 'CHUBUT', 'SANTA CRUZ', 'TIERRA DEL FUEGO']);
 export const SIN_ZONA_FRIA = PROVINCIAS_FILTRO.filter((p) => !ZONA_FRIA.has(p));
-const ROTULO_SIN_ZONA_FRIA = 'Sin Zona Fría';
+export const ROTULO_SIN_ZONA_FRIA = 'Sin Zona Fría';
 // Acciones de un desplegable: [rótulo, opciones que deja tildadas (null = todas), ayuda]
 const ACCIONES_TODOS = [['Todos', null], ['Ninguno', []]];
-const ACCIONES_PROVINCIA = [
+export const ACCIONES_PROVINCIA = [
   ['Todas', PROVINCIAS_FILTRO],
   [ROTULO_SIN_ZONA_FRIA, SIN_ZONA_FRIA, 'Todas menos Neuquén, Río Negro, Chubut, Santa Cruz y Tierra del Fuego'],
   ['Ninguna', []],
 ];
-const mismas = (set, lista) => set.size === lista.length && lista.every((p) => set.has(p));
+export const mismas = (set, lista) => set.size === lista.length && lista.every((p) => set.has(p));
 
 /**
  * Estado de los ocho filtros del relevamiento y carga de los datos finos
@@ -345,7 +345,7 @@ export function FiltrosRelevamiento({ F, sinTipoPrecio = false }) {
 /** Fila de cajas al mismo nivel: título, detalle de dos líneas como máximo y flecha. */
 export function Cajas({ cajas, abiertos, alternar }) {
   return (
-    <div className="go-desplegables go-desplegables-4">
+    <div className={`go-desplegables go-desplegables-${cajas.length === 5 ? 5 : 4}`}>
       {cajas.map((c) => (
         <button
           key={c.id} type="button" className={`go-desplegable-boton ${abiertos[c.id] ? 'abierto' : ''}`}

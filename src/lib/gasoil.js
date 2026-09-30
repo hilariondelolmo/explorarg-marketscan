@@ -11,6 +11,12 @@ import {
   tipos_negocio as TIPOS_NEGOCIO_JSON, meta as META_PRECIOS_JSON,
 } from '../data/gasoil_precios.json';
 import ranking from '../data/gasoil_ranking.json';
+// Biodiésel del tablero de biodiésel (scripts/regenerate_data.py), para el
+// corte real de la página Tablas SESCO: ventas de corte del país por mes (m³)
+// y compras de cada petrolera (toneladas). Imports nombrados: el resto de
+// esos JSON queda fuera de este bundle.
+import { mensual as CORTE_MENSUAL_JSON, densidad_bio as DENSIDAD_BIO_JSON } from '../data/corte.json';
+import { mensual as BIO_PETROLERAS_JSON } from '../data/petroleras.json';
 import mapa from '../data/mapa_argentina.json';
 
 export const MESES = MESES_JSON;
@@ -30,6 +36,14 @@ export const CPI_US = new Map(ranking.cpi_us);
 export const META_RANKING = ranking.meta;
 
 export const IDX_MES = new Map(MESES.map((f, i) => [f, i]));
+
+export const DENSIDAD_BIO = DENSIDAD_BIO_JSON;
+// mes → corte obligatorio (fracción; null si no había mandato)
+export const CORTE_OBLIGATORIO = new Map(CORTE_MENSUAL_JSON.map((m) => [m.fecha, m.obligatorio]));
+// mes → m³ de biodiésel vendido para el corte en el país
+export const BIO_MENSUAL = new Map(CORTE_MENSUAL_JSON.map((m) => [m.fecha, m.bio_m3]));
+// mes → { petrolera compradora: toneladas de biodiésel }
+export const BIO_PETROLERAS = new Map(BIO_PETROLERAS_JSON.map(({ fecha, ...compras }) => [fecha, compras]));
 
 // --- Relevamiento fino (public/data/gasoil_retail.json): cruce mes × provincia
 // × bandera × canal distribución × tipo de negocio × canal comercialización,
@@ -69,6 +83,21 @@ export function cargarMes(f) {
     }));
   }
   return mesesPromesa.get(f);
+}
+
+// --- Tablas SESCO (public/data/gasoil_sesco.json, scripts/gasoil_sesco.py):
+// ventas al mercado por mes × provincia × empresa × sector. Cada producto
+// guarda solo las filas del cruce donde tiene venta (i = fila, v = cantidad
+// en su unidad). Va fuera del bundle (5 MB) y se pide una sola vez.
+let sescoPromesa = null;
+export function cargarSesco() {
+  if (!sescoPromesa) {
+    sescoPromesa = fetch('/data/gasoil_sesco.json').then((r) => {
+      if (!r.ok) throw new Error(`No se pudieron cargar las tablas SESCO (${r.status})`);
+      return r.json();
+    });
+  }
+  return sescoPromesa;
 }
 
 /**

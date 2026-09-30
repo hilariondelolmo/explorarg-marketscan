@@ -53,6 +53,8 @@ export const PALETAS = {
     neutral: '#6b7280',    // gris comercializadoras / acumulados
     alert: '#dc2626',      // rojo déficit
     ink: '#1a1a1a',        // series destacadas (cumplimiento)
+    celeste: '#0ea5e9',    // gestiones: presidencias del FPV / FDT
+    violeta: '#7c3aed',    // gestiones: presidencia de LLA (Cambiemos usa warn)
     grid: '#e5e2dc',
     axis: '#d1cdc7',
     tick: '#6b7280',
@@ -77,6 +79,8 @@ export const PALETAS = {
     neutral: '#8B9AAB',
     alert: '#C67B5C',
     ink: '#E8ECF0',
+    celeste: '#5BB8E6',
+    violeta: '#A78BFA',
     grid: '#1E2832',
     axis: '#2A3340',
     tick: '#6B7680',

@@ -612,6 +612,20 @@
     grid-template-columns: 1fr;
   }
 }
+/* Cinco cajas (Tablas SESCO): una fila en escritorio */
+.go-desplegables-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+@media (max-width: 1100px) {
+  .go-desplegables-5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 720px) {
+  .go-desplegables-5 {
+    grid-template-columns: 1fr;
+  }
+}
 .go-selectores-grafico {
   display: flex;
   gap: 0.5rem;
@@ -631,6 +645,17 @@
   margin-left: 0;
 }
 
+/* Rótulo dentro de un selector de botones ("Clic: Resaltar | Filtrar") */
+.go-selector-rotulo {
+  align-self: center;
+  padding: 0 0.3rem 0 0.6rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
 /* --- Sankey de cuatro tótems (Estructura del mercado) --- */
 .go-sankey-marco {
   position: relative;
@@ -645,4 +670,162 @@
 }
 .go-sankey .recharts-sankey-links path {
   transition: stroke-opacity 0.12s;
+  cursor: pointer;
+}
+
+/* --- Tablas SESCO: siete filtros (el último, la unidad), tarjetas con
+   varios períodos, el gráfico impar a lo ancho y las tablas --- */
+@media (min-width: 1101px) {
+  .go-filtros-sesco {
+    grid-template-columns: 92fr 176fr 140fr 166fr 166fr 138fr 78fr;
+  }
+}
+/* El panel de productos usa las dos columnas del de provincias, pero su
+   filtro va segundo en la fila: abre hacia la derecha. En celular cae en la
+   columna derecha y abre hacia la izquierda, como el de provincias. */
+@media (min-width: 721px) {
+  .go-f-prod .mh-dropdown-panel.go-prov-panel {
+    left: 0;
+    right: auto;
+  }
+}
+/* Con los filtros en dos filas, Provincia queda segunda: abre hacia la derecha */
+@media (min-width: 721px) and (max-width: 1100px) {
+  .go-filtros-sesco .go-f-prov .mh-dropdown-panel.go-prov-panel {
+    left: 0;
+    right: auto;
+  }
+}
+/* Tablas SESCO: en todos los gráficos el control va debajo del título, a la
+   izquierda (pedido de HDO), y las tarjetas van sin recuadro exterior */
+.go-sesco .chart-card-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+.go-kpi-bloque {
+  margin-bottom: 1.6rem;
+}
+/* Cabecera de las tarjetas: qué período compara cada cifra y el selector Mes / Año */
+.go-kpi-cabecera {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0 0 0.6rem;
+}
+.go-kpi-cabecera .chart-card-subtitle {
+  margin-left: 0;
+}
+/* Períodos secundarios de una tarjeta (acumulado del año, 12 meses) */
+.go-kpi-periodos {
+  margin-top: 0.55rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--rule-soft);
+  display: grid;
+  gap: 0.15rem;
+}
+.go-kpi-periodo {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.4rem;
+  align-items: baseline;
+  font-size: 0.76rem;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+/* Corte real: el cumplimiento va al lado, más chico, y en su propia columna en los períodos */
+.go-kpi-val-extra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.7rem;
+}
+.go-kpi-extra {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--ink-muted);
+}
+.go-kpi-extra b {
+  font-size: 0.98rem;
+  font-weight: 650;
+  color: var(--ink);
+}
+.go-kpi-periodo.con-extra {
+  grid-template-columns: auto minmax(0, 1fr) 3.2rem 3.9rem;
+}
+.go-kpi-periodo.con-extra > :nth-child(3) {
+  text-align: right;
+}
+.go-kpi-periodo-cab {
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.go-kpi-periodo-cab .go-kpi-periodo-val {
+  color: var(--ink-muted);
+}
+.go-kpi-periodo-val {
+  text-align: right;
+  color: var(--ink-2);
+}
+.go-kpi-periodo > :last-child {
+  text-align: right;
+}
+/* Las tarjetas con períodos necesitan más ancho que las comunes: dos por
+   fila hasta 1200 px y una por fila en celular */
+@media (max-width: 1200px) {
+  .go-kpis-fila.go-kpis-periodos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  /* Celdas vacías que completan la última fila: con dos columnas solo hace falta la de una cantidad impar */
+  .go-kpi-relleno:not(.impar) {
+    display: none;
+  }
+}
+@media (max-width: 720px) {
+  .go-kpis-fila.go-kpis-periodos {
+    grid-template-columns: 1fr;
+  }
+  .go-kpi-relleno.impar {
+    display: none;
+  }
+}
+.go-kpi-nota {
+  margin-top: 0.45rem;
+  font-size: 0.72rem;
+  line-height: 1.3;
+}
+.go-charts-grid .go-chart-ancho {
+  grid-column: 1 / -1;
+}
+.go-sesco-tabla {
+  margin-top: 1.2rem;
+}
+.go-sesco-scroll {
+  max-height: 460px;
+  overflow: auto;
+}
+.go-sesco-scroll thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 30px;
+  box-sizing: border-box;
+  background: var(--bg);
+}
+.go-sesco-scroll thead tr + tr th {
+  top: 30px;
+}
+.go-tabla .go-th-grupo {
+  text-align: center;
+  border-left: 1px solid var(--rule-soft);
+}
+.go-tabla .go-th-borde {
+  border-left: 1px solid var(--rule-soft);
+}
+.go-tabla-lectura tbody tr {
+  cursor: default;
 }
