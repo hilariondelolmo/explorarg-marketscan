@@ -8,6 +8,8 @@ Fuentes (requiere /Volumes/comun montado):
         relevamiento SE Res. 1104/2004: precio y volumen por EESS-mes, canal,
         bandera, provincia (fuente de Precio surtidor, Estructura y BTB BTC)
   - Master data database.hyper   Brent, WTI, TC, CPI US, FoLicht, 963, aceite
+  - Informe Regalias CRUDO.xlsx  Brent y WTI de los meses que todavía no estén
+        en Master data (es la hoja de donde los toma el flujo de Prep)
   - Go Imports.hyper             despachos de importación de gas oil (CIF)
   - EESS Localidad departamento provincia.hyper   estaciones georreferenciadas
 
@@ -17,6 +19,9 @@ Salidas:
                          bandera), flujos para el Sankey y EESS del mapa
   - gasoil_ranking.json  series mensuales en usd/ton para el ranking, tipo de
                          cambio, CPI US e importaciones
+  - public/data/         cruce fino del relevamiento (gasoil_retail.json, con
+                         la cantidad de estaciones de cada celda que arma
+                         gasoil_estaciones.py), datos por boca y por mes
 
 Uso:
     python3 scripts/regenerate_gasoil.py [--dry-run]
@@ -39,6 +44,7 @@ import json
 import shutil
 import sys
 import tempfile
+import warnings
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
@@ -48,6 +54,8 @@ try:
 except ImportError:
     sys.exit("Falta tableauhyperapi:  pip3 install tableauhyperapi")
 
+from gasoil_estaciones import COLS_ESTACIONES, NOTA_ESTACIONES, contar_estaciones
+
 VOL = Path("/Volumes/comun/01. TABLEAU")
 DB = VOL / "EXP MKTS DATABASES/Revision Actual"
 SRC = {
@@ -56,6 +64,12 @@ SRC = {
     "imports": DB / "Go Imports.hyper",
     "eess": DB / "EESS Localidad departamento provincia.hyper",
 }
+# Informe de regalías de crudo de la SE: de su hoja "Tabla precios (2)" toma el
+# flujo de Prep las columnas BRENT y WTI de Master data. Si la base quedó
+# atrás, los meses que le falten se leen directo de acá (decisión HDO
+# 30/09/2026); los meses que Master data ya tiene no se tocan.
+REGALIAS = VOL / "EXP MKTSCAN - DATASOURCES/Revision Actual/Informe Regalias CRUDO.xlsx"
+HOJA_REGALIAS = "Tabla precios (2)"
 OUT_DIR = Path(__file__).resolve().parent.parent / "src" / "data"
 MAPA = OUT_DIR / "mapa_argentina.json"
 
@@ -104,6 +118,12 @@ PRODUCTOS_GO = {
     "go3_surtidor": ("Gas oil grado 3 - surtidor", 3, "s"),
     "go3_sin_imp": ("Gas oil grado 3 - sin impuestos", 3, "n"),
 }
+
+
+def mes_corto(f):
+    """'2026-01' → 'ene 2026', como lo muestra el sitio."""
+    nombres = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"]
+    return f"{nombres[int(f[5:7]) - 1]} {f[:4]}"
 
 
 def fail(msg):
@@ -398,6 +418,78 @@ def extraer_master(hy):
     return series
 
 
+def extraer_regalias():
+    """Brent y WTI mensuales del informe de regalías de crudo, en la misma
+    unidad que Master data (la hoja es la fuente de esas dos columnas):
+    {"brent": {fecha: valor}, "wti": {fecha: valor}}. El año figura solo en la
+    primera fila de cada año (columna "a") y se arrastra. No se usan las
+    columnas AÑO y MES: son fórmulas, y si el archivo no se guardó desde Excel
+    vienen sin resultado (así perdió el flujo de Prep todo 2026 el 23/09/2026).
+    Devuelve {} si el informe no está o no se puede leer."""
+    try:
+        import openpyxl
+    except ImportError:
+        return {}
+    if not REGALIAS.exists():
+        return {}
+    tmp = Path(tempfile.mkdtemp(prefix="regen_regalias_"))
+    try:
+        local = tmp / "regalias.xlsx"
+        shutil.copy(REGALIAS, local)
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")  # openpyxl avisa por los segmentadores del libro
+            wb = openpyxl.load_workbook(local, read_only=True, data_only=True)
+            if HOJA_REGALIAS not in wb.sheetnames:
+                return {}
+            filas = list(wb[HOJA_REGALIAS].iter_rows(values_only=True))
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+    limpio = lambda c: c.strip() if isinstance(c, str) else ""
+    h = next((i for i, r in enumerate(filas[:40]) if r and "BRENT" in [limpio(c) for c in r]), None)
+    if h is None:
+        return {}
+    enc = [limpio(c) for c in filas[h]]
+    if not all(c in enc for c in ("a", "m", "WTI")):
+        return {}
+    ia, im = enc.index("a"), enc.index("m")
+    cols = {"brent": enc.index("BRENT"), "wti": enc.index("WTI")}
+    es_num = lambda x: isinstance(x, (int, float)) and not isinstance(x, bool)
+    out = {k: {} for k in cols}
+    anio = None
+    for r in filas[h + 1:]:
+        if not r or len(r) <= max(ia, im, *cols.values()):
+            continue
+        if es_num(r[ia]):
+            anio = int(r[ia])
+        if anio is None or not es_num(r[im]) or not 1 <= r[im] <= 12:
+            continue
+        f = f"{anio:04d}-{int(r[im]):02d}"
+        for k, i in cols.items():
+            if es_num(r[i]) and r[i] > 0:
+                out[k][f] = float(r[i])
+    return out
+
+
+def completar_con_regalias(master, regalias):
+    """Agrega a Brent y WTI de Master data los meses posteriores a su último
+    dato que el informe de regalías sí trae. No pisa nada de lo que Master
+    data ya tiene. Devuelve {serie: [meses agregados]} y avisa si en los meses
+    que comparten los dos los valores no coinciden."""
+    agregados = {}
+    for k in ("brent", "wti"):
+        serie = regalias.get(k, {})
+        ultimo = max(master[k]) if master.get(k) else ""
+        distintos = [f for f in sorted(serie)[-36:] if f in master[k] and abs(serie[f] / master[k][f] - 1) > 0.005]
+        if distintos:
+            print(f"  ⚠ '{k}': Master data y el informe de regalías difieren en {', '.join(distintos[-6:])} "
+                  f"(queda el valor de Master data)")
+        nuevos = sorted(f for f in serie if f > ultimo and f >= DESDE)
+        for f in nuevos:
+            master[k][f] = serie[f]
+        agregados[k] = nuevos
+    return agregados
+
+
 def extraer_importaciones(hy):
     rows = hy.query("imports", f'''
       SELECT "Fecha", SUM("Kgs. Netos")/1000, SUM("U$S CIF"), SUM("U$S FOB")
@@ -465,6 +557,22 @@ def escribir_publico(nombre, payload, dry):
     print(f"  ✓ public/data/{nombre} ({len(texto) // 1024} KB)")
 
 
+def mismas_filas(destino, nuevo):
+    """True si el archivo columnar ya existe con las mismas filas, en cualquier
+    orden. La base no devuelve las filas en un orden estable: sin este chequeo,
+    regenerar sin cambios en la fuente reescribe los 295 archivos por boca y
+    por mes (126 MB) y ensucia el repo con diferencias que no son de datos."""
+    if not destino.exists():
+        return False
+    try:
+        viejo = json.loads(destino.read_text(encoding="utf-8"))
+    except ValueError:
+        return False
+    if list(viejo) != list(nuevo):
+        return False
+    return sorted(zip(*viejo.values())) == sorted(zip(*nuevo.values()))
+
+
 def generar(dry=False):
     for k, p in SRC.items():
         check(p.exists(), f"Fuente '{k}' no encontrada: {p}")
@@ -492,6 +600,18 @@ def generar(dry=False):
         hy.close()
     print(f"  retail: {len(retail['mes'])} filas · canales: {len(canales)} · flujos: {len(flujos)} · "
           f"EESS: {len(eess)} · importaciones: {len(importaciones)} meses")
+    # Cantidad de estaciones de cada celda del cruce, desde los datos por boca
+    estaciones = contar_estaciones(retail, partes)
+    check(estaciones["sin_celda"] == 0,
+          f"Estaciones: {estaciones['sin_celda']} filas de boca sin celda en el cruce fino")
+    print(f"  estaciones del último mes: {estaciones['por_mes'][2].get(len(meses) - 1, 0)} con grado 2 · "
+          f"{estaciones['por_mes'][3].get(len(meses) - 1, 0)} con grado 3")
+    # Brent y WTI: los meses que le falten a Master data salen del informe de regalías
+    de_regalias = completar_con_regalias(master, extraer_regalias())
+    for k, nuevos in de_regalias.items():
+        if nuevos:
+            print(f"  ⚠ Master data sin '{k}' desde {nuevos[0]}: {len(nuevos)} meses tomados del informe "
+                  f"de regalías ({nuevos[0]} a {nuevos[-1]})")
 
     # ------------------------------------------------------------ validar
     ultimo_mes = meses[-1]
@@ -534,6 +654,12 @@ def generar(dry=False):
     for p in productos:
         if p["id"] == "diesel_usa":
             p["nota"] = "Master data trae la serie rota desde dic-2025: termina en nov-2025"
+        if de_regalias.get(p["id"]):
+            # La nota se muestra en el sitio junto a la fuente. El informe avisa
+            # que sus dos últimos períodos son provisorios.
+            nuevos = de_regalias[p["id"]]
+            p["nota"] = (f"{mes_corto(nuevos[0])} a {mes_corto(nuevos[-1])} del informe de regalías de crudo "
+                         f"de la SE; los dos últimos meses son provisorios")
         if p["id"] == "bio_963_m":
             # 963: precio en $/ton → usd/ton con el TC del mes
             p["serie"] = [[f, round(v / master["tc"][f], 2)] for f, v in p["serie"] if f in master["tc"]]
@@ -569,8 +695,9 @@ def generar(dry=False):
         "EESS Localidad departamento provincia.hyper"], dry)
     # El cruce fino va fuera del bundle (public/): la sección lo pide al abrirse
     escribir_publico("gasoil_retail.json", dict(
-        columnas=RETAIL_COLS, filas=len(retail["mes"]),
-        nota="precios en centavos de $/l (0 = sin dato); w = m3 ponderador; e2 = EESS con precio surtidor",
+        columnas=RETAIL_COLS + COLS_ESTACIONES, filas=len(retail["mes"]),
+        nota="precios en centavos de $/l (0 = sin dato); w = m3 ponderador; e2 = EESS con precio surtidor; "
+             + NOTA_ESTACIONES,
         operadores=operadores,
         bocas_campos="[nro_inscripcion, operador, bandera, provincia, localidad, direccion, lng, lat]",
         bocas=bocas, partes=N_PARTES, partes_columnas=BOCA_COLS, mes_columnas=MES_COLS,
@@ -579,22 +706,32 @@ def generar(dry=False):
     # Datos por boca y mes, particionados por operador (hash = índice % N_PARTES):
     # la sección pide una partición al elegir un operador o una estación.
     total = 0
+    iguales = 0
     for k, P in enumerate(partes):
         texto = json.dumps(P, ensure_ascii=False, separators=(",", ":"))
         total += len(texto)
-        if not dry:
-            (PUB_DIR / "gasoil_bocas").mkdir(parents=True, exist_ok=True)
-            (PUB_DIR / "gasoil_bocas" / f"{k}.json").write_text(texto, encoding="utf-8")
-    print(f"  {'[dry-run] ' if dry else '✓ '}public/data/gasoil_bocas/0..{N_PARTES - 1}.json ({total // 1024} KB en total)")
+        destino = PUB_DIR / "gasoil_bocas" / f"{k}.json"
+        if mismas_filas(destino, P):
+            iguales += 1
+        elif not dry:
+            destino.parent.mkdir(parents=True, exist_ok=True)
+            destino.write_text(texto, encoding="utf-8")
+    print(f"  {'[dry-run] ' if dry else '✓ '}public/data/gasoil_bocas/0..{N_PARTES - 1}.json ({total // 1024} KB en total; "
+          f"{iguales} con las mismas filas, no se reescriben)")
     # Bocas relevadas en cada mes (mapa de estaciones con precio y tooltip): un archivo por mes
     total = 0
+    iguales = 0
     for f, M in por_mes.items():
         texto = json.dumps(M, ensure_ascii=False, separators=(",", ":"))
         total += len(texto)
-        if not dry:
-            (PUB_DIR / "gasoil_mes").mkdir(parents=True, exist_ok=True)
-            (PUB_DIR / "gasoil_mes" / f"{f}.json").write_text(texto, encoding="utf-8")
-    print(f"  {'[dry-run] ' if dry else '✓ '}public/data/gasoil_mes/<mes>.json ({len(por_mes)} meses, {total // 1024} KB en total)")
+        destino = PUB_DIR / "gasoil_mes" / f"{f}.json"
+        if mismas_filas(destino, M):
+            iguales += 1
+        elif not dry:
+            destino.parent.mkdir(parents=True, exist_ok=True)
+            destino.write_text(texto, encoding="utf-8")
+    print(f"  {'[dry-run] ' if dry else '✓ '}public/data/gasoil_mes/<mes>.json ({len(por_mes)} meses, {total // 1024} KB en total; "
+          f"{iguales} con las mismas filas, no se reescriben)")
 
     escribir("gasoil_ranking.json", dict(
         desde=DESDE, ultimo_mes=ultimo_mes, densidad_go=DENSIDAD_GO,
@@ -603,7 +740,8 @@ def generar(dry=False):
         cpi_us=[[f, round(v, 3)] for f, v in sorted(master["cpi"].items())],
         importaciones=importaciones,
     ), ["Master data database.hyper", "Go Imports.hyper",
-        "Precio derivados petroleo 1104 minorista y mayorista new.hyper"], dry)
+        "Precio derivados petroleo 1104 minorista y mayorista new.hyper"]
+       + (["Informe Regalias CRUDO.xlsx"] if any(de_regalias.values()) else []), dry)
 
 
 if __name__ == "__main__":
