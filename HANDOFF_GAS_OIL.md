@@ -1,7 +1,25 @@
 # Handoff - página Mercado de Gas Oil (`/gas-oil`)
 
-Actualizado: **2026-09-30, sesión 4** (29 y 30/09/2026). Todo lo de la sesión está publicado por orden de HDO. Commits en `main`: `1a1190c` (página completa), `43ecdb8` (apertura común), `3174b52` (Sankey de cuatro tótems), `5880704` (filtro Provincia), `f418e70` (filtros en pantallas angostas), `9f5844c` (el clic del Sankey filtra) y, el 30/09/2026, tres más que se buscan por el asunto con `git log`: `feat(datos): estaciones relevadas, Brent y WTI desde el informe de regalías...`, `data: regeneración del 30/09/2026` y `feat(gas-oil): pestañas reordenadas, menú Precio / Volumen y página de volumen...`.
+Actualizado: **2026-09-30, cierre de la sesión 4** (29 y 30/09/2026). **Todo lo hecho está publicado** por orden de HDO. Commits en `main`: `1a1190c` (página completa), `43ecdb8` (apertura común), `3174b52` (Sankey de cuatro tótems), `5880704` (filtro Provincia), `f418e70` (filtros en pantallas angostas), `9f5844c` (el clic del Sankey filtra), `c24713a` (generador: estaciones, Brent y WTI desde regalías, sin reescrituras), `1096089` (datos regenerados el 30/09) y `674d943` (pestañas, menú Precio / Volumen y página de volumen).
 Reglas: las de `CLAUDE.md` (commits y pushes solo con orden de HDO; guion corto; alinear antes de codear).
+
+## Cómo retomar
+
+**Lo que sigue: la página Tablas SESCO** (`/gas-oil/canales-sesco`, componente `src/components/gasoil/TablasSesco.jsx`). Hoy está vacía, con el cartel "En preparación", y ya figura en el menú público: Minorista y mayorista > Volumen > Tablas SESCO. HDO dijo: "armá esto y luego te digo qué debe mostrarse en las tablas SESCO". No adelantar contenido: esperar su definición, decirle qué se entendió y alinear antes de codear.
+
+Pista de fuente, **a confirmar con HDO**: `EXP MKTS DATABASES/Revision Actual/Mercado Argentino Derivados Petroleo Table.hyper` (4,8 MB, 149.067 filas, ene-2010 a jul-2026). Trae ventas por FECHA × PROVINCIA × empresa × SECTOR, con una columna por producto, entre ellas "Gasoil Grado 2 (Común)", "Gasoil Grado 3 (Ultra)" y "Gasoil Grado 1 (Agrogasoil)". Ya la lee `scripts/regenerate_data.py` (clave `derivados`) para `go_sectores.json` y `petroleras.json` del tablero de biodiésel. Sectores: Agro, Al Público, Bunker Cabotaje, Bunker Internacional, Estado, Industrias Petroquímicas, Otras Empresas, S/N, Transporte de Carga, Transporte Ferroviario, Transporte Público de Pasajeros, Usinas Eléctricas. Gas oil de jul-2026 en esa base: 1.260.883 m³ (grado 2 894.897 + grado 3 365.986), contra 824.846 m³ del relevamiento 1104: el relevamiento cubre cerca del 65% de ese total.
+
+**Esperan una definición de HDO:**
+1. Qué se muestra en Tablas SESCO.
+2. Eje de las estaciones relevadas en los gráficos de volumen: pidió "el eje de la izquierda" y así quedó, con el volumen a la derecha. Falta que lo vea.
+3. Si quiere la apertura Mensual / Anual también en la página de precios de Minorista y mayorista. Hay que definir cómo se promedian el gas oil fósil y el CIF.
+4. Título de la página de Resolución 1104: sigue "Volumen minorista y mayorista". Con dos fuentes de volumen quizás convenga que nombre la fuente.
+5. Rótulo de Brent y WTI en el Ranking: dice "usd/ton" y fuente "EIA", pero los valores salen del informe de regalías de crudo de la SE, cuya hoja dice "USD/m3". No cambia los porcentajes de variación.
+6. Correr el flujo `Master data database` en Tableau Prep: sus tableros de Tableau siguen sin Brent y WTI de 2026. El sitio ya no lo necesita.
+7. URL de ferozo del libro 05 para la pestaña "Ver en Tableau".
+8. Peso de `public/data` (132 MB, público).
+
+El primer prompt para el chat nuevo está al final de este documento.
 
 ## Qué es
 
@@ -27,13 +45,13 @@ Página: `src/pages/GasOil.jsx` (sub-nav con `SectionNav`, kicker "Mercado Gas O
 - `modo: 'abierto'` (Estructura, Minorista y mayorista): arranca con todo el mercado (ambos canales, todos los tipos y canales, **precio sin impuestos**) y cada filtro se mueve solo.
 - En todos los modos, el precio surtidor solo existe al público: al salir de ese canal el tipo de precio salta a "con impuestos".
 
-**Revisión con HDO: Precio surtidor revisada y aprobada (4 rondas). Estructura y Minorista y mayorista tienen la apertura nueva sin revisar. Ranking de precios quedó como estaba, por pedido explícito de HDO ("no en ranking de precios, insisto").**
+**Revisión con HDO:** Precio surtidor fue revisada y aprobada en cuatro rondas (sesión 1). En la sesión 4 HDO usó las demás y pidió cambios puntuales, todos hechos y publicados: filtro Provincia, clic del Sankey, orden de pestañas, menú Precio / Volumen, página de volumen. No hubo una revisión completa por grabación de Estructura ni de la página de precios de Minorista y mayorista. Ranking de precios quedó como estaba, por pedido explícito de HDO ("no en ranking de precios, insisto").
 
 ## Datos
 
-Generador: `python3 scripts/regenerate_gasoil.py [--dry-run]` (usar el python de miniforge, único con `tableauhyperapi`; requiere `/Volumes/comun`). `regenerate_data.py` lo llama al final, así el lanzador `Iniciar/Marketscan - Regenerar datos.command` regenera todo.
+Generador: `python3 scripts/regenerate_gasoil.py [--dry-run]` (usar el python de miniforge, único con `tableauhyperapi`; requiere `/Volumes/comun`). `regenerate_data.py` lo llama al final, así el lanzador `Iniciar/Marketscan - Regenerar datos.command` regenera todo (biodiésel y gas oil; no commitea ni publica). Tres cosas del generador desde la sesión 4: llama a `scripts/gasoil_estaciones.py` para agregar al cruce fino la cantidad de estaciones de cada celda; si a Master data le faltan meses de Brent o WTI los toma del informe de regalías; y no reescribe los archivos por boca y por mes cuando traen las mismas filas.
 
-Fuentes (todas en `EXP MKTS DATABASES/Revision Actual/`): `Precio derivados petroleo 1104 minorista y mayorista new.hyper` (relevamiento SE Res. 1104/2004, 6 M filas, 2004-12→2026-07; precio y volumen de cada boca vienen en filas distintas), `Master data database.hyper` (Brent, WTI, TC, CPI US, FoLicht, precios 963, aceite FAS), `Go Imports.hyper` (importaciones de gas oil, CIF), `EESS Localidad departamento provincia.hyper` (padrón geo; `idempresa` = `Nro Inscripción` de la SE).
+Fuentes (todas en `EXP MKTS DATABASES/Revision Actual/`): `Precio derivados petroleo 1104 minorista y mayorista new.hyper` (relevamiento SE Res. 1104/2004, 6 M filas, 2004-12→2026-07; precio y volumen de cada boca vienen en filas distintas), `Master data database.hyper` (Brent, WTI, TC, CPI US, FoLicht, precios 963, aceite FAS), `Go Imports.hyper` (importaciones de gas oil, CIF), `EESS Localidad departamento provincia.hyper` (padrón geo; `idempresa` = `Nro Inscripción` de la SE). Fuera de esa carpeta: `EXP MKTSCAN - DATASOURCES/Revision Actual/Informe Regalias CRUDO.xlsx`, hoja "Tabla precios (2)", de donde el flujo de Prep saca las columnas BRENT y WTI de Master data y de donde el generador completa los meses que falten.
 
 Salidas:
 - `src/data/gasoil_precios.json` (740 KB en disco): meses, provincias, banderas, canales, tipos de negocio, y tres bloques que **ya nadie lee** (`canales`, `flujos`, `eess`, 737 KB): la lib los importa por nombre y Rollup los deja fuera del bundle. Candidatos a sacar del generador.
@@ -51,9 +69,9 @@ Total `public/data`: **132 MB, ya commiteado y descargable por cualquiera** (Ver
 - usd/ton = $/l ÷ TC mensual × 1000 ÷ 0,845 (densidad gas oil del workbook; sus hojas BTB usan 0,885, la del biodiésel).
 - Gas oil fósil (neto de biodiésel) = (precio sin imp − mezcla real × precio bio) / (1 − mezcla), con precio Res. 963 categoría **mediana** (`evidencia.json`): supuesto a validar con HDO.
 - Ranking: base default ene-2024 (parámetro "Fecha Final" del workbook); valores constantes deflactados con CPI US en ambas monedas, como el workbook; si falta el dato del mes toma hasta 3 meses atrás (lo indica).
-- Diesel USA en Master data está roto desde dic-2025 (ceros y valores sueltos): serie cortada en nov-2025. Brent/WTI llegan a jun-2026.
+- Diesel USA en Master data está roto desde dic-2025 (ceros y valores sueltos): serie cortada en nov-2025. Brent y WTI llegan a ago-2026; de ene a ago-2026 salen del informe de regalías (los dos últimos meses son provisorios: ago repite el valor de jul).
 - Retail sin relevamiento en 2017-01 (la SE no publicó): el generador lo admite y avisa.
-- Volúmenes de Estructura = suma de m³ de las filas filtradas (con o sin precio); volúmenes de las tablas de precio (bandera en surtidor, canal en minorista y mayorista) = solo filas con precio, como el ponderador.
+- Volumen: el cruce fino solo trae las bocas que informaron algún precio (el generador descarta las filas sin precio; `w` = m³ de las bocas con precio con impuestos). **No es el total del mercado.** Estructura y la página de volumen suman todas las filas filtradas; las tablas de precio (bandera en surtidor, canal en minorista y mayorista) suman solo las que tienen el tipo de precio elegido, como el ponderador.
 
 ## Precio surtidor - estado aprobado por HDO
 
@@ -63,7 +81,7 @@ Total `public/data`: **132 MB, ya commiteado y descargable por cualquiera** (Ver
 - Gráficos GO2 y GO3 con Mensual/Anual y 12 m/5 a/10 a/Todo; anual = ponderado del año, usd con TC promedio del año, "variación interanual".
 - Sesión 2: migrado al módulo compartido sin cambiar cálculo ni marcado (verificado: mismos valores por defecto, 2.269/2.463 $/l y 3.609 bocas en jul-2026; operador AUTOMOVIL CLUB ARGENTINO 127 bocas).
 
-## Estructura del mercado - apertura nueva (sesión 2) + Sankey de cuatro tótems (sesión 3, sin revisar)
+## Estructura del mercado - apertura común (sesión 2) y Sankey de cuatro tótems (sesiones 3 y 4)
 
 - Mismo bloque fijo y mismos 8 filtros, modo abierto (todo el mercado, precio sin impuestos). Cajas: **Resultado del relevamiento** (volumen relevado, % minorista, % al público, % grado 3), **Diagrama de flujos** (abierto al entrar; el selector Grados 2 y 3 / Grado 2 / Grado 3 en el encabezado del gráfico), **Por canal de comercialización** y **Por tipo de negocio** (m³, participación y precio ponderado GO2/GO3 del tipo de precio elegido).
 - El Sankey y las tarjetas responden a los 8 filtros (con operador o estación, sus bocas). Cada tabla ignora el filtro de su propio nivel, como la tabla por bandera de Precio surtidor: clic en una fila filtra ese canal o tipo en el resto de la sección; otro clic lo suelta.
@@ -78,7 +96,7 @@ Total `public/data`: **132 MB, ya commiteado y descargable por cualquiera** (Ver
 - Datos: celdas (bandera, cd, tn, cc) con volumen y sumas de precio; nodos con `celdas: Set`, enlaces con `celdas: Map(celda → m³)` para calcular la parte iluminada. Con los 8 filtros abiertos, jul-2026: 22 nodos, 60 enlaces.
 - Ojo para probar con la herramienta del navegador de Claude: sus eventos de puntero no entran al SVG de recharts (ni por coordenadas ni por referencia); verificar disparando `mouseover`/`click` por DOM sobre `.recharts-sankey-nodes > .recharts-layer`. Con mouse real funciona.
 
-## Minorista y mayorista - apertura nueva (sesión 2, sin revisar)
+## Minorista y mayorista, página de precios (sesión 2)
 
 - Mismo bloque fijo y mismos 8 filtros, modo abierto. Cajas: **Resultado del relevamiento** (con Ambos: GO2 y GO3 minorista y mayorista con variación contra el mes anterior; con un solo canal: GO2, GO3, gas oil fósil o volumen, e importado CIF del mes), **Gráficos de precios** (abierto al entrar: GO2 y GO3 con una línea por canal de distribución; con precio sin impuestos, línea punteada del gas oil fósil por canal; rango 12 m/5 a/10 a/Todo en el encabezado), **Gas oil importado** (CIF y toneladas; no responde a los filtros del relevamiento), **Precio por canal** (mes elegido, canal de distribución × canal de comercialización, ignora los filtros de canal; clic filtra, otro clic suelta).
 - Se sacaron las series de variación acumulada de los gráficos (con dos canales quedaban cuatro líneas más); la comparación minorista vs mayorista es el contenido del tablero BTB BTC.
@@ -133,24 +151,30 @@ Controles de jul-2026 calculados por fuera con Python y verificados en la págin
 4. Minorista y mayorista: dos líneas (minorista y mayorista) por gráfico en lugar de precio + variación acumulada; gas oil fósil como punteado por canal; la tabla por canal ignora los filtros de canal.
 5. Ranking de precios queda sin el bloque fijo (HDO lo pidió así).
 
-## Pendientes
+## Pendientes técnicos (sin apuro)
 
-1. Estructura del mercado: **implementar lo pedido en la grabación del 17/09 (sección de arriba: cuarto tótem Bandera, resaltado por clic, colores por categoría)**. Minorista y mayorista: revisión con HDO pendiente (método por grabación).
-2. Pestaña "Ver en Tableau" en `/gas-oil`: falta la URL de ferozo del libro 05 ("después te la paso").
-3. Decidir el peso de `public/data` (132 MB, público).
-4. Tooltip de estación cerca del borde superior queda tapado por el bloque fijo: abrirlo hacia abajo.
-5. Validar el precio 963 usado en "gas oil fósil" y la densidad 0,845.
-6. Sacar del generador los bloques `canales`, `flujos` y `eess` de `gasoil_precios.json` (ya no se leen; 737 KB en git en cada regeneración). Requiere `/Volumes/comun` para regenerar.
-7. En `docs/` hay archivos sin trackear de sesiones anteriores (PDF infografía, transcripciones Senado, video CEPREB v8): HDO no dijo si entran.
-8. Chunk `GasOil` 130 KB (40 KB gz); el resto va por fetch.
-9. Filtro Provincia multi (sesión 4): HDO vio la primera versión ("está perfecto"), pidió el arranque con todas y los botones Todas / Sin Zona Fría / Ninguna, y ordenó publicar. Quedaron avisadas y sin objeción: tarjetas "País" + selección en Precio surtidor, escala de color del mapa solo con las elegidas, mapa de estaciones acercado a la selección y clic en el mapa con vuelta a la base.
-10. Hecho y publicado el 29/09/2026 por orden de HDO (commit `fix(gas-oil): filtros en pantallas angostas`): filtros en pantallas angostas. Una regla repetida de `.go-filtros` en el bloque "Operador: caja de búsqueda con lista" de `GasOil.css` pisaba las `@media` de 1100 y 720 px y los ocho filtros quedaban apretados en una fila. Se sacó la regla: hasta 1100 px son dos filas de cuatro filtros y hasta 720 px cuatro filas de dos; arriba de 1100 px la fila única no cambia. El panel de Tipo de negocio abre hacia la izquierda hasta 1100 px (queda en la última columna) y hasta 720 px los paneles no pasan del ancho de la pantalla y sus textos bajan de línea. Medido en 1440, 1100, 1000, 721, 720 y 390 px en las tres secciones, sin scroll horizontal. **El bloque fijo (`.go-sticky`) queda pegado solo desde 1101 px** (antes, desde 721): con los filtros en dos filas medía entre 435 y 470 px y dejaba unos 270 px para el contenido en una pantalla de 800 de alto; HDO aprobó soltarlo hasta 1100 px, donde ahora se va con la página y quedan unos 700 px. Los desplegables siguen pintándose por encima del contenido con el bloque suelto.
-11. Sankey, clic que filtra (29/09/2026): hecho, probado y publicado por orden de HDO. Detalle en la sección del Sankey.
-12. Orden de las pestañas, menú Precio / Volumen (con Resolución 1104 y Tablas SESCO adentro), página nueva de volumen y su apertura por mes o por año (29/09/2026): hechos, probados y publicados el 30/09/2026. Falta el contenido de Tablas SESCO, que define HDO.
-13. Meses incompletos en la fuente (ene-2025 sobre todo): resuelto con las barras de estaciones relevadas y la nota al pie de la página de volumen (29/09/2026, publicado el 30/09). Falta que HDO confirme el eje (pidió las estaciones a la izquierda; el volumen quedó a la derecha).
-14. **Brent y WTI de 2026 (resuelto y publicado el 30/09/2026).** El 29/09 el generador abortaba con "Master data: 'brent' sin dato desde 2026-05 (último: 2025-12)". Causa: las columnas BRENT y WTI de `Master data database.hyper` salen de la hoja "Tabla precios (2)" de `EXP MKTSCAN - DATASOURCES/Revision Actual/Informe Regalias CRUDO.xlsx`, y el flujo de Prep arma la fecha con `MAKEDATE([AÑO],[MES],1)`. AÑO y MES son fórmulas; en la versión del 7/9 las ocho filas de 2026 no tenían el resultado guardado (el archivo lo había escrito un programa, no Excel), así que el flujo del 23/9 descartó todo 2026. HDO guardó el Excel desde Excel el 30/9 (ya trae los valores) pero no corrió el flujo de Master data, y autorizó a tomar del informe los meses que falten. Hecho en `regenerate_gasoil.py`: `extraer_regalias()` lee Brent y WTI del informe usando las columnas "a" y "m" (valores, no fórmulas) y `completar_con_regalias()` agrega solo los meses posteriores al último dato de Master data, sin pisar nada; el ranking muestra la nota "ene 2026 a ago 2026 del informe de regalías de crudo de la SE; los dos últimos meses son provisorios". Cuando HDO corra el flujo de Master data, la base va a traer esos meses y el generador deja de usar el informe solo.
-15. **Regeneración del 30/09/2026 (publicada ese día por orden de HDO).** Se corrió `scripts/regenerate_data.py` completo. Biodiésel: sin cambios de contenido, salvo `evidencia.json` (retenciones de sep y oct-2026, 22,5%) y tres valores que cambian 0,1 por redondeo en `petroleras.json` y `go_sectores.json`. Gas oil: `gasoil_ranking.json` con Brent y WTI hasta ago-2026 y junio corregido (Brent 648,21 → 526,70; WTI 610,60 → 507,37), más TC, CPI, 963 y aceite al día. **Cambia el ranking publicado:** con base ene-2024 y mes jul-2026, Brent pasa de +20,3% (tomaba jun-2026 provisorio) a -2,7%, y WTI de +21,6% a -1,0%; el resto de las filas queda igual. Se le avisó a HDO antes de publicar y ordenó subirlo.
-16. **El generador no es estable entre corridas** (la base no devuelve las filas en el mismo orden): con la misma fuente, los 295 archivos por boca y por mes salían con las mismas filas en otro orden, 57 de las 170.504 celdas del cruce cambian 1 centavo por redondeo y 16 de las 7.310 bocas (sin coordenadas, con varias localidades) cambian de localidad en el índice. Para no ensuciar el repo con 126 MB que no son datos, el generador ahora no reescribe un archivo por boca o por mes si trae las mismas filas (`mismas_filas`); los del 30/09 se restauraron desde git tras verificar los 295. Queda pendiente hacer estable el orden del índice de bocas.
+Las definiciones que esperan a HDO están arriba, en "Cómo retomar".
+
+1. Tooltip de estación cerca del borde superior queda tapado por el bloque fijo: abrirlo hacia abajo.
+2. Validar con HDO el precio 963 usado en "gas oil fósil" (categoría mediana) y la densidad 0,845.
+3. Sacar del generador los bloques `canales`, `flujos` y `eess` de `gasoil_precios.json` (ya no se leen; 737 KB en git en cada regeneración).
+4. Hacer estable el orden del índice de bocas del generador (ver "El generador no es estable entre corridas", abajo).
+5. El Excel de regalías lo actualiza un programa que escribe AÑO y MES como fórmulas sin resultado guardado: cada vez que agregue filas, Prep las va a descartar hasta que alguien abra y guarde el archivo en Excel. Arreglo de raíz: que el programa escriba el año y el mes como valores. HDO está avisado; no se tocó.
+6. En `docs/` hay archivos sin trackear de sesiones anteriores (PDF infografía, transcripciones Senado, video CEPREB v8), y `.gitignore`, `CLAUDE.md` y el docx de la locución v8 tienen cambios sin commitear de otras sesiones: HDO no dijo si entran.
+7. Chunk `GasOil` 144 KB (43 KB gz); el resto va por fetch.
+
+## Sesión 4 (29 y 30/09/2026): qué se hizo y por qué
+
+Todo publicado. El detalle de cada página está en su sección; acá queda lo que no entra en ninguna.
+
+- **Filtro Provincia multi-selección.** HDO vio la primera versión ("está perfecto"), pidió el arranque con todas y los botones Todas / Sin Zona Fría / Ninguna, y ordenó publicar. Quedaron avisadas y sin objeción: tarjetas "País" + selección en Precio surtidor, escala de color del mapa solo con las elegidas, mapa de estaciones acercado a la selección y clic en el mapa con vuelta a la base.
+- **Filtros en pantallas angostas.** Una regla repetida de `.go-filtros` en el bloque "Operador: caja de búsqueda con lista" de `GasOil.css` pisaba las `@media` de 1100 y 720 px y los ocho filtros quedaban apretados en una fila. Se sacó la regla: hasta 1100 px son dos filas de cuatro filtros y hasta 720 px cuatro filas de dos; arriba de 1100 px la fila única no cambia. El panel de Tipo de negocio abre hacia la izquierda hasta 1100 px (queda en la última columna) y hasta 720 px los paneles no pasan del ancho de la pantalla y sus textos bajan de línea. Medido en 1440, 1100, 1000, 721, 720 y 390 px en las tres secciones, sin scroll horizontal. **El bloque fijo (`.go-sticky`) queda pegado solo desde 1101 px** (antes, desde 721): con los filtros en dos filas medía entre 435 y 470 px y dejaba unos 270 px para el contenido en una pantalla de 800 de alto; HDO aprobó soltarlo hasta 1100 px, donde ahora se va con la página y quedan unos 700 px. Los desplegables siguen pintándose por encima del contenido con el bloque suelto.
+- **Sankey, clic que filtra.** Detalle en la sección del Sankey.
+- **Pestañas, menú Precio / Volumen y página de volumen.** Detalle en sus secciones. Falta el contenido de Tablas SESCO.
+- **Meses incompletos en la fuente.** Resuelto con las barras de estaciones relevadas y la nota al pie de la página de volumen.
+- **Brent y WTI de 2026 (resuelto y publicado el 30/09/2026).** El 29/09 el generador abortaba con "Master data: 'brent' sin dato desde 2026-05 (último: 2025-12)". Causa: las columnas BRENT y WTI de `Master data database.hyper` salen de la hoja "Tabla precios (2)" de `EXP MKTSCAN - DATASOURCES/Revision Actual/Informe Regalias CRUDO.xlsx`, y el flujo de Prep arma la fecha con `MAKEDATE([AÑO],[MES],1)`. AÑO y MES son fórmulas; en la versión del 7/9 las ocho filas de 2026 no tenían el resultado guardado (el archivo lo había escrito un programa, no Excel), así que el flujo del 23/9 descartó todo 2026. HDO guardó el Excel desde Excel el 30/9 (ya trae los valores) pero no corrió el flujo de Master data, y autorizó a tomar del informe los meses que falten. Hecho en `regenerate_gasoil.py`: `extraer_regalias()` lee Brent y WTI del informe usando las columnas "a" y "m" (valores, no fórmulas) y `completar_con_regalias()` agrega solo los meses posteriores al último dato de Master data, sin pisar nada; el ranking muestra la nota "ene 2026 a ago 2026 del informe de regalías de crudo de la SE; los dos últimos meses son provisorios". Cuando HDO corra el flujo de Master data, la base va a traer esos meses y el generador deja de usar el informe solo.
+- **Regeneración del 30/09/2026 (publicada ese día por orden de HDO).** Se corrió `scripts/regenerate_data.py` completo. Biodiésel: sin cambios de contenido, salvo `evidencia.json` (retenciones de sep y oct-2026, 22,5%) y tres valores que cambian 0,1 por redondeo en `petroleras.json` y `go_sectores.json`. Gas oil: `gasoil_ranking.json` con Brent y WTI hasta ago-2026 y junio corregido (Brent 648,21 → 526,70; WTI 610,60 → 507,37), más TC, CPI, 963 y aceite al día. **Cambia el ranking publicado:** con base ene-2024 y mes jul-2026, Brent pasa de +20,3% (tomaba jun-2026 provisorio) a -2,7%, y WTI de +21,6% a -1,0%; el resto de las filas queda igual. Se le avisó a HDO antes de publicar y ordenó subirlo.
+- **El generador no es estable entre corridas** (la base no devuelve las filas en el mismo orden): con la misma fuente, los 295 archivos por boca y por mes salían con las mismas filas en otro orden, 57 de las 170.504 celdas del cruce cambian 1 centavo por redondeo y 16 de las 7.310 bocas (sin coordenadas, con varias localidades) cambian de localidad en el índice. Para no ensuciar el repo con 126 MB que no son datos, el generador ahora no reescribe un archivo por boca o por mes si trae las mismas filas (`mismas_filas`); los del 30/09 se restauraron desde git tras verificar los 295.
 
 ## Método de revisión por video (funciona bien)
 
@@ -160,5 +184,23 @@ HDO graba su pantalla con voz (`Cmd+Shift+5`, micrófono en Opciones) y deja el 
 
 ## Verificación
 
-Dev: `Iniciar/Marketscan.command` (puerto 5273; si está ocupado, Vite toma otro) → http://localhost:5273/gas-oil (abre Estructura Mercado; Precio surtidor está en `/gas-oil/surtidor`). Build: `npx vite build`. Para probar con datos: esperar la carga del retail (8 MB); operador de prueba: "AUTOMOVIL CLUB ARGENTINO" (134 estaciones, 127 con precio en jul-2026).
+Dev: `Iniciar/Marketscan.command` (puerto 5273; si está ocupado, Vite toma otro) → http://localhost:5273/gas-oil (abre Estructura Mercado; Precio surtidor está en `/gas-oil/surtidor`). Build: `npx vite build`. Para probar con datos: esperar la carga del retail (10 MB); operador de prueba: "AUTOMOVIL CLUB ARGENTINO" (134 estaciones, 127 con precio en jul-2026).
 Ojo en dev: el recargador en caliente de Vite tira "Maximum call stack size exceeded" (react-refresh recorre los 5.333 `<option>` del datalist de operadores) después de editar un archivo de la página; es solo de desarrollo, no afecta el build: recargar la página después de editar.
+
+**Capturas a un ancho fijo.** El panel del navegador de Claude escala mal cuando emula un ancho mayor que el propio. Para sacar capturas a 1440, 1000 o 390 px y leer valores de la página sirve `~/.cache/explorarg/captura-web/captura.mjs` (Chrome sin ventana por CDP, fuera del repo):
+`node --experimental-websocket ~/.cache/explorarg/captura-web/captura.mjs <url> <salida.png> <archivo.js> [ancho] [alto]`
+El archivo .js es una expresión `(async () => { ... })()` que se corre en la página antes de la captura (abrir un menú, hacer clic en un nodo, leer tarjetas); lo que devuelve se imprime como JSON. Ojo en zsh: las variables no se parten en palabras, pasar ancho y alto como argumentos separados.
+
+**Números de control.** Conviene calcularlos por fuera con Python sobre `public/data/gasoil_retail.json` antes de tocar la página y compararlos después; es lo que pide HDO ("rigor con los números"). Las tablas de control de este documento son de jul-2026.
+
+## Primer prompt para retomar
+
+```
+Retomamos la página Mercado de Gas Oil (/gas-oil) del sitio explorarg-marketscan.
+
+Antes de hacer nada, leé completo HANDOFF_GAS_OIL.md, que está en la raíz del repo. Ahí está el estado, los datos, las decisiones de cálculo, los números de control y lo que quedó pendiente. Está todo publicado al 30/09/2026 (último commit de gas oil: 674d943).
+
+Lo que sigue es armar la página Tablas SESCO (/gas-oil/canales-sesco), que hoy está vacía con el cartel "En preparación". Yo te voy a decir qué tiene que mostrar. Cuando te lo diga, primero decime qué entendiste y de qué base saldrían los datos, y recién después codeá.
+
+Reglas de siempre: commits y pushes solo cuando yo lo ordene; guion corto, nunca raya larga; verificá los números contra un cálculo hecho por fuera de la página y mostrame el resultado en imagen.
+```
