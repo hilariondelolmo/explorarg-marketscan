@@ -20,7 +20,8 @@ a CAMMESA con el filtro de importador: acá va en el cruce, con su índice en
 `cammesa`, y la página arranca sin ella (decisión HDO 30/09/2026).
 
 La base trae el país de origen a veces en castellano y a veces en inglés
-(BRASIL y BRAZIL, MALASIA y MALAYSIA): se unifican y salen en castellano.
+(BRASIL y BRAZIL, MALASIA y MALAYSIA): se unifican y salen en castellano;
+NORTH KOREA es Corea del Sur mal cargada (HDO, 01/10/2026).
 Las coordenadas de cada país (centroide, para el mapa de flujos) son las de la
 tabla PAISES de este script y no las de la base, que geocodifica mal algunos
 nombres (RUSSIA como origen tiene las coordenadas del Reino Unido y JAPON las
@@ -81,10 +82,13 @@ ALIAS = {
     "MILBERG Y ASOCIADOS SA": "MILBERG Y ASOCIADOS S.A.",
     "SGS ARGENTINA SA": "SGS ARGENTINA S.A.",
 }
-# Variantes del país de origen → nombre con que figura en el país de procedencia
+# Variantes del país de origen → nombre con que figura en el país de procedencia.
+# "NORTH KOREA" es Corea del Sur mal cargada en la fuente (confirmado por HDO el
+# 01/10/2026): no hay importaciones de gas oil norcoreano.
 VARIANTE = {
     "BRASIL": "BRAZIL", "MALASIA": "MALAYSIA", "RUSSIAN FEDERATION": "RUSSIA", "BAHREIN": "BAHRAIN",
     "JAPON": "JAPAN", "REINO UNIDO": "UNITED KINGDOM", "LITUANIA": "LITHUANIA", "LIBIA": "LIBYA",
+    "NORTH KOREA": "SOUTH KOREA",
 }
 # Nombre en la base → (nombre en castellano, código ISO 3166-1 alfa-2, latitud, longitud del centroide)
 PAISES = {
@@ -99,7 +103,7 @@ PAISES = {
     "QATAR": ("Qatar", "QA", 25.35, 51.18), "KUWAIT": ("Kuwait", "KW", 29.31, 47.48),
     "EGYPT": ("Egipto", "EG", 26.82, 30.80), "PORTUGAL": ("Portugal", "PT", 39.40, -8.22),
     "SOUTH KOREA": ("Corea del Sur", "KR", 35.91, 127.77), "GREECE": ("Grecia", "GR", 39.07, 21.82),
-    "NORTH KOREA": ("Corea del Norte", "KP", 40.34, 127.51), "CHINA": ("China", "CN", 35.86, 104.20),
+    "CHINA": ("China", "CN", 35.86, 104.20),
     "GERMANY": ("Alemania", "DE", 51.17, 10.45), "ITALY": ("Italia", "IT", 41.87, 12.57),
     "TUNISIA": ("Túnez", "TN", 33.89, 9.54), "JAPAN": ("Japón", "JP", 36.20, 138.25),
     "TAIWAN": ("Taiwán", "TW", 23.70, 120.96), "UNITED KINGDOM": ("Reino Unido", "GB", 55.38, -3.44),
