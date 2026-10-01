@@ -996,3 +996,122 @@
   font-weight: 600;
   color: var(--ink);
 }
+
+/* --- Precios comparados (/gas-oil/biodiesel): ocho gráficos chicos en dos
+   filas, cada uno con su tarjeta de variación al costado --- */
+@media (min-width: 1101px) {
+  .go-filtros-sin-mes {
+    grid-template-columns: 180fr 118fr 140fr 190fr 120fr 190fr 140fr;
+  }
+}
+.go-intervalo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.7rem;
+  margin: -0.6rem 0 0.9rem;
+}
+.go-intervalo .go-filtro-label {
+  height: auto;
+}
+.go-intervalo .empresa-select {
+  height: 34px;
+  width: auto;
+  min-width: 118px;
+  margin: 0;
+}
+.go-intervalo .chart-range-selector {
+  margin-left: 0.3rem;
+}
+.go-comparados {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+@media (max-width: 1100px) {
+  .go-comparados {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 720px) {
+  .go-comparados {
+    grid-template-columns: 1fr;
+  }
+}
+.go-comparados .chart-card-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+}
+.go-comparado-cuerpo {
+  display: flex;
+  align-items: stretch;
+  gap: 0.4rem;
+}
+.go-comparado-grafico {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+/* La tarjeta de variación: un cuadrado chico al costado del gráfico */
+.go-variacion {
+  flex: 0 0 92px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 0.5rem 0.55rem;
+  border: 1px solid var(--rule-soft);
+  border-radius: 4px;
+  background: var(--bg-3);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.go-variacion-delta {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.go-variacion-valores {
+  font-size: 0.7rem;
+  color: var(--ink-2);
+  line-height: 1.25;
+}
+.go-variacion-fechas {
+  font-size: 0.62rem;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+}
+.go-variacion-sin {
+  font-size: 0.7rem;
+  color: var(--ink-muted);
+}
+@media (max-width: 420px) {
+  .go-comparado-cuerpo {
+    flex-direction: column;
+  }
+  .go-variacion {
+    flex-basis: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+}
+
+/* --- Resultado de importar: seis filtros (importador, canal de distribución,
+   tipo de negocio, canal de comercialización, bandera, provincia) --- */
+@media (min-width: 1101px) {
+  .go-filtros-resultado {
+    grid-template-columns: 200fr 130fr 150fr 200fr 120fr 150fr;
+  }
+}
+/* Los dos paneles de dos columnas de la izquierda (importador y canal de
+   comercialización) abren hacia la derecha */
+@media (min-width: 721px) {
+  .go-filtros-resultado .go-f-cc .mh-dropdown-panel.go-prov-panel {
+    left: 0;
+    right: auto;
+  }
+}

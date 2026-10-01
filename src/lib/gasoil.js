@@ -30,6 +30,12 @@ export const META_PRECIOS = META_PRECIOS_JSON;
 
 export const PRODUCTOS = ranking.productos;
 export const IMPORTACIONES = ranking.importaciones;
+// Series de Master data que no van al ranking (Precios comparados): aceite
+// FAS MINAGRI y metanol YPF, cada una hasta su último mes con dato
+export const COMPARADOS = ranking.comparados || [];
+// Precio del biodiésel Res. 963 por mes desde nov-2023: fórmula (Explora),
+// publicado (SE), cupo y cupo de Explora en toneladas, TC (página Res. 963 y ajustes)
+export const RES963 = ranking.res963 || [];
 export const DENSIDAD_GO = ranking.densidad_go;
 export const TC = new Map(ranking.tc);
 export const CPI_US = new Map(ranking.cpi_us);
@@ -182,6 +188,14 @@ export function sumarCol(D, filtro, clave, grado) {
   }
   return out;
 }
+
+// Meses del relevamiento con precios anómalos del gas oil sin impuestos (los
+// dos grados): no entran en los cálculos del gas oil fósil de Resultado de
+// importar ni del sustituto fósil de Corte obligatorio (decisión de HDO del
+// 01/10/2026). Grado 3 en jun-2013: 11,53 $/l país y 16,47 YPF contra unos
+// 7 en los meses vecinos; ago-2015: 15,76 contra 10; abr-2011 y jul-2013,
+// más leves. El resto del sitio los sigue mostrando como vienen.
+export const MESES_ANOMALOS = new Set(['2011-04', '2013-06', '2013-07', '2015-08']);
 
 /** Tipos de precio del relevamiento (los del selector del workbook). */
 export const TIPOS_PRECIO = [

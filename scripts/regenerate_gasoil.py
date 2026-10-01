@@ -20,7 +20,9 @@ Salidas:
                          (mes × canal distribución × canal comercialización ×
                          bandera), flujos para el Sankey y EESS del mapa
   - gasoil_ranking.json  series mensuales en usd/ton para el ranking, tipo de
-                         cambio, CPI US e importaciones
+                         cambio, CPI US, importaciones, las series de Precios
+                         comparados (aceite FAS MINAGRI, metanol YPF) y el precio
+                         Res. 963 publicado vs. fórmula (res963)
   - public/data/         cruce fino del relevamiento (gasoil_retail.json, con
                          la cantidad de estaciones de cada celda que arma
                          gasoil_estaciones.py), datos por boca y por mes
@@ -79,6 +81,10 @@ SRC = {
 # atrás, los meses que le falten se leen directo de acá (decisión HDO
 # 30/09/2026); los meses que Master data ya tiene no se tocan.
 REGALIAS = VOL / "EXP MKTSCAN - DATASOURCES/Revision Actual/Informe Regalias CRUDO.xlsx"
+# Precio del biodiésel Res. 963: la columna "Fórmula" la calcula y carga HDO
+# (precio por fórmula); el publicado por la SE es la MEDIANA de Master data
+# y, solo si falta, la columna "Publicado" (página Res. 963 y ajustes).
+RES963 = VOL / "EXP MKTSCAN - DATASOURCES/Revision Actual/Database Precio Formula 963.xlsx"
 HOJA_REGALIAS = "Tabla precios (2)"
 OUT_DIR = Path(__file__).resolve().parent.parent / "src" / "data"
 MAPA = OUT_DIR / "mapa_argentina.json"
@@ -122,6 +128,18 @@ PRODUCTOS_MASTER = {
     "bio_963_m": ("MEDIANA", "Biodiesel - Res. 963", "Secretaría de Energía"),
     "aceite_fas": ("JJ Aceite FAS ROSARIO Promedio", "Aceite de soja FAS Rosario", "J.J. Hinrichsen"),
 }
+# Series de Master data que no van al ranking: alimentan la página Precios
+# comparados (tablero ARG GO MARKET SIDE BY SIDE), en el bloque "comparados"
+# de gasoil_ranking.json. El aceite FAS MINAGRI se calcula como el workbook
+# (campo "ACEITE FAS MINAGRI"): FOB oficial de la SAGyP por (1 - retención
+# del aceite), día a día y promediado por mes; es distinto del promedio de
+# J.J. Hinrichsen que usa el ranking. El metanol YPF llega hasta donde
+# Master data tiene dato (feb-2026 al 01/10/2026).
+SERIES_COMPARADOS = {
+    "aceite_minagri": ("FOB SAGYPYA SPOT SBO", "Aceite de soja FAS MINAGRI", "MINAGRI: FOB oficial menos retención"),
+    "metanol_ypf": ("Metanol YPF (usd/ton)", "Metanol YPF", "YPF"),
+}
+RETENCION_ACEITE = "ARGENTINA  SBO Export tax"  # fracción (0,245 = 24,5%)
 PRODUCTOS_GO = {
     "go2_surtidor": ("Gas oil grado 2 - surtidor", 2, "s"),
     "go2_sin_imp": ("Gas oil grado 2 - sin impuestos", 2, "n"),
@@ -406,15 +424,22 @@ def extraer_eess(hy, ix_prov, ix_band):
 
 def extraer_master(hy):
     cols = ['"Date"', '"Exchange Rate Mean"', '"Consumer Price Index - US"'] + \
-           [f'"{c}"' for c, _, _ in PRODUCTOS_MASTER.values()]
+           [f'"{c}"' for c, _, _ in PRODUCTOS_MASTER.values()] + \
+           [f'"{c}"' for c, _, _ in SERIES_COMPARADOS.values()] + [f'"{RETENCION_ACEITE}"']
     rows = hy.query("master", f'''SELECT {", ".join(cols)} FROM {T}
         WHERE "Date" >= DATE '{DESDE}-01' ORDER BY "Date"''')
     acum = defaultdict(lambda: defaultdict(list))
     for r in rows:
         f = ym(r[0])
-        for nombre, val in zip(["tc", "cpi"] + list(PRODUCTOS_MASTER), r[1:]):
+        retencion = r[-1]
+        for nombre, val in zip(["tc", "cpi"] + list(PRODUCTOS_MASTER) + list(SERIES_COMPARADOS), r[1:-1]):
             if val is not None and val > 0:
                 val = float(val)
+                # Aceite FAS MINAGRI = FOB oficial × (1 - retención), como el workbook
+                if nombre == "aceite_minagri":
+                    if retencion is None:
+                        continue
+                    val *= 1 - float(retencion)
                 # Diesel USA al consumidor: desde dic-2025 la columna trae
                 # ceros y valores sueltos (≈3 o ≈17): datos rotos en Master
                 # data, se descartan (la serie termina en nov-2025).
@@ -426,6 +451,77 @@ def extraer_master(hy):
         for k, vals in d.items():
             series[k][f] = sum(vals) / len(vals)
     return series
+
+
+def extraer_res963(master):
+    """Precio del biodiésel Res. 963 por mes desde nov-2023: fórmula (Explora,
+    columna "Fórmula" del Excel que carga HDO), publicado (la MEDIANA de Master
+    data; si falta, la columna "Publicado" del Excel), cupo del mes y cupo de
+    Explora (toneladas) y TC. Un mes con dos filas (sep-2025, dos cupos) se
+    suma y su publicado del Excel se pondera por cupo."""
+    try:
+        import openpyxl
+    except ImportError:
+        sys.exit("Falta openpyxl:  pip3 install openpyxl")
+    check(RES963.exists(), f"No se encuentra {RES963}")
+    tmp = Path(tempfile.mkdtemp(prefix="regen_res963_"))
+    try:
+        local = tmp / "res963.xlsx"
+        shutil.copy(RES963, local)
+        wb = openpyxl.load_workbook(local, read_only=True, data_only=True)
+        ws = wb.worksheets[0]
+        filas = list(ws.iter_rows(values_only=True))
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+    cab = [str(c).strip() if c is not None else "" for c in filas[0]]
+    col = {}
+    for n in ("Date", "Fórmula", "Publicado", "Cupo", "Cupo Explora"):
+        check(n in cab, f"Res. 963: falta la columna '{n}' en el Excel ({cab})")
+        col[n] = cab.index(n)
+    por_mes = {}
+    for r in filas[1:]:
+        d = r[col["Date"]]
+        if not d or r[col["Fórmula"]] is None:
+            continue
+        f = ym(d)
+        m = por_mes.setdefault(f, dict(formula=None, pub=[0.0, 0.0], cupo=0.0, cupo_explora=0.0))
+        formula = float(r[col["Fórmula"]])
+        check(m["formula"] is None or abs(m["formula"] - formula) < 1, f"Res. 963 {f}: dos fórmulas distintas")
+        m["formula"] = formula
+        cupo = float(r[col["Cupo"]] or 0)
+        m["cupo"] += cupo
+        m["cupo_explora"] += float(r[col["Cupo Explora"]] or 0)
+        if r[col["Publicado"]] is not None and cupo:
+            m["pub"][0] += float(r[col["Publicado"]]) * cupo
+            m["pub"][1] += cupo
+    out = []
+    avisos = []
+    del_excel = []
+    for f in sorted(por_mes):
+        m = por_mes[f]
+        # Publicado: siempre la MEDIANA de Master data (regla de HDO, 01/10/2026); si
+        # un mes no la tiene (el Excel va más adelante que Master data), el publicado
+        # del Excel, ponderado por cupo si el mes tiene dos filas. La fórmula es
+        # siempre la del Excel. Se avisa cuando las dos fuentes difieren.
+        mediana = master["bio_963_m"].get(f)
+        pub_xls = m["pub"][0] / m["pub"][1] if m["pub"][1] else None
+        check(mediana or pub_xls, f"Res. 963 {f}: sin publicado ni en Master data ni en el Excel")
+        publicado = mediana or pub_xls
+        if mediana:
+            if pub_xls and abs(pub_xls / mediana - 1) > 0.005:
+                avisos.append(f"{f} (MEDIANA {mediana:,.0f}, Excel {pub_xls:,.0f})")
+        else:
+            del_excel.append(f)
+        tc = master["tc"].get(f)
+        check(tc, f"Res. 963 {f}: sin tipo de cambio")
+        out.append(dict(fecha=f, formula=round(m["formula"]), publicado=round(publicado), publicado_de="mediana" if mediana else "excel",
+                        cupo=round(m["cupo"]), cupo_explora=round(m["cupo_explora"]), tc=round(tc, 2)))
+    check(len(out) >= 24, f"Res. 963: solo {len(out)} meses")
+    if avisos:
+        print("  ⚠ Res. 963: la MEDIANA de Master data (la que se usa) difiere del publicado del Excel en " + "; ".join(avisos))
+    if del_excel:
+        print(f"  ⚠ Res. 963: sin MEDIANA en Master data, publicado tomado del Excel en {', '.join(del_excel)}")
+    return out
 
 
 def extraer_regalias():
@@ -613,6 +709,7 @@ def generar(dry=False):
         flujos = extraer_flujos(hy, ix_mes, ix_tn, ix_cc)
         eess = extraer_eess(hy, ix_prov, ix_band)
         master = extraer_master(hy)
+        res963 = extraer_res963(master)
         importaciones = extraer_importaciones(hy)
         sesco, resumen_sesco = extraer_sesco(lambda sql: hy.query("sesco", sql))
         despachos, resumen_despachos = extraer_despachos(lambda sql: hy.query("imports", sql))
@@ -696,6 +793,12 @@ def generar(dry=False):
             # 963: precio en $/ton → usd/ton con el TC del mes
             p["serie"] = [[f, round(v / master["tc"][f], 2)] for f, v in p["serie"] if f in master["tc"]]
             p["nota"] = "precio SE en $/ton convertido con el TC mensual"
+    comparados = []
+    for pid, (col, nombre, fuente) in SERIES_COMPARADOS.items():
+        serie = [[f, round(v, 2)] for f, v in sorted(master.get(pid, {}).items()) if f >= DESDE]
+        check(serie, f"Master data: '{col}' sin datos desde {DESDE}")
+        comparados.append(dict(id=pid, nombre=nombre, fuente=fuente, unidad="usd/ton", serie=serie,
+                               hasta=serie[-1][0]))
     for pid, (nombre, grado, tipo) in PRODUCTOS_GO.items():
         k = f"{tipo}{grado}"
         serie = []
@@ -775,8 +878,8 @@ def generar(dry=False):
         productos=productos,
         tc=[[f, round(v, 2)] for f, v in sorted(master["tc"].items())],
         cpi_us=[[f, round(v, 3)] for f, v in sorted(master["cpi"].items())],
-        importaciones=importaciones,
-    ), ["Master data database.hyper", "Go Imports.hyper",
+        importaciones=importaciones, comparados=comparados, res963=res963,
+    ), ["Master data database.hyper", "Go Imports.hyper", "Database Precio Formula 963.xlsx",
         "Precio derivados petroleo 1104 minorista y mayorista new.hyper"]
        + (["Informe Regalias CRUDO.xlsx"] if any(de_regalias.values()) else []), dry)
 

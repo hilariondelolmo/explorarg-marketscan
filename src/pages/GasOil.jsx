@@ -7,6 +7,10 @@ import MinoristaMayorista from '../components/gasoil/MinoristaMayorista.jsx';
 import MinoristaMayoristaVolumen from '../components/gasoil/MinoristaMayoristaVolumen.jsx';
 import TablasSesco from '../components/gasoil/TablasSesco.jsx';
 import Importaciones from '../components/gasoil/Importaciones.jsx';
+import PreciosComparados from '../components/gasoil/PreciosComparados.jsx';
+import Res963 from '../components/gasoil/Res963.jsx';
+import CorteObligatorio from '../components/gasoil/CorteObligatorio.jsx';
+import ResultadoImportar from '../components/gasoil/ResultadoImportar.jsx';
 import './Page.css';
 
 // Réplica de cuatro tableros del workbook Tableau 05 "MARKET & INDUSTRY -
@@ -55,10 +59,48 @@ const SECTIONS = [
     ],
   },
   {
-    id: 'importaciones', label: 'Importaciones', tableau: 'GO IMPORTS / GO IMPORTS II / GO IMPORTS III',
-    title: 'Gas oil importado',
-    intro: 'De dónde viene el gas oil importado y quién lo trae: los despachos de importación por país de origen, país de procedencia e importador, con el precio CIF y el egreso de dólares.',
-    Comp: Importaciones,
+    id: 'importaciones', label: 'Importaciones', tableau: 'GO IMPORTS / GO IMPORTS II / GO IMPORTS III / MERCADO GO IXN',
+    menu: [
+      {
+        id: 'importaciones', label: 'Despachos',
+        title: 'Gas oil importado',
+        intro: 'De dónde viene el gas oil importado y quién lo trae: los despachos de importación por país de origen, país de procedencia e importador, con el precio CIF y el egreso de dólares.',
+        Comp: Importaciones,
+        encabezadoPropio: true,
+      },
+      {
+        id: 'importaciones-resultado', label: 'Resultado de importar',
+        title: 'Qué dejó importar',
+        intro: 'El gas oil importado por cada importador contra el precio local del gas oil fósil de su bandera, mes a mes desde 2010: cuánto ganó o perdió por importar en vez de comprar acá.',
+        Comp: ResultadoImportar,
+        encabezadoPropio: true,
+      },
+    ],
+  },
+  {
+    id: 'biodiesel', label: 'Biodiésel vs. gas oil', tableau: 'ARG GO MARKET SIDE BY SIDE / Dashboard 31 / AJUSTE PRECIO GASOILBIO',
+    menu: [
+      {
+        id: 'biodiesel', label: 'Precios comparados',
+        title: 'Precios comparados: gas oil y biodiésel',
+        intro: 'Ocho precios en el mismo intervalo: los dos gas oil del surtidor, el importado y el crudo arriba; el biodiésel, el aceite, el metanol y el tipo de cambio abajo, cada uno con su variación acumulada.',
+        Comp: PreciosComparados,
+        encabezadoPropio: true,
+      },
+      {
+        id: 'biodiesel-963', label: 'Res. 963 y ajustes',
+        title: 'Precio Res. 963: publicado vs. fórmula',
+        intro: 'El precio del biodiésel que publica la Secretaría de Energía contra el que da la fórmula de la Res. 963, mes a mes desde noviembre de 2023, y cómo se ajustaron el biodiésel, el gas oil fósil y el tipo de cambio.',
+        Comp: Res963,
+        encabezadoPropio: true,
+      },
+    ],
+  },
+  {
+    id: 'corte', label: 'Corte obligatorio', tableau: 'MERCARG GO V (2)',
+    title: 'El corte obligatorio, mes a mes',
+    intro: 'Qué parte del gas oil fue biodiésel y qué parte gas oil importado que ocupó su lugar, desde 2010, y cuánto ganaron los mezcladores por no mezclar lo que mandaba la ley, valorizado contra el sustituto.',
+    Comp: CorteObligatorio,
     encabezadoPropio: true,
   },
   {

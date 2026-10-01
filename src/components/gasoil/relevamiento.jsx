@@ -265,25 +265,28 @@ export function useCajas(inicial) {
  * Fila única de los ocho filtros del relevamiento, con el título arriba
  * alineado al borde del control (orden del tablero PRECIO SURTIDOR).
  */
-export function FiltrosRelevamiento({ F, sinTipoPrecio = false }) {
+export function FiltrosRelevamiento({ F, sinTipoPrecio = false, sinMes = false, tiposPrecio = TIPOS_PRECIO }) {
   const {
     mes, setMes, tipoId, setTipoId, cd, cambiarCd, disponibles, tipos, setTipos, resumenTipos,
     cc, cambiarCc, bandera, setBandera, banderasMes, opTexto, elegirOperador, operadoresOrden,
     provincias, cambiarProvincias, resumenProvincias,
   } = F;
   return (
-    <div className={`go-filtros${sinTipoPrecio ? ' go-filtros-7' : ''}`}>
-      <div className="go-filtro go-f-mes">
-        <label htmlFor="go-mes">Mes</label>
-        <select id="go-mes" className="empresa-select" value={mes} onChange={(e) => setMes(e.target.value)}>
-          {[...MESES].reverse().map((f) => <option key={f} value={f}>{fmt.monthShort(f)}</option>)}
-        </select>
-      </div>
+    <div className={`go-filtros${sinTipoPrecio ? ' go-filtros-7' : ''}${sinMes ? ' go-filtros-sin-mes' : ''}`}>
+      {/* Precios comparados no elige un mes: el intervalo va aparte */}
+      {!sinMes && (
+        <div className="go-filtro go-f-mes">
+          <label htmlFor="go-mes">Mes</label>
+          <select id="go-mes" className="empresa-select" value={mes} onChange={(e) => setMes(e.target.value)}>
+            {[...MESES].reverse().map((f) => <option key={f} value={f}>{fmt.monthShort(f)}</option>)}
+          </select>
+        </div>
+      )}
       {!sinTipoPrecio && (
         <div className="go-filtro go-f-tipo">
           <label htmlFor="go-tipo">Tipo de precio</label>
           <select id="go-tipo" className="empresa-select" value={tipoId} onChange={(e) => setTipoId(e.target.value)}>
-            {TIPOS_PRECIO.map((t) => <option key={t.id} value={t.id}>{t.label} [{t.unidad}]</option>)}
+            {tiposPrecio.map((t) => <option key={t.id} value={t.id}>{tiposPrecio === TIPOS_PRECIO ? `${t.label} [${t.unidad}]` : t.label}</option>)}
           </select>
         </div>
       )}
