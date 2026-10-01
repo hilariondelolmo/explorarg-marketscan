@@ -26,6 +26,9 @@ Salidas:
                          gasoil_estaciones.py), datos por boca y por mes
   - public/data/gasoil_sesco.json   ventas de combustibles de las tablas SESCO
                          (mes × provincia × empresa × sector, por producto)
+  - public/data/gasoil_importaciones.json   despachos de importación de gas oil
+                         (mes × importador × origen × procedencia; lo arma
+                         gasoil_importaciones.py para la página Importaciones)
 
 Uso:
     python3 scripts/regenerate_gasoil.py [--dry-run]
@@ -59,6 +62,7 @@ except ImportError:
     sys.exit("Falta tableauhyperapi:  pip3 install tableauhyperapi")
 
 from gasoil_estaciones import COLS_ESTACIONES, NOTA_ESTACIONES, contar_estaciones
+from gasoil_importaciones import CAMMESA, escribir_despachos, extraer_despachos
 from gasoil_sesco import FUENTE as FUENTE_SESCO, escribir_sesco, extraer_sesco
 
 VOL = Path("/Volumes/comun/01. TABLEAU")
@@ -497,9 +501,16 @@ def completar_con_regalias(master, regalias):
 
 
 def extraer_importaciones(hy):
+    """Serie mensual del gas oil importado (toneladas y precios CIF y FOB) para
+    Minorista y mayorista, Volumen 1104 y Tablas SESCO. Sin CAMMESA, que importa
+    para las usinas eléctricas (decisión HDO 01/10/2026, como la página
+    Importaciones y el tablero de Tableau). Trae todos los meses hasta el
+    último con algún despacho: los que no tienen importaciones de los demás
+    van con 0 toneladas y sin precio, así los gráficos los muestran en cero."""
     rows = hy.query("imports", f'''
       SELECT "Fecha", SUM("Kgs. Netos")/1000, SUM("U$S CIF"), SUM("U$S FOB")
-      FROM {T} WHERE "Fecha" >= DATE '{DESDE}-01' GROUP BY 1 ORDER BY 1''')
+      FROM {T} WHERE "Fecha" >= DATE '{DESDE}-01' AND "Importador" <> '{CAMMESA}' GROUP BY 1 ORDER BY 1''')
+    ultimo = hy.query("imports", f'SELECT MAX("Fecha") FROM {T}')[0][0]
     mensual = defaultdict(lambda: [0.0, 0.0, 0.0])
     for f, ton, cif, fob in rows:
         m = mensual[ym(f)]
@@ -507,9 +518,10 @@ def extraer_importaciones(hy):
         m[1] += cif or 0
         m[2] += fob or 0
     out = []
-    for f in sorted(mensual):
-        ton, cif, fob = mensual[f]
+    for f in meses_entre(DESDE, ym(ultimo)):
+        ton, cif, fob = mensual.get(f, (0.0, 0.0, 0.0))
         if ton <= 0:
+            out.append(dict(fecha=f, ton=0, cif_usd_ton=None, fob_usd_ton=None))
             continue
         out.append(dict(fecha=f, ton=round(ton), cif_usd_ton=round(cif / ton, 1), fob_usd_ton=round(fob / ton, 1)))
     return out
@@ -603,11 +615,23 @@ def generar(dry=False):
         master = extraer_master(hy)
         importaciones = extraer_importaciones(hy)
         sesco, resumen_sesco = extraer_sesco(lambda sql: hy.query("sesco", sql))
+        despachos, resumen_despachos = extraer_despachos(lambda sql: hy.query("imports", sql))
     finally:
         hy.close()
     print(f"  retail: {len(retail['mes'])} filas · canales: {len(canales)} · flujos: {len(flujos)} · "
           f"EESS: {len(eess)} · importaciones: {len(importaciones)} meses")
     print(f"  SESCO: {resumen_sesco}")
+    print(f"  Importaciones: {resumen_despachos}")
+    # El cruce por despacho, sin CAMMESA, tiene que sumar por mes lo mismo que la serie
+    # mensual (misma base y misma exclusión; el cruce deja afuera los despachos de menos de 100 kg)
+    ton_mes = defaultdict(float)
+    for m, i, t in zip(despachos["mes"], despachos["imp"], despachos["ton"]):
+        if i != despachos["cammesa"]:
+            ton_mes[despachos["meses"][m]] += t
+    for fila in importaciones:
+        check(abs(ton_mes.get(fila["fecha"], 0) - fila["ton"]) <= 3,
+              f"Importaciones {fila['fecha']}: el cruce por despacho suma {ton_mes.get(fila['fecha'], 0):,.0f} t "
+              f"y la serie mensual {fila['ton']:,} t")
     # Cantidad de estaciones de cada celda del cruce, desde los datos por boca
     estaciones = contar_estaciones(retail, partes)
     check(estaciones["sin_celda"] == 0,
@@ -743,6 +767,8 @@ def generar(dry=False):
 
     # Ventas de las tablas SESCO (página Tablas SESCO), también fuera del bundle
     escribir_sesco(sesco, dry)
+    # Despachos de importación (página Importaciones), también fuera del bundle
+    escribir_despachos(despachos, dry)
 
     escribir("gasoil_ranking.json", dict(
         desde=DESDE, ultimo_mes=ultimo_mes, densidad_go=DENSIDAD_GO,

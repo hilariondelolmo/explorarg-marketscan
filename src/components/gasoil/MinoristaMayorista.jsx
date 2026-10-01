@@ -135,7 +135,7 @@ export default function MinoristaMayorista({ seccion }) {
     .filter((m) => m.fecha >= desde)
     .map((m) => ({ fecha: m.fecha, ton: m.ton, cif: m.cif_usd_ton })), [desde]);
   const impMes = IMPORTACIONES.find((m) => m.fecha === mes) || null;
-  const uImp = importaciones.at(-1);
+  const uImp = [...importaciones].reverse().find((m) => m.ton > 0); // último mes con despachos
 
   if (error) return <div className="section-placeholder">No se pudo cargar el relevamiento: {error}</div>;
 
@@ -264,7 +264,7 @@ export default function MinoristaMayorista({ seccion }) {
               <div className="chart-card-header">
                 <div>
                   <span className="chart-card-title">Gas oil importado · precio CIF y volumen</span>
-                  <span className="chart-card-subtitle">usd/ton CIF (despachos de importación) · barras: toneladas del mes · no responde a los filtros del relevamiento</span>
+                  <span className="chart-card-subtitle">usd/ton CIF (despachos de importación, sin CAMMESA) · barras: toneladas del mes · no responde a los filtros del relevamiento</span>
                 </div>
                 <div className="go-selectores-grafico">
                   <div className="chart-range-selector">
@@ -340,7 +340,8 @@ export default function MinoristaMayorista({ seccion }) {
 
           <p className="note go-nota">
             Fuente: Secretaría de Energía, relevamiento Res. 1104/2004 (ponderado por el volumen de cada boca; el precio
-            surtidor solo existe al público) y despachos de importación de gas oil. Gas oil fósil = (precio sin impuestos −
+            surtidor solo existe al público) y despachos de importación de gas oil, sin CAMMESA (importa para las usinas
+            eléctricas; como la página Importaciones). Gas oil fósil = (precio sin impuestos −
             mezcla real × precio del biodiesel) / (1 − mezcla real), con la mezcla real del mes y el precio Res. 963 de la
             categoría mediana en $/l (densidad {DENSIDAD_BIO}). La tabla muestra todos los canales aunque haya uno
             filtrado: clic en una fila filtra ese canal en el resto de la sección; otro clic lo suelta. Último mes:

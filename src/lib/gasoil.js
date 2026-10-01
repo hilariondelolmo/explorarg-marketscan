@@ -100,6 +100,32 @@ export function cargarSesco() {
   return sescoPromesa;
 }
 
+// --- Importaciones (public/data/gasoil_importaciones.json,
+// scripts/gasoil_importaciones.py): despachos de importación de gas oil por
+// mes × importador × país de origen × país de procedencia, en columnas; y el
+// mapa mundial (public/data/mapa_mundo.json, scripts/generar_mapa_mundo.py)
+// para dibujar los flujos. Los dos fuera del bundle, pedidos una sola vez.
+let importacionesPromesa = null;
+export function cargarImportaciones() {
+  if (!importacionesPromesa) {
+    importacionesPromesa = fetch('/data/gasoil_importaciones.json').then((r) => {
+      if (!r.ok) throw new Error(`No se pudieron cargar las importaciones (${r.status})`);
+      return r.json();
+    });
+  }
+  return importacionesPromesa;
+}
+let mapaMundoPromesa = null;
+export function cargarMapaMundo() {
+  if (!mapaMundoPromesa) {
+    mapaMundoPromesa = fetch('/data/mapa_mundo.json').then((r) => {
+      if (!r.ok) throw new Error(`No se pudo cargar el mapa mundial (${r.status})`);
+      return r.json();
+    });
+  }
+  return mapaMundoPromesa;
+}
+
 /**
  * Precio ponderado sobre el relevamiento columnar.
  *   D       datos columnares (cargarRetail)

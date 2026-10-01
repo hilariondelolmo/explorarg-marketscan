@@ -168,7 +168,7 @@ export default function MinoristaMayoristaVolumen({ seccion }) {
   }, [desde, vista]);
   const impMes = IMPORTACIONES.find((m) => m.fecha === mes) || null;
   const impAnt = IMPORTACIONES.find((m) => m.fecha === mesAnterior) || null;
-  const uImp = IMPORTACIONES.at(-1); // último mes con despachos, para el resumen de la caja
+  const uImp = [...IMPORTACIONES].reverse().find((m) => m.ton > 0); // último mes con despachos, para el resumen de la caja
 
   if (error) return <div className="section-placeholder">No se pudo cargar el relevamiento: {error}</div>;
 
@@ -298,7 +298,7 @@ export default function MinoristaMayoristaVolumen({ seccion }) {
               <div className="chart-card-header">
                 <div>
                   <span className="chart-card-title">Gas oil importado · volumen</span>
-                  <span className="chart-card-subtitle">toneladas del {anual ? 'año' : 'mes'} (despachos de importación) · no responde a los filtros del relevamiento</span>
+                  <span className="chart-card-subtitle">toneladas del {anual ? 'año' : 'mes'} (despachos de importación, sin CAMMESA) · no responde a los filtros del relevamiento</span>
                 </div>
                 {selectores}
               </div>
@@ -365,7 +365,8 @@ export default function MinoristaMayoristaVolumen({ seccion }) {
           )}
 
           <p className="note go-nota">
-            Fuente: Secretaría de Energía, relevamiento de precios Res. 1104/2004 y despachos de importación de gas oil.
+            Fuente: Secretaría de Energía, relevamiento de precios Res. 1104/2004 y despachos de importación de gas oil
+            (sin CAMMESA, que importa para las usinas eléctricas; como la página Importaciones).
             El volumen es el que declararon las bocas de expendio y los comercializadores que informaron precio en el
             mes: no es el total del mercado, y baja cuando informan menos bocas. Estaciones relevadas: bocas distintas
             con volumen de ese grado, cada una contada una sola vez. La tabla muestra todos los canales aunque haya uno

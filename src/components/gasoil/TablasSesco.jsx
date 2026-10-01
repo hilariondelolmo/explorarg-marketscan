@@ -417,7 +417,7 @@ function Ventas({ D, seccion }) {
     for (let a = desdeAnio; a <= ANIO_ULTIMO; a++) pts.push({ fecha: String(a), vol: (porAnio.get(String(a)) ?? 0) * fImport });
     return pts;
   }, [desde, vista, fImport]);
-  const uImp = IMPORTACIONES.at(-1); // último mes con despachos, para el resumen de la caja
+  const uImp = [...IMPORTACIONES].reverse().find((m) => m.ton > 0); // último mes con despachos, para el resumen de la caja
 
   // Corte real, con la definición del resto del sitio: biodiésel vendido para
   // el corte / gas oil grado 2 + 3 del país sin bunker ni usinas, en m³. La
@@ -556,7 +556,7 @@ function Ventas({ D, seccion }) {
   indicadores.push({
     k: 'imp', label: 'GO Import', unidad: U, tono: 'warn',
     valor: (r) => sumaRango((i) => (impTon[i] == null ? null : impTon[i] * fImport), r),
-    nota: 'Despachos de importación · país',
+    nota: 'Despachos de importación · país · sin CAMMESA',
   });
   for (const s of series.totales) {
     // Un producto solo con un canal elegido ya tiene su tarjeta
@@ -882,7 +882,7 @@ function Ventas({ D, seccion }) {
           <div className="chart-card-header">
             <div>
               <span className="chart-card-title">Gas oil importado · volumen</span>
-              <span className="chart-card-subtitle">Volumen [{U}] del {anual ? 'año' : 'mes'} (despachos de importación) · no responde a los filtros de las tablas SESCO</span>
+              <span className="chart-card-subtitle">Volumen [{U}] del {anual ? 'año' : 'mes'} (despachos de importación, sin CAMMESA) · no responde a los filtros de las tablas SESCO</span>
             </div>
             {selectores}
           </div>
@@ -930,7 +930,8 @@ function Ventas({ D, seccion }) {
 
       <p className="note go-nota">
         Fuente: Secretaría de Energía, tablas SESCO de ventas al mercado (excluye las ventas a empresas del sector),
-        despachos de importación de gas oil y ventas de biodiésel para el corte. Minorista es el sector Al Público;
+        despachos de importación de gas oil (sin CAMMESA, que importa para las usinas eléctricas) y ventas de biodiésel
+        para el corte. Minorista es el sector Al Público;
         mayorista, todos los demás sectores. Al entrar no están tildados {enLista(D.sectores_sin_tildar, 'ni')}: se
         agregan desde el filtro Sector. Corte real: biodiésel vendido para el corte sobre el gas oil grado 2 y grado 3
         del país sin bunker ni usinas, en m³, sin sumar el importado; con empresas elegidas, el de esas empresas.

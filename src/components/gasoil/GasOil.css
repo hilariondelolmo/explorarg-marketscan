@@ -855,3 +855,128 @@
 .go-tabla-lectura tbody tr {
   cursor: default;
 }
+
+/* --- Importaciones (/gas-oil/importaciones): filtros, mapa mundial de
+   flujos, tablas de a dos y tablas de período con dos filas por fila --- */
+@media (min-width: 1101px) {
+  .go-filtros-imp {
+    grid-template-columns: 136fr 190fr 190fr 190fr 210fr;
+  }
+}
+/* En dos filas, País de origen queda último de la primera: abre hacia la izquierda */
+@media (min-width: 721px) and (max-width: 1100px) {
+  .go-filtros-imp .go-f-ori .mh-dropdown-panel {
+    left: auto;
+    right: 0;
+  }
+}
+.go-mundo svg {
+  background: var(--bg-2);
+  border-radius: 4px;
+}
+.go-mundo .go-mundo-fondo {
+  fill: var(--bg-2);
+}
+.go-mundo .go-pais {
+  fill: var(--bg-4);
+  stroke: var(--bg);
+  stroke-width: 0.5px;
+}
+.go-mundo .go-pais.con-volumen {
+  cursor: pointer;
+}
+.go-mundo .go-pais.con-volumen:hover {
+  stroke: var(--ink);
+  stroke-width: 1px;
+}
+.go-mundo .go-pais.activo {
+  stroke: var(--ink);
+  stroke-width: 1.5px;
+}
+.go-mundo .go-arco {
+  fill: none;
+  stroke-linecap: round;
+  opacity: 0.78;
+  transition: opacity 0.15s;
+}
+.go-mundo .go-arco-hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 12px;
+  vector-effect: non-scaling-stroke;
+}
+.go-mundo .go-arcos g {
+  cursor: pointer;
+}
+.go-mundo .go-arcos g:hover .go-arco {
+  opacity: 1;
+}
+.go-mundo .go-arcos g.apagado .go-arco {
+  opacity: 0.12;
+}
+.go-mundo .go-punto {
+  stroke: var(--bg);
+  stroke-width: 1px;
+  cursor: pointer;
+}
+.go-mundo .go-punto.apagado,
+.go-mundo .go-etiqueta.apagado {
+  opacity: 0.25;
+}
+.go-imp-tablas {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.2rem;
+  align-items: start;
+}
+@media (max-width: 1100px) {
+  .go-imp-tablas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.go-imp-tablas h4,
+.go-imp-periodos h4 {
+  margin: 0 0 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+/* Tablas de período: cada importador o procedencia ocupa dos filas, las
+   toneladas y debajo el precio CIF, como en el tablero */
+.go-imp-doble tbody tr.principal td {
+  border-bottom: none;
+  padding-bottom: 0.08rem;
+}
+.go-imp-doble tbody tr.sub td {
+  padding-top: 0;
+  color: var(--ink-muted);
+  font-size: 0.74rem;
+}
+.go-imp-doble td.rotulo-unidad {
+  color: var(--ink-muted);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.go-imp-doble tbody tr.principal.activa td,
+.go-imp-doble tbody tr.sub.activa td {
+  background: var(--bg-4);
+}
+.go-imp-doble tbody tr.principal.activa td {
+  font-weight: 600;
+}
+.go-imp-doble tfoot tr.sub td {
+  border-top: none;
+  font-weight: 500;
+  color: var(--ink-muted);
+  font-size: 0.74rem;
+  padding-top: 0;
+}
+.go-imp-doble tfoot tr.principal td {
+  border-bottom: none;
+  padding-bottom: 0.08rem;
+}
+.go-imp-leyenda-total {
+  font-weight: 600;
+  color: var(--ink);
+}

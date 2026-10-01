@@ -6,6 +6,7 @@ import RankingPrecios from '../components/gasoil/RankingPrecios.jsx';
 import MinoristaMayorista from '../components/gasoil/MinoristaMayorista.jsx';
 import MinoristaMayoristaVolumen from '../components/gasoil/MinoristaMayoristaVolumen.jsx';
 import TablasSesco from '../components/gasoil/TablasSesco.jsx';
+import Importaciones from '../components/gasoil/Importaciones.jsx';
 import './Page.css';
 
 // Réplica de cuatro tableros del workbook Tableau 05 "MARKET & INDUSTRY -
@@ -52,6 +53,13 @@ const SECTIONS = [
         ],
       },
     ],
+  },
+  {
+    id: 'importaciones', label: 'Importaciones', tableau: 'GO IMPORTS / GO IMPORTS II / GO IMPORTS III',
+    title: 'Gas oil importado',
+    intro: 'De dónde viene el gas oil importado y quién lo trae: los despachos de importación por país de origen, país de procedencia e importador, con el precio CIF y el egreso de dólares.',
+    Comp: Importaciones,
+    encabezadoPropio: true,
   },
   {
     id: 'surtidor', label: 'Precio surtidor', tableau: 'PRECIO SURTIDOR DASHBOARD (2)',
