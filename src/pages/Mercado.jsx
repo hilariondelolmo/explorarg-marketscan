@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import SectionNav from '../components/SectionNav.jsx';
+import TutorialModal from '../components/TutorialModal.jsx';
+import tutoriales from '../data/tutoriales.json';
 import corte from '../data/corte.json';
 import { fmt } from '../lib/format.js';
 import MercadoHoy from '../components/mercado/MercadoHoy.jsx';
@@ -180,16 +182,26 @@ const SECTIONS = [
 const IDS_INDICADORES = ['kpis', 'evolucion'];
 const GRUPO_INDICADORES = SECTIONS.filter((s) => IDS_INDICADORES.includes(s.id));
 const GRUPO_DETALLE = SECTIONS.filter((s) => !IDS_INDICADORES.includes(s.id));
+// Tutorial en video de cada grupo de pestañas (src/data/tutoriales.json, lo
+// escribe scripts/tutorial/armar.py); sin entrada en el catálogo no hay botón
+const TUTORIAL_DE = { indicadores: 'indicadores', detalle: 'detalle-ventas' };
 
 export default function Mercado() {
   const { seccion } = useParams();
+  const [tutorialAbierto, setTutorialAbierto] = useState(false);
   const activa = SECTIONS.find((s) => s.id === seccion) || SECTIONS[0];
   const { id, title, intro, Comp } = activa;
-  const grupo = IDS_INDICADORES.includes(id) ? GRUPO_INDICADORES : GRUPO_DETALLE;
+  const esIndicadores = IDS_INDICADORES.includes(id);
+  const grupo = esIndicadores ? GRUPO_INDICADORES : GRUPO_DETALLE;
+  const tutorial = tutoriales.find((t) => t.id === TUTORIAL_DE[esIndicadores ? 'indicadores' : 'detalle']);
 
   return (
     <>
-      <SectionNav sections={grupo} basePath="/mercado" />
+      <SectionNav
+        sections={grupo} basePath="/mercado"
+        accion={tutorial && { label: 'Cómo se usa', title: 'Tutorial en video de esta página', onClick: () => setTutorialAbierto(true) }}
+      />
+      <TutorialModal tutorial={tutorial} open={tutorialAbierto} onClose={() => setTutorialAbierto(false)} />
       <section
         key={id} id={id}
         className={`page-section${activa.encabezadoPropio ? ' page-section-compacta' : ''}`}

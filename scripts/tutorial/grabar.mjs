@@ -185,15 +185,22 @@ function loc(t) {
   return t.nth != null ? l.nth(t.nth) : l.first();
 }
 
-// Borde inferior de lo que queda fijo arriba (sub-nav o bloque fijo pegado)
+// Bloques que quedan pegados arriba al scrollear (uno por tablero) y paneles fijos:
+// lo que está adentro siempre se ve, y lo demás hay que scrollearlo por debajo de ellos
+const PEGADOS = '.go-sticky, .mz-controles-sticky, .mapa-cabecera, .pi-sticky';
+const FIJOS = `${PEGADOS}, .section-nav, .top-nav, .section-nav-menu, .mh-dropdown-panel, .nav-dropdown-menu, .mapa-detalle, .mz-header-flotante`;
+
+// Borde inferior de lo que queda fijo arriba (sub-nav o bloque pegado)
 async function techo() {
-  return page.evaluate(() => {
-    const s = document.querySelector('.go-sticky');
+  return page.evaluate((sel) => {
     const n = document.querySelector('.section-nav') || document.querySelector('.top-nav');
     let b = n ? n.getBoundingClientRect().bottom : 0;
-    if (s) { const r = s.getBoundingClientRect(); if (getComputedStyle(s).position === 'sticky' && r.top <= b + 2) b = Math.max(b, r.bottom); }
+    for (const s of document.querySelectorAll(sel)) {
+      const r = s.getBoundingClientRect();
+      if (getComputedStyle(s).position === 'sticky' && r.top <= b + 2 && r.bottom > b) b = Math.max(b, r.bottom);
+    }
     return Math.max(0, b);
-  });
+  }, PEGADOS);
 }
 
 async function scrollSuave(delta, ms = 600) {
@@ -212,7 +219,7 @@ async function centro(l, alinear = true) {
   await l.waitFor({ state: 'visible', timeout: 20000 });
   let b = await l.boundingBox();
   if (!b) throw new Error('el elemento no tiene caja');
-  const fijo = await l.evaluate((el) => !!el.closest('.go-sticky, .section-nav, .top-nav, .section-nav-menu, .mh-dropdown-panel, .nav-dropdown-menu'));
+  const fijo = await l.evaluate((el, sel) => !!el.closest(sel), FIJOS);
   if (alinear && !fijo) {
     const t = await techo();
     // Un elemento chico tiene que verse entero; de uno grande (un nodo alto del Sankey, un mapa) alcanza con que se vea su centro

@@ -1,0 +1,268 @@
+{
+  "id": "detalle-ventas",
+  "titulo": "Detalle de ventas",
+  "pagina": "/mercado/matriz",
+  "descripcion": "Cómo se usan tres páginas del tablero Detalle de ventas de Explorarg: la matriz de ventas por empresa y año, la ficha por grupo económico o empresa, y el mapa de plantas con el análisis de distancia a proveedores y a refinerías.",
+  "url": "https://biodiesel-argentina-dashboard.vercel.app/",
+  "viewport": [1920, 1080],
+  "cartel": { "kicker": "Tutorial", "titulo": "Detalle de ventas", "sub": "La matriz de ventas, la ficha por grupo económico o empresa y el mapa de plantas", "marca": "EXPLORARG · MARKETSCAN" },
+  "paginas": {
+    "p00": "/", "p02": "/mercado/matriz", "p09": "/mercado/empresa", "p11": "/mercado/plantas"
+  },
+  "pasos": [
+    {
+      "id": "p00", "titulo": "Apertura", "capitulo": "Apertura y cómo se llega",
+      "texto": "Este es el tutorial de Detalle de ventas, el tablero de biodiésel de Explorarg. Hoy vemos tres de sus páginas: la matriz de ventas, la ficha por grupo económico o empresa, y el mapa de plantas, con el análisis de distancias. Las demás pestañas tendrán su propio tutorial.",
+      "acciones": [{ "tipo": "esperar", "s": 0.3 }]
+    },
+    {
+      "id": "p01", "titulo": "Cómo se llega: menú Dashboards", "capitulo": false,
+      "texto": "Se entra por el menú principal: en Dashboards, la segunda opción, Biodiesel, Detalle de ventas.",
+      "acciones": [
+        { "tipo": "ocultar_cartel" },
+        { "tipo": "esperar", "s": 0.5 },
+        { "tipo": "click", "sel": ".nav-dropdown-trigger" },
+        { "tipo": "resaltar", "sel": ".nav-dropdown-menu", "margen": 4 },
+        { "tipo": "esperar", "s": 1.0 },
+        { "tipo": "hover", "sel": { "sel": ".nav-dropdown-item", "texto": "Detalle de ventas" }, "espera": 0.8 },
+        { "tipo": "click", "sel": { "sel": ".nav-dropdown-item", "texto": "Detalle de ventas" } },
+        { "tipo": "limpiar" },
+        { "tipo": "cargar", "extra": 600 }
+      ]
+    },
+    {
+      "id": "p02", "titulo": "Las pestañas",
+      "texto": "La fila de pestañas tiene nueve páginas. Hoy recorremos la primera, la segunda y Plantas. Las otras seis, Categorías, Capacidad, Cupo, Participación, Grupos y Corte real, quedan para otro tutorial.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": ".section-nav-inner ul", "margen": 4 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Detalle de ventas" }, "espera": 1.2 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "por Grupo Económico" }, "espera": 1.2 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Plantas", "exacto": true }, "espera": 1.2 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Categorías", "exacto": true }, "espera": 0.8 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Corte real", "exacto": true }, "espera": 1.0 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p03", "titulo": "La matriz de ventas",
+      "texto": "Detalle de ventas es la matriz completa del mercado: una fila por empresa elaboradora y una columna por año desde el inicio del régimen, en toneladas. Las empresas van agrupadas por categoría, integradas, no integradas y comercializadoras, con el subtotal de cada una y el total del mercado al pie. Al bajar, la cabecera y los nombres de las columnas quedan fijos.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Detalle de ventas" },
+        { "tipo": "resaltar", "sel": "#matriz .mz-controles-sticky", "margen": 8 },
+        { "tipo": "hover", "sel": "#matriz h2", "espera": 2.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "hover", "sel": { "sel": "#matriz .mz-tabla tbody tr", "nth": 0 }, "espera": 1.5 },
+        { "tipo": "scroll", "dy": 700, "espera": 2.0 },
+        { "tipo": "scroll", "dy": 600, "espera": 1.5 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p04", "titulo": "Métrica y categoría",
+      "texto": "La métrica define qué se mide en cada celda: las ventas al cupo, las ventas al corte con el COTAB, las ventas fuera de cupo o totales, la producción, las exportaciones, el cupo asignado, el porcentaje de cumplimiento, la capacidad instalada y su utilización. Los porcentajes de los agregados salen de los volúmenes, no de promediar porcentajes. Categoría recorta la matriz a integradas, no integradas o comercializadoras.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": "#matriz .mh-selectores", "margen": 6 },
+        { "tipo": "select", "sel": "#mz-metrica", "etiqueta": "% Cumplimiento entrega (venta / asignación)", "espera": 3.0 },
+        { "tipo": "select", "sel": "#mz-metrica", "etiqueta": "Producción", "espera": 2.5 },
+        { "tipo": "select", "sel": "#mz-metrica", "etiqueta": "Ventas cupo", "espera": 1.5 },
+        { "tipo": "select", "sel": "#mz-cat", "etiqueta": "No integradas", "espera": 2.5 },
+        { "tipo": "select", "sel": "#mz-cat", "etiqueta": "Todas", "espera": 0.8 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p05", "titulo": "Grupos económicos desplegables",
+      "texto": "Los grupos económicos aparecen como una sola fila con el total del holding y una flecha: el clic la despliega y muestra sus empresas; otro clic la vuelve a cerrar. Al final, en rojo, las empresas que cesaron operaciones, así la historia cierra con el total del mercado.",
+      "acciones": [
+        { "tipo": "scroll", "sel": { "sel": "#matriz .mz-desplegar", "texto": "GRUPO BOJANICH" }, "margen": 120 },
+        { "tipo": "hover", "sel": { "sel": "#matriz .mz-desplegar", "texto": "GRUPO BOJANICH" }, "espera": 0.8 },
+        { "tipo": "click", "sel": { "sel": "#matriz .mz-desplegar", "texto": "GRUPO BOJANICH" }, "espera": 3.0 },
+        { "tipo": "click", "sel": { "sel": "#matriz .mz-desplegar", "texto": "GRUPO BOJANICH" }, "espera": 1.0 },
+        { "tipo": "scroll", "sel": { "sel": "#matriz .mz-desplegar", "texto": "CESARON OPERACIONES" }, "margen": 200, "espera": 2.0 },
+        { "tipo": "hover", "sel": { "sel": "#matriz .mz-desplegar", "texto": "CESARON OPERACIONES" }, "espera": 1.5 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p06", "titulo": "Apertura mensual",
+      "texto": "Apertura mensual muestra el mismo cuadro, pero mes a mes del año que elijas, con el total del año a la derecha. Sirve para ver cuándo vendió cada empresa, no solo cuánto.",
+      "acciones": [
+        { "tipo": "click", "sel": { "sel": "#matriz [role=tab]", "texto": "Apertura mensual", "exacto": true }, "espera": 1.2 },
+        { "tipo": "resaltar", "sel": "#mz-anio", "margen": 4 },
+        { "tipo": "select", "sel": "#mz-anio", "etiqueta": "2025", "espera": 2.5 },
+        { "tipo": "select", "sel": "#mz-anio", "etiqueta": "2026", "espera": 1.0 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p07", "titulo": "Comparar períodos",
+      "texto": "Comparar períodos pone lado a lado el acumulado de enero al último mes publicado en cada año, con la variación contra el año anterior en la última columna: verde si creció, rojo si cayó. Es la vista para saber quién gana y quién pierde mercado en lo que va del año.",
+      "acciones": [
+        { "tipo": "click", "sel": { "sel": "#matriz [role=tab]", "texto": "Comparar períodos", "exacto": true }, "espera": 1.5 },
+        { "tipo": "hover", "sel": { "sel": "#matriz .mz-tabla tbody tr", "nth": 1 }, "espera": 1.0 },
+        { "tipo": "resaltar", "sel": { "sel": "#matriz .mz-tabla thead th", "nth": -1 }, "margen": 4 },
+        { "tipo": "esperar", "s": 2.5 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p08", "titulo": "Gráficos",
+      "texto": "Gráficos dibuja la métrica del año elegido. El primer selector fija el nivel: categoría, grupo económico o empresa. El segundo, el tipo de gráfico: ranking, mapa de áreas, columnas por mes, participación mes a mes o líneas. Las cinco entidades más grandes tienen color propio y el resto se consolida, para que el gráfico se pueda leer. La última pestaña, Ver en Tableau, abre el libro original del que sale toda esta matriz.",
+      "acciones": [
+        { "tipo": "click", "sel": { "sel": "#matriz [role=tab]", "texto": "Gráficos", "exacto": true }, "espera": 1.5 },
+        { "tipo": "resaltar", "sel": { "sel": "#matriz .mzg .chart-range-selector", "nth": 0 }, "margen": 4 },
+        { "tipo": "click", "sel": { "sel": "#matriz .mzg button", "texto": "Empresa", "exacto": true }, "espera": 2.5 },
+        { "tipo": "resaltar", "sel": "#matriz .mzg-tipos", "margen": 4 },
+        { "tipo": "click", "sel": { "sel": "#matriz .mzg button", "texto": "Mapa de áreas", "exacto": true }, "espera": 2.5 },
+        { "tipo": "click", "sel": { "sel": "#matriz .mzg button", "texto": "Share por mes", "exacto": true }, "espera": 2.5 },
+        { "tipo": "click", "sel": { "sel": "#matriz .mzg button", "texto": "Grupo económico", "exacto": true }, "espera": 1.5 },
+        { "tipo": "click", "sel": { "sel": "#matriz .mzg button", "texto": "Ranking", "exacto": true }, "espera": 0.8 },
+        { "tipo": "limpiar" },
+        { "tipo": "hover", "sel": { "sel": "#matriz [role=tab]", "texto": "Ver en Tableau" }, "espera": 1.5 }
+      ]
+    },
+    {
+      "id": "p09", "titulo": "Ficha por empresa",
+      "texto": "Por Grupo Económico, Empresa es la ficha de cada elaboradora. Elegís una en el selector, por ejemplo Explora, y las tarjetas resumen sus últimos doce meses: producción, ventas al corte, cumplimiento del cupo, exportaciones, categoría y grupo, cada una con la variación contra los doce meses anteriores.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "por Grupo Económico / Empresa" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "por Grupo Económico" } },
+        { "tipo": "cargar", "extra": 600 },
+        { "tipo": "resaltar", "sel": "#empresa .empresa-selector-row", "margen": 6 },
+        { "tipo": "esperar", "s": 1.2 },
+        { "tipo": "select", "sel": "#empresa-select", "etiqueta": "EXPLORA S.A.", "espera": 2.0 },
+        { "tipo": "resaltar", "sel": "#empresa div:has(> .kpi-card)", "margen": 6 },
+        { "tipo": "hover", "sel": { "sel": "#empresa .kpi-card", "nth": 2 }, "espera": 3.0 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p10", "titulo": "El gráfico de la ficha y el grupo",
+      "texto": "Debajo, el gráfico apila las ventas por destino, corte obligatorio, mercado interno fuera de corte y exportación, con el cupo asignado como línea punteada: donde las ventas al corte quedan por debajo de la línea, la empresa no cumplió. Se mira por año o por mes, en doce meses, cinco años, diez o todo. Con el selector Grupo económico, la ficha consolida todas las empresas del holding.",
+      "acciones": [
+        { "tipo": "scroll", "sel": "#empresa .chart-card", "margen": 12 },
+        { "tipo": "hover", "sel": "#empresa .chart-card-body", "espera": 1.5 },
+        { "tipo": "resaltar", "sel": "#empresa .ev-selectores", "margen": 4 },
+        { "tipo": "click", "sel": { "sel": "#empresa .ev-selectores button", "texto": "Anual", "exacto": true }, "espera": 2.0 },
+        { "tipo": "click", "sel": { "sel": "#empresa .ev-selectores button", "texto": "Todo", "exacto": true }, "espera": 2.2 },
+        { "tipo": "click", "sel": { "sel": "#empresa .ev-selectores button", "texto": "Mensual", "exacto": true }, "espera": 0.8 },
+        { "tipo": "click", "sel": { "sel": "#empresa .ev-selectores button", "texto": "12m", "exacto": true }, "espera": 0.8 },
+        { "tipo": "limpiar" },
+        { "tipo": "select", "sel": "#grupo-select", "etiqueta": "GRUPO BOJANICH (8)", "espera": 3.0 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p11", "titulo": "Mapa de plantas: los cuatro sectores",
+      "texto": "Plantas es el mapa. Cuatro sectores, cada uno en su pestaña: las elaboradoras de biodiésel en operación, con el tamaño del punto según su capacidad; las plantas de aceite, que son la materia prima; las refinerías, donde el biodiésel se mezcla con el gas oil; y la planta de metanol. Cada sector tiene sus propios filtros y, a la derecha, la lista de plantas con su capacidad.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Plantas" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Plantas", "exacto": true } },
+        { "tipo": "cargar", "extra": 800 },
+        { "tipo": "resaltar", "sel": "#plantas .mapa-sectores", "margen": 4 },
+        { "tipo": "esperar", "s": 1.5 },
+        { "tipo": "click", "sel": { "sel": "#plantas .mapa-sector", "texto": "Elaboradoras de aceite" }, "espera": 2.5 },
+        { "tipo": "click", "sel": { "sel": "#plantas .mapa-sector", "texto": "Refinerías" }, "espera": 2.0 },
+        { "tipo": "click", "sel": { "sel": "#plantas .mapa-sector", "texto": "Metanol" }, "espera": 1.5 },
+        { "tipo": "click", "sel": { "sel": "#plantas .mapa-sector", "texto": "Elaboradoras de biodiesel" }, "espera": 1.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "resaltar", "sel": "#plantas .mapa-detalle", "margen": 4 },
+        { "tipo": "esperar", "s": 1.5 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p12", "titulo": "Lista, detalle y zoom",
+      "texto": "Pasá el mouse por una planta del mapa o por una fila de la lista y aparece su detalle. Si el cursor se queda quieto sobre una fila, el mapa se acerca a esa planta; al salir, vuelve. Un clic la deja fija. Los botones de la esquina acercan, alejan y recentran, y el mapa también se arrastra.",
+      "acciones": [
+        { "tipo": "hover", "sel": { "sel": "#plantas .planta.biodiesel", "nth": 4 }, "espera": 2.0 },
+        { "tipo": "hover", "sel": { "sel": "#plantas .mapa-lista-row", "texto": "EXPLORA" }, "espera": 3.0 },
+        { "tipo": "hover", "sel": { "sel": "#plantas .mapa-lista-row", "nth": 0 }, "espera": 2.5 },
+        { "tipo": "hover", "sel": "#plantas .mapa-detalle-titulo", "espera": 1.0 },
+        { "tipo": "click", "sel": "#plantas button[aria-label=\"Acercar\"]", "espera": 1.2 },
+        { "tipo": "click", "sel": "#plantas button[aria-label=\"Alejar\"]", "espera": 1.0 },
+        { "tipo": "click", "sel": "#plantas button[aria-label=\"Recentrar\"]", "espera": 1.0 }
+      ]
+    },
+    {
+      "id": "p13", "titulo": "Satelital y filtros",
+      "texto": "El interruptor cambia el dibujo por la imagen satelital, con los mismos puntos. Los tres selectores recortan el sector: integradas o no integradas, un grupo económico, o una empresa. Al elegir un grupo, el mapa se acerca a sus plantas.",
+      "acciones": [
+        { "tipo": "click", "sel": "#plantas .mapa-switch", "espera": 3.5 },
+        { "tipo": "resaltar", "sel": "#plantas .mapa-filtros", "margen": 6 },
+        { "tipo": "select", "sel": "#plantas select[aria-label=\"Categoría\"]", "etiqueta": "No integradas", "espera": 2.2 },
+        { "tipo": "select", "sel": "#plantas select[aria-label=\"Grupo económico\"]", "etiqueta": "GRUPO BOJANICH (8)", "espera": 3.0 },
+        { "tipo": "select", "sel": "#plantas select[aria-label=\"Grupo económico\"]", "etiqueta": "Todos los grupos", "espera": 1.0 },
+        { "tipo": "select", "sel": "#plantas select[aria-label=\"Categoría\"]", "etiqueta": "Todos los segmentos", "espera": 1.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": "#plantas .mapa-switch", "espera": 1.0 }
+      ]
+    },
+    {
+      "id": "p14", "titulo": "Distancia a proveedores",
+      "texto": "Ahora, el análisis que más importa: Distancia a proveedores. Elegís una elaboradora de biodiésel, por ejemplo Explora, y el mapa dibuja un círculo de cien kilómetros alrededor de su planta con las aceiteras que quedan adentro. El panel resume cuántas son, cuánto muelen por día, cuánto aceite producen al año y, lo central, cuántas veces ese aceite cubre la capacidad anual de la planta. La lista va de la más cercana a la más lejana, en kilómetros por ruta, y al pasar el mouse se marca el recorrido.",
+      "acciones": [
+        { "tipo": "click", "sel": { "sel": "#plantas button", "texto": "Distancia a proveedores", "exacto": true }, "espera": 1.5 },
+        { "tipo": "select", "sel": "#plantas select[aria-label=\"Empresa\"]", "etiqueta": "EXPLORA S.A.", "espera": 3.0 },
+        { "tipo": "resaltar", "sel": "#plantas .mapa-detalle-titulo", "margen": 6 },
+        { "tipo": "esperar", "s": 4.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "hover", "sel": { "sel": "#plantas .mapa-lista-row", "nth": 1 }, "espera": 2.5 },
+        { "tipo": "hover", "sel": { "sel": "#plantas .mapa-lista-row", "nth": 3 }, "espera": 2.5 }
+      ]
+    },
+    {
+      "id": "p15", "titulo": "La distancia que importa",
+      "texto": "Este análisis responde a una discusión concreta. El costo de la materia prima puesta en la planta de biodiésel tiene dos partes: el precio del aceite a la salida de la aceitera y el costo de transportarlo. Ese transporte depende de la distancia, sí, pero no de la distancia al puerto, como suele afirmarse. La distancia que importa es la que separa a la planta de biodiésel del proveedor más cercano con capacidad de molienda disponible. Y eso es exactamente lo que este mapa mide.",
+      "acciones": [
+        { "tipo": "hover", "sel": { "sel": "#plantas .mapa-lista-row", "nth": 0 }, "espera": 2.0 },
+        { "tipo": "resaltar", "sel": "#plantas .mapa-detalle-sub", "margen": 6 },
+        { "tipo": "esperar", "s": 4.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "hover", "sel": { "sel": "#plantas .mapa-lista-row", "nth": 2 }, "espera": 2.0 }
+      ]
+    },
+    {
+      "id": "p16", "titulo": "El radio y una planta lejana",
+      "texto": "El radio se cambia en el selector: cincuenta, ochenta, cien, ciento veinte o trescientos kilómetros. Con una planta alejada de la zona núcleo, como Pampa Bio, en La Pampa, a cien kilómetros aparece una sola aceitera; a trescientos, varias, y el aceite disponible supera con holgura la capacidad de la planta. Es el ejercicio que vale para cada una de las no integradas: con cien kilómetros, o algo más en las zonas más aisladas, todas tienen a su alrededor aceite para cubrir su producción anual.",
+      "acciones": [
+        { "tipo": "select", "sel": "#plantas select[aria-label=\"Empresa\"]", "etiqueta": "PAMPA BIO S.A.", "espera": 3.0 },
+        { "tipo": "resaltar", "sel": "#plantas .mapa-detalle-titulo", "margen": 6 },
+        { "tipo": "esperar", "s": 2.5 },
+        { "tipo": "limpiar" },
+        { "tipo": "resaltar", "sel": "#plantas label.mapa-select:has(span)", "margen": 4 },
+        { "tipo": "select", "sel": "#plantas label.mapa-select:has(span) select", "etiqueta": "300 km", "espera": 3.5 },
+        { "tipo": "limpiar" },
+        { "tipo": "resaltar", "sel": "#plantas .mapa-detalle-titulo", "margen": 6 },
+        { "tipo": "esperar", "s": 3.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "hover", "sel": { "sel": "#plantas .mapa-lista-row", "nth": 1 }, "espera": 2.0 },
+        { "tipo": "select", "sel": "#plantas label.mapa-select:has(span) select", "etiqueta": "100 km", "espera": 1.0 }
+      ]
+    },
+    {
+      "id": "p17", "titulo": "Distancia a refinerías",
+      "texto": "Distancia a refinerías hace el recorrido inverso: desde la planta elegida hasta cada refinería habilitada, que es donde el biodiésel se entrega para la mezcla. La lista ordena las refinerías de la más cercana a la más lejana, con los kilómetros por ruta y el tiempo de viaje, y cada fila ilumina su recorrido en el mapa.",
+      "acciones": [
+        { "tipo": "click", "sel": { "sel": "#plantas button", "texto": "Distancia a refinerías", "exacto": true }, "espera": 1.5 },
+        { "tipo": "select", "sel": "#plantas select[aria-label=\"Empresa\"]", "etiqueta": "EXPLORA S.A.", "espera": 3.0 },
+        { "tipo": "resaltar", "sel": "#plantas .mapa-detalle-titulo", "margen": 6 },
+        { "tipo": "esperar", "s": 2.5 },
+        { "tipo": "limpiar" },
+        { "tipo": "hover", "sel": { "sel": "#plantas .mapa-lista-row", "nth": 1 }, "espera": 2.5 },
+        { "tipo": "hover", "sel": { "sel": "#plantas .mapa-lista-row", "nth": 3 }, "espera": 2.5 },
+        { "tipo": "hover", "sel": { "sel": "#plantas .mapa-lista-row", "nth": 6 }, "espera": 2.0 }
+      ]
+    },
+    {
+      "id": "p18", "titulo": "Cierre",
+      "texto": "Eso es todo por hoy. La matriz dice cuánto vendió cada empresa y cuándo; la ficha, cómo le fue a cada una contra su cupo; y el mapa, dónde está cada planta y qué tan cerca tiene su materia prima. Las demás pestañas de Detalle de ventas vienen en el próximo tutorial.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "" },
+        { "tipo": "click", "sel": { "sel": "#plantas button", "texto": "Distancia a refinerías", "exacto": true }, "espera": 0.5 },
+        { "tipo": "select", "sel": "#plantas select[aria-label=\"Empresa\"]", "etiqueta": "Todas las empresas", "espera": 2.5 },
+        { "tipo": "cartel", "kicker": "Tutorial", "titulo": "Detalle de ventas", "sub": "explorarg.com · Dashboards · Biodiesel - Detalle de ventas", "marca": "EXPLORARG · MARKETSCAN" }
+      ]
+    }
+  ]
+}
