@@ -1,0 +1,162 @@
+{
+  "id": "indicadores",
+  "titulo": "Principales Indicadores",
+  "pagina": "/mercado",
+  "descripcion": "Cómo se usa la página Principales Indicadores del tablero de biodiésel de Explorarg: el mes de análisis, los cuadros de Corte Obligatorio y Asignación Cupos, las Conclusiones con el detalle por petrolera, y la Evolución de ventas desde 2008.",
+  "url": "https://biodiesel-argentina-dashboard.vercel.app/",
+  "viewport": [1920, 1080],
+  "cartel": { "kicker": "Tutorial", "titulo": "Principales Indicadores", "sub": "El corte, la asignación de cupos, las conclusiones y la evolución de ventas", "marca": "EXPLORARG · MARKETSCAN" },
+  "paginas": {
+    "p00": "/", "p02": "/mercado", "p08": "/mercado/evolucion"
+  },
+  "pasos": [
+    {
+      "id": "p00", "titulo": "Apertura", "capitulo": "Apertura y cómo se llega",
+      "texto": "Este es el tutorial de Principales Indicadores, la primera página del tablero de biodiésel de Explorarg. Tiene dos pestañas: los indicadores del corte y de la asignación de cupos, con sus conclusiones, y la evolución de las ventas desde el inicio del régimen.",
+      "acciones": [{ "tipo": "esperar", "s": 0.3 }]
+    },
+    {
+      "id": "p01", "titulo": "Cómo se llega: menú Dashboards", "capitulo": false,
+      "texto": "Se entra por el menú principal: en Dashboards, la primera opción, Biodiesel, Principales Indicadores.",
+      "acciones": [
+        { "tipo": "ocultar_cartel" },
+        { "tipo": "esperar", "s": 0.5 },
+        { "tipo": "click", "sel": ".nav-dropdown-trigger" },
+        { "tipo": "resaltar", "sel": ".nav-dropdown-menu", "margen": 4 },
+        { "tipo": "esperar", "s": 1.0 },
+        { "tipo": "hover", "sel": { "sel": ".nav-dropdown-item", "texto": "Principales Indicadores" }, "espera": 0.8 },
+        { "tipo": "click", "sel": { "sel": ".nav-dropdown-item", "texto": "Principales Indicadores" } },
+        { "tipo": "limpiar" },
+        { "tipo": "cargar", "extra": 600 }
+      ]
+    },
+    {
+      "id": "p02", "titulo": "La cabecera y el mes de análisis",
+      "texto": "La página tiene dos pestañas, KPIs y Evolución. En KPIs todo lo gobierna un solo control: el mes de análisis. Al cambiarlo, los tres análisis, las conclusiones y el cuadro de petroleras se recalculan a ese mes. La cabecera, con el mes y las pestañas de análisis, queda fija al bajar.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "KPIs" },
+        { "tipo": "resaltar", "sel": ".section-nav-inner ul", "margen": 4 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Evolución", "exacto": true }, "espera": 1.2 },
+        { "tipo": "resaltar", "sel": "#kpis .pi-sticky", "margen": 8 },
+        { "tipo": "hover", "sel": "#mes-analisis", "espera": 1.0 },
+        { "tipo": "select", "sel": "#mes-analisis", "etiqueta": "dic 2025", "espera": 3.0 },
+        { "tipo": "select", "sel": "#mes-analisis", "etiqueta": "jul 2026", "espera": 1.2 },
+        { "tipo": "scroll", "dy": 520, "espera": 1.6 },
+        { "tipo": "scroll", "arriba": true },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p03", "titulo": "Corte Obligatorio: el cuadro",
+      "texto": "El primer análisis es Corte Obligatorio: cuatro indicadores en columnas. Las ventas de gas oil grados 2 y 3, el biodiésel vendido al corte, el porcentaje de corte real, que es el cociente entre los dos, y el cumplimiento, que compara ese corte real con el obligatorio vigente. Cada columna baja por cuatro horizontes: el mes, el acumulado del año, los últimos doce meses y la evolución mensual del año. Las flechas comparan contra el mes previo, el mismo mes del año anterior o los doce meses previos.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": "#kpis .mh-grid", "margen": 6 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-titulo", "nth": 0 }, "espera": 1.6 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-titulo", "nth": 1 }, "espera": 1.6 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-titulo", "nth": 2 }, "espera": 1.8 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-titulo", "nth": 3 }, "espera": 2.2 },
+        { "tipo": "limpiar" },
+        { "tipo": "resaltar", "sel": { "sel": "#kpis .mh-col", "nth": 2 }, "margen": 4 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-col:nth-child(3) .mh-periodo", "nth": 0 }, "espera": 1.4 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-col:nth-child(3) .mh-periodo", "nth": 1 }, "espera": 1.4 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-col:nth-child(3) .mh-periodo", "nth": 2 }, "espera": 1.4 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-col:nth-child(3) .mh-periodo", "nth": 3 }, "espera": 1.6 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-col:nth-child(3) .mh-delta", "nth": 0 }, "espera": 2.0 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p04", "titulo": "Petrolera y sectores del gas oil",
+      "texto": "Dos filtros recortan el cuadro. Petrolera deja una sola empresa: el gas oil pasa a ser sus ventas y el biodiésel, sus compras a las elaboradoras, así se ve si esa petrolera corta lo que debe. Sectores del gas oil elige qué destinos entran en la base: bunker de cabotaje, bunker internacional y usinas eléctricas arrancan afuera, porque no llevan corte obligatorio.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": "#kpis .mh-selectores", "margen": 6 },
+        { "tipo": "select", "sel": "#petrolera-select", "etiqueta": "YPF S.A.", "espera": 3.5 },
+        { "tipo": "select", "sel": "#petrolera-select", "etiqueta": "Todas las petroleras", "espera": 1.2 },
+        { "tipo": "click", "sel": "#kpis .mh-dropdown-boton", "espera": 0.6 },
+        { "tipo": "resaltar", "sel": "#kpis .mh-dropdown-panel", "margen": 4 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-dropdown-item", "texto": "Bunker Cabotaje" }, "espera": 1.5 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-dropdown-item", "texto": "Usinas Eléctricas" }, "espera": 1.8 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": "#kpis h2", "espera": 0.5 }
+      ]
+    },
+    {
+      "id": "p05", "titulo": "Asignación Cupos",
+      "texto": "Asignación Cupos mira el mismo mes desde el lado de la Secretaría de Energía: cuánto biodiésel asignó, cuánto se vendió efectivamente al corte, la diferencia en toneladas, con barras verdes cuando se entregó de más y rojas cuando faltó, y el porcentaje de cumplimiento de la asignación. El selector Grupo económico recorta el cuadro a las elaboradoras de un grupo.",
+      "acciones": [
+        { "tipo": "click", "sel": { "sel": "#kpis [role=tab]", "texto": "Asignación Cupos", "exacto": true }, "espera": 1.2 },
+        { "tipo": "resaltar", "sel": "#kpis .mh-grid", "margen": 6 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-titulo", "nth": 0 }, "espera": 1.5 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-titulo", "nth": 1 }, "espera": 1.5 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-col:nth-child(3) .mh-spark", "nth": 0 }, "espera": 2.4 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-titulo", "nth": 3 }, "espera": 1.5 },
+        { "tipo": "limpiar" },
+        { "tipo": "resaltar", "sel": "#kpis .mh-selectores", "margen": 6 },
+        { "tipo": "select", "sel": "#grupo-select", "etiqueta": "GRUPO BOJANICH", "espera": 3.0 },
+        { "tipo": "select", "sel": "#grupo-select", "etiqueta": "Todos los grupos", "espera": 0.8 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p06", "titulo": "Conclusiones",
+      "texto": "Conclusiones redacta en vivo lo que dicen los dos cuadros, con las cifras del mes elegido: si el corte se cumple, si la asignación alcanza para el mandato de la ley, cuánto de la brecha es cupo no asignado y cuánto es cupo no entregado, y qué pasa con la ventana de doce meses. No hay cifras escritas a mano: cambian con el mes de análisis.",
+      "acciones": [
+        { "tipo": "click", "sel": { "sel": "#kpis [role=tab]", "texto": "Conclusiones", "exacto": true }, "espera": 1.2 },
+        { "tipo": "resaltar", "sel": "#kpis .mh-conclusiones ul", "margen": 6 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-conclusiones li", "nth": 0 }, "espera": 2.0 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-conclusiones li", "nth": 1 }, "espera": 2.0 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-conclusiones li", "nth": 2 }, "espera": 2.2 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-conclusiones li", "nth": 3 }, "espera": 2.0 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p07", "titulo": "El detalle por petrolera",
+      "texto": "El botón de abajo despliega el cuadro por petrolera: cuánto gas oil vendió cada una en doce meses, cuánto biodiésel le requería el corte, cuánto compró y el cumplimiento. Las filas resaltadas compraron menos del veinte por ciento de lo requerido: es gas oil que no tracciona demanda de biodiésel. La página cierra con una síntesis de una línea, y la pestaña Ver en Tableau abre el tablero original.",
+      "acciones": [
+        { "tipo": "hover", "sel": "#kpis .mh-detalle-toggle", "espera": 0.8 },
+        { "tipo": "click", "sel": "#kpis .mh-detalle-toggle", "espera": 1.0 },
+        { "tipo": "scroll", "sel": "#kpis .mh-cuadro", "margen": 16 },
+        { "tipo": "hover", "sel": { "sel": "#kpis .mh-cuadro thead th", "nth": 2 }, "espera": 1.6 },
+        { "tipo": "hover", "sel": { "sel": "#kpis tr.critica", "nth": 0 }, "espera": 2.0 },
+        { "tipo": "hover", "sel": { "sel": "#kpis tr.critica", "nth": 2 }, "espera": 1.5 },
+        { "tipo": "scroll", "sel": "#kpis .mh-conclusiones-sintesis", "margen": 200 },
+        { "tipo": "resaltar", "sel": "#kpis .mh-conclusiones-sintesis", "margen": 6 },
+        { "tipo": "esperar", "s": 2.4 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "arriba": true },
+        { "tipo": "click", "sel": "#kpis .mh-detalle-toggle", "espera": 0.5 },
+        { "tipo": "hover", "sel": { "sel": "#kpis [role=tab]", "texto": "Ver en Tableau" }, "espera": 1.5 }
+      ]
+    },
+    {
+      "id": "p08", "titulo": "Evolución de ventas",
+      "texto": "La segunda pestaña, Evolución, es la serie completa desde 2008: las ventas apiladas por destino, corte obligatorio, mercado interno fuera de corte y exportación, con el cupo asignado como línea punteada. Se mira por año o por mes, y en doce meses, cinco años, diez o todo. Al pasar el mouse, el detalle de cada período.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Evolución" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Evolución", "exacto": true } },
+        { "tipo": "cargar", "extra": 600 },
+        { "tipo": "hover", "sel": "#evolucion .chart-card-body", "dy": -40, "espera": 2.0 },
+        { "tipo": "resaltar", "sel": "#evolucion .ev-selectores", "margen": 4 },
+        { "tipo": "click", "sel": { "sel": "#evolucion .ev-selectores button", "texto": "Mensual", "exacto": true }, "espera": 2.0 },
+        { "tipo": "click", "sel": { "sel": "#evolucion .ev-selectores button", "texto": "5 años", "exacto": true }, "espera": 2.0 },
+        { "tipo": "click", "sel": { "sel": "#evolucion .ev-selectores button", "texto": "Anual", "exacto": true }, "espera": 1.0 },
+        { "tipo": "click", "sel": { "sel": "#evolucion .ev-selectores button", "texto": "Todo", "exacto": true }, "espera": 1.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "hover", "sel": "#evolucion .chart-card-body", "dx": 300, "dy": -30, "espera": 2.0 },
+        { "tipo": "hover", "sel": "#evolucion .chart-card-body", "dx": 450, "dy": -30, "espera": 1.5 }
+      ]
+    },
+    {
+      "id": "p09", "titulo": "Cierre",
+      "texto": "Eso es todo. Principales Indicadores es la foto del mes: cuánto gas oil se vendió, cuánto biodiésel se cortó, cuánto faltó y de quién es la brecha. Para el detalle por empresa y por planta, está el tutorial de Detalle de ventas.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "KPIs", "exacto": true } },
+        { "tipo": "cargar", "extra": 400 },
+        { "tipo": "esperar", "s": 2.0 },
+        { "tipo": "cartel", "kicker": "Tutorial", "titulo": "Principales Indicadores", "sub": "explorarg.com · Dashboards · Biodiesel - Principales Indicadores", "marca": "EXPLORARG · MARKETSCAN" }
+      ]
+    }
+  ]
+}
