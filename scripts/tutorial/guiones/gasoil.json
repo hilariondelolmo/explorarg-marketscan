@@ -1,6 +1,9 @@
 {
   "id": "gasoil",
   "titulo": "Mercado de Gas Oil",
+  "pagina": "/gas-oil",
+  "youtube": "85xOvvNGd64",
+  "descripcion": "Cómo se navega la página Mercado de Gas Oil de Explorarg y para qué sirve cada control: las pestañas y sus menús, los ocho filtros, las obleas, el diagrama de flujos, las tablas y los once tableros, uno por uno.",
   "url": "https://biodiesel-argentina-dashboard.vercel.app/",
   "viewport": [1920, 1080],
   "cartel": { "kicker": "Tutorial", "titulo": "Mercado de Gas Oil", "sub": "Cómo se navega la página y qué hace cada control", "marca": "EXPLORARG · MARKETSCAN" },
@@ -11,12 +14,12 @@
   },
   "pasos": [
     {
-      "id": "p00", "titulo": "Apertura",
+      "id": "p00", "titulo": "Apertura", "capitulo": "Apertura y cómo se llega",
       "texto": "Este es el tutorial de la página Mercado de Gas Oil de Explorarg. En pocos minutos vas a ver cómo se navega, para qué sirve cada filtro y qué muestra cada uno de los once tableros. No hace falta saber nada de antemano: todo se maneja con el mouse, y cada control hace una sola cosa.",
       "acciones": [{ "tipo": "esperar", "s": 0.3 }]
     },
     {
-      "id": "p01", "titulo": "Cómo se llega: menú Dashboards",
+      "id": "p01", "titulo": "Cómo se llega: menú Dashboards", "capitulo": false,
       "texto": "Se entra desde el menú principal. En Dashboards, la última opción es Gas Oil; las otras tres son los tableros de biodiésel.",
       "acciones": [
         { "tipo": "ocultar_cartel" },

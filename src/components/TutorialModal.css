@@ -1,0 +1,101 @@
+/* Ventana del tutorial: reutiliza el marco de DocModal; solo cambia el cuerpo
+   (video 16:9 a la izquierda, capítulos a la derecha) y el alto, que se ajusta
+   al contenido en lugar de ocupar toda la pantalla. */
+.tut-modal-panel {
+  height: auto;
+  max-height: 95vh;
+  width: min(95vw, 1320px);
+}
+
+.tut-modal-body {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  min-height: 0;
+  background: var(--bg-2);
+}
+
+.tut-modal-video {
+  background: #000;
+  aspect-ratio: 16 / 9;
+  max-height: calc(95vh - 120px);
+  align-self: start;
+}
+
+.tut-modal-video iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.tut-modal-capitulos {
+  border-left: 1px solid var(--rule);
+  overflow-y: auto;
+  padding: 0.9rem 0.6rem 1rem;
+  max-height: calc(95vh - 120px);
+}
+
+.tut-modal-capitulos-titulo {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+  font-weight: 500;
+  padding: 0 0.6rem 0.5rem;
+}
+
+.tut-modal-capitulos ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tut-modal-capitulos button {
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  width: 100%;
+  padding: 0.42rem 0.6rem;
+  background: none;
+  border: 0;
+  border-radius: 3px;
+  text-align: left;
+  font-family: inherit;
+  font-size: 0.82rem;
+  line-height: 1.3;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+
+.tut-modal-capitulos button:hover {
+  background: var(--bg-3);
+  color: var(--ink);
+}
+
+.tut-modal-capitulos button.activo {
+  background: var(--bg-4);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.tut-cap-tiempo {
+  flex: 0 0 2.6rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-brand);
+  font-size: 0.76rem;
+}
+
+@media (max-width: 900px) {
+  .tut-modal-body {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+  .tut-modal-video { max-height: none; }
+  .tut-modal-capitulos {
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+    max-height: none;
+  }
+}

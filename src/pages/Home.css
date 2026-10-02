@@ -74,6 +74,59 @@
   text-align: justify;
 }
 
+/* Acceso a los tutoriales en video */
+.portada-tutoriales {
+  padding: 0.5rem 0 1rem;
+}
+
+.portada-tutoriales-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.2rem;
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.portada-tutoriales-link:hover {
+  border-color: var(--accent-brand);
+  color: var(--ink);
+}
+
+.portada-tutoriales-link strong {
+  display: block;
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.portada-tutoriales-sub {
+  display: block;
+  font-size: 0.85rem;
+}
+
+.portada-tutoriales-icono {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent-brand);
+  color: #fff;
+  text-align: center;
+  line-height: 40px;
+  font-size: 0.9rem;
+  padding-left: 3px;
+}
+
+.portada-tutoriales-flecha {
+  margin-left: auto;
+  font-size: 1.2rem;
+  color: var(--ink-muted);
+}
+
 /* Disclaimer legal */
 .portada-disclaimer {
   padding: 1.5rem 0 3rem;

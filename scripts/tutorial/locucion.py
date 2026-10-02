@@ -44,6 +44,7 @@ PARA_TTS = [
     ("1104", "mil ciento cuatro"),
     ("27.640", "veintisiete mil seiscientos cuarenta"),
     ("26.093", "veintiséis mil noventa y tres"),
+    ("YPF", "i pe efe"),       # la voz leía "u i pe efe" (HDO 02/10/2026)
     ("SESCO", "Sesco"),
     ("CAMMESA", "Cammesa"),
     ("CIF", "cif"),

@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import SectionNav from '../components/SectionNav.jsx';
+import TutorialModal from '../components/TutorialModal.jsx';
+import tutoriales from '../data/tutoriales.json';
 import PrecioSurtidor from '../components/gasoil/PrecioSurtidor.jsx';
 import EstructuraMercado from '../components/gasoil/EstructuraMercado.jsx';
 import RankingPrecios from '../components/gasoil/RankingPrecios.jsx';
@@ -121,9 +124,12 @@ const SECTIONS = [
 const paginas = (s) => (s.menu ? s.menu.flatMap(paginas) : [s]);
 const PAGINAS = SECTIONS.flatMap(paginas);
 const RAIZ = SECTIONS.find((s) => s.root);
+// Tutorial en video de la página (src/data/tutoriales.json, lo escribe scripts/tutorial/armar.py)
+const TUTORIAL = tutoriales.find((t) => t.id === 'gasoil');
 
 export default function GasOil() {
   const { seccion } = useParams();
+  const [tutorialAbierto, setTutorialAbierto] = useState(false);
   // La sección raíz vive en /gas-oil: su dirección con nombre (la de antes) lleva ahí
   if (seccion === RAIZ.id) return <Navigate to="/gas-oil" replace />;
   const activa = PAGINAS.find((s) => s.id === seccion) || RAIZ;
@@ -131,7 +137,11 @@ export default function GasOil() {
 
   return (
     <>
-      <SectionNav sections={SECTIONS} basePath="/gas-oil" />
+      <SectionNav
+        sections={SECTIONS} basePath="/gas-oil"
+        accion={TUTORIAL && { label: 'Cómo se usa', title: 'Tutorial en video de esta página', onClick: () => setTutorialAbierto(true) }}
+      />
+      <TutorialModal tutorial={TUTORIAL} open={tutorialAbierto} onClose={() => setTutorialAbierto(false)} />
       <section key={id} id={id} className={`page-section${activa.encabezadoPropio ? ' page-section-compacta' : ''}`}>
         <div className="container">
           {!activa.encabezadoPropio && (

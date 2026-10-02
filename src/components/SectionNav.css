@@ -12,15 +12,49 @@
 
 .section-nav-inner {
   padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .section-nav ul {
   display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
   list-style: none;
   gap: 0.15rem;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+}
+
+/* Botón de la derecha: "Cómo se usa" (tutorial en video de la página) */
+.section-nav-accion {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.75rem 0.28rem 0.6rem;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--ink-2);
+  font-family: inherit;
+  font-size: 0.76rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.section-nav-accion:hover {
+  color: var(--ink);
+  border-color: var(--accent-brand);
+}
+
+.section-nav-accion-icono {
+  font-size: 0.6rem;
+  color: var(--accent-brand);
 }
 
 .section-nav ul::-webkit-scrollbar {

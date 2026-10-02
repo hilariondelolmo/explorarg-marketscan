@@ -22,6 +22,7 @@ const ImpresoA3 = lazy(() => import('./pages/ImpresoA3.jsx'));
 const Infografia = lazy(() => import('./pages/Infografia.jsx'));
 const ExportGrafico = lazy(() => import('./pages/ExportGrafico.jsx'));
 const CincoMinutos = lazy(() => import('./pages/CincoMinutos.jsx'));
+const Tutoriales = lazy(() => import('./pages/Tutoriales.jsx'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -55,6 +56,7 @@ export default function App() {
           <Route path="/impreso-a3" element={<ImpresoA3 />} />
           <Route path="/infografia" element={<Infografia />} />
           <Route path="/cinco-minutos" element={<CincoMinutos />} />
+          <Route path="/tutoriales" element={<Tutoriales />} />
           <Route path="/export-grafico/:id" element={<ExportGrafico />} />
         </Routes>
       </Suspense>

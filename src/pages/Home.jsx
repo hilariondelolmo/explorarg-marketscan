@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import tutoriales from '../data/tutoriales.json';
 import './Home.css';
 
 /* Video institucional © Explora (comprimido para web desde
@@ -40,6 +42,21 @@ export default function Home() {
           ideas.
         </p>
       </section>
+
+      {tutoriales.length > 0 && (
+        <section className="portada-tutoriales">
+          <Link to="/tutoriales" className="portada-tutoriales-link">
+            <span className="portada-tutoriales-icono" aria-hidden="true">▶</span>
+            <span>
+              <strong>Tutoriales en video</strong>
+              <span className="portada-tutoriales-sub">
+                {tutoriales.length === 1 ? 'Cómo se usa la página ' + tutoriales[0].titulo : `Cómo se usa cada página · ${tutoriales.length} videos`}
+              </span>
+            </span>
+            <span className="portada-tutoriales-flecha" aria-hidden="true">→</span>
+          </Link>
+        </section>
+      )}
 
       <section className="portada-disclaimer">
         <p>

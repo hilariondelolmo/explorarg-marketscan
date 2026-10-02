@@ -15,8 +15,10 @@ const ANCHO_MENU = 190; // ancho mínimo del menú, para que no se salga de la p
  * Una sección con `menu` ([{ id, label }]) no navega: despliega un menú con
  * sus páginas. Un ítem del menú puede traer su propio `menu`: en lugar de
  * navegar, despliega sus páginas debajo.
+ * `accion` ({ label, onClick }) dibuja un botón al final de la fila, a la
+ * derecha (el "Cómo se usa" que abre el tutorial en video de la página).
  */
-export default function SectionNav({ sections, basePath }) {
+export default function SectionNav({ sections, basePath, accion }) {
   const ids = useMemo(() => sections.map((s) => s.id), [sections]);
   const rutas = basePath || sections.some((s) => s.to);
   const active = useActiveSection(rutas ? [] : ids);
@@ -46,6 +48,11 @@ export default function SectionNav({ sections, basePath }) {
             </li>
           ))}
         </ul>
+        {accion && (
+          <button type="button" className="section-nav-accion" onClick={accion.onClick} title={accion.title}>
+            <span className="section-nav-accion-icono" aria-hidden="true">▶</span> {accion.label}
+          </button>
+        )}
       </div>
     </nav>
   );

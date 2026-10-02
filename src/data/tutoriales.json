@@ -1,0 +1,101 @@
+[
+ {
+  "id": "gasoil",
+  "titulo": "Mercado de Gas Oil",
+  "pagina": "/gas-oil",
+  "youtube": "85xOvvNGd64",
+  "duracion": 504,
+  "grabado": "2026-10-02",
+  "descripcion": "Cómo se navega la página Mercado de Gas Oil de Explorarg y para qué sirve cada control: las pestañas y sus menús, los ocho filtros, las obleas, el diagrama de flujos, las tablas y los once tableros, uno por uno.",
+  "capitulos": [
+   {
+    "t": 0,
+    "titulo": "Apertura y cómo se llega"
+   },
+   {
+    "t": 27,
+    "titulo": "Las pestañas y sus menús"
+   },
+   {
+    "t": 44,
+    "titulo": "La cabecera fija"
+   },
+   {
+    "t": 60,
+    "titulo": "Los ocho filtros"
+   },
+   {
+    "t": 82,
+    "titulo": "Filtros de lista: canal de distribución"
+   },
+   {
+    "t": 94,
+    "titulo": "Desplegables con casillas: Provincia"
+   },
+   {
+    "t": 118,
+    "titulo": "Buscar un operador"
+   },
+   {
+    "t": 129,
+    "titulo": "Las obleas"
+   },
+   {
+    "t": 146,
+    "titulo": "Diagrama de flujos: pasar el mouse"
+   },
+   {
+    "t": 165,
+    "titulo": "Diagrama de flujos: el clic filtra"
+   },
+   {
+    "t": 189,
+    "titulo": "Las tablas: el clic en una fila filtra"
+   },
+   {
+    "t": 205,
+    "titulo": "Ventas · Precio"
+   },
+   {
+    "t": 229,
+    "titulo": "Ventas · Volumen · Resolución 1104"
+   },
+   {
+    "t": 253,
+    "titulo": "Ventas · Volumen · Tablas SESCO"
+   },
+   {
+    "t": 283,
+    "titulo": "Importaciones · Despachos"
+   },
+   {
+    "t": 317,
+    "titulo": "Importaciones · Resultado de importar"
+   },
+   {
+    "t": 344,
+    "titulo": "Biodiésel vs. gas oil · Precios comparados"
+   },
+   {
+    "t": 374,
+    "titulo": "Biodiésel vs. gas oil · Res. 963 y ajustes"
+   },
+   {
+    "t": 397,
+    "titulo": "Corte obligatorio"
+   },
+   {
+    "t": 427,
+    "titulo": "Precio surtidor"
+   },
+   {
+    "t": 455,
+    "titulo": "Ranking precios"
+   },
+   {
+    "t": 483,
+    "titulo": "Cierre"
+   }
+  ]
+ }
+]

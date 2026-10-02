@@ -82,6 +82,54 @@ def guion_md(G: dict, tiempos: dict | None, destino: Path) -> None:
     destino.write_text("\n".join(lineas))
 
 
+def capitulos(G: dict, tiempos: dict) -> list[dict]:
+    """Capítulos del video: un paso por capítulo, salvo los que el guion marca con
+    "capitulo": false (se funden con el anterior) o renombra con "capitulo": "...".
+    YouTube exige que el primero empiece en 0:00 y que cada uno dure 10 s como mínimo:
+    los más cortos se funden con el anterior y se avisa."""
+    inicio = {p["id"]: p["inicio"] for p in tiempos["pasos"]}
+    caps = []
+    for p in G["pasos"]:
+        if p.get("capitulo") is False or p["id"] not in inicio:
+            continue
+        caps.append({"t": int(round(inicio[p["id"]])), "titulo": p.get("capitulo") or p.get("titulo") or p["id"]})
+    if caps:
+        caps[0]["t"] = 0
+    fin = tiempos.get("duracionTutorial", 0)
+    res = []
+    for i, c in enumerate(caps):
+        sig = caps[i + 1]["t"] if i + 1 < len(caps) else fin
+        if res and sig - c["t"] < 10:
+            print(f"ojo: el capítulo «{c['titulo']}» dura {sig - c['t']} s y se funde con el anterior (YouTube pide 10 s)")
+            continue
+        res.append(c)
+    return res
+
+
+def escribir_catalogo(G: dict, tiempos: dict, caps: list[dict], out: Path) -> None:
+    """Deja la entrada del tutorial en src/data/tutoriales.json (lo lee el sitio: botón
+    "Cómo se usa" y página /tutoriales) y el texto para la descripción de YouTube."""
+    if not G.get("youtube"):
+        print("sin «youtube» en el guion: no se escribe el catálogo del sitio")
+        return
+    ruta = RAIZ / "src" / "data" / "tutoriales.json"
+    lista = json.loads(ruta.read_text()) if ruta.exists() else []
+    entrada = {
+        "id": G["id"], "titulo": G.get("titulo", G["id"]), "pagina": G.get("pagina"), "youtube": G["youtube"],
+        "duracion": int(round(tiempos.get("duracionTutorial", 0))), "grabado": tiempos.get("grabado", "")[:10],
+        "descripcion": G.get("descripcion", ""), "capitulos": caps,
+    }
+    lista = [e for e in lista if e.get("id") != G["id"]] + [entrada]
+    ruta.write_text(json.dumps(lista, indent=1, ensure_ascii=False) + "\n")
+    print(f"catálogo -> {ruta} ({len(lista)} tutorial{'es' if len(lista) != 1 else ''})")
+    lineas = [f"Tutorial · {entrada['titulo']} · Explorarg Marketscan", "", entrada["descripcion"], ""]
+    if G.get("pagina"):
+        lineas += [f"La página: {G['url'].rstrip('/')}{G['pagina']}", ""]
+    lineas += ["Capítulos"] + [f"{mmss(c['t'])} {c['titulo']}" for c in caps]
+    (out / "youtube.txt").write_text("\n".join(lineas) + "\n")
+    print(f"descripción para YouTube -> {out / 'youtube.txt'}")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("id", help="id del guion (scripts/tutorial/guiones/<id>.json)")
@@ -96,6 +144,8 @@ def main() -> int:
     tiempos = json.loads(tiempos_path.read_text()) if tiempos_path.exists() else None
     guion_md(G, tiempos, out / "guion.md")
     print(f"guion -> {out / 'guion.md'}")
+    if tiempos:
+        escribir_catalogo(G, tiempos, capitulos(G, tiempos), out)
     if a.solo_guion:
         return 0
     if not tiempos:

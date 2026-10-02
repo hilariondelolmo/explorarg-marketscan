@@ -141,6 +141,14 @@ export default function Nav() {
             </NavLink>
           </li>
           <li>
+            <NavLink
+              to="/tutoriales"
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              Tutoriales
+            </NavLink>
+          </li>
+          <li>
             <button
               type="button"
               className="theme-toggle"
