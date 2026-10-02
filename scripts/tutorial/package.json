@@ -1,0 +1,9 @@
+{
+  "name": "explorarg-tutoriales",
+  "private": true,
+  "description": "Grabador de tutoriales en video del sitio explorarg.com (Playwright + ffmpeg + voz de ElevenLabs)",
+  "type": "module",
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
+}

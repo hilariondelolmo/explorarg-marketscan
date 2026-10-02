@@ -1,0 +1,366 @@
+{
+  "id": "gasoil",
+  "titulo": "Mercado de Gas Oil",
+  "url": "https://biodiesel-argentina-dashboard.vercel.app/",
+  "viewport": [1920, 1080],
+  "cartel": { "kicker": "Tutorial", "titulo": "Mercado de Gas Oil", "sub": "Cómo se navega la página y qué hace cada control", "marca": "EXPLORARG · MARKETSCAN" },
+  "paginas": {
+    "p00": "/", "p02": "/gas-oil", "p13": "/gas-oil/canales", "p14": "/gas-oil/canales-volumen", "p15": "/gas-oil/canales-sesco",
+    "p16": "/gas-oil/importaciones", "p17": "/gas-oil/importaciones-resultado", "p18": "/gas-oil/biodiesel", "p19": "/gas-oil/biodiesel-963",
+    "p20": "/gas-oil/corte", "p21": "/gas-oil/surtidor", "p22": "/gas-oil/ranking"
+  },
+  "pasos": [
+    {
+      "id": "p00", "titulo": "Apertura",
+      "texto": "Este es el tutorial de la página Mercado de Gas Oil de Explorarg. En pocos minutos vas a ver cómo se navega, para qué sirve cada filtro y qué muestra cada uno de los once tableros. No hace falta saber nada de antemano: todo se maneja con el mouse, y cada control hace una sola cosa.",
+      "acciones": [{ "tipo": "esperar", "s": 0.3 }]
+    },
+    {
+      "id": "p01", "titulo": "Cómo se llega: menú Dashboards",
+      "texto": "Se entra desde el menú principal. En Dashboards, la última opción es Gas Oil; las otras tres son los tableros de biodiésel.",
+      "acciones": [
+        { "tipo": "ocultar_cartel" },
+        { "tipo": "esperar", "s": 0.5 },
+        { "tipo": "click", "sel": ".nav-dropdown-trigger" },
+        { "tipo": "resaltar", "sel": ".nav-dropdown-menu", "margen": 4 },
+        { "tipo": "esperar", "s": 1.2 },
+        { "tipo": "hover", "sel": { "sel": ".nav-dropdown-item", "texto": "Gas Oil" }, "espera": 0.8 },
+        { "tipo": "click", "sel": { "sel": ".nav-dropdown-item", "texto": "Gas Oil" } },
+        { "tipo": "limpiar" },
+        { "tipo": "cargar", "extra": 600 }
+      ]
+    },
+    {
+      "id": "p02", "titulo": "Las pestañas y sus menús",
+      "texto": "Debajo del menú principal está la fila de pestañas de esta página. Las que tienen un triángulo no abren un tablero: despliegan un menú con varias páginas. Dentro de Ventas, Volumen tiene a su vez dos. La primera pestaña, Estructura Mercado, es la que abre por defecto.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": ".section-nav-inner ul", "margen": 4 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Estructura Mercado" }, "espera": 1.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": { "sel": ".section-nav-trigger", "texto": "Ventas" } },
+        { "tipo": "resaltar", "sel": ".section-nav-menu", "margen": 4 },
+        { "tipo": "esperar", "s": 1.0 },
+        { "tipo": "click", "sel": { "sel": ".section-nav-menu-grupo", "texto": "Volumen" } },
+        { "tipo": "esperar", "s": 1.6 },
+        { "tipo": "limpiar" },
+        { "tipo": "tecla", "tecla": "Escape" },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Estructura Mercado" } }
+      ]
+    },
+    {
+      "id": "p03", "titulo": "La cabecera fija",
+      "texto": "Casi todos los tableros comparten la misma cabecera: el título con una bajada que dice qué se está mirando, una fila de filtros y una fila de obleas. Cuando bajás por la página, la cabecera queda pegada arriba, así los filtros están siempre a mano.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Estructura Mercado" },
+        { "tipo": "resaltar", "sel": "#estructura .go-sticky", "margen": 8 },
+        { "tipo": "hover", "sel": "#estructura h2", "espera": 1.8 },
+        { "tipo": "scroll", "dy": 560, "espera": 1.4 },
+        { "tipo": "scroll", "arriba": true },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p04", "titulo": "Los ocho filtros",
+      "texto": "Los ocho filtros se combinan entre sí y recortan todo lo que hay debajo: el mes, el tipo de precio, el canal de distribución, el tipo de negocio, el canal de comercialización, la bandera, un operador en particular y las provincias. Con el mismo orden aparecen también en Ventas, en Precio surtidor y en Precios comparados.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": "#estructura .go-filtros", "margen": 6 },
+        { "tipo": "hover", "sel": "#estructura .go-f-mes", "espera": 0.9 },
+        { "tipo": "hover", "sel": "#estructura .go-f-tipo", "espera": 0.7 },
+        { "tipo": "hover", "sel": "#estructura .go-f-cd", "espera": 0.7 },
+        { "tipo": "hover", "sel": "#estructura .go-f-tipos", "espera": 0.7 },
+        { "tipo": "hover", "sel": "#estructura .go-f-cc", "espera": 0.7 },
+        { "tipo": "hover", "sel": "#estructura .go-f-band", "espera": 0.7 },
+        { "tipo": "hover", "sel": "#estructura .go-f-op", "espera": 0.7 },
+        { "tipo": "hover", "sel": "#estructura .go-f-prov", "espera": 1.0 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p05", "titulo": "Filtros de lista: canal de distribución",
+      "texto": "Los filtros de lista cambian con un clic y la página se recalcula al instante. Por ejemplo, con Minorista queda solo lo que se vende por el canal de las estaciones; con Ambos vuelve el mercado entero.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": "#estructura .go-f-cd", "margen": 4 },
+        { "tipo": "select", "sel": "#go-cd", "etiqueta": "Minorista", "espera": 2.4 },
+        { "tipo": "select", "sel": "#go-cd", "etiqueta": "Ambos", "espera": 1.0 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p06", "titulo": "Desplegables con casillas: Provincia",
+      "texto": "Tipo de negocio y Provincia son desplegables con casillas: podés tildar varias a la vez. Arriba del panel hay atajos. En provincias, Sin Zona Fría deja afuera a Neuquén, Río Negro, Chubut, Santa Cruz y Tierra del Fuego, y Todas vuelve al país entero. Mientras haya un recorte, las tarjetas y los subtítulos lo dicen.",
+      "acciones": [
+        { "tipo": "click", "sel": "#estructura .go-f-prov .mh-dropdown-boton" },
+        { "tipo": "resaltar", "sel": ".go-prov-panel", "margen": 4 },
+        { "tipo": "esperar", "s": 1.6 },
+        { "tipo": "hover", "sel": { "sel": ".go-prov-panel .go-tipos-acciones button", "texto": "Sin Zona Fría" }, "espera": 0.6 },
+        { "tipo": "click", "sel": { "sel": ".go-prov-panel .go-tipos-acciones button", "texto": "Sin Zona Fría" }, "espera": 2.2 },
+        { "tipo": "click", "sel": { "sel": ".go-prov-panel .go-tipos-acciones button", "texto": "Todas", "exacto": true }, "espera": 1.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": "#estructura h2", "espera": 0.3 },
+        { "tipo": "resaltar", "sel": { "sel": "#estructura .go-desplegable-boton", "texto": "Resultado del relevamiento" }, "margen": 4 },
+        { "tipo": "esperar", "s": 1.2 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p07", "titulo": "Buscar un operador",
+      "texto": "El filtro Operador es una caja de búsqueda: escribís parte del nombre, lo elegís de la lista, y todo el tablero queda recortado a ese operador y sus estaciones. La cruz lo vuelve a soltar.",
+      "acciones": [
+        { "tipo": "escribir", "sel": "#go-op", "texto": "AUTOMOVIL CLUB ARGENTINO", "ritmo": 40, "espera": 0.5 },
+        { "tipo": "cargar", "extra": 800 },
+        { "tipo": "resaltar", "sel": "#estructura .go-desplegables", "margen": 4 },
+        { "tipo": "esperar", "s": 2.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": "#estructura .go-op-limpiar" },
+        { "tipo": "cargar", "extra": 500 }
+      ]
+    },
+    {
+      "id": "p08", "titulo": "Las obleas",
+      "texto": "Las obleas son las secciones del tablero. Cada una se abre y se cierra con un clic, y su contenido aparece debajo, siempre en el mismo orden. El texto chico de cada oblea resume lo que hay adentro aunque esté cerrada: conviene leerlo antes de abrir.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": "#estructura .go-desplegables", "margen": 4 },
+        { "tipo": "hover", "sel": { "sel": "#estructura .go-desplegable-boton", "texto": "Por canal de comercialización" }, "espera": 1.6 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": { "sel": "#estructura .go-desplegable-boton", "texto": "Por canal de comercialización" }, "espera": 0.8 },
+        { "tipo": "scroll", "sel": "#estructura .go-tabla", "margen": 20, "espera": 2.0 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p09", "titulo": "Diagrama de flujos: pasar el mouse",
+      "texto": "El diagrama de flujos muestra por dónde pasa el gas oil: de la bandera al canal de distribución, de ahí al tipo de negocio y al canal de comercialización. El ancho es volumen. Al pasar el mouse por un nodo se ilumina solo lo que pasa por ahí, y el cuadro flotante trae el volumen y el precio ponderado.",
+      "acciones": [
+        { "tipo": "scroll", "sel": "#estructura .chart-card", "margen": 12 },
+        { "tipo": "hover", "sel": { "sel": "#estructura .recharts-sankey-nodes > .recharts-layer", "texto": "YPF" }, "espera": 2.6 },
+        { "tipo": "hover", "sel": { "sel": "#estructura .recharts-sankey-nodes > .recharts-layer", "texto": "Al público" }, "espera": 2.2 },
+        { "tipo": "hover", "sel": "#estructura .chart-card-header .chart-card-title", "espera": 0.3 }
+      ]
+    },
+    {
+      "id": "p10", "titulo": "Diagrama de flujos: el clic filtra",
+      "texto": "El clic hace algo más: filtra. Si tocás YPF, el filtro Bandera de arriba toma ese valor y todo el tablero queda solo con lo que pasa por YPF, tablas incluidas. Otro clic lo suelta. Con el selector Resaltar, en cambio, la marca queda fija sin filtrar; y el de grados elige si se mira el grado 2, el grado 3 o los dos juntos.",
+      "acciones": [
+        { "tipo": "click", "sel": { "sel": "#estructura .recharts-sankey-nodes > .recharts-layer", "texto": "YPF" }, "espera": 0.6 },
+        { "tipo": "cargar", "extra": 300 },
+        { "tipo": "resaltar", "sel": "#estructura .go-f-band", "margen": 4 },
+        { "tipo": "esperar", "s": 2.4 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": { "sel": "#estructura .recharts-sankey-nodes > .recharts-layer", "texto": "YPF" }, "espera": 1.2 },
+        { "tipo": "cargar", "extra": 300 },
+        { "tipo": "resaltar", "sel": "#estructura .go-selectores-grafico", "margen": 6 },
+        { "tipo": "hover", "sel": { "sel": "#estructura .go-selectores-grafico button", "texto": "Resaltar", "exacto": true }, "espera": 1.6 },
+        { "tipo": "hover", "sel": { "sel": "#estructura .go-selectores-grafico button", "texto": "Grado 3", "exacto": true }, "espera": 1.2 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p11", "titulo": "Las tablas: el clic en una fila filtra",
+      "texto": "Las tablas se leen y también se usan: un clic en una fila deja solo esa categoría en el resto del tablero, y otro clic la suelta. Cada tabla ignora el filtro de su propio nivel, así siempre muestra todas sus filas.",
+      "acciones": [
+        { "tipo": "scroll", "sel": "#estructura .go-tabla", "margen": 20 },
+        { "tipo": "hover", "sel": { "sel": "#estructura .go-tabla tbody tr", "nth": 0 }, "espera": 0.4 },
+        { "tipo": "click", "sel": { "sel": "#estructura .go-tabla tbody tr", "nth": 0 }, "espera": 2.0 },
+        { "tipo": "click", "sel": { "sel": "#estructura .go-tabla tbody tr", "nth": 0 }, "espera": 0.6 },
+        { "tipo": "scroll", "arriba": true },
+        { "tipo": "click", "sel": { "sel": "#estructura .go-desplegable-boton", "texto": "Por canal de comercialización" }, "espera": 0.4 }
+      ]
+    },
+    {
+      "id": "p12", "titulo": "Ventas · Precio",
+      "texto": "En Ventas, la página Precio compara el canal minorista con el mayorista: mismo mes, mismos filtros, y una línea por canal en los gráficos de grado 2 y grado 3. Los botones del gráfico cambian el rango: doce meses, cinco años, diez, o toda la serie. Con precio sin impuestos aparece punteado el gas oil fósil, que es el precio neto del biodiésel.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Ventas · Precio" },
+        { "tipo": "click", "sel": { "sel": ".section-nav-trigger", "texto": "Ventas" }, "espera": 0.6 },
+        { "tipo": "click", "sel": { "sel": ".section-nav-menu-item", "texto": "Precio", "exacto": true } },
+        { "tipo": "cargar", "extra": 600 },
+        { "tipo": "resaltar", "sel": "#canales .go-desplegables", "margen": 4 },
+        { "tipo": "esperar", "s": 1.6 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": "#canales .chart-card", "margen": 12 },
+        { "tipo": "click", "sel": { "sel": "#canales .chart-range-selector button", "texto": "5 a", "exacto": true }, "espera": 2.2 },
+        { "tipo": "click", "sel": { "sel": "#canales .chart-range-selector button", "texto": "Todo", "exacto": true }, "espera": 2.0 },
+        { "tipo": "click", "sel": { "sel": "#canales .chart-range-selector button", "texto": "12 m", "exacto": true }, "espera": 0.6 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p13", "titulo": "Ventas · Volumen · Resolución 1104",
+      "texto": "Volumen tiene dos fuentes. Resolución 1104 es el relevamiento de precios de la Secretaría de Energía, con el volumen que declaran las bocas que informaron precio: no es todo el mercado. Por eso cada gráfico trae en barras grises cuántas estaciones se relevaron en el mes, que explican los pozos. El selector Mensual o Anual suma todos los meses de cada año.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Ventas · Volumen · Resolución 1104" },
+        { "tipo": "click", "sel": { "sel": ".section-nav-trigger", "texto": "Ventas" }, "espera": 0.6 },
+        { "tipo": "click", "sel": { "sel": ".section-nav-menu-grupo", "texto": "Volumen" }, "espera": 0.7 },
+        { "tipo": "click", "sel": { "sel": ".section-nav-submenu .section-nav-menu-item", "texto": "Resolución 1104" } },
+        { "tipo": "cargar", "extra": 600 },
+        { "tipo": "scroll", "sel": "#canales-volumen .chart-card", "margen": 12, "espera": 1.6 },
+        { "tipo": "resaltar", "sel": { "sel": "#canales-volumen button", "texto": "Anual", "exacto": true }, "margen": 6 },
+        { "tipo": "click", "sel": { "sel": "#canales-volumen button", "texto": "Anual", "exacto": true }, "espera": 2.4 },
+        { "tipo": "click", "sel": { "sel": "#canales-volumen button", "texto": "Mensual", "exacto": true }, "espera": 0.8 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p14", "titulo": "Ventas · Volumen · Tablas SESCO",
+      "texto": "Tablas SESCO es el mercado completo: las ventas que la Secretaría publica por empresa, sector y provincia. Tiene filtros propios, con el producto y la unidad, y las tarjetas se pueden ver por mes, con el acumulado del año y los últimos doce meses, o por año entero. Más abajo está el corte obligatorio contra el corte real, gestión por gestión: un clic en un funcionario deja solo su período.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Ventas · Volumen · Tablas SESCO" },
+        { "tipo": "click", "sel": { "sel": ".section-nav-trigger", "texto": "Ventas" }, "espera": 0.6 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav-menu-grupo", "texto": "Volumen" }, "espera": 0.5 },
+        { "tipo": "click", "sel": { "sel": ".section-nav-submenu .section-nav-menu-item", "texto": "Tablas SESCO" } },
+        { "tipo": "cargar", "extra": 600 },
+        { "tipo": "resaltar", "sel": "#canales-sesco .go-filtros", "margen": 6 },
+        { "tipo": "esperar", "s": 2.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "resaltar", "sel": "#canales-sesco .go-kpi-cabecera", "margen": 4 },
+        { "tipo": "click", "sel": { "sel": "#canales-sesco .go-kpi-cabecera button", "texto": "Año", "exacto": true }, "espera": 2.0 },
+        { "tipo": "click", "sel": { "sel": "#canales-sesco .go-kpi-cabecera button", "texto": "Mes", "exacto": true }, "espera": 0.6 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": "#canales-sesco .corte-gestiones", "margen": 70 },
+        { "tipo": "hover", "sel": { "sel": "#canales-sesco .corte-gestion", "nth": 2 }, "espera": 1.0 },
+        { "tipo": "click", "sel": { "sel": "#canales-sesco .corte-gestion", "nth": 2 }, "espera": 2.2 },
+        { "tipo": "click", "sel": { "sel": "#canales-sesco button", "texto": "Ver todo el período" }, "espera": 0.6 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p15", "titulo": "Importaciones · Despachos",
+      "texto": "Importaciones, Despachos, es el gas oil que entró por aduana: de qué país viene, por dónde pasó y quién lo trajo. Se elige el año. Arranca sin CAMMESA, que importa para las usinas; el botón del filtro Importador la agrega. En el mapa, cada arco es un flujo y su ancho son toneladas: pasar el mouse muestra volumen y precio, y el clic filtra ese país. Las obleas de abajo tienen las tablas por importador y por procedencia, los trimestres y meses, y el egreso de dólares acumulado.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Importaciones · Despachos" },
+        { "tipo": "click", "sel": { "sel": ".section-nav-trigger", "texto": "Importaciones" }, "espera": 0.6 },
+        { "tipo": "click", "sel": { "sel": ".section-nav-menu-item", "texto": "Despachos", "exacto": true } },
+        { "tipo": "cargar", "extra": 600 },
+        { "tipo": "resaltar", "sel": "#importaciones .go-filtros", "margen": 6 },
+        { "tipo": "esperar", "s": 2.2 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": "#importaciones .chart-card", "margen": 12 },
+        { "tipo": "hover", "sel": { "sel": "#importaciones .go-punto", "nth": 1 }, "espera": 2.0 },
+        { "tipo": "hover", "sel": { "sel": "#importaciones .go-punto", "nth": 3 }, "espera": 1.6 },
+        { "tipo": "hover", "sel": { "sel": "#importaciones .go-desplegable-boton", "texto": "Egreso de dólares" }, "espera": 0.6 },
+        { "tipo": "scroll", "sel": { "sel": "#importaciones .chart-card-header .chart-card-title", "texto": "Egreso de dólares" }, "margen": 20, "espera": 2.4 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p16", "titulo": "Importaciones · Resultado de importar",
+      "texto": "Resultado de importar responde una pregunta: cuánto ganó o perdió cada importador por traer gas oil en vez de comprarlo acá. Compara el precio importado con el gas oil fósil de su propia bandera: YPF contra YPF, Trafigura contra Puma. Se eligen importadores, canales y período, y los valores pueden verse corrientes o constantes, es decir, descontada la inflación de Estados Unidos.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Importaciones · Resultado de importar" },
+        { "tipo": "click", "sel": { "sel": ".section-nav-trigger", "texto": "Importaciones" }, "espera": 0.6 },
+        { "tipo": "click", "sel": { "sel": ".section-nav-menu-item", "texto": "Resultado de importar" } },
+        { "tipo": "cargar", "extra": 600 },
+        { "tipo": "resaltar", "sel": "#importaciones-resultado .go-filtros-resultado", "margen": 6 },
+        { "tipo": "esperar", "s": 2.4 },
+        { "tipo": "limpiar" },
+        { "tipo": "resaltar", "sel": "#importaciones-resultado .go-intervalo", "margen": 4 },
+        { "tipo": "esperar", "s": 1.0 },
+        { "tipo": "click", "sel": { "sel": "#importaciones-resultado .go-intervalo button", "texto": "Constantes", "exacto": true }, "espera": 2.0 },
+        { "tipo": "click", "sel": { "sel": "#importaciones-resultado .go-intervalo button", "texto": "Corrientes", "exacto": true }, "espera": 0.6 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": { "sel": "#importaciones-resultado .chart-card-header .chart-card-title", "texto": "Resultado acumulado" }, "margen": 20, "espera": 2.2 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p17", "titulo": "Biodiésel vs. gas oil · Precios comparados",
+      "texto": "Precios comparados pone ocho precios en el mismo intervalo: los dos gas oil del surtidor, el importado y el crudo arriba; el biodiésel, el aceite, el metanol y el tipo de cambio abajo. Elegís desde y hasta, o un atajo, y además la unidad, la moneda y si los valores son corrientes o constantes. La tarjeta al costado de cada gráfico dice cuánto subió o bajó en el intervalo.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Biodiésel vs. gas oil · Precios comparados" },
+        { "tipo": "click", "sel": { "sel": ".section-nav-trigger", "texto": "Biodiésel vs. gas oil" }, "espera": 0.6 },
+        { "tipo": "click", "sel": { "sel": ".section-nav-menu-item", "texto": "Precios comparados" } },
+        { "tipo": "cargar", "extra": 600 },
+        { "tipo": "resaltar", "sel": "#biodiesel .go-intervalo", "margen": 6 },
+        { "tipo": "esperar", "s": 1.4 },
+        { "tipo": "click", "sel": { "sel": "#biodiesel .go-intervalo button", "texto": "Todo", "exacto": true }, "espera": 1.8 },
+        { "tipo": "select", "sel": "#biodiesel select[aria-label=\"Unidad\"]", "etiqueta": "bbl", "espera": 1.8 },
+        { "tipo": "select", "sel": "#biodiesel select[aria-label=\"Unidad\"]", "etiqueta": "ton", "espera": 0.6 },
+        { "tipo": "click", "sel": { "sel": "#biodiesel .go-intervalo button", "texto": "24 m", "exacto": true }, "espera": 0.8 },
+        { "tipo": "limpiar" },
+        { "tipo": "resaltar", "sel": { "sel": "#biodiesel .go-variacion", "nth": 0 }, "margen": 4 },
+        { "tipo": "hover", "sel": { "sel": "#biodiesel .go-variacion", "nth": 0 }, "espera": 1.8 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p18", "titulo": "Biodiésel vs. gas oil · Res. 963 y ajustes",
+      "texto": "Res. 963 y ajustes compara el precio del biodiésel que publica la Secretaría con el que da la fórmula de la resolución, mes a mes. Las barras muestran la diferencia, en rojo cuando el publicado quedó por debajo, y la tarjeta la acumula en dólares sobre el cupo. Las otras dos obleas muestran cómo se ajustó cada precio contra el mes anterior y desde el inicio del intervalo.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Biodiésel vs. gas oil · Res. 963 y ajustes" },
+        { "tipo": "click", "sel": { "sel": ".section-nav-trigger", "texto": "Biodiésel vs. gas oil" }, "espera": 0.6 },
+        { "tipo": "click", "sel": { "sel": ".section-nav-menu-item", "texto": "Res. 963" } },
+        { "tipo": "cargar", "extra": 600 },
+        { "tipo": "resaltar", "sel": "#biodiesel-963 .go-desplegables", "margen": 4 },
+        { "tipo": "esperar", "s": 1.8 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": { "sel": "#biodiesel-963 .chart-card-header .chart-card-title", "texto": "publicado vs. fórmula" }, "margen": 20, "espera": 2.8 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p19", "titulo": "Corte obligatorio",
+      "texto": "Corte obligatorio muestra, desde 2010, qué parte del gas oil fue biodiésel, qué parte fue importado que ocupó el lugar del biodiésel que faltó, y qué parte vino de la reducción del corte. El selector Sustituto define contra qué precio se valoriza esa diferencia: el importado o el fósil local. La escala de 85 a 100 acerca la mirada; la de 0 a 100 muestra la proporción real. Abajo está la ganancia acumulada de los mezcladores.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Corte obligatorio" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Corte obligatorio" } },
+        { "tipo": "cargar", "extra": 600 },
+        { "tipo": "resaltar", "sel": "#corte .go-intervalo", "margen": 6 },
+        { "tipo": "esperar", "s": 2.2 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": { "sel": "#corte .chart-card-header .chart-card-title", "texto": "Composición" }, "margen": 20 },
+        { "tipo": "click", "sel": { "sel": "#corte button", "texto": "0 a 100%", "exacto": true }, "espera": 2.0 },
+        { "tipo": "click", "sel": { "sel": "#corte button", "texto": "85 a 100%", "exacto": true }, "espera": 0.8 },
+        { "tipo": "scroll", "sel": { "sel": "#corte .chart-card-header .chart-card-title", "texto": "Ganancia" }, "margen": 20, "espera": 2.2 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p20", "titulo": "Precio surtidor",
+      "texto": "Precio surtidor es el relevamiento de la Resolución 1104 visto desde el público: qué se paga en cada provincia y en cada bandera. Abre en minorista, al público y precio surtidor; si cambiás el canal, el tipo de precio se acomoda solo. La oblea de distribución geográfica tiene dos mapas: el de provincias, coloreado por precio, y el de las estaciones relevadas en el mes. Un clic en una provincia acerca el mapa de estaciones a ella; otro clic la suelta.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Precio surtidor" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Precio surtidor" } },
+        { "tipo": "cargar", "extra": 600 },
+        { "tipo": "resaltar", "sel": "#surtidor .go-filtros", "margen": 6 },
+        { "tipo": "esperar", "s": 2.4 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": { "sel": "#surtidor .go-desplegable-boton", "texto": "Distribución geográfica" }, "espera": 0.6 },
+        { "tipo": "scroll", "sel": "#surtidor .go-mapas", "margen": 12, "espera": 0.6 },
+        { "tipo": "hover", "sel": { "sel": "#surtidor .go-prov", "nth": 12 }, "espera": 1.4 },
+        { "tipo": "click", "sel": { "sel": "#surtidor .go-prov", "nth": 12 }, "espera": 2.6 },
+        { "tipo": "click", "sel": { "sel": "#surtidor .go-prov", "nth": 12 }, "espera": 1.0 },
+        { "tipo": "scroll", "arriba": true },
+        { "tipo": "click", "sel": { "sel": "#surtidor .go-desplegable-boton", "texto": "Distribución geográfica" }, "espera": 0.3 }
+      ]
+    },
+    {
+      "id": "p21", "titulo": "Ranking precios",
+      "texto": "Ranking precios mide cuánto subió cada precio desde una fecha base: el gas oil en surtidor y sin impuestos, el crudo, el diésel, el biodiésel y el aceite. Elegís la base y el mes de análisis, y Play recorre los meses como una carrera de barras. Moneda y Valores cambian entre dólares y pesos, y entre corrientes y constantes. En la tabla, un clic en una fila la saca del gráfico.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Ranking precios" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Ranking precios" } },
+        { "tipo": "cargar", "extra": 600 },
+        { "tipo": "resaltar", "sel": "#ranking .go-controles", "margen": 6 },
+        { "tipo": "esperar", "s": 2.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": "#ranking .go-play", "espera": 5.0 },
+        { "tipo": "click", "sel": "#ranking .go-play", "espera": 0.6 },
+        { "tipo": "click", "sel": { "sel": "#ranking .go-tabla tbody tr", "nth": 0 }, "espera": 1.8 },
+        { "tipo": "click", "sel": { "sel": "#ranking .go-tabla tbody tr", "nth": 0 }, "espera": 0.6 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p22", "titulo": "Cierre",
+      "texto": "Eso es todo. La regla es siempre la misma: los filtros de arriba recortan, las obleas abren y cierran, y los clics en nodos, filas y mapas filtran. Los datos salen de las publicaciones de la Secretaría de Energía y de los despachos de aduana.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Estructura Mercado" } },
+        { "tipo": "cargar", "extra": 400 },
+        { "tipo": "esperar", "s": 2.5 },
+        { "tipo": "cartel", "kicker": "Tutorial", "titulo": "Mercado de Gas Oil", "sub": "explorarg.com · Dashboards · Gas Oil", "marca": "EXPLORARG · MARKETSCAN" }
+      ]
+    }
+  ]
+}
