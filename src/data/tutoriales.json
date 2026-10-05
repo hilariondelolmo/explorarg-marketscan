@@ -97,5 +97,135 @@
     "titulo": "Cierre"
    }
   ]
+ },
+ {
+  "id": "indicadores",
+  "titulo": "Principales Indicadores",
+  "pagina": "/mercado",
+  "youtube": "4J56gz9PYYM",
+  "duracion": 226,
+  "grabado": "2026-10-02",
+  "descripcion": "Cómo se usa la página Principales Indicadores del tablero de biodiésel de Explorarg: el mes de análisis, los cuadros de Corte Obligatorio y Asignación Cupos, las Conclusiones con el detalle por petrolera, y la Evolución de ventas desde 2008.",
+  "capitulos": [
+   {
+    "t": 0,
+    "titulo": "Apertura y cómo se llega"
+   },
+   {
+    "t": 24,
+    "titulo": "La cabecera y el mes de análisis"
+   },
+   {
+    "t": 46,
+    "titulo": "Corte Obligatorio: el cuadro"
+   },
+   {
+    "t": 80,
+    "titulo": "Petrolera y sectores del gas oil"
+   },
+   {
+    "t": 107,
+    "titulo": "Asignación Cupos"
+   },
+   {
+    "t": 130,
+    "titulo": "Conclusiones"
+   },
+   {
+    "t": 152,
+    "titulo": "El detalle por petrolera"
+   },
+   {
+    "t": 184,
+    "titulo": "Evolución de ventas"
+   },
+   {
+    "t": 207,
+    "titulo": "Cierre"
+   }
+  ]
+ },
+ {
+  "id": "detalle-ventas",
+  "titulo": "Detalle de ventas",
+  "pagina": "/mercado/matriz",
+  "youtube": "FQEVJhani7Y",
+  "duracion": 422,
+  "grabado": "2026-10-02",
+  "descripcion": "Cómo se usan tres páginas del tablero Detalle de ventas de Explorarg: la matriz de ventas por empresa y año, la ficha por grupo económico o empresa, y el mapa de plantas con el análisis de distancia a proveedores y a refinerías.",
+  "capitulos": [
+   {
+    "t": 0,
+    "titulo": "Apertura y cómo se llega"
+   },
+   {
+    "t": 25,
+    "titulo": "Las pestañas"
+   },
+   {
+    "t": 40,
+    "titulo": "La matriz de ventas"
+   },
+   {
+    "t": 63,
+    "titulo": "Métrica y categoría"
+   },
+   {
+    "t": 92,
+    "titulo": "Grupos económicos desplegables"
+   },
+   {
+    "t": 116,
+    "titulo": "Apertura mensual"
+   },
+   {
+    "t": 126,
+    "titulo": "Comparar períodos"
+   },
+   {
+    "t": 143,
+    "titulo": "Gráficos"
+   },
+   {
+    "t": 171,
+    "titulo": "Ficha por empresa"
+   },
+   {
+    "t": 193,
+    "titulo": "El gráfico de la ficha y el grupo"
+   },
+   {
+    "t": 219,
+    "titulo": "Mapa de plantas: los cuatro sectores"
+   },
+   {
+    "t": 244,
+    "titulo": "Lista, detalle y zoom"
+   },
+   {
+    "t": 264,
+    "titulo": "Satelital y filtros"
+   },
+   {
+    "t": 285,
+    "titulo": "Distancia a proveedores"
+   },
+   {
+    "t": 319,
+    "titulo": "La distancia que importa"
+   },
+   {
+    "t": 347,
+    "titulo": "El radio y una planta lejana"
+   },
+   {
+    "t": 379,
+    "titulo": "Distancia a refinerías"
+   },
+   {
+    "t": 399,
+    "titulo": "Cierre"
+   }
+  ]
  }
 ]

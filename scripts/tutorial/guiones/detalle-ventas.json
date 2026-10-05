@@ -2,6 +2,7 @@
   "id": "detalle-ventas",
   "titulo": "Detalle de ventas",
   "pagina": "/mercado/matriz",
+  "youtube": "FQEVJhani7Y",
   "descripcion": "Cómo se usan tres páginas del tablero Detalle de ventas de Explorarg: la matriz de ventas por empresa y año, la ficha por grupo económico o empresa, y el mapa de plantas con el análisis de distancia a proveedores y a refinerías.",
   "url": "https://biodiesel-argentina-dashboard.vercel.app/",
   "viewport": [1920, 1080],

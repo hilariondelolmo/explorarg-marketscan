@@ -2,6 +2,7 @@
   "id": "indicadores",
   "titulo": "Principales Indicadores",
   "pagina": "/mercado",
+  "youtube": "4J56gz9PYYM",
   "descripcion": "Cómo se usa la página Principales Indicadores del tablero de biodiésel de Explorarg: el mes de análisis, los cuadros de Corte Obligatorio y Asignación Cupos, las Conclusiones con el detalle por petrolera, y la Evolución de ventas desde 2008.",
   "url": "https://biodiesel-argentina-dashboard.vercel.app/",
   "viewport": [1920, 1080],
