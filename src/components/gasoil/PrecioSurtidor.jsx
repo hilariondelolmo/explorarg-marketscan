@@ -9,7 +9,7 @@ import {
 import { fmt } from '../../lib/format.js';
 import { useChartColors } from '../../lib/theme.jsx';
 import MapaProvincias from './MapaProvincias.jsx';
-import { useRelevamiento, useCajas, BloqueFijo, Tarjeta, TooltipSerie, RANGOS, TODAS } from './relevamiento.jsx';
+import { useRelevamiento, useCajas, BloqueFijo, Tarjeta, TooltipSerie, RANGOS, TODAS, NOTA_MESES_EXCLUIDOS } from './relevamiento.jsx';
 import '../mercado/Mercado.css';
 import '../charts/Chart.css';
 import '../KPIs.css';
@@ -299,7 +299,7 @@ export default function PrecioSurtidor({ seccion }) {
     <div className="go-seccion">
       <BloqueFijo
         seccion={seccion} tituloDefault="Precio del gas oil en surtidor" F={F}
-        cajas={cajas} abiertos={abiertos} alternar={alternar}
+        cajas={cajas} abiertos={abiertos} alternar={alternar} soloMesesConPrecio
       />
 
       {cuerpoKpi}
@@ -416,7 +416,7 @@ export default function PrecioSurtidor({ seccion }) {
             cada boca de expendio. El precio surtidor solo existe en el canal "al público"; para los demás canales usar
             precio con o sin impuestos. Estaciones georreferenciadas: padrón de la SE cruzado por número de inscripción
             ({fmt.int((D?.bocas || []).filter((b) => b[6] != null).length)} de {fmt.int((D?.bocas || []).length)} bocas).
-            Último mes: {fmt.monthShort(ULTIMO_MES)}.
+            {' '}{NOTA_MESES_EXCLUIDOS} Último mes: {fmt.monthShort(ULTIMO_MES)}.
           </p>
         </>
       )}

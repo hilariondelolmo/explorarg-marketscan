@@ -3,6 +3,7 @@ import {
   BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, LabelList, ReferenceLine,
 } from 'recharts';
 import { MESES, ULTIMO_MES, IDX_MES, PRODUCTOS, TC, CPI_US, variacion } from '../../lib/gasoil.js';
+import { NOTA_MESES_EXCLUIDOS } from './relevamiento.jsx';
 import { fmt } from '../../lib/format.js';
 import { useChartColors } from '../../lib/theme.jsx';
 import '../mercado/Mercado.css';
@@ -250,7 +251,7 @@ export default function RankingPrecios() {
         Gas oil: precio ponderado país del relevamiento SE 1104 (minorista, al público) convertido a usd/ton con el TC
         mensual y densidad 0,845. Valores constantes: deflactados con el CPI de Estados Unidos a la fecha base, en ambas
         monedas, como en el workbook de origen. Cuando falta el dato del mes se toma el último disponible hasta
-        {' '}{REZAGO_MAX} meses atrás (se indica entre paréntesis).
+        {' '}{REZAGO_MAX} meses atrás (se indica entre paréntesis). {NOTA_MESES_EXCLUIDOS}
       </p>
     </div>
   );

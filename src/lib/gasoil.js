@@ -28,7 +28,22 @@ export const CANALES_COM = CANALES_COM_JSON;
 export const TIPOS_NEGOCIO = TIPOS_NEGOCIO_JSON;
 export const META_PRECIOS = META_PRECIOS_JSON;
 
-export const PRODUCTOS = ranking.productos;
+// Meses sin precios de gas oil en todo el sitio (decisión de HDO del
+// 05/10/2026; desde el 01/10/2026 cuatro de ellos ya quedaban afuera del gas
+// oil fósil de Resultado de importar y de Corte obligatorio): el relevamiento
+// trae valores anómalos, con saltos contra los meses vecinos de +83% en
+// oct-2010 (grado 2), +125% en jun-2011 y +46% en jun-2013 (grado 3) y +73%
+// en ago-2015 (grado 3 sin impuestos); abr-2011 y jul-2013, más leves. Se
+// borran los precios del relevamiento al cargarlo (surtidor, con y sin
+// impuestos, los dos grados) y los de las series de gas oil del ranking; los
+// volúmenes de esos meses quedan como vienen.
+export const MESES_ANOMALOS = new Set(['2010-10', '2011-04', '2011-06', '2013-06', '2013-07', '2015-08']);
+/** Meses que se ofrecen en los selectores de las páginas de precio. */
+export const MESES_CON_PRECIO = MESES.filter((f) => !MESES_ANOMALOS.has(f));
+
+export const PRODUCTOS = ranking.productos.map((p) => (
+  p.id.startsWith('go') ? { ...p, serie: p.serie.filter(([f]) => !MESES_ANOMALOS.has(f)) } : p
+));
 export const IMPORTACIONES = ranking.importaciones;
 // Series de Master data que no van al ranking (Precios comparados): aceite
 // FAS MINAGRI y metanol YPF, cada una hasta su último mes con dato
@@ -42,6 +57,17 @@ export const CPI_US = new Map(ranking.cpi_us);
 export const META_RANKING = ranking.meta;
 
 export const IDX_MES = new Map(MESES.map((f, i) => [f, i]));
+const IDX_ANOMALOS = new Set([...MESES_ANOMALOS].map((f) => IDX_MES.get(f)));
+const COLUMNAS_PRECIO = ['s2', 'c2', 'n2', 's3', 'c3', 'n3'];
+/** Deja sin precio (0 = sin dato) las filas de los meses excluidos; no toca el volumen. */
+function sinPreciosAnomalos(datos, excluida) {
+  for (const c of COLUMNAS_PRECIO) {
+    const col = datos[c];
+    if (!col) continue;
+    for (let i = 0; i < col.length; i++) if (excluida(i)) col[i] = 0;
+  }
+  return datos;
+}
 
 export const DENSIDAD_BIO = DENSIDAD_BIO_JSON;
 // mes → corte obligatorio (fracción; null si no había mandato)
@@ -62,7 +88,7 @@ export function cargarRetail() {
     retailPromesa = fetch('/data/gasoil_retail.json').then((r) => {
       if (!r.ok) throw new Error(`No se pudo cargar el relevamiento (${r.status})`);
       return r.json();
-    });
+    }).then((d) => sinPreciosAnomalos(d, (i) => IDX_ANOMALOS.has(d.mes[i])));
   }
   return retailPromesa;
 }
@@ -74,7 +100,7 @@ export function cargarParte(k) {
     partesPromesa.set(k, fetch(`/data/gasoil_bocas/${k}.json`).then((r) => {
       if (!r.ok) throw new Error(`No se pudo cargar la partición ${k} (${r.status})`);
       return r.json();
-    }));
+    }).then((d) => sinPreciosAnomalos(d, (i) => IDX_ANOMALOS.has(d.mes[i]))));
   }
   return partesPromesa.get(k);
 }
@@ -86,7 +112,7 @@ export function cargarMes(f) {
     mesesPromesa.set(f, fetch(`/data/gasoil_mes/${f}.json`).then((r) => {
       if (!r.ok) throw new Error(`No se pudo cargar el mes ${f} (${r.status})`);
       return r.json();
-    }));
+    }).then((d) => (MESES_ANOMALOS.has(f) ? sinPreciosAnomalos(d, () => true) : d)));
   }
   return mesesPromesa.get(f);
 }
@@ -188,14 +214,6 @@ export function sumarCol(D, filtro, clave, grado) {
   }
   return out;
 }
-
-// Meses del relevamiento con precios anómalos del gas oil sin impuestos (los
-// dos grados): no entran en los cálculos del gas oil fósil de Resultado de
-// importar ni del sustituto fósil de Corte obligatorio (decisión de HDO del
-// 01/10/2026). Grado 3 en jun-2013: 11,53 $/l país y 16,47 YPF contra unos
-// 7 en los meses vecinos; ago-2015: 15,76 contra 10; abr-2011 y jul-2013,
-// más leves. El resto del sitio los sigue mostrando como vienen.
-export const MESES_ANOMALOS = new Set(['2011-04', '2013-06', '2013-07', '2015-08']);
 
 /** Tipos de precio del relevamiento (los del selector del workbook). */
 export const TIPOS_PRECIO = [

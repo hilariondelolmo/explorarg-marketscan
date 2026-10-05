@@ -86,7 +86,7 @@ const SECTIONS = [
       {
         id: 'biodiesel', label: 'Precios comparados',
         title: 'Precios comparados: gas oil y biodiésel',
-        intro: 'Ocho precios en el mismo intervalo: los dos gas oil del surtidor, el importado y el crudo arriba; el biodiésel, el aceite, el metanol y el tipo de cambio abajo, cada uno con su variación acumulada.',
+        intro: 'Ocho precios en el mismo intervalo: los dos gas oil del surtidor, el importado y el crudo arriba; el biodiésel, el aceite, el metanol y el tipo de cambio abajo, cada uno con su variación acumulada y ampliable con un clic. Al pie, el biodiésel contra el gas oil sin impuestos.',
         Comp: PreciosComparados,
         encabezadoPropio: true,
       },

@@ -1,15 +1,16 @@
-import { useMemo, useState } from 'react';
-import { ComposedChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { ComposedChart, Bar, Line, XAxis, YAxis, Tooltip, ReferenceLine, ResponsiveContainer } from 'recharts';
 import {
   MESES, ULTIMO_MES, IDX_MES, PRODUCTOS, COMPARADOS, IMPORTACIONES, TC, CPI_US, DENSIDAD_GO, DENSIDAD_BIO, TIPOS_PRECIO,
   ponderarCol, variacion,
 } from '../../lib/gasoil.js';
 import { fmt } from '../../lib/format.js';
 import { useChartColors } from '../../lib/theme.jsx';
-import { useRelevamiento, FiltrosRelevamiento } from './relevamiento.jsx';
+import { useRelevamiento, FiltrosRelevamiento, NOTA_MESES_EXCLUIDOS } from './relevamiento.jsx';
 import '../mercado/Mercado.css';
 import '../charts/Chart.css';
 import '../KPIs.css';
+import '../DocModal.css';
 import './GasOil.css';
 
 const INTERVALO_DEFAULT = 18; // meses hacia atrás al entrar (el tablero abre con Dec/24 a Jul/26)
@@ -28,6 +29,8 @@ const MONEDAS = [['usd', 'usd', 'Dólares'], ['ars', '$', 'Pesos']];
 // Densidades (ton/m³): gas oil y biodiésel, las del sitio; aceite de soja,
 // metanol y crudo Brent, valores de referencia (avisados a HDO el 01/10/2026)
 const DENSIDADES = { gasoil: DENSIDAD_GO, bio: DENSIDAD_BIO, aceite: 0.92, metanol: 0.792, brent: 0.835 };
+// Gas oil del gráfico de comparación con el biodiésel: grado 2, grado 3 o el ponderado de los dos
+const GO_COMPARACION = [['g2', 'GR2', 'Gas oil grado 2'], ['g3', 'GR3', 'Gas oil grado 3'], ['g23', 'GR2 + GR3', 'Gas oil grado 2 y 3']];
 
 function Encabezado({ seccion }) {
   return (
@@ -52,17 +55,110 @@ const valor = (v) => {
  * la variación entre el primer y el último valor del intervalo, y esos dos
  * valores con sus meses.
  */
-function Variacion({ puntos }) {
+function Variacion({ puntos, rotulo }) {
   const conDato = puntos.filter((p) => p.valor != null);
-  if (conDato.length < 2) return <div className="go-variacion"><span className="go-variacion-sin">sin dos valores en el intervalo</span></div>;
+  if (conDato.length < 2) {
+    return (
+      <div className="go-variacion">
+        {rotulo && <span className="go-variacion-rotulo">{rotulo}</span>}
+        <span className="go-variacion-sin">sin dos valores en el intervalo</span>
+      </div>
+    );
+  }
   const a = conDato[0];
   const b = conDato.at(-1);
   const d = variacion(b.valor, a.valor);
   return (
     <div className="go-variacion" title={`Variación acumulada entre ${fmt.monthShort(a.fecha)} y ${fmt.monthShort(b.fecha)}`}>
+      {rotulo && <span className="go-variacion-rotulo">{rotulo}</span>}
       <span className={`go-variacion-delta ${d >= 0 ? 'delta-pos' : 'delta-neg'}`}>{d >= 0 ? '▲' : '▼'}{fmt.pct(Math.abs(d), Math.abs(d) >= 100 ? 0 : 1)}</span>
       <span className="go-variacion-valores">{valor(a.valor)} → {valor(b.valor)}</span>
       <span className="go-variacion-fechas">{fmt.monthShort(a.fecha)} → {fmt.monthShort(b.fecha)}</span>
+    </div>
+  );
+}
+
+const eje = (v) => (Math.abs(v) >= 1e6 ? `${(v / 1e6).toLocaleString('es-AR', { maximumFractionDigits: 1 })} M`
+  : Math.abs(v) >= 1e5 ? `${Math.round(v / 1000)} K` : valor(v));
+
+function TooltipPanel({ active, payload, label, unidad }) {
+  if (!active || !payload?.length || payload[0].value == null) return null;
+  return (
+    <div className="chart-tooltip">
+      <div className="chart-tooltip-label">{fmt.monthShort(label)}</div>
+      <div className="chart-tooltip-row"><span>{payload[0].name}</span><strong>{valor(payload[0].value)} {unidad}</strong></div>
+    </div>
+  );
+}
+
+/** Brecha del biodiésel sobre el gas oil, en % con signo. */
+const brechaPct = (bio, go) => (bio == null || !go ? null : (bio / go - 1) * 100);
+const conSigno = (d) => `${d >= 0 ? '+' : '-'}${fmt.pct(Math.abs(d), 1)}`;
+
+function TooltipComparacion({ active, payload, label, unidad }) {
+  if (!active || !payload?.length) return null;
+  const p = payload[0].payload;
+  const d = brechaPct(p.bio, p.go);
+  return (
+    <div className="chart-tooltip">
+      <div className="chart-tooltip-label">{fmt.monthShort(label)}</div>
+      {payload.filter((s) => s.dataKey !== 'brecha' && s.value != null).map((s) => (
+        <div className="chart-tooltip-row" key={s.dataKey}><span style={{ color: s.color }}>{s.name}</span><strong>{valor(s.value)} {unidad}</strong></div>
+      ))}
+      {d != null && <div className="chart-tooltip-row"><span>Biodiésel sobre gas oil</span><strong>{conSigno(d)}</strong></div>}
+    </div>
+  );
+}
+
+/** El gráfico de un panel: chico en la grilla, grande en la ventana ampliada. */
+function Grafico({ p, C, alto, grande }) {
+  const letra = grande ? 12 : 10;
+  return (
+    <ResponsiveContainer width="100%" height={alto}>
+      <ComposedChart data={p.puntos} margin={{ top: 8, right: grande ? 16 : 8, left: 0, bottom: 0 }}>
+        <XAxis dataKey="fecha" tick={{ fill: C.tick, fontSize: letra }} stroke={C.axis} tickFormatter={fmt.monthShort} minTickGap={grande ? 48 : 36} />
+        <YAxis tick={{ fill: C.tick, fontSize: letra }} stroke={C.axis} width={grande ? 62 : 50} domain={['auto', 'auto']} tickFormatter={eje} />
+        <Tooltip content={<TooltipPanel unidad={p.unidad} />} cursor={{ stroke: C.axis }} />
+        <Line dataKey="valor" name={p.titulo} stroke={p.color} strokeWidth={grande ? 2.5 : 2} dot={grande && p.puntos.length <= 36 ? { r: 2.5 } : false} connectNulls={!!p.unir} />
+      </ComposedChart>
+    </ResponsiveContainer>
+  );
+}
+
+/**
+ * Ventana flotante con un gráfico de la grilla en grande (pedido de HDO del
+ * 05/10/2026): se abre con un clic en el gráfico y se cierra con Esc, con la
+ * cruz o con un clic afuera. Sigue los mismos filtros y controles de la página.
+ */
+function GraficoAmpliado({ p, C, onClose }) {
+  useEffect(() => {
+    document.body.classList.add('modal-open');
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.body.classList.remove('modal-open');
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [onClose]);
+  return (
+    <div className="doc-modal" role="presentation">
+      <div className="doc-modal-backdrop" onClick={onClose} />
+      <div className="doc-modal-panel go-ampliado-panel" role="dialog" aria-modal="true" aria-labelledby="go-ampliado-titulo">
+        <header className="doc-modal-header">
+          <div className="doc-modal-title-block">
+            <div className="doc-modal-eyebrow">Precios comparados</div>
+            <div className="doc-modal-title" id="go-ampliado-titulo">{p.titulo} <span className="kpi-unidad">[{p.unidad}]</span></div>
+            <div className="doc-modal-url">{p.sub}</div>
+          </div>
+          <div className="doc-modal-actions">
+            <button className="doc-modal-close" onClick={onClose} aria-label="Cerrar">×</button>
+          </div>
+        </header>
+        <div className="go-comparado-cuerpo go-ampliado-cuerpo">
+          <div className="go-comparado-grafico go-ampliado-grafico"><Grafico p={p} C={C} alto="100%" grande /></div>
+          <Variacion puntos={p.puntos} />
+        </div>
+      </div>
     </div>
   );
 }
@@ -89,6 +185,13 @@ function Variacion({ puntos }) {
  * "al público"), así que sus niveles salen diluidos (432 $/l en ene-2025).
  * Acá el gas oil es el de Precio surtidor: al público, bocas de expendio,
  * ponderado por volumen solo entre las bocas con ese precio.
+ *
+ * Debajo de los ocho, un gráfico a todo el ancho compara el biodiésel con el
+ * gas oil ponderado (grado 2, grado 3 o los dos juntos, a elección), siempre
+ * con el precio sin impuestos del relevamiento, que es la comparación pareja
+ * con el precio Res. 963 (pedido y definición de HDO del 05/10/2026); las
+ * barras del eje derecho son la diferencia del mes en % (biodiésel sobre gas
+ * oil). Cada gráfico chico se abre en grande con un clic.
  */
 export default function PreciosComparados({ seccion }) {
   const C = useChartColors();
@@ -100,6 +203,9 @@ export default function PreciosComparados({ seccion }) {
   const [unidadId, setUnidadId] = useState('ton');
   const [moneda, setMoneda] = useState('usd');
   const [constantes, setConstantes] = useState(false);
+  const [goComp, setGoComp] = useState('g23');
+  const [ampliado, setAmpliado] = useState(null); // id del panel abierto en grande
+  const cerrarAmpliado = useCallback(() => setAmpliado(null), []);
   const iDesde = IDX_MES.get(desde);
   const iHasta = IDX_MES.get(hasta);
   const rango = useMemo(() => MESES.slice(iDesde, iHasta + 1), [iDesde, iHasta]);
@@ -144,13 +250,19 @@ export default function PreciosComparados({ seccion }) {
     return x;
   };
 
-  // Gas oil grado 2 y 3: ponderado por mes con los filtros y el tipo de precio del relevamiento ($/l)
+  // Gas oil grado 2 y 3: ponderado por mes con los filtros y el tipo de precio del relevamiento ($/l);
+  // n2 y n3, lo mismo con el precio sin impuestos, para la comparación con el biodiésel
   const gasOil = useMemo(() => {
-    if (!listo) return { g2: new Map(), g3: new Map() };
+    if (!listo) return { g2: new Map(), g3: new Map(), n2: new Map(), n3: new Map() };
     const f = (i) => fCanal(i) && fBand(i) && fProv(i);
+    const g2 = ponderarCol(DX, f, (i) => DX.mes[i], tipo.campo, 2);
+    const g3 = ponderarCol(DX, f, (i) => DX.mes[i], tipo.campo, 3);
+    const sinImp = tipo.campo === 'n';
     return {
-      g2: ponderarCol(DX, f, (i) => DX.mes[i], tipo.campo, 2),
-      g3: ponderarCol(DX, f, (i) => DX.mes[i], tipo.campo, 3),
+      g2,
+      g3,
+      n2: sinImp ? g2 : ponderarCol(DX, f, (i) => DX.mes[i], 'n', 2),
+      n3: sinImp ? g3 : ponderarCol(DX, f, (i) => DX.mes[i], 'n', 3),
     };
   }, claves);
 
@@ -168,8 +280,9 @@ export default function PreciosComparados({ seccion }) {
     const ars = (densidad) => ({ moneda: 'ars', unidad: 'l', densidad });
     const usdTon = (densidad) => ({ moneda: 'usd', unidad: 'ton', densidad });
     return [
-      { id: 'go2', titulo: 'Gas oil grado 2', sub: `${sufijoGo} · ${etiquetaCanal}`, unidad: rotuloUnidad, color: C.oil, puntos: puntos(go(gasOil.g2), ars(DENSIDADES.gasoil)) },
-      { id: 'go3', titulo: 'Gas oil grado 3', sub: `${sufijoGo} · ${etiquetaCanal}`, unidad: rotuloUnidad, color: C.exp, puntos: puntos(go(gasOil.g3), ars(DENSIDADES.gasoil)) },
+      // unir: la línea salta los meses sin precio (los excluidos por anómalos) en vez de cortarse
+      { id: 'go2', titulo: 'Gas oil grado 2', sub: `${sufijoGo} · ${etiquetaCanal}`, unidad: rotuloUnidad, color: C.oil, unir: true, puntos: puntos(go(gasOil.g2), ars(DENSIDADES.gasoil)) },
+      { id: 'go3', titulo: 'Gas oil grado 3', sub: `${sufijoGo} · ${etiquetaCanal}`, unidad: rotuloUnidad, color: C.exp, unir: true, puntos: puntos(go(gasOil.g3), ars(DENSIDADES.gasoil)) },
       { id: 'imp', titulo: 'Gas oil importado', sub: 'CIF, despachos sin CAMMESA', unidad: rotuloUnidad, color: C.warn, puntos: puntos((f) => imp.get(f), usdTon(DENSIDADES.gasoil)) },
       { id: 'brent', titulo: 'Crudo Brent', sub: 'EIA, informe de regalías de la SE', unidad: rotuloUnidad, color: C.ink, puntos: puntos((f) => brent.get(f), { moneda: 'usd', unidad: 'm3', densidad: DENSIDADES.brent }) },
       { id: 'bio', titulo: 'Biodiésel', sub: 'precio Res. 963 (mediana)', unidad: rotuloUnidad, color: C.bio, puntos: puntos((f) => bio.get(f), usdTon(DENSIDADES.bio)) },
@@ -179,17 +292,35 @@ export default function PreciosComparados({ seccion }) {
     ];
   }, [rango, gasOil, tipo, etiquetaCanal, etiquetaFiltro, C, unidadId, moneda, constantes, cpiBase]);
 
-  const TooltipPanel = ({ active, payload, label, unidad: u }) => {
-    if (!active || !payload?.length || payload[0].value == null) return null;
-    return (
-      <div className="chart-tooltip">
-        <div className="chart-tooltip-label">{fmt.monthShort(label)}</div>
-        <div className="chart-tooltip-row"><span>{payload[0].name}</span><strong>{valor(payload[0].value)} {u}</strong></div>
-      </div>
-    );
-  };
-  const eje = (v) => (Math.abs(v) >= 1e6 ? `${(v / 1e6).toLocaleString('es-AR', { maximumFractionDigits: 1 })} M`
-    : Math.abs(v) >= 1e5 ? `${Math.round(v / 1000)} K` : valor(v));
+  // Biodiésel contra el gas oil sin impuestos: grado 2, grado 3 o el ponderado por volumen de los dos
+  const comparacion = useMemo(() => {
+    const bio = serieDe('bio_963_m');
+    const goSinImp = (f) => {
+      const i = IDX_MES.get(f);
+      const a = goComp === 'g3' ? null : gasOil.n2.get(i);
+      const b = goComp === 'g2' ? null : gasOil.n3.get(i);
+      const w = (a?.w || 0) + (b?.w || 0);
+      return w ? ((a?.pw || 0) + (b?.pw || 0)) / w : null;
+    };
+    const puntos = rango.map((f) => {
+      const b = convertir(bio.get(f), f, { moneda: 'usd', unidad: 'ton', densidad: DENSIDADES.bio });
+      const g = convertir(goSinImp(f), f, { moneda: 'ars', unidad: 'l', densidad: DENSIDADES.gasoil });
+      return { fecha: f, bio: b, go: g, brecha: brechaPct(b, g) };
+    });
+    // Eje derecho de la brecha: marcas redondas y siempre con el cero adentro
+    const brechas = puntos.map((p) => p.brecha).filter((v) => v != null);
+    const lo = Math.min(0, ...brechas);
+    const hi = Math.max(0, ...brechas);
+    const paso = [5, 10, 20, 25, 50, 100].find((n) => Math.ceil(hi / n) - Math.floor(lo / n) <= 6) || 200;
+    const marcas = [];
+    for (let v = Math.floor(lo / paso) * paso; v <= Math.ceil(hi / paso) * paso; v += paso) marcas.push(v);
+    if (marcas.length < 2) marcas.splice(0, marcas.length, -paso, 0, paso);
+    return { puntos, marcas, ultimo: puntos.findLast((p) => p.bio != null && p.go != null) };
+  }, [rango, gasOil, goComp, unidadId, moneda, constantes, cpiBase]);
+  const goElegido = GO_COMPARACION.find((g) => g[0] === goComp);
+  const colorGo = { g2: C.oil, g3: C.exp, g23: C.ink }[goComp];
+  const brecha = comparacion.ultimo ? brechaPct(comparacion.ultimo.bio, comparacion.ultimo.go) : null;
+  const panelAmpliado = ampliado ? paneles.find((p) => p.id === ampliado) : null;
 
   const controles = (
     <div className="go-intervalo">
@@ -220,7 +351,7 @@ export default function PreciosComparados({ seccion }) {
         <button className={constantes ? 'active' : ''} onClick={() => setConstantes(true)}>Constantes</button>
       </div>
       <span className="chart-card-subtitle">
-        {rango.length} meses · {rotuloUnidad} {constantes && baseCpi ? `constantes de ${fmt.monthShort(baseCpi)} (CPI EE.UU.)` : 'corrientes'} · los filtros mueven solo los dos gas oil
+        {rango.length} meses · {rotuloUnidad} {constantes && baseCpi ? `constantes de ${fmt.monthShort(baseCpi)} (CPI EE.UU.)` : 'corrientes'} · los filtros mueven solo el gas oil
       </span>
     </div>
   );
@@ -237,28 +368,82 @@ export default function PreciosComparados({ seccion }) {
       {listo && (
         <div className="go-comparados">
           {paneles.map((p) => (
-            <div className="chart-card" key={p.id}>
+            <div
+              className="chart-card go-comparado-card" key={p.id} role="button" tabIndex={0} title="Clic para ampliar"
+              onClick={() => setAmpliado(p.id)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setAmpliado(p.id); } }}
+            >
               <div className="chart-card-header">
                 <span className="chart-card-title">{p.titulo} <span className="kpi-unidad">[{p.unidad}]</span></span>
                 <span className="chart-card-subtitle">{p.sub}</span>
+                <span className="go-ampliar" aria-hidden="true">⤢</span>
               </div>
               <div className="chart-card-body go-comparado-cuerpo">
-                <div className="go-comparado-grafico">
-                  <ResponsiveContainer width="100%" height={190}>
-                    <ComposedChart data={p.puntos} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-                      <XAxis dataKey="fecha" tick={{ fill: C.tick, fontSize: 10 }} stroke={C.axis} tickFormatter={fmt.monthShort} minTickGap={36} />
-                      <YAxis tick={{ fill: C.tick, fontSize: 10 }} stroke={C.axis} width={50} domain={['auto', 'auto']} tickFormatter={eje} />
-                      <Tooltip content={<TooltipPanel unidad={p.unidad} />} cursor={{ stroke: C.axis }} />
-                      <Line dataKey="valor" name={p.titulo} stroke={p.color} strokeWidth={2} dot={false} connectNulls={false} />
-                    </ComposedChart>
-                  </ResponsiveContainer>
-                </div>
+                <div className="go-comparado-grafico"><Grafico p={p} C={C} alto={190} /></div>
                 <Variacion puntos={p.puntos} />
               </div>
             </div>
           ))}
         </div>
       )}
+      {listo && (
+        <div className="chart-card go-comparacion">
+          <div className="chart-card-header">
+            <div>
+              <span className="chart-card-title">Biodiésel vs. {goElegido[2].toLowerCase()} sin impuestos <span className="kpi-unidad">[{rotuloUnidad}]</span></span>
+              <span className="chart-card-subtitle">
+                Biodiésel: precio Res. 963 (mediana) · gas oil: precio sin impuestos del relevamiento, ponderado por volumen{etiquetaFiltro ? ` · ${etiquetaFiltro}` : ''} · {etiquetaCanal}
+              </span>
+            </div>
+            <div className="chart-range-selector" role="group" aria-label="Gas oil a comparar">
+              {GO_COMPARACION.map(([id, label]) => (
+                <button key={id} className={goComp === id ? 'active' : ''} onClick={() => setGoComp(id)}>{label}</button>
+              ))}
+            </div>
+          </div>
+          <div className="chart-card-body go-comparado-cuerpo go-comparacion-cuerpo">
+            <div className="go-comparado-grafico">
+              <ResponsiveContainer width="100%" height={360}>
+                <ComposedChart data={comparacion.puntos} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+                  <XAxis dataKey="fecha" tick={{ fill: C.tick, fontSize: 11 }} stroke={C.axis} tickFormatter={fmt.monthShort} minTickGap={40} />
+                  <YAxis yAxisId="precio" tick={{ fill: C.tick, fontSize: 11 }} stroke={C.axis} width={62} domain={['auto', 'auto']} tickFormatter={eje} />
+                  {/* Eje derecho: la brecha en %, siempre con el cero a la vista */}
+                  <YAxis
+                    yAxisId="brecha" orientation="right" tick={{ fill: C.tick, fontSize: 11 }} stroke={C.axis} width={48}
+                    domain={[comparacion.marcas[0], comparacion.marcas.at(-1)]} ticks={comparacion.marcas}
+                    tickFormatter={(v) => `${v > 0 ? '+' : ''}${v}%`}
+                  />
+                  <ReferenceLine yAxisId="brecha" y={0} stroke={C.axis} />
+                  <Tooltip content={<TooltipComparacion unidad={rotuloUnidad} />} cursor={{ stroke: C.axis }} />
+                  <Bar yAxisId="brecha" dataKey="brecha" name="Biodiésel sobre gas oil" fill={C.neutralFill} maxBarSize={22} />
+                  <Line yAxisId="precio" dataKey="go" name={goElegido[2]} stroke={colorGo} strokeWidth={2.2} dot={false} connectNulls />
+                  <Line yAxisId="precio" dataKey="bio" name="Biodiésel" stroke={C.bio} strokeWidth={2.2} dot={false} connectNulls={false} />
+                </ComposedChart>
+              </ResponsiveContainer>
+              <div className="chart-legend">
+                <div className="chart-legend-item"><span className="chart-legend-swatch" style={{ background: C.bio }} />Biodiésel Res. 963</div>
+                <div className="chart-legend-item"><span className="chart-legend-swatch" style={{ background: colorGo }} />{goElegido[2]} sin impuestos</div>
+                <div className="chart-legend-item"><span className="chart-legend-swatch" style={{ background: C.neutralFill }} />Biodiésel sobre gas oil, en % (eje derecho)</div>
+              </div>
+            </div>
+            <div className="go-comparacion-tarjetas">
+              <div className="go-variacion" title="Cuánto más caro (+) o más barato (-) es el biodiésel que el gas oil en el último mes con los dos precios">
+                <span className="go-variacion-rotulo">Biodiésel sobre gas oil</span>
+                {brecha == null ? <span className="go-variacion-sin">sin los dos precios en el intervalo</span> : (
+                  <>
+                    <span className="go-variacion-delta">{conSigno(brecha)}</span>
+                    <span className="go-variacion-valores">{valor(comparacion.ultimo.bio)} vs. {valor(comparacion.ultimo.go)}</span>
+                    <span className="go-variacion-fechas">{fmt.monthShort(comparacion.ultimo.fecha)}</span>
+                  </>
+                )}
+              </div>
+              <Variacion rotulo="Biodiésel" puntos={comparacion.puntos.map((p) => ({ fecha: p.fecha, valor: p.bio }))} />
+              <Variacion rotulo={goElegido[2]} puntos={comparacion.puntos.map((p) => ({ fecha: p.fecha, valor: p.go }))} />
+            </div>
+          </div>
+        </div>
+      )}
+      {panelAmpliado && <GraficoAmpliado p={panelAmpliado} C={C} onClose={cerrarAmpliado} />}
       <p className="note go-nota">
         Fuente: Secretaría de Energía, relevamiento Res. 1104/2004 (gas oil grado 2 y 3: el mismo ponderado por volumen de la
         página Precio surtidor, con sus filtros y su tipo de precio) y despachos de importación de gas oil (CIF, sin CAMMESA);
@@ -268,7 +453,12 @@ export default function PreciosComparados({ seccion }) {
         biodiésel {DENSIDADES.bio}, aceite de soja {DENSIDADES.aceite}, metanol {DENSIDADES.metanol}, crudo Brent {DENSIDADES.brent} ton/m³;
         6,2898 bbl y 264,172 gal por m³). Moneda: con el tipo de cambio promedio del mes. Valores constantes: deflactados con el
         CPI de Estados Unidos al último mes del intervalo, en ambas monedas, como el ranking. La tarjeta de cada gráfico compara
-        el primer y el último valor del intervalo elegido. Último mes del relevamiento: {fmt.monthShort(ULTIMO_MES)}.
+        el primer y el último valor del intervalo elegido. El gráfico de abajo compara el biodiésel con el gas oil siempre a
+        precio sin impuestos (el del relevamiento, ponderado por volumen, con los mismos filtros; grado 2 y 3 juntos es el
+        ponderado por volumen de los dos grados), cualquiera sea el tipo de precio elegido arriba; las barras del eje derecho
+        son la diferencia del mes en % (biodiésel / gas oil - 1); la brecha depende de la
+        unidad, porque el biodiésel y el gas oil tienen distinta densidad. {NOTA_MESES_EXCLUIDOS} Último mes del relevamiento:
+        {' '}{fmt.monthShort(ULTIMO_MES)}.
       </p>
     </div>
   );

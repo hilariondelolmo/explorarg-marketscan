@@ -10,7 +10,7 @@ import corte from '../../data/corte.json';
 import evidencia from '../../data/evidencia.json';
 import { fmt } from '../../lib/format.js';
 import { useChartColors } from '../../lib/theme.jsx';
-import { useRelevamiento, useCajas, BloqueFijo, Tarjeta, TooltipSerie, RANGOS, TODAS } from './relevamiento.jsx';
+import { useRelevamiento, useCajas, BloqueFijo, Tarjeta, TooltipSerie, RANGOS, TODAS, NOTA_MESES_EXCLUIDOS } from './relevamiento.jsx';
 import '../mercado/Mercado.css';
 import '../charts/Chart.css';
 import '../KPIs.css';
@@ -242,7 +242,7 @@ export default function MinoristaMayorista({ seccion }) {
     <div className="go-seccion">
       <BloqueFijo
         seccion={seccion} tituloDefault="Mercado minorista y mayorista" F={F}
-        cajas={cajas} abiertos={abiertos} alternar={alternar}
+        cajas={cajas} abiertos={abiertos} alternar={alternar} soloMesesConPrecio
       />
 
       {abiertos.kpi && kpi && <div className="go-desplegable-cuerpo">{tarjetas}</div>}
@@ -344,8 +344,8 @@ export default function MinoristaMayorista({ seccion }) {
             eléctricas; como la página Importaciones). Gas oil fósil = (precio sin impuestos −
             mezcla real × precio del biodiesel) / (1 − mezcla real), con la mezcla real del mes y el precio Res. 963 de la
             categoría mediana en $/l (densidad {DENSIDAD_BIO}). La tabla muestra todos los canales aunque haya uno
-            filtrado: clic en una fila filtra ese canal en el resto de la sección; otro clic lo suelta. Último mes:
-            {' '}{fmt.monthShort(ULTIMO_MES)}.
+            filtrado: clic en una fila filtra ese canal en el resto de la sección; otro clic lo suelta.
+            {' '}{NOTA_MESES_EXCLUIDOS} Último mes: {fmt.monthShort(ULTIMO_MES)}.
           </p>
         </>
       )}

@@ -7,13 +7,15 @@
 // Minorista y mayorista).
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  MESES, ULTIMO_MES, IDX_MES, PROVINCIAS, BANDERAS, CANALES_COM, TIPOS_NEGOCIO,
-  TIPOS_PRECIO, tipoPrecio, convertir, ponderarCol, cargarRetail, cargarParte, cargarMes,
+  MESES, MESES_ANOMALOS, MESES_CON_PRECIO, ULTIMO_MES, IDX_MES, PROVINCIAS, BANDERAS, CANALES_COM, TIPOS_NEGOCIO,
+  TIPOS_PRECIO, tipoPrecio, convertir, ponderarCol, sumarCol, cargarRetail, cargarParte, cargarMes,
   fmtPrecio, variacion, nombreProvincia,
 } from '../../lib/gasoil.js';
 import { fmt } from '../../lib/format.js';
 
 export const TODAS = 'todas';
+// Aviso para la nota al pie de las páginas con precios de gas oil
+export const NOTA_MESES_EXCLUIDOS = `Sin los precios de gas oil de ${[...MESES_ANOMALOS].map(fmt.monthShort).join(', ')}: el relevamiento trae valores anómalos en esos meses (los volúmenes sí se muestran).`;
 export const RANGOS = [['12m', '12 m'], ['5a', '5 a'], ['10a', '10 a'], ['todo', 'Todo']];
 // Tipos de negocio que el workbook selecciona por defecto en el minorista
 export const TIPOS_RETAIL = new Set([
@@ -217,6 +219,8 @@ export function useRelevamiento({ modo = 'surtidor', conMes = false } = {}) {
   const banderasMes = useMemo(() => {
     if (!listo) return [];
     const m = ponderarCol(DX, (i) => fMes(i) && fCanal(i), (i) => DX.band[i], tipo.campo, 2);
+    // Mes sin precios (los excluidos por anómalos): las banderas con volumen
+    if (!m.size) return [...sumarCol(DX, (i) => fMes(i) && fCanal(i), (i) => DX.band[i], 2).entries()].sort((a, b) => b[1] - a[1]).map(([b]) => BANDERAS[b]);
     return [...m.entries()].sort((a, b) => b[1].w - a[1].w).map(([b]) => BANDERAS[b]);
   }, claves);
 
@@ -265,7 +269,7 @@ export function useCajas(inicial) {
  * Fila única de los ocho filtros del relevamiento, con el título arriba
  * alineado al borde del control (orden del tablero PRECIO SURTIDOR).
  */
-export function FiltrosRelevamiento({ F, sinTipoPrecio = false, sinMes = false, tiposPrecio = TIPOS_PRECIO }) {
+export function FiltrosRelevamiento({ F, sinTipoPrecio = false, sinMes = false, tiposPrecio = TIPOS_PRECIO, soloMesesConPrecio = false }) {
   const {
     mes, setMes, tipoId, setTipoId, cd, cambiarCd, disponibles, tipos, setTipos, resumenTipos,
     cc, cambiarCc, bandera, setBandera, banderasMes, opTexto, elegirOperador, operadoresOrden,
@@ -278,7 +282,7 @@ export function FiltrosRelevamiento({ F, sinTipoPrecio = false, sinMes = false, 
         <div className="go-filtro go-f-mes">
           <label htmlFor="go-mes">Mes</label>
           <select id="go-mes" className="empresa-select" value={mes} onChange={(e) => setMes(e.target.value)}>
-            {[...MESES].reverse().map((f) => <option key={f} value={f}>{fmt.monthShort(f)}</option>)}
+            {[...(soloMesesConPrecio ? MESES_CON_PRECIO : MESES)].reverse().map((f) => <option key={f} value={f}>{fmt.monthShort(f)}</option>)}
           </select>
         </div>
       )}
@@ -367,15 +371,16 @@ export function Cajas({ cajas, abiertos, alternar }) {
  * Bloque fijo de la sección: encabezado, fila de filtros y fila de cajas.
  * Queda pegado bajo la sub-nav al scrollear; los cuerpos de las cajas los
  * dibuja cada sección debajo, en el mismo orden que las cajas. Las secciones
- * de volumen van sin el filtro de tipo de precio.
+ * de volumen van sin el filtro de tipo de precio; las de precio, sin los
+ * meses excluidos en el selector de mes (soloMesesConPrecio).
  */
-export function BloqueFijo({ seccion, tituloDefault, F, cajas, abiertos, alternar, sinTipoPrecio = false }) {
+export function BloqueFijo({ seccion, tituloDefault, F, cajas, abiertos, alternar, sinTipoPrecio = false, soloMesesConPrecio = false }) {
   return (
     <div className="go-sticky">
       <p className="section-kicker">Mercado Gas Oil</p>
       <h2>{seccion?.title ?? tituloDefault}</h2>
       {seccion?.intro && <p className="section-intro">{seccion.intro}</p>}
-      <FiltrosRelevamiento F={F} sinTipoPrecio={sinTipoPrecio} />
+      <FiltrosRelevamiento F={F} sinTipoPrecio={sinTipoPrecio} soloMesesConPrecio={soloMesesConPrecio} />
       <Cajas cajas={cajas} abiertos={abiertos} alternar={alternar} />
     </div>
   );

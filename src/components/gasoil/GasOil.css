@@ -1100,6 +1100,107 @@
   }
 }
 
+/* Clic en un gráfico de la grilla: se abre en grande en una ventana flotante */
+.go-comparado-card {
+  position: relative;
+  cursor: zoom-in;
+}
+.go-comparado-card:focus-visible {
+  outline: 2px solid var(--accent-exp);
+  outline-offset: 4px;
+}
+.go-ampliar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.95rem;
+  line-height: 1;
+  color: var(--ink-muted);
+  opacity: 0.5;
+  transition: opacity 0.15s, color 0.15s;
+}
+.go-comparado-card:hover .go-ampliar,
+.go-comparado-card:focus-visible .go-ampliar {
+  opacity: 1;
+  color: var(--ink);
+}
+.go-ampliado-panel {
+  align-self: center;
+  width: min(95vw, 1180px);
+  height: auto;
+  max-height: 95vh;
+}
+.go-ampliado-cuerpo {
+  gap: 0.9rem;
+  padding: 1.2rem 1.4rem 1.4rem;
+}
+.go-ampliado-grafico {
+  height: min(62vh, 560px);
+}
+.go-ampliado-cuerpo .go-variacion {
+  flex-basis: 140px;
+  padding: 0.8rem;
+}
+.go-ampliado-cuerpo .go-variacion-delta {
+  font-size: 1.5rem;
+}
+.go-ampliado-cuerpo .go-variacion-valores {
+  font-size: 0.85rem;
+}
+.go-ampliado-cuerpo .go-variacion-fechas {
+  font-size: 0.7rem;
+}
+
+/* Biodiésel contra gas oil: un gráfico a todo el ancho con sus tres tarjetas al costado */
+.go-comparacion .chart-card-header > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+.go-comparacion .chart-card-subtitle {
+  margin-left: 0;
+}
+.go-comparacion-cuerpo {
+  gap: 1rem;
+}
+.go-comparacion-tarjetas {
+  flex: 0 0 170px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.go-comparacion-tarjetas .go-variacion {
+  flex: 1 1 0;
+}
+.go-comparacion-tarjetas .go-variacion-delta {
+  font-size: 1.25rem;
+}
+.go-variacion-rotulo {
+  font-size: 0.62rem;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+}
+@media (max-width: 720px) {
+  .go-comparacion-cuerpo {
+    flex-direction: column;
+  }
+  .go-comparacion-tarjetas {
+    flex-basis: auto;
+    flex-direction: row;
+  }
+}
+@media (max-width: 420px) {
+  .go-comparacion-tarjetas {
+    flex-direction: column;
+  }
+  .go-ampliado-grafico {
+    height: 46vh;
+  }
+}
+
 /* --- Resultado de importar: seis filtros (importador, canal de distribución,
    tipo de negocio, canal de comercialización, bandera, provincia) --- */
 @media (min-width: 1101px) {

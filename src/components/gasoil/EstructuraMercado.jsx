@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { ULTIMO_MES, BANDERAS, CANALES_DIST, CANALES_COM, TIPOS_NEGOCIO, ponderarCol, fmtPrecio, colorBandera } from '../../lib/gasoil.js';
 import { fmt } from '../../lib/format.js';
 import { useChartColors, useTheme } from '../../lib/theme.jsx';
-import { useRelevamiento, useCajas, BloqueFijo, CC_PUBLICO, TODAS } from './relevamiento.jsx';
+import { useRelevamiento, useCajas, BloqueFijo, CC_PUBLICO, TODAS, NOTA_MESES_EXCLUIDOS } from './relevamiento.jsx';
 import SankeyMercado, { NIVELES } from './SankeyMercado.jsx';
 import { paletaSankey } from './coloresSankey.js';
 import '../mercado/Mercado.css';
@@ -334,7 +334,7 @@ export default function EstructuraMercado({ seccion }) {
             comercializadores, minoristas y mayoristas). Precio de cada nivel ponderado por el volumen de cada boca
             ({tipo.label.toLowerCase()}). Cada tabla muestra su nivel completo aunque esté filtrado: clic en una fila
             filtra ese canal o tipo en el resto de la sección; otro clic lo suelta.
-            Último mes: {fmt.monthShort(ULTIMO_MES)}.
+            {' '}{NOTA_MESES_EXCLUIDOS} Último mes: {fmt.monthShort(ULTIMO_MES)}.
           </p>
         </>
       )}
