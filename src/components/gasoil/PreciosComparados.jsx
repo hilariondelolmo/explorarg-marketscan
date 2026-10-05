@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ComposedChart, Bar, Line, XAxis, YAxis, Tooltip, ReferenceLine, ResponsiveContainer } from 'recharts';
+import { ComposedChart, Bar, Cell, Line, XAxis, YAxis, Tooltip, ReferenceArea, ReferenceLine, ResponsiveContainer } from 'recharts';
 import {
   MESES, ULTIMO_MES, IDX_MES, PRODUCTOS, COMPARADOS, IMPORTACIONES, TC, CPI_US, DENSIDAD_GO, DENSIDAD_BIO, TIPOS_PRECIO,
   ponderarCol, variacion,
@@ -110,6 +110,26 @@ function TooltipComparacion({ active, payload, label, unidad }) {
   );
 }
 
+const MESES_EN_TOOLTIP = 8;
+function TooltipHistograma({ active, payload, total }) {
+  if (!active || !payload?.length) return null;
+  const c = payload[0].payload;
+  return (
+    <div className="chart-tooltip">
+      <div className="chart-tooltip-label">Biodiésel entre {c.rotulo} sobre el gas oil</div>
+      <div className="chart-tooltip-row"><span>Meses</span><strong>{c.n} de {total} ({fmt.pct((c.n / total) * 100)})</strong></div>
+      {c.n > 0 && (
+        <div className="chart-tooltip-row">
+          <span>
+            {c.meses.slice(0, MESES_EN_TOOLTIP).map(fmt.monthShort).join(', ')}
+            {c.n > MESES_EN_TOOLTIP ? ` y ${c.n - MESES_EN_TOOLTIP} más` : ''}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /** El gráfico de un panel: chico en la grilla, grande en la ventana ampliada. */
 function Grafico({ p, C, alto, grande }) {
   const letra = grande ? 12 : 10;
@@ -191,7 +211,8 @@ function GraficoAmpliado({ p, C, onClose }) {
  * con el precio sin impuestos del relevamiento, que es la comparación pareja
  * con el precio Res. 963 (pedido y definición de HDO del 05/10/2026); las
  * barras del eje derecho son la diferencia del mes en % (biodiésel sobre gas
- * oil). Cada gráfico chico se abre en grande con un clic.
+ * oil) y, debajo, un histograma cuenta los meses del intervalo por tramo de
+ * esa diferencia. Cada gráfico chico se abre en grande con un clic.
  */
 export default function PreciosComparados({ seccion }) {
   const C = useChartColors();
@@ -320,6 +341,40 @@ export default function PreciosComparados({ seccion }) {
   const goElegido = GO_COMPARACION.find((g) => g[0] === goComp);
   const colorGo = { g2: C.oil, g3: C.exp, g23: C.ink }[goComp];
   const brecha = comparacion.ultimo ? brechaPct(comparacion.ultimo.bio, comparacion.ultimo.go) : null;
+
+  // Histograma de la brecha: cuántos meses del intervalo cayeron en cada clase de
+  // diferencia (clases de ancho parejo, alineadas al cero: [desde, hasta))
+  const histograma = useMemo(() => {
+    const obs = comparacion.puntos.filter((p) => p.brecha != null);
+    if (!obs.length) return null;
+    const orden = obs.map((p) => p.brecha).sort((a, b) => a - b);
+    const lo = orden[0];
+    const hi = orden.at(-1);
+    const paso = [1, 2, 2.5, 5, 10, 20, 25, 50, 100].find((n) => Math.floor(hi / n) - Math.floor(lo / n) + 1 <= 12) || 200;
+    const i0 = Math.floor(lo / paso);
+    const borde = (v) => `${v > 0 ? '+' : ''}${v.toLocaleString('es-AR', { maximumFractionDigits: 1 })}`;
+    const clases = Array.from({ length: Math.floor(hi / paso) - i0 + 1 }, (_, k) => {
+      const desde = (i0 + k) * paso;
+      return { desde, hasta: desde + paso, rotulo: `${borde(desde)} y ${borde(desde + paso)}%`, eje: `${borde(desde)} a ${borde(desde + paso)}`, meses: [], n: 0 };
+    });
+    for (const p of obs) {
+      const c = clases[Math.floor(p.brecha / paso) - i0];
+      c.meses.push(p.fecha);
+      c.n += 1;
+    }
+    const mitad = orden.length >> 1;
+    const de = (v) => obs.find((p) => p.brecha === v).fecha;
+    return {
+      clases, total: obs.length, paso,
+      caro: obs.filter((p) => p.brecha > 0).length,
+      barato: obs.filter((p) => p.brecha < 0).length,
+      mediana: orden.length % 2 ? orden[mitad] : (orden[mitad - 1] + orden[mitad]) / 2,
+      promedio: orden.reduce((a, b) => a + b, 0) / orden.length,
+      min: { v: lo, fecha: de(lo) }, max: { v: hi, fecha: de(hi) },
+      claseUltimo: clases[Math.floor(obs.at(-1).brecha / paso) - i0], ultimo: obs.at(-1).fecha,
+      negativas: clases.filter((c) => c.hasta <= 0), positivas: clases.filter((c) => c.desde >= 0),
+    };
+  }, [comparacion]);
   const panelAmpliado = ampliado ? paneles.find((p) => p.id === ampliado) : null;
 
   const controles = (
@@ -443,6 +498,68 @@ export default function PreciosComparados({ seccion }) {
           </div>
         </div>
       )}
+      {listo && histograma && (
+        <div className="chart-card go-comparacion">
+          <div className="chart-card-header">
+            <div>
+              <span className="chart-card-title">Distribución de la diferencia: biodiésel sobre {goElegido[2].toLowerCase()} <span className="kpi-unidad">[meses]</span></span>
+              <span className="chart-card-subtitle">
+                Cuántos meses del intervalo cayeron en cada tramo de diferencia · {histograma.total} meses con los dos precios · tramos de {histograma.paso.toLocaleString('es-AR')} puntos · precios en {rotuloUnidad}
+              </span>
+            </div>
+          </div>
+          <div className="chart-card-body go-comparado-cuerpo go-comparacion-cuerpo">
+            <div className="go-comparado-grafico">
+              <ResponsiveContainer width="100%" height={300}>
+                <ComposedChart data={histograma.clases} margin={{ top: 10, right: 16, left: 0, bottom: 0 }} barCategoryGap="8%">
+                  <XAxis dataKey="eje" tick={{ fill: C.tick, fontSize: 11 }} stroke={C.axis} minTickGap={8} />
+                  <YAxis tick={{ fill: C.tick, fontSize: 11 }} stroke={C.axis} width={62} allowDecimals={false} />
+                  {histograma.negativas.length > 0 && (
+                    <ReferenceArea
+                      x1={histograma.negativas[0].eje} x2={histograma.negativas.at(-1).eje} fill={C.banda} strokeOpacity={0}
+                      label={{ value: 'Biodiésel más barato', position: 'insideTopLeft', fill: C.tick, fontSize: 11 }}
+                    />
+                  )}
+                  {histograma.positivas.length > 0 && (
+                    <ReferenceArea
+                      x1={histograma.positivas[0].eje} x2={histograma.positivas.at(-1).eje} fillOpacity={0} strokeOpacity={0}
+                      label={{ value: 'Biodiésel más caro', position: 'insideTopRight', fill: C.tick, fontSize: 11 }}
+                    />
+                  )}
+                  <Tooltip content={<TooltipHistograma total={histograma.total} />} cursor={{ fill: C.cursor }} />
+                  <Bar dataKey="n" name="Meses">
+                    {histograma.clases.map((c) => <Cell key={c.desde} fill={c === histograma.claseUltimo ? C.neutral : C.neutralFill} />)}
+                  </Bar>
+                </ComposedChart>
+              </ResponsiveContainer>
+              <div className="chart-legend">
+                <div className="chart-legend-item"><span className="chart-legend-swatch" style={{ background: C.neutralFill }} />Meses en cada tramo de diferencia (%)</div>
+                <div className="chart-legend-item"><span className="chart-legend-swatch" style={{ background: C.neutral }} />Tramo del último mes ({fmt.monthShort(histograma.ultimo)})</div>
+              </div>
+            </div>
+            <div className="go-comparacion-tarjetas">
+              <div className="go-variacion" title="Meses del intervalo con el biodiésel por encima del gas oil">
+                <span className="go-variacion-rotulo">Biodiésel más caro</span>
+                <span className="go-variacion-delta">{histograma.caro} de {histograma.total}</span>
+                <span className="go-variacion-valores">{fmt.pct((histograma.caro / histograma.total) * 100)} de los meses</span>
+              </div>
+              <div className="go-variacion" title="Meses del intervalo con el biodiésel por debajo del gas oil">
+                <span className="go-variacion-rotulo">Biodiésel más barato</span>
+                <span className="go-variacion-delta">{histograma.barato} de {histograma.total}</span>
+                <span className="go-variacion-valores">{fmt.pct((histograma.barato / histograma.total) * 100)} de los meses</span>
+              </div>
+              <div className="go-variacion" title="Mediana, promedio y extremos de la diferencia en el intervalo">
+                <span className="go-variacion-rotulo">Mediana</span>
+                <span className="go-variacion-delta">{conSigno(histograma.mediana)}</span>
+                <span className="go-variacion-valores">promedio {conSigno(histograma.promedio)}</span>
+                <span className="go-variacion-fechas">
+                  de {conSigno(histograma.min.v)} ({fmt.monthShort(histograma.min.fecha)}) a {conSigno(histograma.max.v)} ({fmt.monthShort(histograma.max.fecha)})
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {panelAmpliado && <GraficoAmpliado p={panelAmpliado} C={C} onClose={cerrarAmpliado} />}
       <p className="note go-nota">
         Fuente: Secretaría de Energía, relevamiento Res. 1104/2004 (gas oil grado 2 y 3: el mismo ponderado por volumen de la
@@ -456,7 +573,8 @@ export default function PreciosComparados({ seccion }) {
         el primer y el último valor del intervalo elegido. El gráfico de abajo compara el biodiésel con el gas oil siempre a
         precio sin impuestos (el del relevamiento, ponderado por volumen, con los mismos filtros; grado 2 y 3 juntos es el
         ponderado por volumen de los dos grados), cualquiera sea el tipo de precio elegido arriba; las barras del eje derecho
-        son la diferencia del mes en % (biodiésel / gas oil - 1); la brecha depende de la
+        son la diferencia del mes en % (biodiésel / gas oil - 1) y el histograma cuenta cuántos meses del intervalo cayeron en
+        cada tramo de esa diferencia; la brecha depende de la
         unidad, porque el biodiésel y el gas oil tienen distinta densidad. {NOTA_MESES_EXCLUIDOS} Último mes del relevamiento:
         {' '}{fmt.monthShort(ULTIMO_MES)}.
       </p>
