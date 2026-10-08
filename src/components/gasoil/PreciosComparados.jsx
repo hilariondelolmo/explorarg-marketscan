@@ -7,6 +7,7 @@ import {
 import { fmt } from '../../lib/format.js';
 import { useChartColors } from '../../lib/theme.jsx';
 import { useRelevamiento, FiltrosRelevamiento, NOTA_MESES_EXCLUIDOS } from './relevamiento.jsx';
+import { PRESIDENCIAS } from '../../lib/gestiones.js';
 import '../mercado/Mercado.css';
 import '../charts/Chart.css';
 import '../KPIs.css';
@@ -15,6 +16,14 @@ import './GasOil.css';
 
 const INTERVALO_DEFAULT = 18; // meses hacia atrás al entrar (el tablero abre con Dec/24 a Jul/26)
 const ATAJOS = [['12m', 12, '12 m'], ['24m', 24, '24 m'], ['5a', 60, '5 a'], ['todo', null, 'Todo']];
+// Presidencias como intervalo (pedido de HDO del 08/10/2026): de diciembre del
+// año en que asume a noviembre del año en que termina (la que sigue, hasta el
+// último mes con datos); la primera arranca donde arrancan los datos (ene-2010).
+const PERIODOS_PRESIDENCIA = PRESIDENCIAS.map((p) => {
+  const desde = `${p.desde.slice(0, 4)}-12`;
+  const hasta = p.hasta ? `${p.hasta.slice(0, 4)}-11` : ULTIMO_MES;
+  return { id: p.presidente, nombre: p.corto, desde: desde < MESES[0] ? MESES[0] : desde, hasta: hasta > ULTIMO_MES ? ULTIMO_MES : hasta };
+});
 // Tipos de precio del relevamiento, todos en $/l: la unidad y la moneda se eligen aparte
 const TIPOS_BASE = TIPOS_PRECIO.filter((t) => t.unidad === '$/l');
 // Unidades: cuántas de cada una hay en un m³ (ton: la densidad del producto, en ton/m³)
@@ -237,6 +246,12 @@ export default function PreciosComparados({ seccion }) {
   const atajoActivo = ATAJOS.find(([, n]) => hasta === ULTIMO_MES && desde === (n == null ? MESES[0] : MESES[Math.max(0, iUltimo - n + 1)]))?.[0];
   const cambiarDesde = (f) => { setDesde(f); if (f > hasta) setHasta(f); };
   const cambiarHasta = (f) => { setHasta(f); if (f < desde) setDesde(f); };
+  // Presidencia elegida: la que coincide exactamente con el intervalo (si el usuario mueve una fecha, se suelta)
+  const presidenciaActiva = PERIODOS_PRESIDENCIA.find((p) => p.desde === desde && p.hasta === hasta)?.id || '';
+  const elegirPresidencia = (id) => {
+    const p = PERIODOS_PRESIDENCIA.find((q) => q.id === id);
+    if (p) { setDesde(p.desde); setHasta(p.hasta); }
+  };
 
   const unidad = UNIDADES.find((u) => u.id === unidadId);
   const simbolo = MONEDAS.find((m) => m[0] === moneda)[1];
@@ -377,38 +392,62 @@ export default function PreciosComparados({ seccion }) {
   }, [comparacion]);
   const panelAmpliado = ampliado ? paneles.find((p) => p.id === ampliado) : null;
 
+  // Segunda fila de controles con el nombre arriba de cada uno, como la fila
+  // de filtros (pedido de HDO del 08/10/2026): Intervalo (desde, hasta y los
+  // atajos), Presidencia, Unidad, Moneda y Valores (desplegable, como los otros)
   const controles = (
-    <div className="go-intervalo">
-      <span className="go-filtro-label">Intervalo</span>
-      <select className="empresa-select" value={desde} onChange={(e) => cambiarDesde(e.target.value)} aria-label="Desde">
-        {[...MESES].reverse().map((f) => <option key={f} value={f}>{fmt.monthShort(f)}</option>)}
-      </select>
-      <span className="go-filtro-label">a</span>
-      <select className="empresa-select" value={hasta} onChange={(e) => cambiarHasta(e.target.value)} aria-label="Hasta">
-        {[...MESES].reverse().map((f) => <option key={f} value={f}>{fmt.monthShort(f)}</option>)}
-      </select>
-      <div className="chart-range-selector">
-        {ATAJOS.map(([id, n, label]) => (
-          <button key={id} className={atajoActivo === id ? 'active' : ''} onClick={() => atajo(n)}>{label}</button>
-        ))}
+    <>
+      <div className="go-filtros go-filtros-comparados">
+        <div className="go-filtro go-f-intervalo">
+          <span className="go-filtro-label">Intervalo</span>
+          <div className="go-intervalo-controles">
+            <select className="empresa-select" value={desde} onChange={(e) => cambiarDesde(e.target.value)} aria-label="Desde">
+              {[...MESES].reverse().map((f) => <option key={f} value={f}>{fmt.monthShort(f)}</option>)}
+            </select>
+            <span className="go-filtro-label">a</span>
+            <select className="empresa-select" value={hasta} onChange={(e) => cambiarHasta(e.target.value)} aria-label="Hasta">
+              {[...MESES].reverse().map((f) => <option key={f} value={f}>{fmt.monthShort(f)}</option>)}
+            </select>
+            <div className="chart-range-selector">
+              {ATAJOS.map(([id, n, label]) => (
+                <button key={id} className={atajoActivo === id ? 'active' : ''} onClick={() => atajo(n)}>{label}</button>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="go-filtro">
+          <label htmlFor="go-pc-presidencia">Presidencia</label>
+          <select id="go-pc-presidencia" className="empresa-select" value={presidenciaActiva} onChange={(e) => elegirPresidencia(e.target.value)}>
+            <option value="">Elegir una presidencia…</option>
+            {PERIODOS_PRESIDENCIA.map((p) => (
+              <option key={p.id} value={p.id}>{p.nombre} · {fmt.monthShort(p.desde)} a {fmt.monthShort(p.hasta)}</option>
+            ))}
+          </select>
+        </div>
+        <div className="go-filtro">
+          <label htmlFor="go-pc-unidad">Unidad</label>
+          <select id="go-pc-unidad" className="empresa-select" value={unidadId} onChange={(e) => setUnidadId(e.target.value)}>
+            {UNIDADES.map((u) => <option key={u.id} value={u.id}>{u.label}</option>)}
+          </select>
+        </div>
+        <div className="go-filtro">
+          <label htmlFor="go-pc-moneda">Moneda</label>
+          <select id="go-pc-moneda" className="empresa-select" value={moneda} onChange={(e) => setMoneda(e.target.value)}>
+            {MONEDAS.map(([id, s, nombre]) => <option key={id} value={id}>{nombre} ({s})</option>)}
+          </select>
+        </div>
+        <div className="go-filtro">
+          <label htmlFor="go-pc-valores">Valores</label>
+          <select id="go-pc-valores" className="empresa-select" value={constantes ? 'cte' : 'cor'} onChange={(e) => setConstantes(e.target.value === 'cte')}>
+            <option value="cor">Corrientes</option>
+            <option value="cte">Constantes</option>
+          </select>
+        </div>
       </div>
-      <span className="go-filtro-label">Unidad</span>
-      <select className="empresa-select" value={unidadId} onChange={(e) => setUnidadId(e.target.value)} aria-label="Unidad">
-        {UNIDADES.map((u) => <option key={u.id} value={u.id}>{u.label}</option>)}
-      </select>
-      <span className="go-filtro-label">Moneda</span>
-      <select className="empresa-select" value={moneda} onChange={(e) => setMoneda(e.target.value)} aria-label="Moneda">
-        {MONEDAS.map(([id, s, nombre]) => <option key={id} value={id}>{nombre} ({s})</option>)}
-      </select>
-      <span className="go-filtro-label">Valores</span>
-      <div className="chart-range-selector">
-        <button className={constantes ? '' : 'active'} onClick={() => setConstantes(false)}>Corrientes</button>
-        <button className={constantes ? 'active' : ''} onClick={() => setConstantes(true)}>Constantes</button>
-      </div>
-      <span className="chart-card-subtitle">
+      <p className="chart-card-subtitle go-intervalo-nota">
         {rango.length} meses · {rotuloUnidad} {constantes && baseCpi ? `constantes de ${fmt.monthShort(baseCpi)} (CPI EE.UU.)` : 'corrientes'} · los filtros mueven solo el gas oil
-      </span>
-    </div>
+      </p>
+    </>
   );
 
   return (

@@ -1075,6 +1075,50 @@
     grid-template-columns: 180fr 118fr 140fr 190fr 120fr 190fr 140fr;
   }
 }
+/* --- Precios comparados: segunda fila con el nombre arriba (Intervalo con sus
+   tres controles, Presidencia, Unidad, Moneda, Valores), pedido de HDO del
+   08/10/2026 --- */
+@media (min-width: 1101px) {
+  .go-filtros.go-filtros-comparados {
+    grid-template-columns: 430fr 320fr 95fr 165fr 140fr;
+    max-width: 1220px;
+  }
+}
+.go-sticky .go-filtros-comparados {
+  margin: -0.5rem 0 0.35rem;
+}
+.go-intervalo-controles {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+}
+.go-intervalo-controles .empresa-select {
+  width: auto;
+  min-width: 0;
+  flex: 1 1 110px;
+}
+.go-intervalo-controles .go-filtro-label {
+  height: auto;
+  flex: 0 0 auto;
+}
+.go-intervalo-controles .chart-range-selector {
+  width: auto;
+  flex: 0 0 auto;
+}
+.go-intervalo-nota {
+  display: block;
+  margin: 0 0 0.9rem;
+}
+@media (max-width: 720px) {
+  .go-filtros-comparados .go-f-intervalo {
+    grid-column: 1 / -1;
+  }
+  .go-intervalo-controles {
+    flex-wrap: wrap;
+  }
+}
+
 .go-intervalo {
   display: flex;
   align-items: center;
