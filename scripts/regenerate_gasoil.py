@@ -153,10 +153,10 @@ PRODUCTOS_MASTER = {
     "sme_arg": ("Biodiesel SME Americas, Argentina, Rosario fob (incl. export tax)", "Biodiesel SME Argentina fob Rosario", "F.O. Licht", "bio", "usd/ton"),
     "sme_usg": ("Biodiesel SME Americas, USA, Gulf Coast fob", "Biodiesel SME USA Golfo fob", "F.O. Licht", "bio", "usd/ton"),
     "jj_bio_fob": ("JJ Biodiesel Export Price SPOT FOB Rosario", "Biodiesel exportación spot FOB Rosario", "J.J. Hinrichsen", "bio", "usd/ton"),
-    "bio_963_gi": ("GRANDE", "Biodiesel - Res. 963 grande integrada", "Secretaría de Energía", "bio", "usd/ton"),
-    "bio_963_gni": ("GRANDE NO INTEGRADA", "Biodiesel - Res. 963 grande no integrada", "Secretaría de Energía", "bio", "usd/ton"),
+    "bio_963_gi": ("GRANDE", "Biodiesel grande integrada", "Secretaría de Energía", "bio", "usd/ton"),
+    "bio_963_gni": ("GRANDE NO INTEGRADA", "Biodiesel grande no integrada", "Secretaría de Energía", "bio", "usd/ton"),
     "bio_963_m": ("MEDIANA", "Biodiesel corte obligatorio", "Secretaría de Energía", "bio", "usd/ton"),  # (*) mediana 963, nombre de HDO 07/10/2026
-    "bio_963_p": ("PEQUEÑA", "Biodiesel - Res. 963 pequeña", "Secretaría de Energía", "bio", "usd/ton"),
+    "bio_963_p": ("PEQUEÑA", "Biodiesel pequeña", "Secretaría de Energía", "bio", "usd/ton"),
     # aceite de soja
     "aceite_fas": ("JJ Aceite FAS ROSARIO Promedio", "Aceite de soja FAS Rosario", "J.J. Hinrichsen", "aceite", "usd/ton"),  # (*)
     "aceite_fas_vendedor": ("JJ Aceite FAS ROSARIO VENDEDOR", "Aceite de soja FAS Rosario vendedor", "J.J. Hinrichsen", "aceite", "usd/ton"),
@@ -865,9 +865,13 @@ def generar(dry=False):
             p["nota"] = (f"{mes_corto(nuevos[0])} a {mes_corto(nuevos[-1])} del informe (faltan en Master data); "
                          f"los dos últimos meses son provisorios")
         if p["id"].startswith("bio_963_"):
-            # 963: precio en $/ton → usd/ton con el TC del mes
+            # Precio del biodiésel que fija la SE por categoría de empresa (hoy
+            # Res. 963/2023; antes otras resoluciones): $/ton → usd/ton con el TC
+            # del mes. HDO (07/10/2026): sin "Res. 963" en los nombres; la
+            # mediana es el "Biodiesel corte obligatorio".
+            categoria = {"gi": "grande integrada", "gni": "grande no integrada", "m": "mediana", "p": "pequeña"}[p["id"][8:]]
             p["serie"] = [[f, round(v / master["tc"][f], 2)] for f, v in p["serie"] if f in master["tc"]]
-            p["nota"] = "precio SE en $/ton convertido con el TC mensual"
+            p["nota"] = f"precio SE por categoría de empresa ({categoria}), en $/ton convertido con el TC mensual"
         p["desde"], p["hasta"] = p["serie"][0][0], p["serie"][-1][0]
     comparados = []
     for pid, (col, nombre, fuente) in SERIES_COMPARADOS.items():

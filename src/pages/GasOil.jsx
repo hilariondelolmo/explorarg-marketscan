@@ -118,6 +118,7 @@ const SECTIONS = [
     title: 'Ranking de variación de precios',
     intro: 'Cuánto subió cada precio desde una fecha base: el gas oil, las naftas y el kerosene del relevamiento contra los crudos, el diésel, el biodiésel, el aceite y el metanol. Se eligen los productos y el recorte del relevamiento.',
     Comp: RankingPrecios,
+    encabezadoPropio: true,
   },
 ];
 // Páginas: cada pestaña, o las de su menú (que puede tener un segundo nivel)

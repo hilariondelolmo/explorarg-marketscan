@@ -203,10 +203,32 @@
    productos con las casillas agrupadas por familia en dos columnas --- */
 @media (min-width: 1101px) {
   /* dos clases: la regla base de .go-filtros (ocho columnas) viene después en el archivo */
+  .go-filtros.go-filtros-ranking-1 {
+    grid-template-columns: 150fr 150fr 140fr 100fr 100fr 190fr;
+    max-width: 1000px;
+  }
   .go-filtros.go-filtros-ranking {
     grid-template-columns: 270fr 150fr 220fr 250fr;
     max-width: 1000px;
   }
+}
+.go-sticky .go-filtros-ranking-1 {
+  margin-bottom: 0.6rem;
+}
+.go-filtros-ranking-1 .go-play {
+  text-align: center;
+  background-image: none; /* es un botón, no un desplegable */
+  padding-right: 0.55rem;
+}
+.go-ranking .go-tabla tbody tr.destacada {
+  background: var(--bg-3);
+  font-weight: 600;
+}
+.go-ranking .go-tabla tbody tr.apagada {
+  opacity: 0.45;
+}
+.go-ranking .recharts-bar-rectangle {
+  cursor: pointer;
 }
 .mh-dropdown-panel.go-prod-panel {
   min-width: 620px;
