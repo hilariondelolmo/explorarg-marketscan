@@ -198,6 +198,55 @@
   overflow: visible;
 }
 
+/* --- Ranking de precios: fila con Productos y los tres filtros del
+   relevamiento (sin bloque fijo, como pidió HDO) y el desplegable de
+   productos con las casillas agrupadas por familia en dos columnas --- */
+@media (min-width: 1101px) {
+  /* dos clases: la regla base de .go-filtros (ocho columnas) viene después en el archivo */
+  .go-filtros.go-filtros-ranking {
+    grid-template-columns: 270fr 150fr 220fr 250fr;
+    max-width: 1000px;
+  }
+}
+.mh-dropdown-panel.go-prod-panel {
+  min-width: 620px;
+  max-height: calc(100vh - 260px);
+  overflow-y: auto;
+}
+.go-prod-panel .go-grupos {
+  column-count: 2;
+  column-gap: 1rem;
+}
+.go-grupo {
+  break-inside: avoid;
+  margin-bottom: 0.45rem;
+}
+.go-grupo-titulo {
+  color: var(--ink-muted);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.6rem 0.15rem;
+}
+.go-prod-panel .mh-dropdown-item span {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.8rem;
+}
+.go-ranking .go-tabla td.go-unidad {
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+@media (max-width: 720px) {
+  .mh-dropdown-panel.go-prod-panel {
+    min-width: 0;
+  }
+  .go-prod-panel .go-grupos {
+    column-count: 1;
+  }
+}
+
 /* --- Dropdown de tipos de negocio --- */
 .go-tipos-panel {
   min-width: 360px;

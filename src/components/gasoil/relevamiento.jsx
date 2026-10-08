@@ -394,6 +394,7 @@ export function BloqueFijo({ seccion, tituloDefault, F, cajas, abiertos, alterna
  */
 export function DropdownMulti({
   opciones, seleccion, resumen, onCambiar, rotulo = (t) => t, acciones = ACCIONES_TODOS, clase = 'go-tipos-panel',
+  grupos = null, // [{ titulo, opciones }]: las casillas agrupadas con un título (Productos del ranking)
 }) {
   const [abierto, setAbierto] = useState(false);
   const ref = useRef(null);
@@ -410,6 +411,12 @@ export function DropdownMulti({
     if (n.has(t)) n.delete(t); else n.add(t);
     onCambiar(n);
   };
+  const casilla = (t) => (
+    <label key={t} className="mh-dropdown-item">
+      <input type="checkbox" checked={seleccion.has(t)} onChange={() => toggle(t)} />
+      <span>{rotulo(t)}</span>
+    </label>
+  );
   return (
     <div className="mh-dropdown" ref={ref}>
       <button type="button" className={`empresa-select mh-dropdown-boton ${abierto ? 'abierto' : ''}`}
@@ -423,12 +430,16 @@ export function DropdownMulti({
               <button key={nombre} type="button" title={ayuda} onClick={() => onCambiar(new Set(lista || opciones))}>{nombre}</button>
             ))}
           </div>
-          {opciones.map((t) => (
-            <label key={t} className="mh-dropdown-item">
-              <input type="checkbox" checked={seleccion.has(t)} onChange={() => toggle(t)} />
-              <span>{rotulo(t)}</span>
-            </label>
-          ))}
+          {grupos ? (
+            <div className="go-grupos">
+              {grupos.map((g) => (
+                <div key={g.titulo} className="go-grupo">
+                  <div className="go-grupo-titulo">{g.titulo}</div>
+                  {g.opciones.map(casilla)}
+                </div>
+              ))}
+            </div>
+          ) : opciones.map(casilla)}
         </div>
       )}
     </div>

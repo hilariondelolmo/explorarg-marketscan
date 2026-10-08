@@ -116,7 +116,7 @@ const SECTIONS = [
   {
     id: 'ranking', label: 'Ranking precios', tableau: 'RANKING Actualizado',
     title: 'Ranking de variación de precios',
-    intro: 'Cuánto subió cada precio desde una fecha base: el gas oil en surtidor y sin impuestos contra el crudo, el diesel, el biodiesel y el aceite.',
+    intro: 'Cuánto subió cada precio desde una fecha base: el gas oil, las naftas y el kerosene del relevamiento contra los crudos, el diésel, el biodiésel, el aceite y el metanol. Se eligen los productos y el recorte del relevamiento.',
     Comp: RankingPrecios,
   },
 ];

@@ -65,6 +65,7 @@ except ImportError:
 
 from gasoil_estaciones import COLS_ESTACIONES, NOTA_ESTACIONES, contar_estaciones
 from gasoil_importaciones import CAMMESA, escribir_despachos, extraer_despachos
+from gasoil_productos import escribir_productos, extraer_productos, serie_filtrada
 from gasoil_sesco import FUENTE as FUENTE_SESCO, escribir_sesco, extraer_sesco
 
 VOL = Path("/Volumes/comun/01. TABLEAU")
@@ -119,15 +120,60 @@ PROVINCIA_ALIAS = {
     "CAPITAL FEDERAL": "CIUDAD AUTONOMA DE BUENOS AIRES",
 }
 
-# Series del ranking: id → (columna de Master data, nombre, fuente)
+# Series del ranking que salen de Master data: id → (columna, nombre, fuente,
+# familia, unidad). Son los productos del filtro Producto del tablero RANKING
+# Actualizado que no vienen del relevamiento 1104 (esos los arma
+# scripts/gasoil_productos.py): 32 series desde el 07/10/2026, antes eran las
+# seis marcadas con (*). Los diez crudos salen de la hoja "Tabla precios (2)"
+# del informe de regalías de crudo de la SE, en usd/m³ (el workbook los
+# rotula usd/ton); si Master data queda atrás, los meses que falten se toman
+# del informe (ver completar_con_regalias). Los cuatro precios de la Res. 963
+# vienen en $/ton y se pasan a usd/ton con el TC del mes.
+FUENTE_REGALIAS = "Informe de regalías de crudo (SE)"
 PRODUCTOS_MASTER = {
-    "brent": ("BRENT", "Brent", "EIA"),
-    "wti": ("WTI", "WTI", "EIA"),
-    "diesel_usa": ("Diesel Diesel Consumer Prices USA   (usd/ton)", "Diesel USA al consumidor", "EIA"),
-    "fame_ara": ("Biodiesel FAME, CFPP -10 Europe, ARA fob", "Biodiesel FAME ARA fob", "FoLicht"),
-    "bio_963_m": ("MEDIANA", "Biodiesel - Res. 963", "Secretaría de Energía"),
-    "aceite_fas": ("JJ Aceite FAS ROSARIO Promedio", "Aceite de soja FAS Rosario", "J.J. Hinrichsen"),
+    # crudos (usd/m³)
+    "brent": ("BRENT", "Brent", FUENTE_REGALIAS, "crudo", "usd/m³"),  # (*)
+    "wti": ("WTI", "WTI", FUENTE_REGALIAS, "crudo", "usd/m³"),  # (*)
+    "canadon_seco": ("CAÑADON SECO", "Cañadón Seco", FUENTE_REGALIAS, "crudo", "usd/m³"),
+    "escalante": ("ESCALANTE", "Escalante", FUENTE_REGALIAS, "crudo", "usd/m³"),
+    "magallanes": ("MAGALLANES", "Magallanes", FUENTE_REGALIAS, "crudo", "usd/m³"),
+    "maria_ines": ("MARÍA INÉS", "María Inés", FUENTE_REGALIAS, "crudo", "usd/m³"),
+    "medanito": ("MEDANITO", "Medanito", FUENTE_REGALIAS, "crudo", "usd/m³"),
+    "mendoza_norte": ("MENDOZA NORTE", "Mendoza Norte", FUENTE_REGALIAS, "crudo", "usd/m³"),
+    "noroeste": ("NOROESTE", "Noroeste", FUENTE_REGALIAS, "crudo", "usd/m³"),
+    "san_sebastian": ("SAN SEBASTIÁN", "San Sebastián", FUENTE_REGALIAS, "crudo", "usd/m³"),
+    # diésel de referencia
+    "diesel_usa": ("Diesel Diesel Consumer Prices USA   (usd/ton)", "Diesel USA al consumidor", "EIA", "diesel", "usd/ton"),  # (*)
+    "diesel_nwe": ("Diesel Diesel cif Northwest Europe (prompt)   (usd/ton)", "Diesel CIF Noroeste de Europa", "F.O. Licht", "diesel", "usd/ton"),
+    "diesel_nymex": ("Diesel Diesel USA NY Harbor No. 2 Heating Oil, Nymex   front month (usd/ton)", "Heating oil No. 2 Nymex, NY Harbor", "F.O. Licht", "diesel", "usd/ton"),
+    "diesel_ulsd": ("New York Harbor Ultra-Low Sulfur No 2 Diesel Spot Price(usd/ton)", "ULSD spot NY Harbor", "EIA", "diesel", "usd/ton"),
+    # biodiésel
+    "fame_ara": ("Biodiesel FAME, CFPP -10 Europe, ARA fob", "Biodiesel FAME ARA fob", "F.O. Licht", "bio", "usd/ton"),  # (*)
+    "pme_ara": ("Biodiesel PME, CFPP 10 Europe, ARA fob", "Biodiesel PME ARA fob", "F.O. Licht", "bio", "usd/ton"),
+    "sme_arg": ("Biodiesel SME Americas, Argentina, Rosario fob (incl. export tax)", "Biodiesel SME Argentina fob Rosario", "F.O. Licht", "bio", "usd/ton"),
+    "sme_usg": ("Biodiesel SME Americas, USA, Gulf Coast fob", "Biodiesel SME USA Golfo fob", "F.O. Licht", "bio", "usd/ton"),
+    "jj_bio_fob": ("JJ Biodiesel Export Price SPOT FOB Rosario", "Biodiesel exportación spot FOB Rosario", "J.J. Hinrichsen", "bio", "usd/ton"),
+    "bio_963_gi": ("GRANDE", "Biodiesel - Res. 963 grande integrada", "Secretaría de Energía", "bio", "usd/ton"),
+    "bio_963_gni": ("GRANDE NO INTEGRADA", "Biodiesel - Res. 963 grande no integrada", "Secretaría de Energía", "bio", "usd/ton"),
+    "bio_963_m": ("MEDIANA", "Biodiesel - Res. 963 mediana", "Secretaría de Energía", "bio", "usd/ton"),  # (*)
+    "bio_963_p": ("PEQUEÑA", "Biodiesel - Res. 963 pequeña", "Secretaría de Energía", "bio", "usd/ton"),
+    # aceite de soja
+    "aceite_fas": ("JJ Aceite FAS ROSARIO Promedio", "Aceite de soja FAS Rosario", "J.J. Hinrichsen", "aceite", "usd/ton"),  # (*)
+    "aceite_fas_vendedor": ("JJ Aceite FAS ROSARIO VENDEDOR", "Aceite de soja FAS Rosario vendedor", "J.J. Hinrichsen", "aceite", "usd/ton"),
+    "aceite_fas_minagri": ("FAS MinAgri", "Aceite de soja FAS MinAgri", "SAGyP", "aceite", "usd/ton"),
+    "aceite_fob_sagyp": ("FOB SAGYPYA SPOT SBO", "Aceite de soja FOB oficial SAGyP", "SAGyP", "aceite", "usd/ton"),
+    "aceite_upriver": ("Feedstocks Soy oil, crude South America, Up River(ARG) fob  (usd/ton)", "Aceite de soja Up River fob", "F.O. Licht", "aceite", "usd/ton"),
+    # metanol y glicerina
+    "metanol_usa": ("Chemicals Methanol Americas USA, Contract (Methanex)  (usd/ton)", "Metanol Methanex USA contrato", "F.O. Licht", "metanol", "usd/ton"),
+    "metanol_eu": ("Chemicals Methanol Europe Contract (Methanex)  (usd/ton)", "Metanol Methanex Europa contrato", "F.O. Licht", "metanol", "usd/ton"),
+    "metanol_ypf": ("Metanol YPF (usd/ton)", "Metanol YPF", "YPF", "metanol", "usd/ton"),
+    "glicerina": ("Renewable Chemicals Glycerine Argentina 80%crude, Rosario, fob  (usd/ton)", "Glicerina cruda 80% Rosario fob", "F.O. Licht", "glicerina", "usd/ton"),
 }
+# Las series que el ranking mostraba desde el principio: a estas se les exige
+# llegar hasta dos meses antes del último mes del relevamiento; las demás
+# pueden terminar antes (el JSON guarda `hasta` y el sitio lo muestra).
+PRODUCTOS_BASE = ("brent", "wti", "fame_ara", "bio_963_m", "aceite_fas")
+CRUDOS = tuple(k for k, v in PRODUCTOS_MASTER.items() if v[3] == "crudo")
 # Series de Master data que no van al ranking: alimentan la página Precios
 # comparados (tablero ARG GO MARKET SIDE BY SIDE), en el bloque "comparados"
 # de gasoil_ranking.json. El aceite FAS MINAGRI se calcula como el workbook
@@ -423,16 +469,22 @@ def extraer_eess(hy, ix_prov, ix_band):
 # ------------------------------------------------------------------ ranking
 
 def extraer_master(hy):
-    cols = ['"Date"', '"Exchange Rate Mean"', '"Consumer Price Index - US"'] + \
-           [f'"{c}"' for c, _, _ in PRODUCTOS_MASTER.values()] + \
-           [f'"{c}"' for c, _, _ in SERIES_COMPARADOS.values()] + [f'"{RETENCION_ACEITE}"']
-    rows = hy.query("master", f'''SELECT {", ".join(cols)} FROM {T}
+    """Series mensuales de Master data (promedio de los valores del mes): TC,
+    CPI, los productos del ranking y las series de Precios comparados.
+    Una columna puede alimentar más de una serie (metanol YPF)."""
+    series_cols = {"tc": "Exchange Rate Mean", "cpi": "Consumer Price Index - US"}
+    series_cols.update({k: v[0] for k, v in PRODUCTOS_MASTER.items()})
+    series_cols.update({k: v[0] for k, v in SERIES_COMPARADOS.items()})
+    cols = list(dict.fromkeys(list(series_cols.values()) + [RETENCION_ACEITE]))
+    rows = hy.query("master", f'''SELECT "Date", {", ".join(f'"{c}"' for c in cols)} FROM {T}
         WHERE "Date" >= DATE '{DESDE}-01' ORDER BY "Date"''')
+    pos = {c: i + 1 for i, c in enumerate(cols)}
     acum = defaultdict(lambda: defaultdict(list))
     for r in rows:
         f = ym(r[0])
-        retencion = r[-1]
-        for nombre, val in zip(["tc", "cpi"] + list(PRODUCTOS_MASTER) + list(SERIES_COMPARADOS), r[1:-1]):
+        retencion = r[pos[RETENCION_ACEITE]]
+        for nombre, col in series_cols.items():
+            val = r[pos[col]]
             if val is not None and val > 0:
                 val = float(val)
                 # Aceite FAS MINAGRI = FOB oficial × (1 - retención), como el workbook
@@ -525,9 +577,9 @@ def extraer_res963(master):
 
 
 def extraer_regalias():
-    """Brent y WTI mensuales del informe de regalías de crudo, en la misma
-    unidad que Master data (la hoja es la fuente de esas dos columnas):
-    {"brent": {fecha: valor}, "wti": {fecha: valor}}. El año figura solo en la
+    """Crudos mensuales del informe de regalías de crudo (Brent, WTI y los
+    ocho crudos locales), en la misma unidad que Master data, usd/m³ (la hoja
+    es la fuente de esas columnas): {id: {fecha: valor}}. El año figura solo en la
     primera fila de cada año (columna "a") y se arrastra. No se usan las
     columnas AÑO y MES: son fórmulas, y si el archivo no se guardó desde Excel
     vienen sin resultado (así perdió el flujo de Prep todo 2026 el 23/09/2026).
@@ -558,7 +610,8 @@ def extraer_regalias():
     if not all(c in enc for c in ("a", "m", "WTI")):
         return {}
     ia, im = enc.index("a"), enc.index("m")
-    cols = {"brent": enc.index("BRENT"), "wti": enc.index("WTI")}
+    # todos los crudos del catálogo que la hoja tenga (Brent y WTI siempre)
+    cols = {k: enc.index(PRODUCTOS_MASTER[k][0]) for k in CRUDOS if PRODUCTOS_MASTER[k][0] in enc}
     es_num = lambda x: isinstance(x, (int, float)) and not isinstance(x, bool)
     out = {k: {} for k in cols}
     anio = None
@@ -577,13 +630,14 @@ def extraer_regalias():
 
 
 def completar_con_regalias(master, regalias):
-    """Agrega a Brent y WTI de Master data los meses posteriores a su último
+    """Agrega a cada crudo de Master data los meses posteriores a su último
     dato que el informe de regalías sí trae. No pisa nada de lo que Master
     data ya tiene. Devuelve {serie: [meses agregados]} y avisa si en los meses
     que comparten los dos los valores no coinciden."""
     agregados = {}
-    for k in ("brent", "wti"):
+    for k in CRUDOS:
         serie = regalias.get(k, {})
+        master.setdefault(k, {})
         ultimo = max(master[k]) if master.get(k) else ""
         distintos = [f for f in sorted(serie)[-36:] if f in master[k] and abs(serie[f] / master[k][f] - 1) > 0.005]
         if distintos:
@@ -705,6 +759,9 @@ def generar(dry=False):
         retail = extraer_retail(hy, ix_mes, ix_prov, ix_band, ix_tn, ix_cc)
         geo = extraer_geo(hy)
         operadores, bocas, partes, por_mes = extraer_bocas(hy, ix_mes, ix_prov, ix_band, ix_tn, ix_cc, geo)
+        # después del cruce y las bocas, así los índices nuevos (tipos o canales
+        # que solo tienen naftas o kerosene) quedan al final de las listas
+        productos_1104 = extraer_productos(lambda sql: hy.query("p1104", sql), DESDE, ix_mes, ix_tn, ix_cc)
         canales = extraer_canales(hy, ix_mes, ix_cc)
         flujos = extraer_flujos(hy, ix_mes, ix_tn, ix_cc)
         eess = extraer_eess(hy, ix_prov, ix_band)
@@ -750,6 +807,20 @@ def generar(dry=False):
     pais = serie_pais(retail, meses, tipos_retail_idx, ix_cc.pos["Al público"])
     check(ultimo_mes in pais and "s2" in pais[ultimo_mes], f"Sin precio surtidor país en {ultimo_mes}")
     p_ult = pais[ultimo_mes]["s2"]
+    # Productos del relevamiento (ranking): con el recorte inicial del ranking,
+    # el gas oil tiene que dar exactamente la serie país precalculada
+    cc_pub = ix_cc.pos["Al público"]
+    f_def = lambda i: (productos_1104["cd"][i] == 0 and productos_1104["cc"][i] == cc_pub
+                       and productos_1104["tn"][i] in tipos_retail_idx)
+    for prod, tipo, k in (("g2", "s", "s2"), ("g2", "n", "n2"), ("g3", "s", "s3"), ("g3", "n", "n3")):
+        s = serie_filtrada(productos_1104, meses, prod, tipo, f_def)
+        con_dato = [f for f in pais if k in pais[f]]
+        peor = max((abs(s.get(f, 0) - pais[f][k]) for f in con_dato), default=0)
+        # tolerancia: el precio de cada celda va con cuatro decimales de $/l
+        check(peor < 1e-4 and all(f in s for f in con_dato),
+              f"Productos 1104: '{prod}/{tipo}' no reproduce la serie país (diferencia {peor:.6f} $/l)")
+    print(f"  ✓ productos 1104: {len(productos_1104['mes'])} celdas · el gas oil con el recorte del ranking "
+          f"reproduce la serie país")
     # Cifra ancla: jul-2026 el GO2 surtidor ponderado por EESS dio 2.269 $/l
     # (Tableau, ponderando por provincia, 2.283). Chequeo de orden de magnitud.
     if ultimo_mes == "2026-07":
@@ -758,11 +829,15 @@ def generar(dry=False):
         if prov != "N/D":
             check(prov in provincias_mapa, f"Provincia '{prov}' no existe en mapa_argentina.json")
     # Brent y WTI llegan un mes atrás en Master data: se admite hasta 2 meses de rezago
-    for k in list(PRODUCTOS_MASTER) + ["tc", "cpi"]:
-        if k == "diesel_usa":
-            continue  # serie truncada a propósito (ver extraer_master)
+    # (solo para las series de siempre; las demás pueden terminar antes y se avisa)
+    for k in list(PRODUCTOS_BASE) + ["tc", "cpi"]:
         check(master.get(k) and max(master[k]) >= meses[-3],
               f"Master data: '{k}' sin dato desde {meses[-3]} (último: {max(master.get(k, ['-']))})")
+    for k in PRODUCTOS_MASTER:
+        check(master.get(k), f"Master data: '{k}' ({PRODUCTOS_MASTER[k][0]}) sin ningún dato desde {DESDE}")
+    atrasadas = [f"{k} ({max(master[k])})" for k in PRODUCTOS_MASTER if k not in PRODUCTOS_BASE and max(master[k]) < meses[-3]]
+    if atrasadas:
+        print(f"  ⚠ Series de Master data que terminan antes de {meses[-3]}: {', '.join(atrasadas)}")
     tc_ult = master["tc"][ultimo_mes]
     check(500 < tc_ult < 5000, f"TC {ultimo_mes} = {tc_ult}: fuera de rango")
     # Serie mensual continua en retail
@@ -777,9 +852,9 @@ def generar(dry=False):
 
     # ------------------------------------------------------------ ranking
     productos = []
-    for pid, (col, nombre, fuente) in PRODUCTOS_MASTER.items():
+    for pid, (col, nombre, fuente, familia, unidad) in PRODUCTOS_MASTER.items():
         serie = [[f, round(v, 2)] for f, v in sorted(master[pid].items()) if f >= DESDE]
-        productos.append(dict(id=pid, nombre=nombre, fuente=fuente, unidad="usd/ton", serie=serie))
+        productos.append(dict(id=pid, nombre=nombre, fuente=fuente, familia=familia, unidad=unidad, serie=serie))
     for p in productos:
         if p["id"] == "diesel_usa":
             p["nota"] = "Master data trae la serie rota desde dic-2025: termina en nov-2025"
@@ -787,12 +862,13 @@ def generar(dry=False):
             # La nota se muestra en el sitio junto a la fuente. El informe avisa
             # que sus dos últimos períodos son provisorios.
             nuevos = de_regalias[p["id"]]
-            p["nota"] = (f"{mes_corto(nuevos[0])} a {mes_corto(nuevos[-1])} del informe de regalías de crudo "
-                         f"de la SE; los dos últimos meses son provisorios")
-        if p["id"] == "bio_963_m":
+            p["nota"] = (f"{mes_corto(nuevos[0])} a {mes_corto(nuevos[-1])} del informe (faltan en Master data); "
+                         f"los dos últimos meses son provisorios")
+        if p["id"].startswith("bio_963_"):
             # 963: precio en $/ton → usd/ton con el TC del mes
             p["serie"] = [[f, round(v / master["tc"][f], 2)] for f, v in p["serie"] if f in master["tc"]]
             p["nota"] = "precio SE en $/ton convertido con el TC mensual"
+        p["desde"], p["hasta"] = p["serie"][0][0], p["serie"][-1][0]
     comparados = []
     for pid, (col, nombre, fuente) in SERIES_COMPARADOS.items():
         serie = [[f, round(v, 2)] for f, v in sorted(master.get(pid, {}).items()) if f >= DESDE]
@@ -810,7 +886,7 @@ def generar(dry=False):
         productos.append(dict(id=pid, nombre=nombre, fuente="SE Res. 1104 (ponderado país)",
                               unidad="usd/ton", serie=serie))
     for p in productos:
-        check(len(p["serie"]) > 24, f"Ranking: serie '{p['id']}' con {len(p['serie'])} meses")
+        check(len(p["serie"]) > 12, f"Ranking: serie '{p['id']}' con {len(p['serie'])} meses")
 
     print("Gas oil: escribiendo…")
     escribir("gasoil_precios.json", dict(
@@ -868,6 +944,8 @@ def generar(dry=False):
     print(f"  {'[dry-run] ' if dry else '✓ '}public/data/gasoil_mes/<mes>.json ({len(por_mes)} meses, {total // 1024} KB en total; "
           f"{iguales} con las mismas filas, no se reescriben)")
 
+    # Relevamiento abierto por producto para el ranking, también fuera del bundle
+    escribir_productos(productos_1104, meses, ix_tn.valores, ix_cc.valores, dry)
     # Ventas de las tablas SESCO (página Tablas SESCO), también fuera del bundle
     escribir_sesco(sesco, dry)
     # Despachos de importación (página Importaciones), también fuera del bundle
@@ -876,7 +954,7 @@ def generar(dry=False):
     escribir("gasoil_ranking.json", dict(
         desde=DESDE, ultimo_mes=ultimo_mes, densidad_go=DENSIDAD_GO,
         productos=productos,
-        tc=[[f, round(v, 2)] for f, v in sorted(master["tc"].items())],
+        tc=[[f, round(v, 4)] for f, v in sorted(master["tc"].items())],  # 4 decimales: en 2011 (TC 4,1) dos movían 0,1%
         cpi_us=[[f, round(v, 3)] for f, v in sorted(master["cpi"].items())],
         importaciones=importaciones, comparados=comparados, res963=res963,
     ), ["Master data database.hyper", "Go Imports.hyper", "Database Precio Formula 963.xlsx",

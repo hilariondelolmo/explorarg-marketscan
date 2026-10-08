@@ -117,6 +117,69 @@ export function cargarMes(f) {
   return mesesPromesa.get(f);
 }
 
+// --- Relevamiento abierto por producto (public/data/gasoil_productos.json,
+// scripts/gasoil_productos.py): cruce mes × canal distribución × tipo de
+// negocio × canal comercialización con el precio ponderado ($/l) y su peso
+// (m³) para gas oil grado 1, 2 y 3, kerosene, nafta súper y nafta premium,
+// por tipo de precio (p{s|c|n}_{producto} y w{s|c|n}_{producto}). Lo usa el
+// Ranking de precios. Los precios de los meses excluidos se borran al cargar,
+// como en el cruce fino (los seis meses valen para todos los productos del
+// relevamiento: las naftas traen los mismos saltos que el gas oil).
+// Meses anómalos propios de las naftas (decisión de HDO del 07/10/2026, solo
+// para estas series; el surtidor y el con impuestos de esos meses son normales):
+// nafta premium sin impuestos ene-2015 y feb-2017 (347 y 322 $/l contra 10,7 y
+// 13,3 en los meses vecinos) y nafta súper sin impuestos mar-2026 (2.056 contra
+// 1.163 en feb). Columna del archivo → meses que se dejan sin precio.
+export const MESES_ANOMALOS_PRODUCTOS = { pn_np: ['2015-01', '2017-02'], pn_ns: ['2026-03'] };
+let productosPromesa = null;
+export function cargarProductos() {
+  if (!productosPromesa) {
+    productosPromesa = fetch('/data/gasoil_productos.json').then((r) => {
+      if (!r.ok) throw new Error(`No se pudieron cargar los productos del relevamiento (${r.status})`);
+      return r.json();
+    }).then((d) => {
+      const anomalos = new Set([...MESES_ANOMALOS].map((f) => d.meses.indexOf(f)));
+      for (const c of d.columnas) {
+        if (!c.startsWith('p')) continue;
+        const col = d[c];
+        for (let i = 0; i < col.length; i++) if (anomalos.has(d.mes[i])) col[i] = 0;
+      }
+      for (const [c, fechas] of Object.entries(MESES_ANOMALOS_PRODUCTOS)) {
+        const col = d[c];
+        if (!col) continue;
+        const idx = new Set(fechas.map((f) => d.meses.indexOf(f)));
+        for (let i = 0; i < col.length; i++) if (idx.has(d.mes[i])) col[i] = 0;
+      }
+      return d;
+    });
+  }
+  return productosPromesa;
+}
+
+/**
+ * Precio ponderado por mes ($/l) de un producto y tipo de precio del
+ * relevamiento abierto por producto: Σ precio × peso / Σ peso sobre las filas
+ * que pasan `filtro(i)`. Devuelve Map(fecha → $/l).
+ */
+export function ponderarProducto(D, filtro, producto, tipo) {
+  const P = D[`p${tipo}_${producto}`];
+  const W = D[`w${tipo}_${producto}`];
+  const out = new Map();
+  if (!P || !W) return out;
+  const pw = new Map();
+  const ww = new Map();
+  for (let i = 0; i < D.mes.length; i++) {
+    const p = P[i];
+    const w = W[i];
+    if (!p || !w || (filtro && !filtro(i))) continue;
+    const m = D.mes[i];
+    pw.set(m, (pw.get(m) || 0) + p * w);
+    ww.set(m, (ww.get(m) || 0) + w);
+  }
+  for (const [m, w] of ww) out.set(D.meses[m], pw.get(m) / w);
+  return out;
+}
+
 // --- Tablas SESCO (public/data/gasoil_sesco.json, scripts/gasoil_sesco.py):
 // ventas al mercado por mes × provincia × empresa × sector. Cada producto
 // guarda solo las filas del cruce donde tiene venta (i = fila, v = cantidad
