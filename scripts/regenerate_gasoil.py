@@ -155,7 +155,7 @@ PRODUCTOS_MASTER = {
     "jj_bio_fob": ("JJ Biodiesel Export Price SPOT FOB Rosario", "Biodiesel exportación spot FOB Rosario", "J.J. Hinrichsen", "bio", "usd/ton"),
     "bio_963_gi": ("GRANDE", "Biodiesel - Res. 963 grande integrada", "Secretaría de Energía", "bio", "usd/ton"),
     "bio_963_gni": ("GRANDE NO INTEGRADA", "Biodiesel - Res. 963 grande no integrada", "Secretaría de Energía", "bio", "usd/ton"),
-    "bio_963_m": ("MEDIANA", "Biodiesel - Res. 963 mediana", "Secretaría de Energía", "bio", "usd/ton"),  # (*)
+    "bio_963_m": ("MEDIANA", "Biodiesel corte obligatorio", "Secretaría de Energía", "bio", "usd/ton"),  # (*) mediana 963, nombre de HDO 07/10/2026
     "bio_963_p": ("PEQUEÑA", "Biodiesel - Res. 963 pequeña", "Secretaría de Energía", "bio", "usd/ton"),
     # aceite de soja
     "aceite_fas": ("JJ Aceite FAS ROSARIO Promedio", "Aceite de soja FAS Rosario", "J.J. Hinrichsen", "aceite", "usd/ton"),  # (*)
