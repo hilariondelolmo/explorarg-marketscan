@@ -15,9 +15,12 @@ const FILTERS = [
 export default function Timeline({ onOpenDoc }) {
   const [filter, setFilter] = useState('all');
 
+  // El JSON está en orden cronológico; la página muestra del hito más
+  // reciente al más antiguo (pedido de HDO, 12/10/2026)
   const events = useMemo(() => {
-    if (filter === 'all') return timeline;
-    return timeline.filter((ev) => ev.cat === filter);
+    const recientePrimero = [...timeline].reverse();
+    if (filter === 'all') return recientePrimero;
+    return recientePrimero.filter((ev) => ev.cat === filter);
   }, [filter]);
 
   return (
@@ -27,8 +30,8 @@ export default function Timeline({ onOpenDoc }) {
           <div className="section-eyebrow">Marco Legal</div>
           <h2>Marco legal y regulatorio</h2>
           <p>
-            La cronología regulatoria del biodiesel argentino desde 2006 hasta la reforma de la
-            Ley 27.640 en trámite en el Congreso. Cada hito incluye enlaces al documento oficial
+            La cronología regulatoria del biodiesel argentino, del hito más reciente hacia atrás
+            hasta la Ley 26.093 de 2006. Cada hito incluye enlaces al documento oficial
             correspondiente - se abren dentro del tablero cuando el sitio fuente lo permite - y,
             cuando existe, al análisis publicado en este sitio.
           </p>
