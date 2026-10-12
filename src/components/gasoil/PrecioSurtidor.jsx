@@ -3,13 +3,13 @@ import {
   ComposedChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine,
 } from 'recharts';
 import {
-  MESES, ULTIMO_MES, IDX_MES, PROVINCIAS, BANDERAS, convertir, ponderarCol, desdeRango, fmtPrecio, variacion,
+  MESES, ULTIMO_MES, IDX_MES, PROVINCIAS, BANDERAS, convertir, ponderarCol, ventanaRango, fmtPrecio, variacion,
   colorBandera, nombreProvincia, TC, DENSIDAD_GO,
 } from '../../lib/gasoil.js';
 import { fmt } from '../../lib/format.js';
 import { useChartColors } from '../../lib/theme.jsx';
 import MapaProvincias from './MapaProvincias.jsx';
-import { useRelevamiento, useCajas, BloqueFijo, Tarjeta, TooltipSerie, RANGOS, TODAS, NOTA_MESES_EXCLUIDOS } from './relevamiento.jsx';
+import { useRelevamiento, useCajas, BloqueFijo, Tarjeta, TooltipSerie, SelectorPresidencia, RANGOS, TODAS, NOTA_MESES_EXCLUIDOS } from './relevamiento.jsx';
 import '../mercado/Mercado.css';
 import '../charts/Chart.css';
 import '../KPIs.css';
@@ -31,12 +31,14 @@ export default function PrecioSurtidor({ seccion }) {
   const C = useChartColors();
   const F = useRelevamiento({ modo: 'surtidor', conMes: true });
   const {
-    D, DX, listo, error, OPERADORES, BOCAS, mes, mi, mesAnterior, tipo, cdN, ccN, tiposIdx, bi,
+    D, DX, listo, error, OPERADORES, BOCAS, mes, setMes, mi, mesAnterior, tipo, cdN, ccN, tiposIdx, bi,
     bandera, setBandera, operador, conOperador, boca, elegirBoca, bocaSel, mesDatos,
     provincias, provIdx, conProvincias, elegirProvincia, etiquetaProvincias,
     fCanal, fBand, fProv, fMes, conv, claves, etiquetaCanal, etiquetaFiltro, ambito,
   } = F;
   const [rango, setRango] = useState('5a');
+  // Presidencia como ventana de los gráficos (HDO, 12/10/2026): su período entero y el Mes al último de ese período
+  const elegirPresidencia = (id) => { setRango(id); setMes(ventanaRango(id).hasta); };
   const [abiertos, alternar] = useCajas({ tabla: false, kpi: false, mapas: false, graficos: true });
   const [vista, setVista] = useState('mensual'); // 'mensual' | 'anual'
 
@@ -93,7 +95,7 @@ export default function PrecioSurtidor({ seccion }) {
   const series = useMemo(() => {
     if (!listo) return { g2: [], g3: [] };
     const f = (i) => fCanal(i) && fBand(i) && fProv(i);
-    const desde = desdeRango(rango, ULTIMO_MES);
+    const { desde, hasta } = ventanaRango(rango); // un atajo hasta el último mes o una presidencia entera
     const anual = vista === 'anual';
     // Anual: ponderado por volumen de todo el año; en usd, con el TC promedio del año
     const clave = anual ? (i) => MESES[DX.mes[i]].slice(0, 4) : (i) => DX.mes[i];
@@ -110,12 +112,12 @@ export default function PrecioSurtidor({ seccion }) {
     const armar = (m) => {
       const pts = [];
       if (anual) {
-        for (let a = Number(desde.slice(0, 4)); a <= Number(ULTIMO_MES.slice(0, 4)); a++) {
+        for (let a = Number(desde.slice(0, 4)); a <= Number(hasta.slice(0, 4)); a++) {
           const v = m.get(String(a));
           pts.push({ fecha: String(a), precio: v ? convAnual(v.precio, String(a)) : null });
         }
       } else {
-        for (let i = IDX_MES.get(desde); i < MESES.length; i++) {
+        for (let i = IDX_MES.get(desde); i <= IDX_MES.get(hasta); i++) {
           const v = m.get(i);
           pts.push({ fecha: MESES[i], precio: v ? convertir(v.precio, MESES[i], tipo) : null });
         }
@@ -330,6 +332,7 @@ export default function PrecioSurtidor({ seccion }) {
                         <button key={id} className={rango === id ? 'active' : ''} onClick={() => setRango(id)}>{label}</button>
                       ))}
                     </div>
+                    <SelectorPresidencia rango={rango} onElegir={elegirPresidencia} />
                   </div>
                 </div>
                 <div className="chart-card-body">
