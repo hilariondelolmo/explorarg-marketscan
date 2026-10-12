@@ -1106,6 +1106,16 @@
   width: auto;
   flex: 0 0 auto;
 }
+/* Corte obligatorio: Período, Presidencia, Sustituto y Valores con el nombre arriba */
+@media (min-width: 1101px) {
+  .go-filtros.go-filtros-corte {
+    grid-template-columns: 200fr 310fr 250fr 150fr;
+    max-width: 1000px;
+  }
+}
+.go-sticky .go-filtros-corte {
+  margin: -0.5rem 0 0.35rem;
+}
 .go-intervalo-nota {
   display: block;
   margin: 0 0 0.9rem;

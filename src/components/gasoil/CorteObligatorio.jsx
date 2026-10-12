@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import {
   ComposedChart, Bar, Area, XAxis, YAxis, Tooltip, ReferenceLine, ResponsiveContainer,
 } from 'recharts';
-import { MESES, IDX_MES, TC, CPI_US, DENSIDAD_GO, DENSIDAD_BIO, IMPORTACIONES, MESES_ANOMALOS, ponderarCol } from '../../lib/gasoil.js';
+import { MESES, IDX_MES, TC, CPI_US, DENSIDAD_GO, DENSIDAD_BIO, IMPORTACIONES, MESES_ANOMALOS, PERIODOS_PRESIDENCIA, ponderarCol } from '../../lib/gasoil.js';
 import { mensual as CORTE_JSON } from '../../data/corte.json';
 import { precio_biodiesel as PRECIO_BIO_JSON } from '../../data/evidencia.json';
 import { fmt } from '../../lib/format.js';
@@ -76,6 +76,7 @@ export default function CorteObligatorio({ seccion }) {
   const F = useRelevamiento({ modo: 'surtidor' }); // cruce fino para el gas oil fósil (minorista, al público, bocas)
   const { DX, listo, error, fCanal } = F;
   const [rango, setRango] = useState('todo');
+  const [presidencia, setPresidencia] = useState(''); // HDO 12/10/2026: la presidencia entera como período
   const [sustituto, setSustituto] = useState('imp');
   const [constantes, setConstantes] = useState(false);
   const [abiertos, alternar] = useCajas({ resultado: true, composicion: true, ganancia: true });
@@ -109,8 +110,6 @@ export default function CorteObligatorio({ seccion }) {
     const filas = CORTE_JSON.filter((m) => m.obligatorio != null && m.go_m3 > 0);
     const baseCpi = [...filas].reverse().find((m) => CPI_US.has(m.fecha))?.fecha;
     const cpiBase = baseCpi ? CPI_US.get(baseCpi) : null;
-    let acumReemp = 0;
-    let acumRed = 0;
     const pts = filas.map((m) => {
       const f = m.fecha;
       const desplazado = Math.max(m.obligatorio - m.real, 0);
@@ -123,22 +122,38 @@ export default function CorteObligatorio({ seccion }) {
       const k = constantes ? (cpiBase && CPI_US.has(f) ? cpiBase / CPI_US.get(f) : null) : 1;
       const reemp = dif != null && k != null ? desplazado * m.go_m3 * dif * k : null;
       const red = dif != null && k != null ? reduccion * m.go_m3 * dif * k : null;
-      if (reemp != null) acumReemp += reemp;
-      if (red != null) acumRed += red;
       return {
         fecha: f, bio: m.real * 100, desplazado: desplazado * 100, reduccion: reduccion * 100, arg: arg * 100,
         obligatorio: m.obligatorio, go_m3: m.go_m3, bioUsd, sust, dif, reemp, red,
-        acumReemp: acumReemp / 1e6, acumRed: acumRed / 1e6, acumTotal: (acumReemp + acumRed) / 1e6,
         sinPrecio: dif == null,
       };
     });
     return { pts, baseCpi };
   }, [fosil, sustituto, constantes]);
 
-  const desde = rango === 'todo' ? serie.pts[0]?.fecha : MESES[Math.max(0, IDX_MES.get(serie.pts.at(-1).fecha) - RANGOS.find((r) => r[0] === rango)[1] + 1)];
-  const datos = useMemo(() => serie.pts.filter((p) => p.fecha >= desde), [serie, desde]);
-  const ultimo = serie.pts.at(-1);
-  const ultimoConPrecio = [...serie.pts].reverse().find((p) => !p.sinPrecio);
+  // Período: una presidencia entera (diciembre del año que asume a noviembre del
+  // que termina) o la ventana de 5 a / 10 a / Todo hasta el último mes. La
+  // ganancia se acumula desde el primer mes del período (antes venía desde 2010
+  // aunque se mirara una ventana; con "Todo" no cambia).
+  const primero = serie.pts[0]?.fecha;
+  const ultimoMes = serie.pts.at(-1)?.fecha;
+  const periodo = PERIODOS_PRESIDENCIA.find((p) => p.id === presidencia);
+  const desde = periodo ? (periodo.desde < primero ? primero : periodo.desde)
+    : rango === 'todo' ? primero : MESES[Math.max(0, IDX_MES.get(ultimoMes) - RANGOS.find((r) => r[0] === rango)[1] + 1)];
+  const hasta = periodo && periodo.hasta < ultimoMes ? periodo.hasta : ultimoMes;
+  const datos = useMemo(() => {
+    let acumReemp = 0;
+    let acumRed = 0;
+    return serie.pts.filter((p) => p.fecha >= desde && p.fecha <= hasta).map((p) => {
+      if (p.reemp != null) acumReemp += p.reemp;
+      if (p.red != null) acumRed += p.red;
+      return { ...p, acumReemp: acumReemp / 1e6, acumRed: acumRed / 1e6, acumTotal: (acumReemp + acumRed) / 1e6 };
+    });
+  }, [serie, desde, hasta]);
+  const inicio = datos[0]?.fecha;
+  const ultimo = datos.at(-1);
+  const ultimoConPrecio = [...datos].reverse().find((p) => !p.sinPrecio);
+  const elegirRango = (id) => { setRango(id); setPresidencia(''); };
   const nombreSust = SUSTITUTOS.find((s) => s[0] === sustituto)[1];
   const rotuloValores = constantes && serie.baseCpi ? `dólares constantes de ${fmt.monthShort(serie.baseCpi)} (CPI EE.UU.)` : 'dólares corrientes';
   const sinFosil = sustituto !== 'imp' && !listo;
@@ -188,29 +203,44 @@ export default function CorteObligatorio({ seccion }) {
     <div className="go-seccion go-sesco go-corte">
       <div className="go-sticky">
         <Encabezado seccion={seccion} />
-        <div className="go-intervalo">
-          <span className="go-filtro-label">Período</span>
-          <div className="chart-range-selector">
-            {RANGOS.map(([id, , label]) => <button key={id} className={rango === id ? 'active' : ''} onClick={() => setRango(id)}>{label}</button>)}
+        <div className="go-filtros go-filtros-corte">
+          <div className="go-filtro">
+            <span className="go-filtro-label">Período</span>
+            <div className="chart-range-selector">
+              {RANGOS.map(([id, , label]) => <button key={id} className={!presidencia && rango === id ? 'active' : ''} onClick={() => elegirRango(id)}>{label}</button>)}
+            </div>
           </div>
-          <span className="go-filtro-label">Sustituto</span>
-          <select className="empresa-select" value={sustituto} onChange={(e) => setSustituto(e.target.value)} aria-label="Sustituto">
-            {SUSTITUTOS.map(([id, label]) => <option key={id} value={id}>{label}</option>)}
-          </select>
-          <span className="go-filtro-label">Valores</span>
-          <div className="chart-range-selector">
-            <button className={constantes ? '' : 'active'} onClick={() => setConstantes(false)}>Corrientes</button>
-            <button className={constantes ? 'active' : ''} onClick={() => setConstantes(true)}>Constantes</button>
+          <div className="go-filtro">
+            <label htmlFor="go-co-presidencia">Presidencia</label>
+            <select id="go-co-presidencia" className="empresa-select" value={presidencia} onChange={(e) => setPresidencia(e.target.value)}>
+              <option value="">Elegir una presidencia…</option>
+              {PERIODOS_PRESIDENCIA.map((p) => (
+                <option key={p.id} value={p.id}>{p.nombre} · {fmt.monthShort(p.desde)} a {fmt.monthShort(p.hasta)}</option>
+              ))}
+            </select>
           </div>
-          <span className="chart-card-subtitle">{datos.length} meses · {rotuloValores}</span>
+          <div className="go-filtro">
+            <label htmlFor="go-co-sustituto">Sustituto</label>
+            <select id="go-co-sustituto" className="empresa-select" value={sustituto} onChange={(e) => setSustituto(e.target.value)}>
+              {SUSTITUTOS.map(([id, label]) => <option key={id} value={id}>{label}</option>)}
+            </select>
+          </div>
+          <div className="go-filtro">
+            <label htmlFor="go-co-valores">Valores</label>
+            <select id="go-co-valores" className="empresa-select" value={constantes ? 'cte' : 'cor'} onChange={(e) => setConstantes(e.target.value === 'cte')}>
+              <option value="cor">Corrientes</option>
+              <option value="cte">Constantes</option>
+            </select>
+          </div>
         </div>
+        <p className="chart-card-subtitle go-intervalo-nota">{datos.length} meses, {fmt.monthShort(desde)} a {fmt.monthShort(hasta)} · {rotuloValores}</p>
         <Cajas cajas={cajas} abiertos={abiertos} alternar={alternar} />
       </div>
 
       {abiertos.resultado && ultimo && (
         <div className="go-kpi-bloque">
           <div className="go-kpi-cabecera">
-            <span className="chart-card-subtitle">{fmt.monthShort(ultimo.fecha)}, país sin bunker ni usinas · acumulado desde {fmt.monthShort(serie.pts[0].fecha)} contra {nombreSust.toLowerCase()}, {rotuloValores}</span>
+            <span className="chart-card-subtitle">{fmt.monthShort(ultimo.fecha)}, país sin bunker ni usinas · acumulado desde {fmt.monthShort(inicio)} contra {nombreSust.toLowerCase()}, {rotuloValores}</span>
           </div>
           <div className="kpi-grid go-kpis-fila">
             <Tarjeta label="Biodiésel real" valor={fmt.pct(ultimo.bio, 2)} tono="pos" sub={`corte obligatorio ${pct(ultimo.obligatorio, 2)} · ${fmt.int(ultimo.go_m3)} m³ de gas oil`} />
@@ -265,7 +295,7 @@ export default function CorteObligatorio({ seccion }) {
             <div>
               <span className="chart-card-title">Ganancia o pérdida acumulada de los mezcladores [U$ M]</span>
               <span className="chart-card-subtitle">
-                Volumen desplazado por la diferencia entre el biodiésel sin impuestos y {nombreSust.toLowerCase()}, en usd/m³, acumulado desde {fmt.monthShort(serie.pts[0].fecha)} · {rotuloValores}
+                Volumen desplazado por la diferencia entre el biodiésel sin impuestos y {nombreSust.toLowerCase()}, en usd/m³, acumulado desde {fmt.monthShort(inicio)} · {rotuloValores}
               </span>
             </div>
           </div>
