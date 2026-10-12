@@ -177,7 +177,7 @@ export default function MargenesBiodiesel({ seccion }) {
         <div className="chart-tooltip-label">{fmt.monthShort(label)} · {rotuloUnidad}</div>
         <Fila color={colores.bio} label="Biodiésel">{valor(p.bio)}</Fila>
         <Fila color={colores.aceite} label={aceite.nombre}>{valor(p.aceite)}</Fila>
-        <Fila color={colores.margen} label="Margen sobre aceite">{valor(p.margen)}</Fila>
+        <Fila color={colores.margen} label={aceite.margen}>{valor(p.margen)}</Fila>
       </div>
     );
   };
@@ -187,7 +187,7 @@ export default function MargenesBiodiesel({ seccion }) {
     return (
       <div className="chart-tooltip">
         <div className="chart-tooltip-label">{fmt.monthShort(label)} · {rotuloUnidad}</div>
-        <Fila color={colores.margen} label="Margen sobre aceite">{valor(p.margen)}</Fila>
+        <Fila color={colores.margen} label={aceite.margen}>{valor(p.margen)}</Fila>
         <Fila label="Biodiésel">{valor(p.bio)}</Fila>
         <Fila label={aceite.nombre}>{valor(p.aceite)}</Fila>
         <Fila label="Promedio del intervalo">{valor(promedios.margen)}</Fila>
@@ -213,7 +213,7 @@ export default function MargenesBiodiesel({ seccion }) {
   const cajas = [
     { id: 'resultado', titulo: 'Resultado del período', detalle: ultimo ? `Promedios de ${fmt.monthShort(desde)} a ${fmt.monthShort(hasta)} · biodiésel ${valor(promedios.bio)} · ${aceite.label} ${valor(promedios.aceite)} ${rotuloUnidad}` : 'sin datos' },
     { id: 'precios', titulo: 'Biodiésel y aceite FAS', detalle: `Precio del biodiésel de corte, ${aceite.enFrase} y el margen entre los dos` },
-    { id: 'margen', titulo: 'Margen sobre aceite', detalle: `Biodiésel menos aceite · promedio ${valor(promedios.margen)} ${rotuloUnidad}` },
+    { id: 'margen', titulo: aceite.margen, detalle: `Biodiésel menos aceite · promedio ${valor(promedios.margen)} ${rotuloUnidad}` },
     { id: 'crack', titulo: 'Crack spread 10:9:1', detalle: `0,9 × biodiésel + 0,1 × glicerina - aceite · promedio ${valor(promedios.crack)} ${rotuloUnidad}, ${pct(promedios.crackPct)} del aceite` },
   ];
   const tono = (v) => (v == null ? undefined : v < 0 ? 'warn' : 'pos');
@@ -281,7 +281,7 @@ export default function MargenesBiodiesel({ seccion }) {
           <div className="kpi-grid go-kpis-fila">
             <Tarjeta label="Biodiésel" valor={valor(promedios.bio)} unidad={rotuloUnidad} tono="pos" sub={`promedio del período · ${fmt.monthShort(primero.fecha)}: ${valor(primero.bio)} → ${fmt.monthShort(ultimo.fecha)}: ${valor(ultimo.bio)} (${pctSigno(variacionPct(ultimo.bio, primero.bio), 1)})`} />
             <Tarjeta label={aceite.nombre} valor={valor(promedios.aceite)} unidad={rotuloUnidad} tono="warn" sub={`promedio del período · ${fmt.monthShort(primero.fecha)}: ${valor(primero.aceite)} → ${fmt.monthShort(ultimo.fecha)}: ${valor(ultimo.aceite)} (${pctSigno(variacionPct(ultimo.aceite, primero.aceite), 1)})`} />
-            <Tarjeta label="Margen sobre aceite" valor={valor(promedios.margen)} unidad={rotuloUnidad} tono={tono(promedios.margen)} sub={`promedio del período · ${fmt.monthShort(primero.fecha)}: ${valor(primero.margen)} → ${fmt.monthShort(ultimo.fecha)}: ${valor(ultimo.margen)}`} />
+            <Tarjeta label={aceite.margen} valor={valor(promedios.margen)} unidad={rotuloUnidad} tono={tono(promedios.margen)} sub={`promedio del período · ${fmt.monthShort(primero.fecha)}: ${valor(primero.margen)} → ${fmt.monthShort(ultimo.fecha)}: ${valor(ultimo.margen)}`} />
             <Tarjeta
               label="Crack spread 10:9:1" valor={promedios.crack != null ? valor(promedios.crack) : '-'} unidad={rotuloUnidad} tono={tono(promedios.crack)}
               sub={ultimoCrack ? `promedio del período, ${pct(promedios.crackPct)} del aceite · ${fmt.monthShort(ultimoCrack.fecha)}: ${valor(ultimoCrack.crack)} (${pct(ultimoCrack.crackPct)}), acumulado ${pctSigno(ultimoCrack.crackAcum, 0)}` : 'sin precio de glicerina'}
@@ -307,13 +307,13 @@ export default function MargenesBiodiesel({ seccion }) {
                 <Tooltip content={<TooltipPrecios />} cursor={{ stroke: C.cursorLinea }} />
                 <Line {...lineaProps} dataKey="bio" name="Biodiésel" stroke={colores.bio} label={<EtiquetaExtremos extremos={extremos.bio} color={colores.bio} />} />
                 <Line {...lineaProps} dataKey="aceite" name={aceite.nombre} stroke={colores.aceite} label={<EtiquetaExtremos extremos={extremos.aceite} color={colores.aceite} />} />
-                <Line {...lineaProps} dataKey="margen" name="Margen sobre aceite" stroke={colores.margen} label={<EtiquetaExtremos extremos={extremos.margen} color={colores.margen} />} />
+                <Line {...lineaProps} dataKey="margen" name={aceite.margen} stroke={colores.margen} label={<EtiquetaExtremos extremos={extremos.margen} color={colores.margen} />} />
               </ComposedChart>
             </ResponsiveContainer>
             <div className="chart-legend">
               <div className="chart-legend-item"><span className="chart-legend-swatch" style={{ background: colores.bio }} />Biodiésel [{rotuloUnidad}]</div>
               <div className="chart-legend-item"><span className="chart-legend-swatch" style={{ background: colores.aceite }} />{aceite.nombre}</div>
-              <div className="chart-legend-item"><span className="chart-legend-swatch" style={{ background: colores.margen }} />Margen sobre aceite</div>
+              <div className="chart-legend-item"><span className="chart-legend-swatch" style={{ background: colores.margen }} />{aceite.margen}</div>
             </div>
           </div>
         </div>
@@ -335,7 +335,7 @@ export default function MargenesBiodiesel({ seccion }) {
                 <ReferenceLine y={0} stroke={C.axis} />
                 {refPromedio(promedios.margen)}
                 <Tooltip content={<TooltipMargen />} cursor={{ stroke: C.cursorLinea }} />
-                <Line {...lineaProps} dataKey="margen" name="Margen sobre aceite" stroke={colores.bio} label={<EtiquetaExtremos extremos={extremos.margen} color={colores.bio} />} />
+                <Line {...lineaProps} dataKey="margen" name={aceite.margen} stroke={colores.bio} label={<EtiquetaExtremos extremos={extremos.margen} color={colores.bio} />} />
               </ComposedChart>
             </ResponsiveContainer>
           </div>

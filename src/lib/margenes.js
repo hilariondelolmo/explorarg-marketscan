@@ -36,9 +36,10 @@ export const DENSIDADES = { bio: DENSIDAD_BIO, aceite: 0.92, glicerina: 1.26 };
 // Crack spread 10:9:1: diez de aceite dan nueve de biodiésel y una de glicerina
 export const RATIO = { bio: 0.9, glicerina: 0.1 };
 
+// label: rótulo del selector; margen: nombre del margen biodiésel - aceite con esa fuente
 export const ACEITES = [
-  { id: 'minagri', label: 'FAS Minagri', nombre: 'Aceite de soja FAS Minagri', enFrase: 'aceite de soja FAS Minagri', detalle: 'FOB oficial de la SAGyP menos la retención del aceite' },
-  { id: 'jj', label: 'FAS JJ', nombre: 'Aceite de soja FAS Rosario (J.J. Hinrichsen)', enFrase: 'aceite de soja FAS Rosario (J.J. Hinrichsen)', detalle: 'FAS Rosario vendedor desde mar-2023; antes, el promedio comprador-vendedor' },
+  { id: 'minagri', label: 'FAS Minagri', margen: 'Margen sobre aceite FAS', nombre: 'Aceite de soja FAS Minagri', enFrase: 'aceite de soja FAS Minagri', detalle: 'FOB oficial de la SAGyP menos la retención del aceite' },
+  { id: 'jj', label: 'FAS JJ (precio compra)', margen: 'Margen sobre aceite FAS + Prima', nombre: 'Aceite de soja FAS Rosario (J.J. Hinrichsen)', enFrase: 'aceite de soja FAS Rosario (J.J. Hinrichsen)', detalle: 'FAS Rosario vendedor desde mar-2023; antes, el promedio comprador-vendedor' },
 ];
 
 export const BIO = mapa(PRODUCTOS, 'bio_963_m');
