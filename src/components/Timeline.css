@@ -126,6 +126,11 @@
   color: var(--ink);
 }
 
+/* Enlace a una página de este sitio (análisis propio), en el color de la marca */
+.doc-link-interno {
+  color: var(--accent-brand);
+}
+
 .doc-link-none {
   display: inline-flex;
   align-items: center;

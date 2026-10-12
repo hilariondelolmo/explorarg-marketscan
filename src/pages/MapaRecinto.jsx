@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import SectionNav from '../components/SectionNav.jsx';
 import { SECCIONES_REFORMA } from '../lib/reforma.js';
 import {
@@ -8,6 +8,7 @@ import {
   ORDEN_BLOQUES,
   SENADORES,
   PRESETS,
+  VOTACION,
   QUIEN_CIERRA,
   PRENSA,
   REGLAS,
@@ -24,7 +25,9 @@ import './MapaRecinto.css';
  * los presentes (art. 209). Sigue la votación en general del dictamen.
  *
  * Nómina, umbrales y textos viven en src/data/mapa-recinto.js.
- * Lo marcado se guarda en localStorage (por navegador).
+ * Lo marcado se guarda en localStorage (por navegador). Con `?votacion=17-9`
+ * en la URL (el enlace del Marco Legal) la planilla abre con la votación
+ * real del 17/9/2026, por encima de lo guardado.
  */
 const CLAVE = 'explorarg-mapa-recinto-2026-09-09';
 
@@ -298,7 +301,11 @@ function Bloque({ code, votos, onToggle }) {
 }
 
 export default function MapaRecinto() {
-  const [votos, setVotos] = useState(() => leerGuardado() ?? desdePreset(PRESETS[0]));
+  const [params] = useSearchParams();
+  const abreConVotacion = params.get('votacion') === '17-9';
+  const [votos, setVotos] = useState(() =>
+    abreConVotacion ? desdePreset(VOTACION) : (leerGuardado() ?? desdePreset(VOTACION))
+  );
 
   useEffect(() => {
     try {
@@ -336,15 +343,19 @@ export default function MapaRecinto() {
     <div className="propuesta-ley mapa-firmas mapa-recinto">
       <SectionNav sections={SECCIONES_REFORMA} />
       <div className="marco pl-encabezado">
-        <div className="kicker">Reforma Ley 27.640 · Recinto del Senado · sesión del 10/9/2026</div>
+        <div className="kicker">Reforma Ley 27.640 · Recinto del Senado · sesión del 17/9/2026</div>
         <h1>Mapa del recinto</h1>
         <p className="bajada">
-          Planilla para seguir la votación en general del dictamen de biocombustibles en el
-          recinto del Senado. Son 72 bancas: la sesión se abre con 37 presentes (art. 16 del
-          Reglamento) y el dictamen se aprueba con más de la mitad de los presentes (art.
-          209). Tocá una banca del hemiciclo o un nombre de la lista para pasarlo de ausente a
-          presente a favor, y de ahí a presente en contra. Las firmas del plenario de
-          comisiones están en el <Link to="/mapa-firmas">Mapa de firmas</Link>.
+          El 17/9/2026 el Senado aprobó en general el dictamen de biocombustibles por 41 a 25,
+          con 6 ausentes. La planilla abre con esa votación, banca por banca, según el{' '}
+          <a href={VOTACION.url} target="_blank" rel="noopener noreferrer">
+            acta {VOTACION.acta} de la Secretaría Parlamentaria
+          </a>
+          . Son 72 bancas: la sesión se abre con 37 presentes (art. 16 del Reglamento) y el
+          dictamen se aprueba con más de la mitad de los presentes (art. 209). Tocá una banca
+          del hemiciclo o un nombre de la lista para pasarlo de ausente a presente a favor, y
+          de ahí a presente en contra; el primer botón vuelve a la votación real. Las firmas
+          del plenario de comisiones están en el <Link to="/mapa-firmas">Mapa de firmas</Link>.
         </p>
         <p className="mf-exptes">{RECINTO.dictamen}. {RECINTO.fecha}.</p>
       </div>

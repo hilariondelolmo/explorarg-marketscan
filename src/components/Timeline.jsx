@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import timeline from '../data/timeline.json';
 import './Timeline.css';
 
@@ -26,9 +27,10 @@ export default function Timeline({ onOpenDoc }) {
           <div className="section-eyebrow">Marco Legal</div>
           <h2>Marco legal y regulatorio</h2>
           <p>
-            La cronología regulatoria del biodiesel argentino desde 2006. Cada hito incluye enlaces
-            al documento oficial correspondiente - se abren dentro del tablero cuando el sitio
-            fuente lo permite.
+            La cronología regulatoria del biodiesel argentino desde 2006 hasta la reforma de la
+            Ley 27.640 en trámite en el Congreso. Cada hito incluye enlaces al documento oficial
+            correspondiente - se abren dentro del tablero cuando el sitio fuente lo permite - y,
+            cuando existe, al análisis publicado en este sitio.
           </p>
         </div>
 
@@ -62,6 +64,9 @@ function TimelineEvent({ ev, onOpenDoc }) {
   const handleLinkClick = (e, url) => {
     // Permitir Ctrl/Cmd+click para abrir en pestaña nueva
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+    // Las descargas (PDF) y el sitio del Senado, que queda en blanco dentro
+    // de un iframe, van a pestaña nueva
+    if (/pdf|senado\.gob\.ar/i.test(url)) return;
     e.preventDefault();
     onOpenDoc(url, ev.title);
   };
@@ -74,7 +79,7 @@ function TimelineEvent({ ev, onOpenDoc }) {
       </span>
       <h4>{ev.title}</h4>
       <div className="desc">{ev.desc}</div>
-      {(ev.url || ev.urlLabel) && (
+      {(ev.url || ev.urlLabel || ev.link) && (
         <div className="doc-links">
           {ev.url ? (
             <a
@@ -99,6 +104,11 @@ function TimelineEvent({ ev, onOpenDoc }) {
             >
               {ev.url2Label || 'Segundo documento'} ⤢
             </a>
+          )}
+          {ev.link && (
+            <Link to={ev.link} className="doc-link doc-link-interno">
+              {ev.linkLabel || 'Análisis en este sitio'} →
+            </Link>
           )}
         </div>
       )}

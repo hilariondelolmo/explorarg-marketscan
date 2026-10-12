@@ -150,5 +150,62 @@
     "desc": "Presentada en octubre 2025. Reduce la participación de no integradas del 7,5% al 2% entre 2025 y 2031. Preserva el universo cerrado de la Ley 27.640 con nuevo lenguaje.",
     "url": null,
     "urlLabel": "Sin texto público formal - propuesta presentada en comisión"
+  },
+  {
+    "year": "2025-2026",
+    "cat": "res",
+    "title": "Resoluciones SE 445/2025 y 612/2025 - el corte baja a 7% y vuelve a 7,5%",
+    "desc": "La Res. 445/2025 (7-11-2025) reduce de manera transitoria el corte obligatorio de biodiesel en el gasoil de 7,5% a 7%, invocando el art. 8 de la Ley 27.640 y la suba del aceite de soja. La Res. 612/2025 (30-12-2025, vigente desde el 2-1-2026) restablece el 7,5% y fija el precio de enero en $ 1.797.881 por tonelada.",
+    "url": "https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-445-2025-419993/texto",
+    "urlLabel": "Res. 445/2025 · argentina.gob.ar",
+    "url2": "https://www.boletinoficial.gob.ar/detalleAviso/primera/337062/20260102",
+    "url2Label": "Res. 612/2025 · Boletín Oficial"
+  },
+  {
+    "year": "2026",
+    "cat": "proyecto",
+    "bio": true,
+    "title": "Siete proyectos de reforma en el Senado - S-809/26 (Bullrich y otros) como base",
+    "desc": "El 14-5-2026 ingresa el proyecto del oficialismo, S-809/26 (Bullrich, Cervi, Coto, Olivera Lucero, Fullone, Atauche, Godoy y Álvarez Rivero): deroga la Ley 27.640, lleva el corte de 7,5% a 10% en doce meses, crea un mercado electrónico con tope en la paridad de importación y fija una transición para las empresas no integradas. Se trata junto con S-3/26 (Vigo y Espínola, Liga Bioenergética), S-916/26 (Royon), S-1035/26 (Arce y Rojas Decut), S-1246/26 (Capitanich y otros), S-1861/25 (Carambia y Gadano) y S-1271/25 (Ávila). Las comisiones de Minería, Energía y Combustibles y de Presupuesto y Hacienda abren rondas informativas en junio y agosto; Explora expone el 4 de junio.",
+    "url": "https://www.senado.gob.ar/parlamentario/comisiones/verExp/809.26/S/PL",
+    "urlLabel": "Expediente S-809/26 · Senado",
+    "url2": "https://www.senado.gob.ar/parlamentario/comisiones/verExp/916.26/S/PL",
+    "url2Label": "Expediente S-916/26 (Royon) · Senado",
+    "link": "/propuesta-s0809-2026",
+    "linkLabel": "El proyecto artículo por artículo, con la propuesta de Explora"
+  },
+  {
+    "year": "2026",
+    "cat": "proyecto",
+    "title": "Dictamen del plenario de comisiones (3-9-2026, Orden del Día 362/26)",
+    "desc": "Las comisiones de Minería, Energía y Combustibles y de Presupuesto y Hacienda dictaminan en conjunto sobre los siete expedientes con el S-809/26 como base, con disidencia parcial de Fama, Espínola, Vigo y Juri; el 10-9 se presenta un dictamen de minoría. El dictamen retoca 31 de los 44 artículos, con cambios de fondo en siete (9, 13, 18, 34, 36, 38 y 39): el coprocesamiento sale del corte obligatorio, tope de 20% por empresa en bioetanol y tope de 10% por grupo económico en el segmento no integrado. Los artículos 12 y 14, el precio por acuerdo mutuo, quedan como los redactó la Secretaría de Energía.",
+    "url": "https://www.senado.gob.ar/parlamentario/comisiones/verExp/809.26/S/PL",
+    "urlLabel": "Trámite y Orden del Día 362/26 · Senado",
+    "link": "/analisis-dictamen",
+    "linkLabel": "Análisis del dictamen y mapa de firmas"
+  },
+  {
+    "year": "2026",
+    "cat": "proyecto",
+    "highlight": true,
+    "bio": true,
+    "title": "Media sanción del Senado - 17-9-2026, 41 votos a 25",
+    "desc": "El Senado aprueba en general por 41 a 25 y en particular título por título el nuevo marco regulatorio de biocombustibles, con cambios leídos en el recinto. Respecto del S-809/26 que ingresó cambian once artículos de fondo: transición hasta 2036, definición de empresa integrada por capacidad (50.000 t), grupo económico con cláusula de continuidad, tope de 10% por grupo y de 50.000 t por empresa en el segmento no integrado, 20% obligatorio para las regiones, tabla de 4% y 6% para 2031-2035 y coprocesamiento fuera del corte. Pasa a Diputados.",
+    "url": "https://www.senado.gob.ar/parlamentario/parlamentaria/117016/Sanci%C3%B3n%20HSN%20-%20/descargarPdfParla",
+    "urlLabel": "Texto sancionado · Senado (PDF)",
+    "url2": "https://www.senado.gob.ar/parlamentario/comisiones/verExp/809.26/S/PL",
+    "url2Label": "Trámite del expediente · Senado",
+    "link": "/mapa-recinto?votacion=17-9",
+    "linkLabel": "Mapa del recinto: cómo votó cada senador"
+  },
+  {
+    "year": "2026",
+    "cat": "proyecto",
+    "title": "Diputados - expediente CD-76/26, girado a Energía y Combustibles y a Presupuesto y Hacienda",
+    "desc": "La media sanción ingresa a la Cámara de Diputados como CD-76/26 y se gira a las comisiones de Energía y Combustibles y de Presupuesto y Hacienda, que deben dictaminar antes de que el proyecto llegue al recinto. Al 12-10-2026 no tiene dictamen de comisión.",
+    "url": "https://www.parlamentario.com/2026/09/26/biocombustibles-la-reforma-aprobada-por-el-senado-ya-ingreso-a-diputados-y-fue-girada-a-energia-y-presupuesto/",
+    "urlLabel": "Ingreso y giro a comisiones · Parlamentario (26-9-2026)",
+    "link": "/cinco-minutos",
+    "linkLabel": "Lo que no entra en 5 minutos"
   }
 ]

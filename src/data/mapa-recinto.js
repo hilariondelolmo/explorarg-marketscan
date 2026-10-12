@@ -10,11 +10,38 @@
 //    el resto queda ausente.
 
 export const RECINTO = {
-  fecha: 'Sesión prevista para el jueves 10/9/2026, dejada sin efecto el 9/9',
+  fecha: 'Votado en general el jueves 17/9/2026 a las 22:16, acta 15: 41 a favor, 25 en contra, 6 ausentes (la sesión prevista para el 10/9 se había dejado sin efecto)',
   verificado: '9/9/2026',
   bancas: 72,
   quorum: 37, // art. 16: mayoría absoluta del número constitucional
-  dictamen: 'Dictamen de mayoría del plenario de Minería, Energía y Combustibles y Presupuesto y Hacienda, firmado el 3/9/2026',
+  dictamen: 'Dictamen de mayoría del plenario de Minería, Energía y Combustibles y Presupuesto y Hacienda, firmado el 3/9/2026 (Orden del Día 362/26)',
+};
+
+// Votación en general del 17/9/2026, acta 15 de la Secretaría Parlamentaria
+// (senado.gob.ar/votaciones/detalleActa/2819): 41 afirmativos, 25 negativos,
+// 0 abstenciones, 6 ausentes. Los que no figuran en favor ni contra estuvieron
+// ausentes: Lewandowski, Fernández Sagasti, Monteverde, Pagotto, Kroneberger
+// y Suárez.
+export const VOTACION = {
+  id: 'votacion_17_9',
+  fecha: '17/9/2026',
+  hora: '22:16',
+  acta: 15,
+  url: 'https://www.senado.gob.ar/votaciones/detalleActa/2819',
+  favor: [
+    'mendoza', 'moises', 'andrada', 'terenzi', 'goerling', 'huala', 'cristina', 'avila',
+    'manzur', 'juez', 'alvarezrivero', 'atauche', 'bedia', 'benegas', 'almeida', 'bullrich',
+    'guzman', 'orozco', 'paoltroni', 'godoy', 'olivera', 'fullone', 'marquez', 'cervi',
+    'coto', 'montedeoca', 'abdala', 'arrascaeta', 'corroza', 'arce', 'rojasdecut', 'royon',
+    'vigo', 'espinola', 'galaretto', 'losada', 'vischi', 'valenzuela', 'schneider', 'fama',
+    'juri',
+  ],
+  contra: [
+    'zamora', 'moreno', 'rejal', 'salino', 'bahl', 'recalde', 'bensusan', 'mayans',
+    'gonzalez', 'capitanich', 'unac', 'gimenez', 'flopez', 'kirchner', 'linares', 'soria',
+    'marks', 'clopez', 'corpacci', 'ditullio', 'depedro', 'neder', 'carambia', 'gadano',
+    'abad',
+  ],
 };
 
 export const BLOQUES = {
@@ -130,8 +157,15 @@ export const SENADORES = [
 const ids = (filtro) => SENADORES.filter(filtro).map((x) => x.id);
 const en = (...bloques) => ids((x) => bloques.includes(x.bloque));
 
-// Escenarios de un toque. El primero es el estado inicial de la planilla.
+// Escenarios de un toque. El primero es el estado inicial de la planilla:
+// desde el 17/9/2026, la votación real.
 export const PRESETS = [
+  {
+    id: VOTACION.id,
+    label: 'Votación del 17/9/2026: 41 a 25, como votó cada senador',
+    favor: VOTACION.favor,
+    contra: VOTACION.contra,
+  },
   {
     id: 'sin_pj',
     label: 'Sin el PJ: los otros 51 presentes y a favor',
