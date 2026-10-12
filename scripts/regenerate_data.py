@@ -361,6 +361,13 @@ def extraer_go_por_petrolera(hy):
     return dict(out)
 
 
+# Correcciones al % de corte obligatorio del Excel (decisión HDO 2026-10-12):
+# la Res. SE 445/2025 bajó el corte a 7% desde el 10-11-2025 y la Res. SE
+# 612/2025 recién lo devolvió a 7,5% el 2-1-2026, así que diciembre 2025 es 7%
+# (el Excel lo tenía en 7,5%).
+CORTE_OBLIG_OVERRIDE = {"2025-12": 0.07}
+
+
 def extraer_corte_obligatorio():
     rows = leer_excel(SRC["corte_oblig"], "%Corte Obligatorio")
     out = {}
@@ -368,6 +375,10 @@ def extraer_corte_obligatorio():
         if r and r[0] and isinstance(r[0], datetime):
             out[ym(r[0])] = float(r[1])
     check(len(out) > 150, f"Serie de corte obligatorio sospechosamente corta: {len(out)} meses")
+    for f, v in CORTE_OBLIG_OVERRIDE.items():
+        if f in out and out[f] != v:
+            warn(f"Corte obligatorio {f}: Excel {out[f]:.3f} -> override {v:.3f}")
+        out[f] = v
     return out
 
 

@@ -203,8 +203,10 @@
     "cat": "proyecto",
     "title": "Diputados - expediente CD-76/26, girado a Energía y Combustibles y a Presupuesto y Hacienda",
     "desc": "La media sanción ingresa a la Cámara de Diputados como CD-76/26 y se gira a las comisiones de Energía y Combustibles y de Presupuesto y Hacienda, que deben dictaminar antes de que el proyecto llegue al recinto. Al 12-10-2026 no tiene dictamen de comisión.",
-    "url": "https://www.parlamentario.com/2026/09/26/biocombustibles-la-reforma-aprobada-por-el-senado-ya-ingreso-a-diputados-y-fue-girada-a-energia-y-presupuesto/",
-    "urlLabel": "Ingreso y giro a comisiones · Parlamentario (26-9-2026)",
+    "url": "https://www.hcdn.gob.ar/proyectos/resultado.html",
+    "urlLabel": "Buscador de proyectos · Diputados",
+    "url2": "https://www.parlamentario.com/2026/09/26/biocombustibles-la-reforma-aprobada-por-el-senado-ya-ingreso-a-diputados-y-fue-girada-a-energia-y-presupuesto/",
+    "url2Label": "Ingreso y giro a comisiones · Parlamentario (26-9-2026)",
     "link": "/cinco-minutos",
     "linkLabel": "Lo que no entra en 5 minutos"
   }
