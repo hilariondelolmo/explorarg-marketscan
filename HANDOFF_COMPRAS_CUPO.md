@@ -40,8 +40,8 @@ Diferencias:
   (doce fijos, validados en claro y oscuro con el mismo buscador, matices
   cercanos a las banderas del sitio: YPF azul, Raizen oliva, Axion violeta,
   Trafigura rojo…), grises para las chicas.
-- Estado: hecha y verificada en Chrome (claro, oscuro, interacciones), sin
-  errores; **sin commitear**, espera la devolución de HDO.
+- Estado: verificada en Chrome (claro, oscuro, interacciones) y **publicada
+  en el commit `1cacca3`** (12/10/2026, push a main → Vercel).
 
 ## Estado de Compras al cupo
 
