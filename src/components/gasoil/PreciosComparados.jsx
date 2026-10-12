@@ -1,13 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ComposedChart, Bar, Cell, Line, XAxis, YAxis, Tooltip, ReferenceArea, ReferenceLine, ResponsiveContainer } from 'recharts';
 import {
-  MESES, ULTIMO_MES, IDX_MES, PRODUCTOS, COMPARADOS, IMPORTACIONES, TC, CPI_US, DENSIDAD_GO, DENSIDAD_BIO, TIPOS_PRECIO,
+  MESES, ULTIMO_MES, IDX_MES, PRODUCTOS, COMPARADOS, IMPORTACIONES, TC, CPI_US, DENSIDAD_GO, DENSIDAD_BIO, TIPOS_PRECIO, PERIODOS_PRESIDENCIA,
   ponderarCol, variacion,
 } from '../../lib/gasoil.js';
 import { fmt } from '../../lib/format.js';
 import { useChartColors } from '../../lib/theme.jsx';
 import { useRelevamiento, FiltrosRelevamiento, NOTA_MESES_EXCLUIDOS } from './relevamiento.jsx';
-import { PRESIDENCIAS } from '../../lib/gestiones.js';
 import '../mercado/Mercado.css';
 import '../charts/Chart.css';
 import '../KPIs.css';
@@ -16,14 +15,7 @@ import './GasOil.css';
 
 const INTERVALO_DEFAULT = 18; // meses hacia atrás al entrar (el tablero abre con Dec/24 a Jul/26)
 const ATAJOS = [['12m', 12, '12 m'], ['24m', 24, '24 m'], ['5a', 60, '5 a'], ['todo', null, 'Todo']];
-// Presidencias como intervalo (pedido de HDO del 08/10/2026): de diciembre del
-// año en que asume a noviembre del año en que termina (la que sigue, hasta el
-// último mes con datos); la primera arranca donde arrancan los datos (ene-2010).
-const PERIODOS_PRESIDENCIA = PRESIDENCIAS.map((p) => {
-  const desde = `${p.desde.slice(0, 4)}-12`;
-  const hasta = p.hasta ? `${p.hasta.slice(0, 4)}-11` : ULTIMO_MES;
-  return { id: p.presidente, nombre: p.corto, desde: desde < MESES[0] ? MESES[0] : desde, hasta: hasta > ULTIMO_MES ? ULTIMO_MES : hasta };
-});
+
 // Tipos de precio del relevamiento, todos en $/l: la unidad y la moneda se eligen aparte
 const TIPOS_BASE = TIPOS_PRECIO.filter((t) => t.unidad === '$/l');
 // Unidades: cuántas de cada una hay en un m³ (ton: la densidad del producto, en ton/m³)

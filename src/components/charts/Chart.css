@@ -56,8 +56,14 @@
 }
 
 .chart-range-selector button.active {
-  background: var(--bg);
-  color: var(--ink);
+  /* El elegido, relleno con el turquesa de la marca (el de la pestaña activa):
+     el blanco sobre gris no se distinguía (HDO, 08/10/2026) */
+  background: var(--accent-brand);
+  color: #fff;
+  font-weight: 600;
+}
+:root[data-theme='dark'] .chart-range-selector button.active {
+  color: var(--bg);
 }
 
 .chart-tooltip {

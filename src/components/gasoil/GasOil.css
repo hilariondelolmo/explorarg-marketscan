@@ -204,8 +204,8 @@
 @media (min-width: 1101px) {
   /* dos clases: la regla base de .go-filtros (ocho columnas) viene después en el archivo */
   .go-filtros.go-filtros-ranking-1 {
-    grid-template-columns: 150fr 150fr 140fr 100fr 100fr 190fr;
-    max-width: 1000px;
+    grid-template-columns: 130fr 130fr 300fr 130fr 95fr 90fr 175fr;
+    max-width: 1220px;
   }
   .go-filtros.go-filtros-ranking {
     grid-template-columns: 270fr 150fr 220fr 250fr;

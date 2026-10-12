@@ -18,6 +18,7 @@ import ranking from '../data/gasoil_ranking.json';
 import { mensual as CORTE_MENSUAL_JSON, densidad_bio as DENSIDAD_BIO_JSON } from '../data/corte.json';
 import { mensual as BIO_PETROLERAS_JSON } from '../data/petroleras.json';
 import mapa from '../data/mapa_argentina.json';
+import { PRESIDENCIAS } from './gestiones.js';
 
 export const MESES = MESES_JSON;
 export const ULTIMO_MES = ULTIMO_MES_JSON;
@@ -57,6 +58,16 @@ export const CPI_US = new Map(ranking.cpi_us);
 export const META_RANKING = ranking.meta;
 
 export const IDX_MES = new Map(MESES.map((f, i) => [f, i]));
+
+// Presidencias como intervalo (HDO, 08/10/2026): de diciembre del año en que
+// asume a noviembre del año en que termina; la que sigue, hasta el último mes
+// con datos; la primera arranca donde arrancan los datos (ene-2010). Lo usan
+// Precios comparados (intervalo) y el Ranking (fecha base y mes de análisis).
+export const PERIODOS_PRESIDENCIA = PRESIDENCIAS.map((p) => {
+  const desde = `${p.desde.slice(0, 4)}-12`;
+  const hasta = p.hasta ? `${p.hasta.slice(0, 4)}-11` : ULTIMO_MES;
+  return { id: p.presidente, nombre: p.corto, desde: desde < MESES[0] ? MESES[0] : desde, hasta: hasta > ULTIMO_MES ? ULTIMO_MES : hasta };
+});
 const IDX_ANOMALOS = new Set([...MESES_ANOMALOS].map((f) => IDX_MES.get(f)));
 const COLUMNAS_PRECIO = ['s2', 'c2', 'n2', 's3', 'c3', 'n3'];
 /** Deja sin precio (0 = sin dato) las filas de los meses excluidos; no toca el volumen. */

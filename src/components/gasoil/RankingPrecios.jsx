@@ -3,7 +3,7 @@ import {
   BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, LabelList, ReferenceLine,
 } from 'recharts';
 import {
-  MESES, ULTIMO_MES, IDX_MES, PRODUCTOS, TC, CPI_US, TIPOS_NEGOCIO, CANALES_COM, MESES_ANOMALOS_PRODUCTOS, DENSIDAD_GO, DENSIDAD_BIO, variacion,
+  MESES, ULTIMO_MES, IDX_MES, PRODUCTOS, TC, CPI_US, TIPOS_NEGOCIO, CANALES_COM, MESES_ANOMALOS_PRODUCTOS, DENSIDAD_GO, DENSIDAD_BIO, PERIODOS_PRESIDENCIA, variacion,
   cargarProductos, ponderarProducto,
 } from '../../lib/gasoil.js';
 import { NOTA_MESES_EXCLUIDOS, TIPOS_RETAIL, CC_PUBLICO, TODAS, DropdownMulti, mismas } from './relevamiento.jsx';
@@ -237,6 +237,13 @@ export default function RankingPrecios({ seccion }) {
   };
 
   const rotuloUnidad = `${moneda === 'usd' ? 'usd' : '$'}/${unidad.label}`;
+  // Presidencia (HDO, 08/10/2026): fecha base = diciembre del año en que asume,
+  // mes de análisis = noviembre del año en que termina; se suelta al mover una fecha
+  const presidenciaActiva = PERIODOS_PRESIDENCIA.find((p) => p.desde === base && p.hasta === mes)?.id || '';
+  const elegirPresidencia = (id) => {
+    const p = PERIODOS_PRESIDENCIA.find((q) => q.id === id);
+    if (p) { setBase(p.desde); setMes(p.hasta); }
+  };
   const filas = useMemo(() => elegidos.map((p) => {
     const b = series.get(p.id)?.get(base);
     const a = valorEn(p.id, mes);
@@ -325,6 +332,15 @@ export default function RankingPrecios({ seccion }) {
           </select>
         </div>
         <div className="go-filtro">
+          <label htmlFor="go-rk-presidencia">Presidencia</label>
+          <select id="go-rk-presidencia" className="empresa-select" value={presidenciaActiva} onChange={(e) => elegirPresidencia(e.target.value)}>
+            <option value="">Elegir una presidencia…</option>
+            {PERIODOS_PRESIDENCIA.map((p) => (
+              <option key={p.id} value={p.id}>{p.nombre} · {fmt.monthShort(p.desde)} a {fmt.monthShort(p.hasta)}</option>
+            ))}
+          </select>
+        </div>
+        <div className="go-filtro">
           <span className="go-filtro-label">Carrera</span>
           <button type="button" className={`empresa-select go-play ${jugando ? 'activo' : ''}`} onClick={play}>
             {jugando ? '❚❚ Pausa' : '▶ Reproducir'}
@@ -404,7 +420,7 @@ export default function RankingPrecios({ seccion }) {
                 <Bar dataKey="variacion" isAnimationActive animationDuration={700} radius={[0, 2, 2, 0]} cursor="pointer"
                   onClick={(d) => resaltar(d?.id ?? d?.payload?.id)}>
                   {ranking.map((r) => <Cell key={r.id} fill={color(r.id)} fillOpacity={apagado(r.id) ? 0.22 : 1} stroke={r.id === activo ? C.ink : 'none'} strokeWidth={r.id === activo ? 1.5 : 0} />)}
-                  <LabelList dataKey="variacion" position="right" formatter={(v) => fmt.pct(v, 0)} fill={C.ink} fontSize={11} />
+                  <LabelList dataKey="variacion" content={<EtiquetaBarra tinta={C.ink} />} />
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
@@ -491,6 +507,15 @@ export default function RankingPrecios({ seccion }) {
       </p>
     </div>
   );
+}
+
+/** Rótulo de la barra siempre a la derecha de su extremo derecho: en las
+ * negativas, junto a la línea del cero (si no, se pisa con el nombre). */
+function EtiquetaBarra({ x, y, width, height, value, tinta }) {
+  // `tinta` y no `fill`: recharts le pasa al rótulo el color de la barra como fill
+  if (value == null) return null;
+  const derecha = Math.max(x, x + width) + 4;
+  return <text x={derecha} y={y + height / 2} dy={4} fill={tinta} fontSize={11} textAnchor="start">{fmt.pct(value, 0)}</text>;
 }
 
 function Encabezado({ seccion }) {
