@@ -50,7 +50,7 @@ export default function DeficitChart() {
             <Line
               yAxisId="der"
               dataKey="acumulado"
-              name="Acumulado 2010–hoy"
+              name="Acumulado 2010-hoy"
               stroke={C.neutral}
               strokeWidth={2}
               dot={false}

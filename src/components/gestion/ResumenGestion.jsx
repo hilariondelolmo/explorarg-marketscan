@@ -20,7 +20,7 @@ export default function ResumenGestion() {
       tone: 'neg',
     },
     {
-      label: 'Déficit acumulado 2010–hoy',
+      label: 'Déficit acumulado 2010-hoy',
       value: fmt.int(deficitAcum),
       sub: 'toneladas de biodiesel no cortadas',
       tone: 'warn',

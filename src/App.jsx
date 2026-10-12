@@ -44,7 +44,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/mercado/:seccion?" element={<Mercado />} />
-          <Route path="/gestion" element={<Gestion />} />
+          <Route path="/gestion/:seccion?" element={<Gestion />} />
           <Route path="/gas-oil/:seccion?" element={<GasOil />} />
           <Route path="/margenes/:seccion?" element={<Margenes />} />
           <Route path="/marco-legal" element={<MarcoLegal />} />

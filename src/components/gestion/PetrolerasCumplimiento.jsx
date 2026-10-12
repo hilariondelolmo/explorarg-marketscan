@@ -1,31 +1,33 @@
-import { useState } from 'react';
 import petroleras from '../../data/petroleras.json';
 import corte from '../../data/corte.json';
 import RankingCumplimiento from './RankingCumplimiento.jsx';
+import { usePeriodo, FiltrosPeriodo, ATAJOS } from './PeriodoCumplimiento.jsx';
 import { fmt } from '../../lib/format.js';
 import '../charts/Chart.css';
 
 const DENSIDAD = corte.densidad_bio;
-
-// Ventanas elegibles (meses hacia atrás; 0 = serie completa)
-const VENTANAS = [['1m', 1], ['6m', 6], ['1a', 12], ['5a', 60], ['10a', 120], ['Todo', 0]];
+const OBLIG = new Map(corte.mensual.map((m) => [m.fecha, m.obligatorio]));
+// Meses con ventas de gas oil por petrolera y corte obligatorio vigente
+const GO_MESES = petroleras.go_mensual.filter((r) => OBLIG.get(r.fecha) != null);
+const MESES = GO_MESES.map((r) => r.fecha);
 
 /**
- * Cumplimiento del corte por petrolera en la ventana elegida (default 1 año):
- * bio recibido de elaboradoras (m3) / (GO G2+G3 vendido × % corte obligatorio).
+ * Cumplimiento del corte por petrolera en el período elegido (abre en el
+ * último año; desde, hasta, atajos 1m / 6m / 1a / 5a / 10a / Todo y
+ * presidencia): bio recibido de elaboradoras (m3) / (GO G2+G3 vendido × %
+ * corte obligatorio). Con `compacto` (popup de hechos de la Propuesta) solo
+ * lleva los atajos en el encabezado del gráfico, como antes.
  */
-export default function PetrolerasCumplimiento() {
-  const [meses, setMeses] = useState(12);
-  const oblig = new Map(corte.mensual.map((m) => [m.fecha, m.obligatorio]));
-  const goMeses = petroleras.go_mensual.filter((r) => oblig.get(r.fecha) != null);
-  const ventana = meses ? goMeses.slice(-meses) : goMeses;
+export default function PetrolerasCumplimiento({ compacto = false }) {
+  const P = usePeriodo(MESES, 12);
+  const ventana = GO_MESES.filter((r) => P.enPeriodo(r.fecha));
   const fechas = new Set(ventana.map((r) => r.fecha));
 
   const requerido = new Map(); // petrolera → bio m3 requerido
   for (const row of ventana) {
     for (const [pet, go] of Object.entries(row)) {
       if (pet === 'fecha') continue;
-      requerido.set(pet, (requerido.get(pet) || 0) + go * oblig.get(row.fecha));
+      requerido.set(pet, (requerido.get(pet) || 0) + go * OBLIG.get(row.fecha));
     }
   }
 
@@ -56,41 +58,34 @@ export default function PetrolerasCumplimiento() {
     }))
     .sort((a, b) => b.valor - a.valor);
 
-  const desde = ventana[0]?.fecha;
-  const hasta = ventana.at(-1)?.fecha;
-
   return (
-    <div className="chart-card">
-      <div className="chart-card-header">
-        <div>
-          <span className="chart-card-title">Cumplimiento del corte por petrolera</span>
-          <span className="chart-card-subtitle">
-            bio comprado / bio requerido por sus ventas de gas oil ·{' '}
-            {desde === hasta
-              ? fmt.monthShort(desde)
-              : `${fmt.monthShort(desde)} → ${fmt.monthShort(hasta)}`}
-          </span>
+    <>
+      {!compacto && <FiltrosPeriodo P={P} idBase="ge-pe" />}
+      <div className="chart-card">
+        <div className="chart-card-header">
+          <div>
+            <span className="chart-card-title">Cumplimiento del corte por petrolera</span>
+            <span className="chart-card-subtitle">
+              bio comprado / bio requerido por sus ventas de gas oil · {P.rotulo}
+            </span>
+          </div>
+          {compacto && (
+            <div className="chart-range-selector" style={{ marginLeft: 'auto' }}>
+              {ATAJOS.map(([id, n, label]) => (
+                <button key={id} className={P.atajoActivo === id ? 'active' : ''} onClick={() => P.atajo(n)}>{label}</button>
+              ))}
+            </div>
+          )}
         </div>
-        <div className="chart-range-selector" style={{ marginLeft: 'auto' }}>
-          {VENTANAS.map(([rotulo, m]) => (
-            <button
-              key={rotulo}
-              className={meses === m ? 'active' : ''}
-              onClick={() => setMeses(m)}
-            >
-              {rotulo}
-            </button>
-          ))}
+        <div className="chart-card-body">
+          <RankingCumplimiento items={items} />
+          <p className="note">
+            El requerido surge de las ventas de GO Grado 2 y 3 de cada petrolera (excluidos
+            bunker y usinas) multiplicadas por el corte obligatorio vigente cada mes. Fuente:
+            Secretaría de Energía, ventas de derivados y detalle de biodiesel.
+          </p>
         </div>
       </div>
-      <div className="chart-card-body">
-        <RankingCumplimiento items={items} />
-        <p className="note">
-          El requerido surge de las ventas de GO Grado 2 y 3 de cada petrolera (excluidos
-          bunker y usinas) multiplicadas por el corte obligatorio vigente cada mes. Fuente:
-          Secretaría de Energía, ventas de derivados y detalle de biodiesel.
-        </p>
-      </div>
-    </div>
+    </>
   );
 }

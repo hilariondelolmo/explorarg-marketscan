@@ -434,10 +434,15 @@ function DemandaPetrolerasBox() {
   return <DemandaPetroleras mes={ultimo} />;
 }
 
+// El popup de hechos lleva la versión compacta (solo los atajos del período)
+function PetrolerasCompacto() {
+  return <PetrolerasCumplimiento compacto />;
+}
+
 export const HECHOS_CHARTS = {
   'corte-serie': CorteSerie,
   'eficacia-gestiones': EficaciaGestiones,
-  'petroleras-cumplimiento': PetrolerasCumplimiento,
+  'petroleras-cumplimiento': PetrolerasCompacto,
   'asignacion-ventas': AsignacionVentas,
   'grupos-aceiteras': GruposAceiteras,
   'categorias-comparadas': CategoriasComparadas,
