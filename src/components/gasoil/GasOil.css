@@ -1197,6 +1197,29 @@
   font-size: 0.74rem;
   color: var(--ink-muted);
 }
+/* Comparación: fila del gas oil (Precios, Ratio y el resumen de la refinación) */
+@media (min-width: 1101px) {
+  .go-filtros.go-filtros-comparacion-go {
+    grid-template-columns: 170fr 150fr 700fr;
+    max-width: 1180px;
+  }
+}
+.go-sticky .go-filtros-comparacion-go {
+  margin: 0 0 0.35rem;
+}
+.go-filtro-texto {
+  display: flex;
+  align-items: center;
+  min-height: 34px;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  line-height: 1.25;
+}
+@media (max-width: 720px) {
+  .go-filtros-comparacion-go .go-f-nota-go {
+    grid-column: 1 / -1;
+  }
+}
 /* Crack spread: tres paneles apilados (valor, % y acumulado) con su rótulo */
 .go-crack-rotulo {
   margin: 0.2rem 0 0;

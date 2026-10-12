@@ -2,12 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { ComposedChart, Line, XAxis, YAxis, Tooltip, ReferenceLine, ResponsiveContainer } from 'recharts';
 import { fmt } from '../../lib/format.js';
 import { useChartColors } from '../../lib/theme.jsx';
-import { useCajas, Cajas, DropdownMulti, TODAS } from '../gasoil/relevamiento.jsx';
-import { TIPOS_NEGOCIO, CANALES_COM, MESES_ANOMALOS, MESES_ANOMALOS_PRODUCTOS } from '../../lib/gasoil.js';
-import {
-  RATIOS, CRUDOS, PCT_INICIAL, DENSIDADES, FUENTES, PRIMER_MES, UNIDADES, FICHA_CRUDO, EXCLUIDOS_MERCADO,
-  cargarProductos, cargarTerminales, preciosMercado, preciosTerminales, periodosEntre, calcular,
-} from '../../lib/margenesGasoil.js';
+import { useCajas, Cajas } from '../gasoil/relevamiento.jsx';
+import { MESES_ANOMALOS, MESES_ANOMALOS_PRODUCTOS } from '../../lib/gasoil.js';
+import { DENSIDADES, PRIMER_MES, UNIDADES, FICHA_CRUDO, periodosEntre, calcular } from '../../lib/margenesGasoil.js';
+import { useFiltrosGasoil, SelectFuente, SelectRatio, FilaAperturas } from './filtrosGasoil.jsx';
 import '../mercado/Mercado.css';
 import '../charts/Chart.css';
 import '../KPIs.css';
@@ -76,22 +74,11 @@ function Fila({ color, label, children }) {
  */
 export default function MargenesGasoil({ seccion }) {
   const C = useChartColors();
-  const [D, setD] = useState(null);       // relevamiento abierto por producto
-  const [T, setT] = useState(null);       // precios en planta
-  const [error, setError] = useState(null);
-  const [fuente, setFuente] = useState('mercado');
-  const [ratioId, setRatioId] = useState('321');
+  const G = useFiltrosGasoil();
+  const { error, cargando, fuenteDef, ratio, pctCrudo, mezclaTexto, meses, ultimoMes, precios, excluidos, recorte } = G;
   const [unidadId, setUnidadId] = useState('bbl');
-  const [pctCrudo, setPctCrudo] = useState(PCT_INICIAL); // % de cada crudo en la mezcla
   const [desde, setDesde] = useState(PRIMER_MES);
   const [hasta, setHasta] = useState('');  // '' = último mes con datos
-  // Mercado: mayorista, todos los tipos y canales al entrar (HDO, 12/10/2026)
-  const [cd, setCd] = useState('1');
-  const [tipos, setTipos] = useState(() => new Set(TIPOS_NEGOCIO));
-  const [cc, setCc] = useState(TODAS);
-  // Terminales: todas las empresas; las terminales sin las que excluye el workbook
-  const [empresas, setEmpresas] = useState(null);
-  const [terminales, setTerminales] = useState(null);
   const [abiertos, alternar] = useCajas({ resultado: true, precios: true, crack: true });
   const [angosto, setAngosto] = useState(() => typeof window !== 'undefined' && window.matchMedia(MQ_ANGOSTO).matches);
   useEffect(() => {
@@ -100,69 +87,13 @@ export default function MargenesGasoil({ seccion }) {
     mq.addEventListener('change', fn);
     return () => mq.removeEventListener('change', fn);
   }, []);
-  useEffect(() => {
-    cargarProductos().then(setD).catch((e) => setError(e.message));
-    cargarTerminales().then((t) => {
-      setT(t);
-      setEmpresas(new Set(t.empresas));
-      setTerminales(new Set(t.terminales.filter((x) => !t.excluidas.includes(x))));
-    }).catch((e) => setError(e.message));
-  }, []);
-
-  const TN = D?.tipos_negocio || TIPOS_NEGOCIO;
-  const CC = D?.canales_com || CANALES_COM;
-  const meses = (fuente === 'mercado' ? D?.meses : T?.meses) || [];
-  const ultimoMes = meses.at(-1) || '';
   const hastaEf = hasta && meses.includes(hasta) ? hasta : ultimoMes;
   const idx = useMemo(() => new Map(meses.map((f, i) => [f, i])), [meses]);
   const PERIODOS = useMemo(() => (ultimoMes ? periodosEntre(PRIMER_MES, ultimoMes) : []), [ultimoMes]);
 
-  const cdN = cd === 'ambos' ? null : Number(cd);
-  const ccN = cc === TODAS ? null : Number(cc);
-  const tiposIdx = useMemo(() => new Set(TN.map((t, i) => (tipos.has(t) ? i : -1)).filter((i) => i >= 0)), [TN, tipos]);
-  const disponibles = useMemo(() => {
-    if (!D) return { tipos: [...TN].sort(), canales: [...CC].sort() };
-    const tn = new Set();
-    const ccs = new Set();
-    for (let i = 0; i < D.mes.length; i++) {
-      if (cdN != null && D.cd[i] !== cdN) continue;
-      tn.add(D.tn[i]);
-      ccs.add(D.cc[i]);
-    }
-    return { tipos: [...tn].map((i) => TN[i]).sort(), canales: [...ccs].map((i) => CC[i]).sort() };
-  }, [D, cdN, TN, CC]);
-  const cambiarCd = (v) => { setCd(v); setTipos(new Set(TN)); setCc(TODAS); };
-  const resumenTipos = tipos.size >= disponibles.tipos.length ? 'Todos los tipos'
-    : `${[...tipos].filter((t) => disponibles.tipos.includes(t)).length} de ${disponibles.tipos.length} tipos`;
-  const resumenEmpresas = !T || !empresas ? '…' : empresas.size >= T.empresas.length ? 'Todas las empresas' : `${empresas.size} de ${T.empresas.length} empresas`;
-  const sinExcluidas = T ? T.terminales.filter((x) => !T.excluidas.includes(x)) : [];
-  const resumenTerminales = !T || !terminales ? '…'
-    : terminales.size >= T.terminales.length ? 'Todas las terminales'
-      : sinExcluidas.length === terminales.size && sinExcluidas.every((x) => terminales.has(x)) ? 'Sin las excluidas del workbook'
-        : `${terminales.size} de ${T.terminales.length} terminales`;
-  const ACCIONES_TERMINALES = T ? [['Todas', T.terminales, 'Todas las terminales'], ['Sin excluidas', sinExcluidas, `Sin ${T.excluidas.join(', ').toLowerCase()}, como la hoja del workbook`], ['Ninguna', [], '']] : [];
-  const ACCIONES_EMPRESAS = T ? [['Todas', T.empresas, ''], ['Ninguna', [], '']] : [];
-
-  // Precios por mes ($/l) de la fuente elegida
-  const precios = useMemo(() => {
-    if (fuente === 'mercado') {
-      if (!D) return new Map();
-      const filtro = (i) => (cdN == null || D.cd[i] === cdN) && tiposIdx.has(D.tn[i]) && (ccN == null || D.cc[i] === ccN);
-      return preciosMercado(D, filtro);
-    }
-    if (!T || !empresas || !terminales) return new Map();
-    return preciosTerminales(T, empresas, terminales);
-  }, [fuente, D, T, cdN, tiposIdx, ccN, empresas, terminales]);
-  const excluidos = useMemo(() => (fuente === 'terminales' ? new Set(T ? T.meses_excluidos : []) : EXCLUIDOS_MERCADO), [fuente, T]);
-  const R = useMemo(() => calcular({ precios, meses, excluidos, ratioId, unidadId, pct: pctCrudo, desde, hasta: hastaEf }),
-    [precios, meses, excluidos, ratioId, unidadId, pctCrudo, desde, hastaEf]);
-  const { pts, ratio, rotuloUnidad, promedios, primero, ultimo } = R;
-  const fuenteDef = FUENTES.find((f) => f.id === fuente);
-  const sumaPct = CRUDOS.reduce((s, c) => s + (Number(pctCrudo[c.id]) || 0), 0);
-  const recorte = fuente === 'mercado'
-    ? `${cd === 'ambos' ? 'minorista y mayorista' : cd === '0' ? 'minorista' : 'mayorista'} · ${resumenTipos.toLowerCase()} · ${ccN == null ? 'todos los canales' : CC[ccN].toLowerCase()}`
-    : `${resumenEmpresas.toLowerCase()} · ${resumenTerminales.toLowerCase()}`;
-  const mezclaTexto = CRUDOS.filter((c) => Number(pctCrudo[c.id]) > 0).map((c) => `${c.nombre} ${fmt.pct((Number(pctCrudo[c.id]) / (sumaPct || 1)) * 100, 0)}`).join(' + ') || 'sin crudo';
+  const R = useMemo(() => calcular({ precios, meses, excluidos, ratioId: ratio.id, unidadId, pct: pctCrudo, desde, hasta: hastaEf }),
+    [precios, meses, excluidos, ratio, unidadId, pctCrudo, desde, hastaEf]);
+  const { pts, rotuloUnidad, promedios, primero, ultimo } = R;
 
   // Intervalo, atajos y presidencias
   const cambiarDesde = (f) => { setDesde(f); if (f > hastaEf) setHasta(f); };
@@ -175,7 +106,6 @@ export default function MargenesGasoil({ seccion }) {
     const p = PERIODOS.find((q) => q.id === id);
     if (p) { setDesde(p.desde); setHasta(p.hasta); }
   };
-  const cambiarPct = (id, v) => setPctCrudo((p) => ({ ...p, [id]: Math.max(0, Math.min(100, Number(v) || 0)) }));
 
   const extremos = useMemo(() => {
     const de = (k) => {
@@ -235,7 +165,6 @@ export default function MargenesGasoil({ seccion }) {
     { id: 'crack', titulo: `Crack spread ${ratio.label}`, detalle: `(${ratio.naftas} × naftas + ${ratio.gasoil} × gas oil - ${ratio.naftas + ratio.gasoil} × crudo) ÷ ${ratio.naftas + ratio.gasoil} · en ${rotuloUnidad}, % del crudo y acumulado` },
   ];
   const tono = (v) => (v == null ? undefined : v < 0 ? 'warn' : 'pos');
-  const cargando = fuente === 'mercado' ? !D : !T;
 
   return (
     <div className="go-seccion go-sesco go-margenes go-margenes-go">
@@ -268,18 +197,8 @@ export default function MargenesGasoil({ seccion }) {
               ))}
             </select>
           </div>
-          <div className="go-filtro">
-            <label htmlFor="go-mg-fuente">Precios</label>
-            <select id="go-mg-fuente" className="empresa-select" value={fuente} onChange={(e) => setFuente(e.target.value)}>
-              {FUENTES.map((f) => <option key={f.id} value={f.id}>{f.label}</option>)}
-            </select>
-          </div>
-          <div className="go-filtro">
-            <label htmlFor="go-mg-ratio">Ratio</label>
-            <select id="go-mg-ratio" className="empresa-select" value={ratioId} onChange={(e) => setRatioId(e.target.value)}>
-              {RATIOS.map((r) => <option key={r.id} value={r.id}>{r.label}</option>)}
-            </select>
-          </div>
+          <SelectFuente G={G} />
+          <SelectRatio G={G} />
           <div className="go-filtro">
             <label htmlFor="go-mg-unidad">Unidad</label>
             <select id="go-mg-unidad" className="empresa-select" value={unidadId} onChange={(e) => setUnidadId(e.target.value)}>
@@ -287,57 +206,9 @@ export default function MargenesGasoil({ seccion }) {
             </select>
           </div>
         </div>
-        <div className={`go-filtros go-filtros-margenes-go2 ${fuente === 'mercado' ? 'con-mercado' : 'con-terminales'}`}>
-          {fuente === 'mercado' ? (
-            <>
-              <div className="go-filtro">
-                <label htmlFor="go-mg-cd">Canal de distribución</label>
-                <select id="go-mg-cd" className="empresa-select" value={cd} onChange={(e) => cambiarCd(e.target.value)}>
-                  <option value="1">Mayorista</option>
-                  <option value="0">Minorista</option>
-                  <option value="ambos">Ambos</option>
-                </select>
-              </div>
-              <div className="go-filtro">
-                <span className="go-filtro-label">Tipo de negocio</span>
-                <DropdownMulti opciones={disponibles.tipos} seleccion={tipos} resumen={resumenTipos} onCambiar={setTipos} />
-              </div>
-              <div className="go-filtro">
-                <label htmlFor="go-mg-cc">Canal de comercialización</label>
-                <select id="go-mg-cc" className="empresa-select" value={cc} onChange={(e) => setCc(e.target.value)}>
-                  <option value={TODAS}>Todos los canales</option>
-                  {disponibles.canales.map((c) => <option key={c} value={String(CC.indexOf(c))}>{c}</option>)}
-                </select>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="go-filtro">
-                <span className="go-filtro-label">Empresa</span>
-                {T && empresas && <DropdownMulti opciones={T.empresas} seleccion={empresas} resumen={resumenEmpresas} onCambiar={setEmpresas} acciones={ACCIONES_EMPRESAS} />}
-              </div>
-              <div className="go-filtro">
-                <span className="go-filtro-label">Terminal</span>
-                {T && terminales && <DropdownMulti opciones={T.terminales} seleccion={terminales} resumen={resumenTerminales} onCambiar={setTerminales} acciones={ACCIONES_TERMINALES} rotulo={(t) => t.charAt(0) + t.slice(1).toLowerCase()} />}
-              </div>
-            </>
-          )}
-          <div className="go-filtro go-f-crudo">
-            <span className="go-filtro-label">Crudo, % de la mezcla</span>
-            <div className="go-crudo-mezcla">
-              {CRUDOS.map((c) => (
-                <label key={c.id} className="go-crudo-item">
-                  <span>{c.nombre}</span>
-                  <input type="number" min="0" max="100" step="5" value={pctCrudo[c.id]} onChange={(e) => cambiarPct(c.id, e.target.value)} aria-label={`${c.nombre}, % de la mezcla`} />
-                </label>
-              ))}
-              {sumaPct !== 100 && <span className="go-crudo-aviso">{sumaPct > 0 ? `suman ${sumaPct}%: se reparten en proporción` : 'sin crudo'}</span>}
-            </div>
-          </div>
-        </div>
+        <FilaAperturas G={G} />
         <p className="chart-card-subtitle go-intervalo-nota">
-          {R.meses} meses con crack spread, {fmt.monthShort(desde)} a {fmt.monthShort(hastaEf)} · {rotuloUnidad} corrientes · precios sin impuestos, {fuenteDef.nombre}: {recorte}
-          {excluidos.size > 0 && ` · sin ${[...excluidos].filter((f) => f >= desde && f <= hastaEf).length} meses ${fuente === 'terminales' ? 'que excluye la hoja del workbook' : 'con precios anómalos del relevamiento'}`}
+          {R.meses} meses con crack spread, {fmt.monthShort(desde)} a {fmt.monthShort(hastaEf)} · {rotuloUnidad} corrientes · precios sin impuestos, {fuenteDef.nombre}: {recorte}{G.notaExcluidos(desde, hastaEf)}
         </p>
         <Cajas cajas={cajas} abiertos={abiertos} alternar={alternar} />
       </div>
@@ -446,7 +317,7 @@ export default function MargenesGasoil({ seccion }) {
         Fuente: Secretaría de Energía, relevamiento Res. 1104/2004 (precios sin impuestos y volúmenes de gas oil grado 2 y 3 y de nafta súper y
         premium, por canal de distribución, tipo de negocio y canal de comercialización) y precios de venta en planta por reventa a estaciones de
         servicio (por empresa y terminal, zona exenta y no exenta ponderadas por volumen; la hoja del workbook deja afuera las terminales
-        {T ? ` ${T.excluidas.map((x) => x.charAt(0) + x.slice(1).toLowerCase()).join(', ')}` : ''} y los meses{T ? ` ${T.meses_excluidos.map(fmt.monthShort).join(', ')}` : ''}, y así abre esta página); ventas de biodiésel para el corte y precio
+        {G.T ? ` ${G.T.excluidas.map((x) => x.charAt(0) + x.slice(1).toLowerCase()).join(', ')}` : ''} y los meses{G.T ? ` ${G.T.meses_excluidos.map(fmt.monthShort).join(', ')}` : ''}, y así abre esta página); ventas de biodiésel para el corte y precio
         Res. 963 (mediana) para el gas oil fósil = (precio sin impuestos - mezcla real × biodiésel) ÷ (1 - mezcla real); crudos Medanito, Escalante
         y Cañadón Seco del informe de regalías de la SE en usd/m³{FICHA_CRUDO.escalante?.nota ? ` (${FICHA_CRUDO.escalante.nota})` : ''}; tipo de cambio mensual. Naftas y gas oil pasan de $/l a usd/m³ con el TC del mes;
         a la unidad elegida con la densidad de cada producto (gas oil {DENSIDADES.gasoil}, naftas {DENSIDADES.naftas}, crudo {DENSIDADES.crudo} ton/m³; 6,2898 bbl y 264,172 gal por m³). Las naftas no se netean del bioetanol.

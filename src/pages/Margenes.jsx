@@ -2,17 +2,14 @@ import { Navigate, useParams } from 'react-router-dom';
 import SectionNav from '../components/SectionNav.jsx';
 import MargenesBiodiesel from '../components/margenes/MargenesBiodiesel.jsx';
 import MargenesGasoil from '../components/margenes/MargenesGasoil.jsx';
+import MargenesComparacion from '../components/margenes/MargenesComparacion.jsx';
 import './Page.css';
 
 // Márgenes del biodiésel y del gas oil (pedido de HDO del 12/10/2026, en el
 // lugar de "Biodiesel - Primas y Precios Relativos" del menú). Réplica de las
 // hojas del workbook Tableau 03 "MARKET & INDUSTRY - MARGEN BIODIESEL": el
-// biodiésel (12/10/2026), el gas oil (crack spread de refinación, 12/10/2026)
-// y la comparación entre los dos, que viene después.
-function EnPreparacion() {
-  return <div className="section-placeholder">En preparación.</div>;
-}
-
+// biodiésel, el gas oil (crack spread de refinación) y la comparación entre
+// los dos crack spreads, las tres del 12/10/2026.
 const SECTIONS = [
   {
     id: 'biodiesel', label: 'Biodiésel', root: true, tableau: 'Margenes BIO Inicio / CRACK SPREAD BIO INICIAL',
@@ -29,10 +26,11 @@ const SECTIONS = [
     encabezadoPropio: true,
   },
   {
-    id: 'comparacion', label: 'Comparación',
+    id: 'comparacion', label: 'Comparación', tableau: 'CRACK SPREAD COMPARADO (2)',
     title: 'Biodiésel y gas oil, comparados',
-    intro: 'En preparación.',
-    Comp: EnPreparacion,
+    intro: 'El crack spread del biodiésel contra el de la refinación, mes a mes y en la misma unidad, con las variables de cada uno a mano: el aceite del biodiésel; la fuente de precios, sus aperturas, el ratio y la mezcla de crudo de la refinación.',
+    Comp: MargenesComparacion,
+    encabezadoPropio: true,
   },
 ];
 const RAIZ = SECTIONS.find((s) => s.root);
