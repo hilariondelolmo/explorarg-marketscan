@@ -1122,3 +1122,501 @@ section.page-section-compacta {
 #integradas .section-intro {
   text-align: justify;
 }
+
+/* ===================================================================== */
+/* Compras al cupo por petrolera (/mercado/compras-cupo): réplica del     */
+/* dashboard EXPLORA QS BUYER (3) del libro Tableau 02. Encabezado y fila */
+/* de filtros fijos al scrollear (.mz-controles-sticky); abajo, la tabla  */
+/* petrolera × mes y el treemap a la izquierda y el mapa a la derecha.    */
+/* ===================================================================== */
+
+/* Fila única de filtros: etiqueta arriba de cada control, misma altura */
+.cc-filtros {
+  display: grid;
+  grid-template-columns: 90fr 230fr 150fr 150fr 150fr 190fr;
+  gap: 0.6rem 0.7rem;
+  align-items: start;
+  margin-bottom: 0.4rem;
+}
+.cc-filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+.cc-filtro label,
+.cc-filtro-label {
+  color: var(--ink-muted);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1rem;
+  height: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cc-filtro .empresa-select,
+.cc-filtro .mh-dropdown-boton {
+  box-sizing: border-box;
+  height: 34px;
+  min-width: 0;
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1;
+  padding: 0 0.55rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cc-filtro .empresa-select {
+  padding-right: 1.5rem;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%236b7280' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.55rem center;
+}
+.cc-filtro .mh-dropdown {
+  width: 100%;
+}
+.cc-filtro .mh-dropdown-boton > :first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Acciones de arriba del panel (Todas / Ninguna) */
+.cc-acciones {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.2rem 0.5rem 0.5rem;
+  border-bottom: 1px solid var(--rule-soft);
+  margin-bottom: 0.3rem;
+}
+.cc-acciones button {
+  background: none;
+  border: none;
+  color: var(--accent-exp);
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0;
+}
+.cc-acciones button:hover {
+  text-decoration: underline;
+}
+.cc .mh-dropdown-panel {
+  max-height: calc(100vh - 320px);
+  overflow-y: auto;
+}
+/* Los dos últimos desplegables abren hacia la izquierda para no salirse */
+.cc .mh-dropdown-panel.cc-panel-grupos {
+  left: auto;
+  right: 0;
+  min-width: 290px;
+}
+.cc .mh-dropdown-item span {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.8rem;
+}
+
+/* Grilla bajo la tabla (que va a todo el ancho): treemap 55 %, mapa 45 %,
+   con los títulos de los dos a la misma altura (HDO, 12/10/2026) */
+.cc-grilla {
+  display: grid;
+  grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
+  gap: 1.6rem 2rem;
+  align-items: start;
+  margin-top: 0.4rem;
+}
+.cc-grilla > .chart-card {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.cc-grilla .cc-titulo {
+  min-height: 2.6rem; /* el subtítulo largo del treemap ocupa dos líneas: ambos títulos arrancan igual */
+  align-content: start;
+}
+.cc-columna {
+  min-width: 0;
+}
+.cc-titulo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.6rem;
+  align-items: baseline;
+  margin-bottom: 0.8rem;
+}
+.cc-titulo .chart-card-subtitle {
+  margin-left: 0;
+}
+.cc-soltar {
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  color: var(--accent-exp);
+  font-size: 0.74rem;
+  padding: 0.1rem 0.45rem;
+  margin-left: 0.4rem;
+  cursor: pointer;
+}
+.cc-soltar:hover {
+  border-color: var(--accent-exp);
+}
+
+/* Tabla petrolera × mes: celdas de dos líneas (toneladas y %), clic en
+   petrolera, mes, trimestre, año o celda; el elegido en turquesa */
+.cc-tabla-card {
+  margin-top: 1.4rem;
+  margin-bottom: 2.2rem;
+}
+.cc-tabla th,
+.cc-tabla td {
+  padding: 0.3rem 0.45rem;
+}
+.cc-tabla .mz-fija {
+  min-width: 170px;
+}
+.cc-tabla th.cc-th {
+  text-align: center;
+  border-left: 1px solid var(--rule-soft);
+}
+.cc-tabla th.cc-th-anio {
+  font-size: 0.78rem;
+  color: var(--ink);
+  border-bottom: none;
+}
+.cc-tabla th.cc-th-trim {
+  color: var(--ink-2);
+  border-bottom: none;
+}
+.cc-tabla th.cc-th-mes {
+  text-align: right;
+  border-left: none;
+}
+.cc-tabla th.cc-th-mes:first-of-type,
+.cc-tabla td.num:first-of-type {
+  border-left: 1px solid var(--rule-soft);
+}
+.cc-tabla th button,
+.cc-tabla .cc-pet {
+  background: none;
+  border: none;
+  padding: 0.15rem 0.3rem;
+  margin: -0.15rem -0.3rem;
+  border-radius: 3px;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+.cc-tabla .cc-pet {
+  font-weight: 600;
+  color: var(--ink);
+  text-align: left;
+}
+.cc-tabla th button:hover,
+.cc-tabla .cc-pet:hover,
+.cc-tabla .cc-celda:hover {
+  background: color-mix(in srgb, var(--accent-brand) 14%, transparent);
+}
+.cc-tabla th button[aria-pressed='true'],
+.cc-tabla .cc-pet[aria-pressed='true'] {
+  background: var(--accent-brand);
+  color: #fff;
+}
+.cc-tabla .cc-celda {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.05rem;
+  width: 100%;
+  min-width: 52px;
+  background: none;
+  border: none;
+  padding: 0.15rem 0.3rem;
+  margin: -0.15rem -0.3rem;
+  border-radius: 3px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  box-sizing: content-box;
+}
+.cc-tabla span.cc-celda {
+  cursor: default;
+}
+.cc-tabla .cc-celda-vacia {
+  display: block;
+  min-height: 1.6rem;
+}
+.cc-tabla .cc-ton {
+  font-variant-numeric: tabular-nums;
+}
+.cc-tabla .cc-pct {
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+.cc-tabla .cc-celda.cc-sel,
+.cc-tabla .cc-celda.cc-sel .cc-pct {
+  background: var(--accent-brand);
+  color: #fff;
+}
+.cc-tabla .cc-fila-sel td {
+  background: color-mix(in srgb, var(--accent-brand) 10%, transparent);
+}
+.cc-tabla td.cc-col-sel,
+.cc-tabla th.cc-col-sel {
+  background: color-mix(in srgb, var(--accent-brand) 10%, transparent);
+}
+.cc-tabla .cc-total-col {
+  border-left: 1px solid var(--rule);
+  font-weight: 600;
+}
+.cc-tabla .mz-total td {
+  font-weight: 600;
+}
+.cc-tabla .mz-total .cc-pct {
+  color: var(--ink-2);
+}
+.cc-tabla .cc-vacio {
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+  padding: 1rem 0.6rem;
+}
+:root[data-theme='dark'] .cc-tabla th button[aria-pressed='true'],
+:root[data-theme='dark'] .cc-tabla .cc-pet[aria-pressed='true'],
+:root[data-theme='dark'] .cc-tabla .cc-celda.cc-sel,
+:root[data-theme='dark'] .cc-tabla .cc-celda.cc-sel .cc-pct {
+  color: var(--bg);
+}
+
+/* Treemap: debajo de la tabla, a la izquierda del mapa (pedido HDO) */
+.cc-treemap-card {
+  margin-bottom: 1.2rem;
+}
+.cc-treemap {
+  position: relative;
+  width: 100%;
+  background: var(--bg-3);
+  border-radius: 4px;
+  /* sin overflow hidden: el tooltip asoma por arriba en las baldosas del borde */
+}
+.cc-treemap svg {
+  display: block;
+}
+.cc-treemap g:focus {
+  outline: none;
+}
+.cc-treemap g:focus rect,
+.cc-treemap g:hover rect {
+  stroke: var(--ink);
+  stroke-width: 1.5px;
+}
+.cc-treemap text {
+  pointer-events: none;
+  font-family: var(--font-display);
+}
+.cc-leyenda {
+  gap: 0.5rem 1rem;
+  font-size: 0.76rem;
+}
+.cc-vacio {
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+  padding: 1.2rem 0.8rem;
+  margin: 0;
+}
+.cc-vacio-mapa {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tooltip de treemap y mapa */
+.cc-tooltip {
+  position: absolute;
+  transform: translate(14px, -50%);
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  box-shadow: var(--sombra-panel);
+  padding: 0.55rem 0.75rem;
+  font-size: 0.78rem;
+  min-width: 250px;
+  max-width: 360px;
+  pointer-events: none;
+  z-index: 5;
+}
+.cc-tooltip-fila span {
+  white-space: nowrap;
+}
+.cc-tooltip.izquierda {
+  transform: translate(calc(-100% - 14px), -50%);
+}
+.cc-tooltip-titulo {
+  font-weight: 700;
+  color: var(--ink);
+}
+.cc-tooltip-sub {
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+  margin-bottom: 0.2rem;
+}
+.cc-tooltip-fila {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+  margin-top: 0.15rem;
+}
+.cc-tooltip-fila strong {
+  color: var(--ink);
+  white-space: nowrap;
+}
+.cc-tooltip-sep {
+  border-top: 1px solid var(--rule-soft);
+  margin: 0.35rem 0 0.2rem;
+}
+.cc-tooltip-swatch {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 1px;
+  margin-right: 0.4rem;
+  vertical-align: 0;
+}
+
+/* Mapa con tortas por provincia */
+.cc-mapa {
+  position: relative;
+  width: 100%;
+}
+.cc-mapa svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.cc-mapa .cc-vecino {
+  fill: var(--bg-3);
+  stroke: var(--rule-soft);
+  stroke-width: 0.6px;
+}
+.cc-mapa .cc-prov {
+  fill: var(--bg-4);
+  stroke: var(--bg);
+  stroke-width: 0.9px;
+}
+.cc-mapa .cc-prov.con-ventas {
+  fill: color-mix(in srgb, var(--accent-exp) 14%, var(--bg-4));
+}
+.cc-mapa .cc-gajo {
+  stroke: var(--bg);
+  stroke-width: 1px;
+}
+.cc-mapa .cc-torta {
+  cursor: default;
+}
+.cc-mapa .cc-torta:focus {
+  outline: none;
+}
+.cc-mapa .cc-gajo:hover,
+.cc-mapa .cc-gajo.activo,
+.cc-mapa .cc-torta:focus .cc-gajo {
+  stroke: var(--ink);
+}
+.cc-mapa .cc-prov.con-ventas {
+  cursor: default;
+}
+.cc-mapa .cc-prov.activa {
+  stroke: var(--ink);
+  stroke-width: 1.4px;
+}
+.cc-tooltip-titulo .cc-tooltip-swatch {
+  vertical-align: 1px;
+}
+/* Rótulo de cada torta como cartel de mapa: cajita del color del fondo,
+   casi opaca, con borde fino y texto en tinta (el bloque negro resultaba
+   invasivo y el borde blanco no se leía, HDO 12/10/2026) */
+.cc-mapa .cc-mapa-rotulo {
+  pointer-events: none;
+}
+.cc-mapa .cc-mapa-rotulo-caja {
+  fill: var(--bg);
+  fill-opacity: 0.92;
+  stroke: var(--rule);
+  stroke-width: 0.8px;
+}
+.cc-mapa .cc-mapa-rotulo text {
+  fill: var(--ink-2);
+  font-family: var(--font-display);
+}
+.cc-mapa .cc-mapa-rotulo .fuerte {
+  fill: var(--ink);
+  font-weight: 700;
+}
+
+/* Un solo "Ver como tabla" al pie: las dos tablas gemelas, lado a lado */
+.cc-detalle {
+  margin-top: 0.8rem;
+  font-size: 0.82rem;
+}
+.cc-tablas-gemelas {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 1.2rem 2rem;
+  align-items: start;
+  margin-top: 0.8rem;
+}
+.cc-tabla-gemela-titulo {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.3rem;
+}
+.cc-detalle summary {
+  color: var(--accent-exp);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.cc-tabla-detalle {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+}
+.cc-tabla-detalle th,
+.cc-tabla-detalle td {
+  padding: 0.3rem 0.5rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+  .cc-filtros {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .cc-grilla,
+  .cc-tablas-gemelas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cc .mh-dropdown-panel.cc-panel-grupos {
+    left: 0;
+    right: auto;
+  }
+}
+@media (max-width: 720px) {
+  .cc-filtros {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cc-tabla .mz-fija {
+    min-width: 130px;
+  }
+}
+

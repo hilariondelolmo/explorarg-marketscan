@@ -15,6 +15,7 @@ import CategoriasComparadas from '../components/mercado/CategoriasComparadas.jsx
 import CapacidadChart from '../components/mercado/CapacidadChart.jsx';
 import CupoUso from '../components/mercado/CupoUso.jsx';
 import EmpresaFicha from '../components/mercado/EmpresaFicha.jsx';
+import ComprasCupo from '../components/mercado/ComprasCupo.jsx';
 import ParticipacionChart from '../components/mercado/ParticipacionChart.jsx';
 import GruposAceiteras from '../components/mercado/GruposAceiteras.jsx';
 import MapaPlantas from '../components/mercado/MapaPlantas.jsx';
@@ -137,6 +138,12 @@ const SECTIONS = [
     intro: 'Elegí cualquier empresa del registro para ver su cupo, sus ventas y su cumplimiento, año por año o mes a mes.',
     Comp: EmpresaFicha,
     encabezadoPropio: true, // fija encabezado y selectores al scrollear
+  },
+  {
+    id: 'compras-cupo', label: 'Compras al cupo', title: 'Compras al cupo por petrolera',
+    intro: 'Las ventas de cupo al mercado interno vistas desde las petroleras que compran: cuánto compró cada una, mes a mes, a qué elaboradoras y de qué provincias.',
+    Comp: ComprasCupo,
+    encabezadoPropio: true, // fija encabezado y filtros al scrollear
   },
   {
     id: 'integradas', label: 'Categorías',

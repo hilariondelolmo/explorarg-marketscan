@@ -637,6 +637,61 @@ def agregar_petroleras(registros, cumpli):
     return dict(mensual=serie, matriz_12m=matriz, cumplimiento=cumpli,
                 periodo_12m={"desde": min(ult12), "hasta": max(ult12)})
 
+def agregar_compras_cupo(registros):
+    """compras_cupo.json: ventas de cupo de cada elaboradora a cada petrolera,
+    mes a mes - la base del tablero EXPLORA QS BUYER (3) del libro 02
+    (/mercado/compras-cupo). Formato compacto: cada venta es
+    [mes, empresa, petrolera, ton] con índices sobre las tres listas; los
+    atributos de la empresa (categoría, grupo, provincia, cámara) salen de
+    empresas.json. Control: la suma por petrolera de cada empresa-mes
+    coincide con sus ventas de cupo (QUOTA SALES, que ya incluye el COTAB)."""
+    meses = sorted({d["fecha"] for d in registros})
+    empresas = sorted({d["empresa"] for d in registros if d["petroleras"]})
+    petroleras = sorted({p for d in registros for p in d["petroleras"]})
+    im = {m: i for i, m in enumerate(meses)}
+    ie = {e: i for i, e in enumerate(empresas)}
+    ip = {p: i for i, p in enumerate(petroleras)}
+    ventas = []
+    # La fuente trae, en 2010-2011, unas decenas de empresa-mes donde la
+    # apertura por petrolera difiere en pocas toneladas de las ventas de cupo
+    # (ruido del reporte de la SE). Se informa; se aborta solo si la
+    # diferencia es grande (más de 10% y de 500 t) o si el mes no cierra.
+    desvios = []
+    por_mes = defaultdict(lambda: [0.0, 0.0])  # fecha → [Σ petroleras, Σ vc]
+    for d in registros:
+        if not d["petroleras"]:
+            continue
+        suma = sum(d["petroleras"].values())
+        if d["vc"] <= 0.5 and suma > 50:
+            # Carga errónea del maestro (p.ej. Cargill abr-2017: 10.894 t en la
+            # columna Diverse Fuels sin ventas de cupo; la hoja OIL CO del
+            # Tableau tampoco la tiene): se deja afuera.
+            warn(f"compras al cupo: {d['empresa']} {d['fecha']} tiene {suma:,.0f} t por petrolera "
+                 f"sin ventas de cupo - se omite")
+            continue
+        por_mes[d["fecha"]][0] += suma
+        por_mes[d["fecha"]][1] += d["vc"]
+        dif = abs(suma - d["vc"])
+        if dif > 1:
+            desvios.append((d["empresa"], d["fecha"], suma, d["vc"]))
+            check(dif <= 500 or dif <= 0.10 * max(abs(d["vc"]), 1),
+                  f"compras al cupo: {d['empresa']} {d['fecha']} suma por petrolera "
+                  f"{suma:,.1f} ≠ ventas de cupo {d['vc']:,.1f}")
+        for p, v in d["petroleras"].items():
+            if abs(v) > 0.05:
+                ventas.append([im[d["fecha"]], ie[d["empresa"]], ip[p], r1(v)])
+    for f, (sp, sv) in por_mes.items():
+        check(abs(sp - sv) <= max(10, 0.005 * abs(sv)),
+              f"compras al cupo {f}: la suma por petrolera ({sp:,.0f}) no cierra con las ventas de cupo ({sv:,.0f})")
+    if desvios:
+        peor = max(desvios, key=lambda x: abs(x[2] - x[3]))
+        warn(f"compras al cupo: {len(desvios)} empresa-mes con apertura por petrolera distinta de las "
+             f"ventas de cupo (máx. {peor[0]} {peor[1]}: {peor[2]:,.1f} vs {peor[3]:,.1f}); "
+             f"los totales mensuales cierran")
+    print(f"  ✓ Compras al cupo: {len(ventas):,} ventas empresa-mes-petrolera, "
+          f"{len(empresas)} elaboradoras, {len(petroleras)} petroleras, {meses[0]} → {meses[-1]}")
+    return dict(meses=meses, empresas=empresas, petroleras=petroleras, ventas=ventas)
+
 def generar_dashboard_legacy(registros):
     """dashboard.json con el esquema original de la Portada, con datos frescos.
     Mismos nombres de campo que la v2 generada en claude.ai: la Portada no
@@ -991,6 +1046,8 @@ def main():
     escribir("petroleras.json", petroleras,
              ["Detalle Biodiesel Argentina.hyper", "Cumplimiento Petrolera.hyper",
               "Mercado Argentino Derivados Petroleo Table.hyper"], dry)
+    escribir("compras_cupo.json", agregar_compras_cupo(registros),
+             ["Detalle Biodiesel Argentina.hyper"], dry)
     escribir("capacidad.json", dict(serie=cap_serie, plantas=plantas),
              ["PROD CAPACITY + HOLDING (Excel maestro)"], dry)
     escribir("plantas_aceite.json", dict(plantas=plantas_aceite),
