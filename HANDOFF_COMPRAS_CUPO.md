@@ -14,10 +14,13 @@ y fotogramas al lado del archivo).
 2. Leer este archivo y el componente `src/components/mercado/ComprasCupo.jsx`
    (el comentario de cabecera resume las decisiones).
 3. Primer prompt sugerido: "Retomo Compras al cupo (HANDOFF_COMPRAS_CUPO.md).
-   Estado: página hecha y verificada, sin commitear. Pendientes: la devolución
-   de HDO sobre el mapa (tortas vs. barras), …".
+   Estado: publicada en d1dc1b6 con dos tandas de devolución aplicadas.
+   Pendientes: lo que HDO pida sobre la página, el tutorial en video y la
+   nota sobre Patagonia"." 
 
-## Estado al cierre de la sesión (sin commitear - los commits los decide HDO)
+## Estado al cierre de la sesión
+
+**Publicada en el commit `d1dc1b6` (12/10/2026, push a main → Vercel).**
 
 - Pestaña **Compras al cupo** en el grupo "Detalle de ventas" de `/mercado`,
   después de "por Grupo Económico / Empresa" (`src/pages/Mercado.jsx`,
