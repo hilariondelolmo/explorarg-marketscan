@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import SectionNav from '../components/SectionNav.jsx';
+import TutorialModal from '../components/TutorialModal.jsx';
+import tutoriales from '../data/tutoriales.json';
 import MargenesBiodiesel from '../components/margenes/MargenesBiodiesel.jsx';
 import MargenesGasoil from '../components/margenes/MargenesGasoil.jsx';
 import MargenesComparacion from '../components/margenes/MargenesComparacion.jsx';
@@ -34,16 +37,24 @@ const SECTIONS = [
   },
 ];
 const RAIZ = SECTIONS.find((s) => s.root);
+// Tutorial en video de la página (src/data/tutoriales.json, lo escribe scripts/tutorial/armar.py);
+// sin entrada en el catálogo no hay botón
+const TUTORIAL = tutoriales.find((t) => t.id === 'margenes');
 
 export default function Margenes() {
   const { seccion } = useParams();
+  const [tutorialAbierto, setTutorialAbierto] = useState(false);
   if (seccion === RAIZ.id) return <Navigate to="/margenes" replace />;
   const activa = SECTIONS.find((s) => s.id === seccion) || RAIZ;
   const { id, title, intro, Comp } = activa;
 
   return (
     <>
-      <SectionNav sections={SECTIONS} basePath="/margenes" />
+      <SectionNav
+        sections={SECTIONS} basePath="/margenes"
+        accion={TUTORIAL && { label: 'Cómo se usa', title: 'Tutorial en video de esta página', onClick: () => setTutorialAbierto(true) }}
+      />
+      <TutorialModal tutorial={TUTORIAL} open={tutorialAbierto} onClose={() => setTutorialAbierto(false)} />
       <section key={id} id={id} className={`page-section${activa.encabezadoPropio ? ' page-section-compacta' : ''}`}>
         <div className="container">
           {!activa.encabezadoPropio && (

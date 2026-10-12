@@ -1,0 +1,236 @@
+{
+  "id": "margenes",
+  "titulo": "Márgenes - Biodiésel y gas oil",
+  "pagina": "/margenes",
+  "youtube": "Z_x4iydEj8E",
+  "descripcion": "Cómo se usa la página Márgenes de Explorarg: el margen del biodiésel sobre el aceite y su crack spread 10:9:1, el crack spread de refinación del gas oil con los precios del mercado o de las terminales, y la comparación entre los dos, con el intervalo, la presidencia, el aceite, el ratio, la mezcla de crudo y la unidad.",
+  "url": "https://www.explorarg.com/",
+  "viewport": [1920, 1080],
+  "cartel": { "kicker": "Tutorial", "titulo": "Márgenes - Biodiésel y gas oil", "sub": "Cómo se navega la página y qué hace cada control", "marca": "EXPLORARG · MARKETSCAN" },
+  "paginas": {
+    "p00": "/", "p02": "/margenes", "p08": "/margenes/gas-oil", "p12": "/margenes/comparacion"
+  },
+  "pasos": [
+    {
+      "id": "p00", "titulo": "Apertura", "capitulo": "Apertura y cómo se llega",
+      "texto": "Este es el tutorial de la página Márgenes de Explorarg: el biodiésel y el gas oil mirados desde lo que dejan. Tres pestañas: el margen del biodiésel sobre el aceite, el crack spread de la refinación sobre el crudo, y la comparación entre los dos. Como en todo el sitio, cada control hace una sola cosa y la pantalla se recalcula al instante.",
+      "acciones": [
+        { "tipo": "esperar", "s": 0.3 }
+      ]
+    },
+    {
+      "id": "p01", "titulo": "Cómo se llega: menú Dashboards", "capitulo": false,
+      "texto": "Se entra por el menú principal: en Dashboards, la última opción, Márgenes, biodiésel y gas oil.",
+      "acciones": [
+        { "tipo": "ocultar_cartel" },
+        { "tipo": "esperar", "s": 0.5 },
+        { "tipo": "click", "sel": ".nav-dropdown-trigger" },
+        { "tipo": "resaltar", "sel": ".nav-dropdown-menu", "margen": 4 },
+        { "tipo": "esperar", "s": 1.0 },
+        { "tipo": "hover", "sel": { "sel": ".nav-dropdown-item", "texto": "Márgenes" }, "espera": 0.8 },
+        { "tipo": "click", "sel": { "sel": ".nav-dropdown-item", "texto": "Márgenes" } },
+        { "tipo": "limpiar" },
+        { "tipo": "cargar", "extra": 800 }
+      ]
+    },
+    {
+      "id": "p02", "titulo": "Las tres pestañas y la cabecera fija",
+      "texto": "La página tiene tres pestañas: Biodiésel, Gas oil y Comparación. Cada una abre su propio tablero, con los controles debajo del título y una fila de obleas que se abren y se cierran con un clic. Al bajar, el título y los controles quedan pegados arriba, así siempre están a mano.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Biodiésel" },
+        { "tipo": "resaltar", "sel": ".section-nav-inner ul", "margen": 4 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Gas oil", "exacto": true }, "espera": 1.0 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Comparación", "exacto": true }, "espera": 1.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "resaltar", "sel": "#biodiesel .go-sticky", "margen": 6 },
+        { "tipo": "esperar", "s": 1.6 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "dy": 700, "espera": 1.6 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p03", "titulo": "Biodiésel · El intervalo y la presidencia",
+      "texto": "El intervalo se elige con desde y hasta, con un atajo, o con una presidencia entera: su mandato completo pasa a ser el intervalo, y si después movés una fecha, la presidencia se suelta. Todo lo que hay debajo, tarjetas y gráficos, se recalcula a ese intervalo.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": "#biodiesel .go-filtros-margenes", "margen": 6 },
+        { "tipo": "esperar", "s": 1.2 },
+        { "tipo": "click", "sel": { "sel": "#biodiesel .chart-range-selector button", "texto": "24 m", "exacto": true }, "espera": 1.8 },
+        { "tipo": "select", "sel": "#go-mb-presidencia", "etiqueta": "Mauricio Macri · dic 2015 a nov 2019", "espera": 2.4 },
+        { "tipo": "click", "sel": { "sel": "#biodiesel .chart-range-selector button", "texto": "Todo", "exacto": true }, "espera": 1.0 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p04", "titulo": "Biodiésel · Aceite y unidad",
+      "texto": "Aceite define contra qué se mide el margen: el FAS oficial, o el FAS de precio de compra, que ya trae la prima. Con el primero el margen se llama sobre FAS; con el segundo, sobre FAS más prima, y así lo dicen las tarjetas y los gráficos. Unidad pasa todo a toneladas, metros cúbicos, litros, barriles o galones. La nota de abajo resume el intervalo, la unidad, el aceite y de dónde salió la glicerina en cada tramo.",
+      "acciones": [
+        { "tipo": "select", "sel": "#go-mb-aceite", "etiqueta": "FAS JJ (precio compra)", "espera": 2.6 },
+        { "tipo": "select", "sel": "#go-mb-aceite", "etiqueta": "FAS Minagri", "espera": 1.0 },
+        { "tipo": "select", "sel": "#go-mb-unidad", "etiqueta": "bbl", "espera": 2.0 },
+        { "tipo": "select", "sel": "#go-mb-unidad", "etiqueta": "ton", "espera": 0.8 },
+        { "tipo": "resaltar", "sel": "#biodiesel .go-intervalo-nota", "margen": 4 },
+        { "tipo": "esperar", "s": 2.2 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p05", "titulo": "Biodiésel · Resultado del período",
+      "texto": "La primera oblea, Resultado del período, tiene cuatro tarjetas: el biodiésel, el aceite, el margen y el crack spread. El número grande es el promedio del intervalo elegido, y debajo van el primer mes, el último y cuánto cambió entre los dos. Al cambiar el intervalo, el aceite o la unidad, las cuatro se rehacen.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": "#biodiesel .go-kpi-bloque", "margen": 6 },
+        { "tipo": "hover", "sel": { "sel": "#biodiesel .kpi-card", "nth": 0 }, "espera": 1.6 },
+        { "tipo": "hover", "sel": { "sel": "#biodiesel .kpi-card", "nth": 2 }, "espera": 1.6 },
+        { "tipo": "hover", "sel": { "sel": "#biodiesel .kpi-card", "nth": 3 }, "espera": 1.8 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p06", "titulo": "Biodiésel · Biodiésel y aceite, y el margen",
+      "texto": "Las dos obleas siguientes son los gráficos. Biodiésel y aceite muestra los dos precios y, entre ellos, el margen, con el valor al inicio y al final del intervalo. La oblea del margen lo muestra solo, con su promedio en línea punteada: es la forma más rápida de ver en qué tramos el biodiésel pagó el aceite con holgura y en cuáles no.",
+      "acciones": [
+        { "tipo": "scroll", "sel": { "sel": "#biodiesel .chart-card-header .chart-card-title", "texto": "Biodiésel y aceite" }, "margen": 20 },
+        { "tipo": "hover", "sel": { "sel": "#biodiesel .chart-card-body", "nth": 0 }, "dx": -200, "dy": -30, "espera": 1.8 },
+        { "tipo": "hover", "sel": { "sel": "#biodiesel .chart-card-body", "nth": 0 }, "dx": 450, "dy": -30, "espera": 1.6 },
+        { "tipo": "scroll", "sel": { "sel": "#biodiesel .chart-card-header .chart-card-title", "texto": "Margen entre el biodiésel" }, "margen": 20 },
+        { "tipo": "hover", "sel": { "sel": "#biodiesel .chart-card-body", "nth": 1 }, "dx": -300, "dy": -20, "espera": 1.8 },
+        { "tipo": "hover", "sel": { "sel": "#biodiesel .chart-card-body", "nth": 1 }, "dx": 400, "dy": -20, "espera": 1.8 }
+      ]
+    },
+    {
+      "id": "p07", "titulo": "Biodiésel · Crack spread 10:9:1",
+      "texto": "El crack spread es la cuenta de la planta: diez de aceite dan nueve de biodiésel y una de glicerina. Tres paneles: el crack en la unidad elegida, con su promedio; el crack como porcentaje del aceite; y la variación acumulada desde el primer mes del intervalo. Los meses sombreados son los que usan el precio de glicerina de Explora, porque ninguna cotización pública los cubre.",
+      "acciones": [
+        { "tipo": "scroll", "sel": { "sel": "#biodiesel .chart-card-header .chart-card-title", "texto": "Crack spread del biodiésel" }, "margen": 20 },
+        { "tipo": "resaltar", "sel": { "sel": "#biodiesel .go-crack-rotulo", "nth": 0 }, "margen": 4 },
+        { "tipo": "esperar", "s": 1.6 },
+        { "tipo": "resaltar", "sel": { "sel": "#biodiesel .go-crack-rotulo", "nth": 1 }, "margen": 4 },
+        { "tipo": "esperar", "s": 1.6 },
+        { "tipo": "resaltar", "sel": { "sel": "#biodiesel .go-crack-rotulo", "nth": 2 }, "margen": 4 },
+        { "tipo": "esperar", "s": 1.6 },
+        { "tipo": "limpiar" },
+        { "tipo": "hover", "sel": { "sel": "#biodiesel .chart-card-body", "nth": 2 }, "dx": -420, "dy": -40, "espera": 2.0 },
+        { "tipo": "hover", "sel": { "sel": "#biodiesel .chart-card-body", "nth": 2 }, "dx": -480, "dy": -40, "espera": 1.6 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p08", "titulo": "Gas oil · Crack spread de refinación",
+      "texto": "La pestaña Gas oil hace la misma cuenta para la refinación: qué deja un barril de crudo convertido en naftas y gas oil. El intervalo y la presidencia funcionan igual. Precios elige la fuente: el relevamiento del mercado o los precios en planta de las terminales. Ratio es la receta de la refinería: dos, tres o cinco de crudo repartidos entre naftas y gas oil. Y la unidad abre en barriles, que es como se habla del crack spread.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Gas oil" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Gas oil", "exacto": true } },
+        { "tipo": "cargar", "extra": 800 },
+        { "tipo": "resaltar", "sel": "#gas-oil .go-filtros-margenes-go", "margen": 6 },
+        { "tipo": "esperar", "s": 1.8 },
+        { "tipo": "select", "sel": "#go-mg-ratio", "etiqueta": "2:1:1", "espera": 2.2 },
+        { "tipo": "select", "sel": "#go-mg-ratio", "etiqueta": "3:2:1", "espera": 0.8 },
+        { "tipo": "select", "sel": "#go-mg-unidad", "etiqueta": "ton", "espera": 2.0 },
+        { "tipo": "select", "sel": "#go-mg-unidad", "etiqueta": "bbl", "espera": 0.8 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p09", "titulo": "Gas oil · Las aperturas y la mezcla de crudo",
+      "texto": "La segunda fila recorta los precios del mercado como en el resto del sitio: canal de distribución, tipo de negocio y canal de comercialización; abre en mayorista, que es donde el combustible se vende a granel. Y la mezcla de crudo se escribe a mano: qué porcentaje de Medanito, de Escalante y de Cañadón Seco. Si los tres no suman cien, la página los reparte en proporción y lo avisa.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": "#gas-oil .go-filtros-margenes-go2", "margen": 6 },
+        { "tipo": "esperar", "s": 1.4 },
+        { "tipo": "select", "sel": "#go-mg-cd", "etiqueta": "Minorista", "espera": 2.2 },
+        { "tipo": "select", "sel": "#go-mg-cd", "etiqueta": "Mayorista", "espera": 0.8 },
+        { "tipo": "limpiar" },
+        { "tipo": "resaltar", "sel": "#gas-oil .go-crudo-mezcla", "margen": 4 },
+        { "tipo": "click", "sel": "#go-mg-crudo-escalante", "espera": 0.4 },
+        { "tipo": "tecla", "tecla": "Meta+A" },
+        { "tipo": "tecla", "tecla": "0", "espera": 2.2 },
+        { "tipo": "tecla", "tecla": "Meta+A" },
+        { "tipo": "tecla", "tecla": "5" },
+        { "tipo": "tecla", "tecla": "0", "espera": 1.2 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p10", "titulo": "Gas oil · Precios de terminales",
+      "texto": "Con Terminales, la fila cambia: en lugar de canales, elegís empresas y terminales con casillas. El botón Sin excluidas deja afuera las mismas terminales que descarta el tablero original, y la nota de abajo dice cuántos meses quedan fuera. Son los precios de venta en planta a las estaciones de servicio, otra base que la del relevamiento: por eso el crack spread no da lo mismo con una fuente que con la otra.",
+      "acciones": [
+        { "tipo": "select", "sel": "#go-mg-fuente", "etiqueta": "Terminales", "espera": 2.8 },
+        { "tipo": "resaltar", "sel": "#gas-oil .go-filtros-margenes-go2", "margen": 6 },
+        { "tipo": "esperar", "s": 1.0 },
+        { "tipo": "click", "sel": { "sel": "#gas-oil .mh-dropdown-boton", "nth": 1 }, "espera": 0.8 },
+        { "tipo": "resaltar", "sel": "#gas-oil .mh-dropdown-panel", "margen": 4 },
+        { "tipo": "esperar", "s": 1.0 },
+        { "tipo": "hover", "sel": { "sel": "#gas-oil .mh-dropdown-panel button", "texto": "Sin excluidas", "exacto": true }, "espera": 1.6 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": { "sel": "#gas-oil .mh-dropdown-boton", "nth": 1 }, "espera": 0.6 },
+        { "tipo": "resaltar", "sel": "#gas-oil .go-intervalo-nota", "margen": 4 },
+        { "tipo": "esperar", "s": 2.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "select", "sel": "#go-mg-fuente", "etiqueta": "Mercado", "espera": 1.2 }
+      ]
+    },
+    {
+      "id": "p11", "titulo": "Gas oil · Resultado y gráficos",
+      "texto": "Abajo, lo mismo que en Biodiésel: las tarjetas con los promedios del período de las naftas, el gas oil fósil, el crudo y el crack spread; el gráfico de los tres precios, con el crudo punteado; y el crack spread en tres paneles. El gas oil es siempre el fósil, neto del biodiésel que lleva mezclado, para que la cuenta de la refinería no incluya lo que no refinó.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": "#gas-oil .go-kpi-bloque", "margen": 6 },
+        { "tipo": "esperar", "s": 2.2 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": { "sel": "#gas-oil .chart-card-header .chart-card-title", "texto": "Naftas, gas oil fósil y crudo" }, "margen": 20 },
+        { "tipo": "hover", "sel": { "sel": "#gas-oil .chart-card-body", "nth": 0 }, "dx": 300, "dy": -20, "espera": 2.0 },
+        { "tipo": "scroll", "sel": { "sel": "#gas-oil .chart-card-header .chart-card-title", "texto": "Crack spread de refinación" }, "margen": 20, "espera": 2.4 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p12", "titulo": "Comparación · Los dos crack spreads",
+      "texto": "Comparación pone los dos crack spreads en el mismo intervalo y la misma unidad, y abre en toneladas. Arriba, lo que define al biodiésel: el aceite. En la segunda y la tercera fila, lo que define a la refinación: la fuente de precios, el ratio, las aperturas y la mezcla de crudo, con un resumen de lo elegido. Cada uno arranca como en su propia pestaña.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Comparación" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Comparación", "exacto": true } },
+        { "tipo": "cargar", "extra": 800 },
+        { "tipo": "resaltar", "sel": "#comparacion .go-filtros-margenes", "margen": 6 },
+        { "tipo": "esperar", "s": 1.6 },
+        { "tipo": "resaltar", "sel": "#comparacion .go-filtros-comparacion-go", "margen": 6 },
+        { "tipo": "esperar", "s": 1.4 },
+        { "tipo": "resaltar", "sel": "#comparacion .go-filtros-margenes-go2", "margen": 6 },
+        { "tipo": "esperar", "s": 1.2 },
+        { "tipo": "limpiar" },
+        { "tipo": "select", "sel": "#go-mc-ratio", "etiqueta": "2:1:1", "espera": 2.0 },
+        { "tipo": "select", "sel": "#go-mc-ratio", "etiqueta": "3:2:1", "espera": 0.8 },
+        { "tipo": "select", "sel": "#go-mc-aceite", "etiqueta": "FAS JJ (precio compra)", "espera": 2.0 },
+        { "tipo": "select", "sel": "#go-mc-aceite", "etiqueta": "FAS Minagri", "espera": 0.8 }
+      ]
+    },
+    {
+      "id": "p13", "titulo": "Comparación · Resultado y el gráfico",
+      "texto": "Las tarjetas dicen el promedio de cada crack spread, cada uno como porcentaje de su propia materia prima, la diferencia promedio entre refinación y biodiésel, y en cuántos meses la refinación quedó arriba. El gráfico tiene tres paneles: los dos crack spreads con sus promedios, los dos en porcentaje, y la diferencia mes a mes en barras: ámbar cuando la refinación deja más, verde cuando deja más el biodiésel.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": "#comparacion .go-kpi-bloque", "margen": 6 },
+        { "tipo": "hover", "sel": { "sel": "#comparacion .kpi-card", "nth": 2 }, "espera": 1.6 },
+        { "tipo": "hover", "sel": { "sel": "#comparacion .kpi-card", "nth": 3 }, "espera": 1.6 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": { "sel": "#comparacion .chart-card-header .chart-card-title", "texto": "Crack spread del biodiésel y de la refinación" }, "margen": 20 },
+        { "tipo": "resaltar", "sel": { "sel": "#comparacion .go-crack-rotulo", "nth": 0 }, "margen": 4 },
+        { "tipo": "esperar", "s": 1.4 },
+        { "tipo": "resaltar", "sel": { "sel": "#comparacion .go-crack-rotulo", "nth": 1 }, "margen": 4 },
+        { "tipo": "esperar", "s": 1.4 },
+        { "tipo": "resaltar", "sel": { "sel": "#comparacion .go-crack-rotulo", "nth": 2 }, "margen": 4 },
+        { "tipo": "esperar", "s": 1.6 },
+        { "tipo": "limpiar" },
+        { "tipo": "hover", "sel": { "sel": "#comparacion .chart-card-body", "nth": 0 }, "dx": 350, "dy": 60, "espera": 2.0 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p14", "titulo": "Cierre",
+      "texto": "Eso es todo. Márgenes responde una sola pregunta, de dos maneras: cuánto deja transformar aceite en biodiésel y cuánto deja transformar crudo en combustibles, con las mismas fechas y la misma unidad. La nota debajo de los controles dice de dónde sale cada precio y, cuando falta una cotización, con qué se completó.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Biodiésel", "exacto": true } },
+        { "tipo": "cargar", "extra": 400 },
+        { "tipo": "esperar", "s": 2.0 },
+        { "tipo": "cartel", "kicker": "Tutorial", "titulo": "Márgenes - Biodiésel y gas oil", "sub": "explorarg.com · Dashboards · Márgenes - Biodiésel y gas oil", "marca": "EXPLORARG · MARKETSCAN" }
+      ]
+    }
+  ]
+}

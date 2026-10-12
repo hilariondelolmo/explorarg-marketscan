@@ -59,6 +59,7 @@ for (let i = 0; i < argv.length; i++) {
   const a = argv[i];
   if (a === '--mudo') opt.mudo = true;
   else if (a === '--rapido') { opt.rapido = true; opt.mudo = true; }
+  else if (a === '--debug') opt.debug = true;
   else if (a === '--ventana') opt.ventana = true;
   else if (a === '--sin-capturas') opt.capturas = false;
   else if (a === '--desde') opt.desde = argv[++i];
@@ -206,10 +207,12 @@ async function techo() {
 async function scrollSuave(delta, ms = 600) {
   if (!delta) return;
   const y0 = await page.evaluate(() => window.scrollY);
-  const n = Math.max(6, Math.round(ms / 16));
+  // Cada llamada al navegador espera a que repinte: en una página con gráficos grandes son ~100 ms,
+  // así que van pocas (unas 15 por scroll) y no una por fotograma (12/10/2026)
+  const n = Math.max(8, Math.round(ms / 40));
   for (let i = 1; i <= n; i++) {
     await page.evaluate((y) => window.scrollTo(0, y), y0 + delta * ease(i / n));
-    await sleep(16);
+    await sleep(40);
   }
   await sleep(120);
 }
@@ -264,11 +267,20 @@ const avisos = [];
 // Mover, resaltar o scrollear a algo que no está no justifica tirar una grabación de diez minutos:
 // se avisa, queda anotado en tiempos.json y se sigue. Un clic que falla sí corta.
 async function ejecutar(a) {
+  if (opt.debug) {
+    const t0 = Date.now();
+    try { return await ejecutarSinDebug(a); } finally { process.stdout.write(`\n    [${pasoActual}] ${a.tipo} ${typeof a.sel === 'string' ? a.sel : JSON.stringify(a.sel || '')} ${Date.now() - t0} ms`); }
+  }
+  return ejecutarSinDebug(a);
+}
+
+// --debug: imprime cuánto tardó cada acción (para encontrar las lentas)
+async function ejecutarSinDebug(a) {
   if (['mover', 'hover', 'resaltar', 'scroll'].includes(a.tipo)) {
     try {
       await Promise.race([
         ejecutarAccion(a),
-        new Promise((_, rej) => setTimeout(() => rej(new Error(`${a.tipo}: no apareció en 8 s`)), 8000)),
+        new Promise((_, rej) => setTimeout(() => rej(new Error(`${a.tipo}: no apareció en 14 s`)), 14000)),
       ]);
     } catch (e) {
       const sel = typeof a.sel === 'string' ? a.sel : JSON.stringify(a.sel || {});

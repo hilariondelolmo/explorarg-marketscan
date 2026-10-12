@@ -3,10 +3,10 @@
   "id": "gasoil",
   "titulo": "Mercado de Gas Oil",
   "pagina": "/gas-oil",
-  "youtube": "85xOvvNGd64",
-  "duracion": 504,
-  "grabado": "2026-10-02",
-  "descripcion": "Cómo se navega la página Mercado de Gas Oil de Explorarg y para qué sirve cada control: las pestañas y sus menús, los ocho filtros, las obleas, el diagrama de flujos, las tablas y los once tableros, uno por uno.",
+  "youtube": "_EryOTIPJA0",
+  "duracion": 533,
+  "grabado": "2026-10-12",
+  "descripcion": "Cómo se navega la página Mercado de Gas Oil de Explorarg y para qué sirve cada control: las pestañas y sus menús, los ocho filtros, las obleas, el diagrama de flujos, las tablas, el selector de presidencias y los once tableros, uno por uno.",
   "capitulos": [
    {
     "t": 0,
@@ -49,51 +49,51 @@
     "titulo": "Diagrama de flujos: el clic filtra"
    },
    {
-    "t": 189,
+    "t": 188,
     "titulo": "Las tablas: el clic en una fila filtra"
    },
    {
-    "t": 205,
+    "t": 204,
     "titulo": "Ventas · Precio"
    },
    {
-    "t": 229,
+    "t": 235,
     "titulo": "Ventas · Volumen · Resolución 1104"
    },
    {
-    "t": 253,
+    "t": 258,
     "titulo": "Ventas · Volumen · Tablas SESCO"
    },
    {
-    "t": 283,
+    "t": 288,
     "titulo": "Importaciones · Despachos"
    },
    {
-    "t": 317,
+    "t": 323,
     "titulo": "Importaciones · Resultado de importar"
    },
    {
-    "t": 344,
+    "t": 355,
     "titulo": "Biodiésel vs. gas oil · Precios comparados"
    },
    {
-    "t": 374,
+    "t": 391,
     "titulo": "Biodiésel vs. gas oil · Res. 963 y ajustes"
    },
    {
-    "t": 397,
+    "t": 414,
     "titulo": "Corte obligatorio"
    },
    {
-    "t": 427,
+    "t": 449,
     "titulo": "Precio surtidor"
    },
    {
-    "t": 455,
+    "t": 478,
     "titulo": "Ranking precios"
    },
    {
-    "t": 483,
+    "t": 512,
     "titulo": "Cierre"
    }
   ]
@@ -224,6 +224,73 @@
    },
    {
     "t": 399,
+    "titulo": "Cierre"
+   }
+  ]
+ },
+ {
+  "id": "margenes",
+  "titulo": "Márgenes - Biodiésel y gas oil",
+  "pagina": "/margenes",
+  "youtube": "Z_x4iydEj8E",
+  "duracion": 345,
+  "grabado": "2026-10-12",
+  "descripcion": "Cómo se usa la página Márgenes de Explorarg: el margen del biodiésel sobre el aceite y su crack spread 10:9:1, el crack spread de refinación del gas oil con los precios del mercado o de las terminales, y la comparación entre los dos, con el intervalo, la presidencia, el aceite, el ratio, la mezcla de crudo y la unidad.",
+  "capitulos": [
+   {
+    "t": 0,
+    "titulo": "Apertura y cómo se llega"
+   },
+   {
+    "t": 30,
+    "titulo": "Las tres pestañas y la cabecera fija"
+   },
+   {
+    "t": 49,
+    "titulo": "Biodiésel · El intervalo y la presidencia"
+   },
+   {
+    "t": 66,
+    "titulo": "Biodiésel · Aceite y unidad"
+   },
+   {
+    "t": 97,
+    "titulo": "Biodiésel · Resultado del período"
+   },
+   {
+    "t": 119,
+    "titulo": "Biodiésel · Biodiésel y aceite, y el margen"
+   },
+   {
+    "t": 143,
+    "titulo": "Biodiésel · Crack spread 10:9:1"
+   },
+   {
+    "t": 167,
+    "titulo": "Gas oil · Crack spread de refinación"
+   },
+   {
+    "t": 195,
+    "titulo": "Gas oil · Las aperturas y la mezcla de crudo"
+   },
+   {
+    "t": 220,
+    "titulo": "Gas oil · Precios de terminales"
+   },
+   {
+    "t": 245,
+    "titulo": "Gas oil · Resultado y gráficos"
+   },
+   {
+    "t": 270,
+    "titulo": "Comparación · Los dos crack spreads"
+   },
+   {
+    "t": 294,
+    "titulo": "Comparación · Resultado y el gráfico"
+   },
+   {
+    "t": 320,
     "titulo": "Cierre"
    }
   ]

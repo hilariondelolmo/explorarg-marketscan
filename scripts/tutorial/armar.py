@@ -119,7 +119,12 @@ def escribir_catalogo(G: dict, tiempos: dict, caps: list[dict], out: Path) -> No
         "duracion": int(round(tiempos.get("duracionTutorial", 0))), "grabado": tiempos.get("grabado", "")[:10],
         "descripcion": G.get("descripcion", ""), "capitulos": caps,
     }
-    lista = [e for e in lista if e.get("id") != G["id"]] + [entrada]
+    # La entrada conserva su lugar en la lista (si es nueva va al final), así el catálogo no cambia de orden en cada corrida
+    idx = next((i for i, e in enumerate(lista) if e.get("id") == G["id"]), None)
+    if idx is None:
+        lista.append(entrada)
+    else:
+        lista[idx] = entrada
     ruta.write_text(json.dumps(lista, indent=1, ensure_ascii=False) + "\n")
     print(f"catálogo -> {ruta} ({len(lista)} tutorial{'es' if len(lista) != 1 else ''})")
     lineas = [f"Tutorial · {entrada['titulo']} · Explorarg Marketscan", "", entrada["descripcion"], ""]

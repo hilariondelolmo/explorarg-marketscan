@@ -29,11 +29,11 @@ node scripts/tutorial/grabar.mjs guiones/gasoil.json                  # grabaci�
 python3 scripts/tutorial/armar.py gasoil                              # mp4 1080p y 720p + guion.md
 ```
 
-`--desde p14 --hasta p16` graba un tramo (arranca en la página de `paginas` del guion). `--mudo` estima las duraciones por el largo del texto (borrador sin voz). `--ventana` abre Chrome con ventana para mirar.
+`--desde p14 --hasta p16` graba un tramo (arranca en la página de `paginas` del guion). `--mudo` estima las duraciones por el largo del texto (borrador sin voz). `--ventana` abre Chrome con ventana para mirar. `--debug` imprime cuánto tardó cada acción: sirve para encontrar las lentas (en páginas con gráficos grandes, cada scroll o resaltado que scrollea tarda 2 a 3 s porque el navegador repinta en cada paso; el tope por acción es de 14 s).
 
 ## Decisiones y límites
 
-- **Se graba contra el sitio publicado en Vercel** (`https://biodiesel-argentina-dashboard.vercel.app`, el proyecto conserva el nombre viejo). Al 01/10/2026 `explorarg.com` todavía apunta al Wix y devuelve 404 en `/gas-oil`.
+- **Se graba contra el sitio publicado**, `https://www.explorarg.com` (campo `url` de cada guion). Los tres primeros tutoriales se grabaron contra la dirección de Vercel (`biodiesel-argentina-dashboard.vercel.app`, el proyecto conserva el nombre viejo) porque hasta principios de octubre de 2026 el dominio apuntaba al Wix; desde el 12/10/2026 explorarg.com sirve este sitio y los guiones ya apuntan ahí.
 - Se graba el contenido de la página, no la barra de direcciones del navegador.
 - Los `<select>` nativos (Mes, Canal de distribución, Bandera) no muestran la lista desplegada en la grabación, porque Chrome la dibuja fuera de la página: el video muestra el cursor sobre el control y el valor cambiando. Los desplegables propios del sitio (Tipo de negocio, Provincia, menús de pestañas) sí se ven.
 - La locución es nexo, no lectura de la pantalla: dice para qué sirve cada control y qué conviene mirar (regla de HDO del 13/09/2026). No cita cifras, porque cambian cada mes.
