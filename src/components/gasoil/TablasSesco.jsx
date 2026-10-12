@@ -3,13 +3,13 @@ import {
   ComposedChart, Line, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
 } from 'recharts';
 import {
-  IMPORTACIONES, BIO_MENSUAL, BIO_PETROLERAS, CORTE_OBLIGATORIO, DENSIDAD_BIO, cargarSesco, nombreProvincia,
+  IMPORTACIONES, BIO_MENSUAL, BIO_PETROLERAS, CORTE_OBLIGATORIO, DENSIDAD_BIO, cargarSesco, nombreProvincia, ventanaRango,
 } from '../../lib/gasoil.js';
 import { fmt } from '../../lib/format.js';
 import { useChartColors } from '../../lib/theme.jsx';
 import CorteRealChart from '../gestion/CorteRealChart.jsx';
 import {
-  useCajas, Cajas, DropdownMulti, TooltipSerie, RANGOS, mismas,
+  useCajas, Cajas, DropdownMulti, TooltipSerie, SelectorPresidencia, RANGOS, mismas,
   PROVINCIAS_FILTRO, SIN_ZONA_FRIA, ACCIONES_PROVINCIA, ROTULO_SIN_ZONA_FRIA,
 } from './relevamiento.jsx';
 import '../mercado/Mercado.css';
@@ -218,9 +218,15 @@ function Ventas({ D, seccion }) {
   const ANIO_ULTIMO = Number(ULTIMO.slice(0, 4));
   const ANIO_EN_CURSO = ULTIMO.slice(5, 7) === '12' ? null : String(ANIO_ULTIMO);
   const TRAMO_EN_CURSO = `${fmt.monthOnly(`${ANIO_ULTIMO}-01`)} a ${fmt.monthOnly(ULTIMO)}`;
-  const desdeIdx = rango === 'todo' ? 0 : Math.max(0, MESES.length - MESES_RANGO[rango]);
+  // Ventana de los gráficos: un atajo hasta el último mes o una presidencia entera (en la apertura anual, sus años completos)
+  const ventana = ventanaRango(rango, ULTIMO);
+  const desdeIdx = ventana.presidencia ? (K.idxMes.get(ventana.desde) ?? 0) : rango === 'todo' ? 0 : Math.max(0, MESES.length - MESES_RANGO[rango]);
+  const hastaIdx = ventana.presidencia ? (K.idxMes.get(ventana.hasta) ?? MESES.length - 1) : MESES.length - 1;
   const desde = MESES[desdeIdx];
+  const hasta = MESES[hastaIdx];
   const desdeAnio = K.anioDe[desdeIdx];
+  const hastaAnio = K.anioDe[hastaIdx];
+  const elegirPresidencia = (id) => { setRango(id); setMes(ventanaRango(id, ULTIMO).hasta); };
 
   // Unidad elegida: factor y rótulo de cada producto (solo el gas oil la
   // sigue), del gas oil importado (la fuente lo trae en toneladas) y del biodiésel
@@ -339,18 +345,18 @@ function Ventas({ D, seccion }) {
       const porAnio = new Map();
       for (let i = 0; i < MESES.length; i++) {
         const a = K.anioDe[i];
-        if (a < desdeAnio) continue;
+        if (a < desdeAnio || a > hastaAnio) continue;
         const p = porAnio.get(a) || { min: 0, may: 0 };
         p.min += s.min[i];
         p.may += s.may[i];
         porAnio.set(a, p);
       }
-      for (let a = desdeAnio; a <= ANIO_ULTIMO; a++) {
+      for (let a = desdeAnio; a <= hastaAnio; a++) {
         const p = porAnio.get(a) || { min: 0, may: 0 };
         pts.push({ fecha: String(a), min: p.min, may: p.may, total: p.min + p.may });
       }
     } else {
-      for (let i = desdeIdx; i < MESES.length; i++) pts.push({ fecha: MESES[i], min: s.min[i], may: s.may[i], total: s.min[i] + s.may[i] });
+      for (let i = desdeIdx; i <= hastaIdx; i++) pts.push({ fecha: MESES[i], min: s.min[i], may: s.may[i], total: s.min[i] + s.may[i] });
     }
     return pts;
   };
@@ -410,13 +416,13 @@ function Ventas({ D, seccion }) {
     return MESES.map((f) => (ultimo && f <= ultimo ? porMes.get(f) ?? 0 : null));
   }, [MESES]);
   const importaciones = useMemo(() => {
-    if (!anual) return IMPORTACIONES.filter((m) => m.fecha >= desde).map((m) => ({ fecha: m.fecha, vol: (m.ton || 0) * fImport }));
+    if (!anual) return IMPORTACIONES.filter((m) => m.fecha >= desde && m.fecha <= hasta).map((m) => ({ fecha: m.fecha, vol: (m.ton || 0) * fImport }));
     const porAnio = new Map();
     for (const m of IMPORTACIONES) porAnio.set(m.fecha.slice(0, 4), (porAnio.get(m.fecha.slice(0, 4)) || 0) + (m.ton || 0));
     const pts = [];
-    for (let a = desdeAnio; a <= ANIO_ULTIMO; a++) pts.push({ fecha: String(a), vol: (porAnio.get(String(a)) ?? 0) * fImport });
+    for (let a = desdeAnio; a <= hastaAnio; a++) pts.push({ fecha: String(a), vol: (porAnio.get(String(a)) ?? 0) * fImport });
     return pts;
-  }, [desde, vista, fImport]);
+  }, [desde, hasta, vista, fImport]);
   const uImp = [...IMPORTACIONES].reverse().find((m) => m.ton > 0); // último mes con despachos, para el resumen de la caja
 
   // Corte real, con la definición del resto del sitio: biodiésel vendido para
@@ -638,6 +644,7 @@ function Ventas({ D, seccion }) {
           <button key={id} className={rango === id ? 'active' : ''} onClick={() => setRango(id)}>{label}</button>
         ))}
       </div>
+      <SelectorPresidencia rango={rango} onElegir={elegirPresidencia} />
     </div>
   );
   const ejeAnio = (a) => (a === ANIO_EN_CURSO ? `${a}*` : a);

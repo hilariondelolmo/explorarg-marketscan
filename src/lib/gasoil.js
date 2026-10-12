@@ -318,6 +318,17 @@ export function desdeRango(rango, hasta = ULTIMO_MES) {
   return MESES[Math.max(0, i - meses + 1)];
 }
 
+/**
+ * Ventana de un rango de gráfico: los atajos (12 m, 5 a, 10 a, Todo)
+ * terminan en el último mes; una presidencia (su id en `rango`) va de su
+ * primer a su último mes (HDO, 12/10/2026: selector Presidencia en Ventas).
+ */
+export function ventanaRango(rango, hasta = ULTIMO_MES) {
+  const p = PERIODOS_PRESIDENCIA.find((q) => q.id === rango);
+  if (p) return { desde: p.desde, hasta: p.hasta, presidencia: p };
+  return { desde: desdeRango(rango, hasta), hasta, presidencia: null };
+}
+
 /** Precio con la cantidad de decimales que pide su magnitud y unidad. */
 export function fmtPrecio(v, unidad = '$/l') {
   if (v == null || isNaN(v)) return '-';

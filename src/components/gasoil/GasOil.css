@@ -717,6 +717,17 @@
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+  align-items: center;
+}
+/* Presidencia como ventana del gráfico: desplegable chico junto a los botones de rango */
+.go-selectores-grafico .go-presidencia-grafico {
+  height: 30px;
+  width: auto;
+  min-width: 0;
+  max-width: 290px;
+  margin: 0;
+  font-size: 0.78rem;
+  padding: 0 1.5rem 0 0.55rem;
 }
 .go-desplegable-cuerpo + .go-mapas,
 .go-desplegable-cuerpo + .go-charts-grid {

@@ -4,13 +4,13 @@ import {
 } from 'recharts';
 import {
   MESES, ULTIMO_MES, IDX_MES, CANALES_DIST, CANALES_COM, IMPORTACIONES,
-  convertir, ponderarCol, desdeRango, fmtPrecio,
+  convertir, ponderarCol, ventanaRango, fmtPrecio,
 } from '../../lib/gasoil.js';
 import corte from '../../data/corte.json';
 import evidencia from '../../data/evidencia.json';
 import { fmt } from '../../lib/format.js';
 import { useChartColors } from '../../lib/theme.jsx';
-import { useRelevamiento, useCajas, BloqueFijo, Tarjeta, TooltipSerie, RANGOS, TODAS, NOTA_MESES_EXCLUIDOS } from './relevamiento.jsx';
+import { useRelevamiento, useCajas, BloqueFijo, Tarjeta, TooltipSerie, SelectorPresidencia, RANGOS, TODAS, NOTA_MESES_EXCLUIDOS } from './relevamiento.jsx';
 import '../mercado/Mercado.css';
 import '../charts/Chart.css';
 import '../KPIs.css';
@@ -37,12 +37,14 @@ export default function MinoristaMayorista({ seccion }) {
   const C = useChartColors();
   const F = useRelevamiento({ modo: 'abierto' });
   const {
-    DX, listo, error, OPERADORES, operador, conOperador, mes, mesAnterior, tipo, conv, cd, cdN, ccN, tiposIdx, cambiarCd, cambiarCc,
+    DX, listo, error, OPERADORES, operador, conOperador, mes, setMes, mesAnterior, tipo, conv, cd, cdN, ccN, tiposIdx, cambiarCd, cambiarCc,
     fMes, fBase, fCanal, fBand, fProv, claves, etiquetaCanal, etiquetaFiltro, etiquetaProvincias, ambitoProv,
   } = F;
   const [abiertos, alternar] = useCajas({ kpi: false, graficos: true, importado: false, tabla: false });
   const [rango, setRango] = useState('5a');
-  const desde = desdeRango(rango, ULTIMO_MES);
+  // Ventana de los gráficos: un atajo hasta el último mes o una presidencia entera
+  const { desde, hasta } = ventanaRango(rango);
+  const elegirPresidencia = (id) => { setRango(id); setMes(ventanaRango(id).hasta); };
   const conFosil = tipo.campo === 'n';
 
   // Gas oil fósil: neto del biodiesel mezclado (solo tiene sentido sin impuestos), en $/l
@@ -62,7 +64,7 @@ export default function MinoristaMayorista({ seccion }) {
     const armar = (grado) => {
       const m = ponderarCol(DX, f, (i) => DX.cd[i] * 10000 + DX.mes[i], tipo.campo, grado);
       const pts = [];
-      for (let i = IDX_MES.get(desde); i < MESES.length; i++) {
+      for (let i = IDX_MES.get(desde); i <= IDX_MES.get(hasta); i++) {
         const fecha = MESES[i];
         const p = { fecha };
         for (const c of CANAL) {
@@ -132,8 +134,8 @@ export default function MinoristaMayorista({ seccion }) {
   }, claves);
 
   const importaciones = useMemo(() => IMPORTACIONES
-    .filter((m) => m.fecha >= desde)
-    .map((m) => ({ fecha: m.fecha, ton: m.ton, cif: m.cif_usd_ton })), [desde]);
+    .filter((m) => m.fecha >= desde && m.fecha <= hasta)
+    .map((m) => ({ fecha: m.fecha, ton: m.ton, cif: m.cif_usd_ton })), [desde, hasta]);
   const impMes = IMPORTACIONES.find((m) => m.fecha === mes) || null;
   const uImp = [...importaciones].reverse().find((m) => m.ton > 0); // último mes con despachos
 
@@ -210,6 +212,7 @@ export default function MinoristaMayorista({ seccion }) {
               <button key={id} className={rango === id ? 'active' : ''} onClick={() => setRango(id)}>{label}</button>
             ))}
           </div>
+          <SelectorPresidencia rango={rango} onElegir={elegirPresidencia} />
         </div>
       </div>
       <div className="chart-card-body">
@@ -272,6 +275,7 @@ export default function MinoristaMayorista({ seccion }) {
                       <button key={id} className={rango === id ? 'active' : ''} onClick={() => setRango(id)}>{label}</button>
                     ))}
                   </div>
+                  <SelectorPresidencia rango={rango} onElegir={elegirPresidencia} />
                 </div>
               </div>
               <div className="chart-card-body">

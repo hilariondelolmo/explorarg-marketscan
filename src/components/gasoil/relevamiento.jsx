@@ -9,7 +9,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   MESES, MESES_ANOMALOS, MESES_CON_PRECIO, ULTIMO_MES, IDX_MES, PROVINCIAS, BANDERAS, CANALES_COM, TIPOS_NEGOCIO,
   TIPOS_PRECIO, tipoPrecio, convertir, ponderarCol, sumarCol, cargarRetail, cargarParte, cargarMes,
-  fmtPrecio, variacion, nombreProvincia,
+  fmtPrecio, variacion, nombreProvincia, PERIODOS_PRESIDENCIA,
 } from '../../lib/gasoil.js';
 import { fmt } from '../../lib/format.js';
 
@@ -346,6 +346,22 @@ export function FiltrosRelevamiento({ F, sinTipoPrecio = false, sinMes = false, 
         />
       </div>
     </div>
+  );
+}
+
+/**
+ * Presidencia como ventana de los gráficos (HDO, 12/10/2026): va junto a los
+ * botones 12 m / 5 a / 10 a / Todo; elegir una pone su período (diciembre del
+ * año que asume a noviembre del que termina) como rango y, en las páginas de
+ * Ventas, lleva el Mes al último de ese período. Un botón de rango la suelta.
+ */
+export function SelectorPresidencia({ rango, onElegir }) {
+  const activa = PERIODOS_PRESIDENCIA.find((p) => p.id === rango)?.id || '';
+  return (
+    <select className="empresa-select go-presidencia-grafico" value={activa} onChange={(e) => e.target.value && onElegir(e.target.value)} aria-label="Presidencia">
+      <option value="">Presidencia…</option>
+      {PERIODOS_PRESIDENCIA.map((p) => <option key={p.id} value={p.id}>{p.nombre} · {fmt.monthShort(p.desde)} a {fmt.monthShort(p.hasta)}</option>)}
+    </select>
   );
 }
 

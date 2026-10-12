@@ -3,11 +3,11 @@ import {
   ComposedChart, Line, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
 } from 'recharts';
 import {
-  MESES, ULTIMO_MES, IDX_MES, CANALES_DIST, CANALES_COM, IMPORTACIONES, sumarCol, desdeRango,
+  MESES, ULTIMO_MES, IDX_MES, CANALES_DIST, CANALES_COM, IMPORTACIONES, sumarCol, ventanaRango,
 } from '../../lib/gasoil.js';
 import { fmt } from '../../lib/format.js';
 import { useChartColors } from '../../lib/theme.jsx';
-import { useRelevamiento, useCajas, BloqueFijo, Tarjeta, TooltipSerie, RANGOS, TODAS } from './relevamiento.jsx';
+import { useRelevamiento, useCajas, BloqueFijo, Tarjeta, TooltipSerie, SelectorPresidencia, RANGOS, TODAS } from './relevamiento.jsx';
 import '../mercado/Mercado.css';
 import '../charts/Chart.css';
 import '../KPIs.css';
@@ -45,15 +45,18 @@ export default function MinoristaMayoristaVolumen({ seccion }) {
   const C = useChartColors();
   const F = useRelevamiento({ modo: 'abierto' });
   const {
-    D, DX, listo, error, OPERADORES, operador, conOperador, mes, mesAnterior, cd, cdN, ccN, tiposIdx, cambiarCd, cambiarCc,
+    D, DX, listo, error, OPERADORES, operador, conOperador, mes, setMes, mesAnterior, cd, cdN, ccN, tiposIdx, cambiarCd, cambiarCc,
     fMes, fBase, fCanal, fBand, fProv, claves, etiquetaCanal, etiquetaFiltro, etiquetaProvincias, ambitoProv,
   } = F;
   const [abiertos, alternar] = useCajas({ kpi: false, graficos: true, importado: false, tabla: false });
   const [rango, setRango] = useState('5a');
   const [vista, setVista] = useState('mensual'); // 'mensual' | 'anual'
   const anual = vista === 'anual';
-  const desde = desdeRango(rango, ULTIMO_MES);
+  // Ventana de los gráficos: un atajo hasta el último mes o una presidencia entera (en la apertura anual, sus años completos)
+  const { desde, hasta } = ventanaRango(rango);
   const desdeAnio = Number(desde.slice(0, 4));
+  const hastaAnio = Number(hasta.slice(0, 4));
+  const elegirPresidencia = (id) => { setRango(id); setMes(ventanaRango(id).hasta); };
   // Meses (y años) con relevamiento: en ellos un canal sin ventas vale 0; en los demás no hay dato
   const relevados = useMemo(() => new Set(D?.mes), [D]);
   const aniosRelevados = useMemo(() => new Set([...relevados].map((i) => ANIO_DE[i])), [relevados]);
@@ -108,8 +111,8 @@ export default function MinoristaMayoristaVolumen({ seccion }) {
         for (const c of CANAL) p[c.clave] = m.get(c.cd * 10000 + k) ?? (hayDato ? 0 : null);
         pts.push(p);
       };
-      if (anual) for (let a = desdeAnio; a <= ANIO_ULTIMO; a++) punto(String(a), a, aniosRelevados.has(a));
-      else for (let i = IDX_MES.get(desde); i < MESES.length; i++) punto(MESES[i], i, relevados.has(i));
+      if (anual) for (let a = desdeAnio; a <= hastaAnio; a++) punto(String(a), a, aniosRelevados.has(a));
+      else for (let i = IDX_MES.get(desde); i <= IDX_MES.get(hasta); i++) punto(MESES[i], i, relevados.has(i));
       return pts;
     };
     const g2 = armar(2);
@@ -159,13 +162,13 @@ export default function MinoristaMayoristaVolumen({ seccion }) {
   }, claves);
 
   const importaciones = useMemo(() => {
-    if (!anual) return IMPORTACIONES.filter((m) => m.fecha >= desde).map((m) => ({ fecha: m.fecha, ton: m.ton }));
+    if (!anual) return IMPORTACIONES.filter((m) => m.fecha >= desde && m.fecha <= hasta).map((m) => ({ fecha: m.fecha, ton: m.ton }));
     const porAnio = new Map();
     for (const m of IMPORTACIONES) porAnio.set(m.fecha.slice(0, 4), (porAnio.get(m.fecha.slice(0, 4)) || 0) + (m.ton || 0));
     const pts = [];
-    for (let a = desdeAnio; a <= ANIO_ULTIMO; a++) pts.push({ fecha: String(a), ton: porAnio.get(String(a)) ?? 0 });
+    for (let a = desdeAnio; a <= hastaAnio; a++) pts.push({ fecha: String(a), ton: porAnio.get(String(a)) ?? 0 });
     return pts;
-  }, [desde, vista]);
+  }, [desde, hasta, vista]);
   const impMes = IMPORTACIONES.find((m) => m.fecha === mes) || null;
   const impAnt = IMPORTACIONES.find((m) => m.fecha === mesAnterior) || null;
   const uImp = [...IMPORTACIONES].reverse().find((m) => m.ton > 0); // último mes con despachos, para el resumen de la caja
@@ -225,6 +228,7 @@ export default function MinoristaMayoristaVolumen({ seccion }) {
           <button key={id} className={rango === id ? 'active' : ''} onClick={() => setRango(id)}>{label}</button>
         ))}
       </div>
+      <SelectorPresidencia rango={rango} onElegir={elegirPresidencia} />
     </div>
   );
   const ejeFecha = (v) => (anual ? ejeAnio(v) : fmt.monthShort(v));
