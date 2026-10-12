@@ -53,3 +53,28 @@ function luminancia(hex) {
 
 /** Color de texto legible sobre un relleno dado. */
 export const textoSobre = (fondo) => (luminancia(fondo) > 0.36 ? '#111111' : '#ffffff');
+
+// Colores de las petroleras compradoras (Ventas al cupo: treemap y tortas por
+// petrolera). Mismo método y mismo validador que los grupos (12/10/2026),
+// matices cercanos a las banderas del sitio (YPF azul, Raizen/Shell
+// amarillo-oliva, Axion violeta, Trafigura/Puma rojo, Petrobras verde…).
+// Las petroleras chicas sin color propio van en grises.
+export const COLORES_PETROLERA = {
+  light: {
+    'YPF S.A.': '#1762f4', 'REFI PAMPA S.A.': '#63a402', 'ESSO S.A.P.A.': '#8d3605', 'AXION ENERGY ARGENTINA S.A.': '#9d33cf',
+    'PETROBRAS ARGENTINA S.A.': '#14804f', 'NEW AMERICAN OIL S.A.': '#da48cc', 'PETROLERA DEL CONOSUR S.A.': '#a07506',
+    'OIL COMBUSTIBLES S.A.': '#15a68a', 'PETROIL S.A.': '#b90194', 'RAIZEN (ex SHELL)': '#776e06',
+    'REFINERÍA DEL NORTE S.A.': '#1088b9', 'TRAFIGURA ARGENTINA S.A.': '#d62253',
+  },
+  dark: {
+    'YPF S.A.': '#5379fd', 'REFI PAMPA S.A.': '#66a70c', 'ESSO S.A.P.A.': '#9a4824', 'AXION ENERGY ARGENTINA S.A.': '#7046e9',
+    'PETROBRAS ARGENTINA S.A.': '#198352', 'NEW AMERICAN OIL S.A.': '#a527bf', 'PETROLERA DEL CONOSUR S.A.': '#b56d13',
+    'OIL COMBUSTIBLES S.A.': '#1daa8d', 'PETROIL S.A.': '#c91190', 'RAIZEN (ex SHELL)': '#906606',
+    'REFINERÍA DEL NORTE S.A.': '#2284b1', 'TRAFIGURA ARGENTINA S.A.': '#dd1b54',
+  },
+};
+
+/** Color de la petrolera en el tema dado. */
+export function colorPetrolera(nombre, tema = 'light') {
+  return COLORES_PETROLERA[tema][nombre] || GRISES[tema][hash(nombre) % GRISES[tema].length];
+}

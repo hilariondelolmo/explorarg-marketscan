@@ -1,4 +1,4 @@
-# HANDOFF - Compras al cupo por petrolera (`/mercado/compras-cupo`)
+# HANDOFF - Compras al cupo (`/mercado/compras-cupo`) y Ventas al cupo (`/mercado/ventas-cupo`)
 
 Sesión del 12/10/2026. Réplica en el sitio del dashboard **EXPLORA QS BUYER (3)**
 ("Domestic quota sales - buyers") del libro Tableau
@@ -18,7 +18,32 @@ y fotogramas al lado del archivo).
    Pendientes: lo que HDO pida sobre la página, el tutorial en video y la
    nota sobre Patagonia"." 
 
-## Estado al cierre de la sesión
+## Ventas al cupo por elaboradora (misma sesión, después de publicar Compras)
+
+Encargo en el video `~/Explora_projects/Ventas al cupo.mp4` (transcripción y
+fotogramas al lado): "exactamente lo mismo, desde el punto de vista del
+vendedor", réplica del dashboard **EXPLORA QS SELLER** del libro 02. Es el
+mismo componente `ComprasCupo.jsx` con `vista="ventas"` (`VentasCupo.jsx` es
+un envoltorio), pestaña "Ventas al cupo" después de "Compras al cupo".
+Diferencias:
+- **Tabla**: una fila por grupo económico (toneladas y participación en el
+  total del período) y, con la flecha, sus elaboradoras (segundo nivel).
+  Sin petroleras en la tabla (HDO, 12/10/2026: "lo único que tiene que haber
+  es grupo económico / elaboradora; las petroleras se ven en el treemap y el
+  mapa"). Clic en grupo, elaboradora, período o celda acota los gráficos.
+- **Treemap** "A quién le vendió cada uno": baldosa = grupo económico (o la
+  elaboradora elegida) × petrolera, agrupado y coloreado por petrolera;
+  porcentajes = parte de las ventas del vendedor a esa petrolera · parte de
+  las compras de la petrolera que vino de ese vendedor.
+- **Mapa**: gajos por petrolera. **Tablas gemelas**: la derecha por petrolera.
+- **Colores por petrolera**: `COLORES_PETROLERA` en coloresComprasCupo.js
+  (doce fijos, validados en claro y oscuro con el mismo buscador, matices
+  cercanos a las banderas del sitio: YPF azul, Raizen oliva, Axion violeta,
+  Trafigura rojo…), grises para las chicas.
+- Estado: hecha y verificada en Chrome (claro, oscuro, interacciones), sin
+  errores; **sin commitear**, espera la devolución de HDO.
+
+## Estado de Compras al cupo
 
 **Publicada en el commit `d1dc1b6` (12/10/2026, push a main → Vercel).**
 

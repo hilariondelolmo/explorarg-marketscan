@@ -5,32 +5,34 @@ import mapa from '../../data/mapa_argentina.json';
 import { PRESIDENCIAS } from '../../lib/gestiones.js';
 import { fmt } from '../../lib/format.js';
 import { useTheme } from '../../lib/theme.jsx';
-import { colorHolding, textoSobre } from './coloresComprasCupo.js';
+import { colorHolding, colorPetrolera, textoSobre } from './coloresComprasCupo.js';
 import DropdownMulti from './DropdownMulti.jsx';
 import './Mercado.css';
 
 /**
- * Compras al cupo por petrolera - réplica del dashboard EXPLORA QS BUYER (3)
- * ("Domestic quota sales - buyers") del libro Tableau 02 MERCADO INTERNO
- * BIODIESEL, con los datos del sitio (compras_cupo.json: ventas de cupo de
- * cada elaboradora a cada petrolera, mes a mes; atributos de la elaboradora
- * en empresas.json).
+ * Compras al cupo por petrolera (vista 'compras', /mercado/compras-cupo) y
+ * Ventas al cupo por elaboradora (vista 'ventas', /mercado/ventas-cupo):
+ * réplicas de los dashboards EXPLORA QS BUYER (3) y EXPLORA QS SELLER del
+ * libro Tableau 02 MERCADO INTERNO BIODIESEL, con los datos del sitio
+ * (compras_cupo.json: ventas de cupo de cada elaboradora a cada petrolera,
+ * mes a mes; atributos de la elaboradora en empresas.json).
  *
- * Tres piezas y una fila de filtros:
- *  - tabla: una fila por petrolera, columnas año > trimestre > mes, cada
- *    celda con toneladas y participación en el total del mes; columna Total;
- *  - treemap: una baldosa por elaboradora y petrolera, color por grupo
- *    económico, tamaño por toneladas;
- *  - mapa: una torta por provincia, tamaño por participación de la
- *    provincia, gajos por grupo económico.
- * Un clic en la tabla (petrolera, mes, trimestre, año o celda) acota el
- * treemap y el mapa a esa selección; otro clic la suelta.
+ * Las dos vistas comparten los filtros, la tabla de columnas por período, el
+ * treemap, el mapa y las tablas gemelas:
+ *  - compras: la tabla lista petroleras; el treemap agrupa y colorea por
+ *    grupo económico; las tortas del mapa se parten por grupo;
+ *  - ventas: la tabla lista grupos económicos, cada uno con sus petroleras
+ *    y, desplegado, sus elaboradoras; el treemap agrupa y colorea por
+ *    petrolera; las tortas del mapa se parten por petrolera.
+ * Un clic en la tabla (fila, encabezado de período o celda) acota el treemap
+ * y el mapa a esa selección; otro clic la suelta.
  *
  * Decisiones (HDO, 12/10/2026): categorías del sitio (integrada / no
  * integrada / comercializadora) y grupos del sitio; segundo porcentaje de la
- * baldosa = participación de la empresa dentro de lo que compró esa
- * petrolera; petroleras ordenadas por el total del período; el COTAB de 2022
- * queda adentro (la fuente no lo abre por petrolera); umbral de 10 t.
+ * baldosa = participación del vendedor dentro de lo que compró esa
+ * petrolera; filas ordenadas por el total del período; el COTAB de 2022
+ * queda adentro (la fuente no lo abre por petrolera); umbral de 10 t; con
+ * Presidencia la tabla se abre por semestre.
  */
 
 const MESES_CORTOS = ['ene', 'feb', 'mar', 'abr', 'may', 'jun',
@@ -41,7 +43,7 @@ const ETIQUETA_CAT = {
   'NO INTEGRADA': 'No integradas',
   COMERCIALIZADORA: 'Comercializadoras',
 };
-const UMBRAL_PETROLERA = 10; // t en el período: por debajo la petrolera no se lista (regla del Tableau)
+const UMBRAL = 10; // t en el período: por debajo la fila no se lista (regla del Tableau)
 const pct0 = (n) => fmt.pct(n, 0);
 
 // ---------------------------------------------------------------- datos base
@@ -95,6 +97,28 @@ const rotuloCamara = (c) => (c === 'INDEPENDIENTE' ? 'Independientes' : c || 'Si
 const mesesEntre = (desde, hasta) => MESES.filter((m) => m >= desde && m <= hasta);
 const trimestreDe = (m) => Math.ceil(Number(m.slice(5, 7)) / 3);
 const semestreDe = (m) => (Number(m.slice(5, 7)) <= 6 ? 1 : 2);
+
+// Textos propios de cada vista
+const TEXTOS = {
+  compras: {
+    tabla: 'Compras de las petroleras',
+    tablaSub: (sem) => `toneladas y participación en el ${sem ? 'semestre' : 'mes'} · clic para acotar los gráficos`,
+    treemap: 'Quién le vendió a quién',
+    treemapSub: 'cada baldosa es una elaboradora y la petrolera a la que le vendió; el tamaño, las toneladas; el color, el grupo económico',
+    mapaSub: 'tamaño: participación de la provincia · gajos: grupo económico',
+    parte: 'Grupo económico',
+    nota: 'Porcentajes de la tabla: participación de la petrolera en las compras del período. En cada baldosa del treemap, los dos porcentajes son la parte de las ventas de la empresa que fue a esa petrolera y la parte de las compras de la petrolera que vino de esa empresa.',
+  },
+  ventas: {
+    tabla: 'Ventas de las elaboradoras',
+    tablaSub: (sem) => `toneladas y participación en el ${sem ? 'semestre' : 'mes'} por grupo económico y, desplegado, por elaboradora · clic para acotar los gráficos`,
+    treemap: 'A quién le vendió cada uno',
+    treemapSub: 'cada baldosa es un grupo económico (o la elaboradora elegida) y la petrolera a la que le vendió; el tamaño, las toneladas; el color, la petrolera',
+    mapaSub: 'tamaño: participación de la provincia · gajos: petrolera compradora',
+    parte: 'Petrolera',
+    nota: 'Porcentajes de la tabla: participación del grupo económico o de la elaboradora en las ventas de cupo del período. En cada baldosa del treemap, los dos porcentajes son la parte de las ventas del vendedor que fue a esa petrolera y la parte de las compras de la petrolera que vino de ese vendedor.',
+  },
+};
 
 // ---------------------------------------------------------------- mapa
 
@@ -179,16 +203,50 @@ function useAncho(ref) {
   return ancho;
 }
 
+// Columnas de la tabla según el período: meses (con años y trimestres
+// arriba) en un año; semestres (con los años arriba) en una presidencia
+function construirColumnas(periodo) {
+  const meses = mesesEntre(periodo.desde, periodo.hasta);
+  const columnas = [];
+  if (periodo.semestres) {
+    for (const m of meses) {
+      const k = `${m.slice(0, 4)}-S${semestreDe(m)}`;
+      if (columnas.at(-1)?.key === k) columnas.at(-1).hasta = m;
+      else columnas.push({ key: k, label: `S${semestreDe(m)}`, desde: m, hasta: m });
+    }
+  } else {
+    for (const m of meses) columnas.push({ key: m, label: MESES_CORTOS[Number(m.slice(5, 7)) - 1], desde: m, hasta: m });
+  }
+  const colDe = new Map();
+  columnas.forEach((c, i) => { for (const m of mesesEntre(c.desde, c.hasta)) colDe.set(m, i); });
+  const agrupar = (clave, label) => {
+    const out = [];
+    for (const c of columnas) {
+      const k = clave(c);
+      if (out.at(-1)?.key === k) { out.at(-1).n += 1; out.at(-1).hasta = c.hasta; }
+      else out.push({ key: k, label: label(c), n: 1, desde: c.desde, hasta: c.hasta });
+    }
+    return out;
+  };
+  const encabezados = [agrupar((c) => c.desde.slice(0, 4), (c) => c.desde.slice(0, 4))];
+  if (!periodo.semestres) encabezados.push(agrupar((c) => `${c.desde.slice(0, 4)}-T${trimestreDe(c.desde)}`, (c) => `T${trimestreDe(c.desde)}`));
+  return { columnas, colDe, encabezados };
+}
+
+
 // ---------------------------------------------------------------- componente
 
-export default function ComprasCupo({ seccion }) {
+export default function ComprasCupo({ seccion, vista = 'compras' }) {
+  const ventas = vista === 'ventas';
+  const T = TEXTOS[vista];
   const { theme } = useTheme();
   const [anio, setAnio] = useState(ANIOS[0]);
   const [presidencia, setPresidencia] = useState('');
   // Filtros: se guardan los valores DESTILDADOS, así una provincia, cámara o
   // grupo que aparece al cambiar el período entra tildado
   const [excl, setExcl] = useState({ provincias: new Set(), categorias: new Set(), camaras: new Set(), grupos: new Set() });
-  const [sel, setSel] = useState(null); // { petrolera, desde, hasta, rotulo } desde la tabla
+  // Selección desde la tabla: { petrolera, grupo, empresa, desde, hasta } (campos en null si no aplican)
+  const [sel, setSel] = useState(null);
 
   // Ventana del período
   const periodo = useMemo(() => {
@@ -200,7 +258,7 @@ export default function ComprasCupo({ seccion }) {
   const elegirAnio = (a) => { setAnio(a); setPresidencia(''); setSel(null); };
   const elegirPresidencia = (id) => { setPresidencia(id); setSel(null); };
 
-  // Ventas de la ventana con los atributos de cada elaboradora
+  // Ventas de la ventana
   const ventanaVentas = useMemo(() => {
     const iDesde = MESES.indexOf(periodo.desde);
     const iHasta = MESES.indexOf(periodo.hasta);
@@ -239,62 +297,53 @@ export default function ComprasCupo({ seccion }) {
     });
   }, [ventanaVentas, excl, opciones]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Tabla: petrolera × columna. En un año las columnas son los meses (con
-  // años y trimestres arriba); en una presidencia, los semestres (con los
-  // años arriba), así el mandato entero entra en la tabla (HDO, 12/10/2026).
+  // Tabla. Compras: una fila por petrolera. Ventas: una fila por grupo
+  // económico y, desplegado, sus elaboradoras (las petroleras no van en la
+  // tabla: se ven en el treemap y el mapa al elegir una fila - HDO).
   const tabla = useMemo(() => {
-    const meses = mesesEntre(periodo.desde, periodo.hasta);
-    const columnas = [];
-    if (periodo.semestres) {
-      for (const m of meses) {
-        const k = `${m.slice(0, 4)}-S${semestreDe(m)}`;
-        if (columnas.at(-1)?.key === k) columnas.at(-1).hasta = m;
-        else columnas.push({ key: k, label: `S${semestreDe(m)}`, desde: m, hasta: m });
-      }
-    } else {
-      for (const m of meses) columnas.push({ key: m, label: MESES_CORTOS[Number(m.slice(5, 7)) - 1], desde: m, hasta: m });
-    }
-    const colDe = new Map();
-    columnas.forEach((c, i) => { for (const m of mesesEntre(c.desde, c.hasta)) colDe.set(m, i); });
+    const { columnas, colDe, encabezados } = construirColumnas(periodo);
+    const cero = () => columnas.map(() => 0);
+    const totalCol = cero();
     const porPet = new Map();
-    const totalCol = columnas.map(() => 0);
+    const grupos = new Map();
     for (const v of base) {
       const ci = colDe.get(MESES[v[0]]);
       if (ci == null) continue;
-      const p = PETROLERAS[v[2]];
-      if (!porPet.has(p)) porPet.set(p, { petrolera: p, cols: columnas.map(() => 0), total: 0 });
-      const f = porPet.get(p);
-      f.cols[ci] += v[3];
-      f.total += v[3];
-      totalCol[ci] += v[3];
-    }
-    const filas = [...porPet.values()].filter((f) => f.total > UMBRAL_PETROLERA).sort((a, b) => b.total - a.total);
-    const total = totalCol.reduce((s, x) => s + x, 0);
-    // Filas de encabezado sobre las columnas: años y, con meses, trimestres
-    const agrupar = (clave, label) => {
-      const out = [];
-      for (const c of columnas) {
-        const k = clave(c);
-        if (out.at(-1)?.key === k) { out.at(-1).n += 1; out.at(-1).hasta = c.hasta; }
-        else out.push({ key: k, label: label(c), n: 1, desde: c.desde, hasta: c.hasta });
+      const t = v[3];
+      totalCol[ci] += t;
+      if (ventas) {
+        const h = holdingDe(v[1]), e = EMPRESAS[v[1]];
+        if (!grupos.has(h)) grupos.set(h, { nombre: h, cols: cero(), total: 0, emps: new Map() });
+        const g = grupos.get(h);
+        g.cols[ci] += t; g.total += t;
+        if (!g.emps.has(e)) g.emps.set(e, { nombre: e, cols: cero(), total: 0 });
+        const ge = g.emps.get(e); ge.cols[ci] += t; ge.total += t;
+      } else {
+        const p = PETROLERAS[v[2]];
+        if (!porPet.has(p)) porPet.set(p, { nombre: p, cols: cero(), total: 0 });
+        const fp = porPet.get(p);
+        fp.cols[ci] += t; fp.total += t;
       }
-      return out;
-    };
-    const encabezados = [agrupar((c) => c.desde.slice(0, 4), (c) => c.desde.slice(0, 4))];
-    if (!periodo.semestres) encabezados.push(agrupar((c) => `${c.desde.slice(0, 4)}-T${trimestreDe(c.desde)}`, (c) => `T${trimestreDe(c.desde)}`));
-    return { columnas, filas, totalCol, total, encabezados };
-  }, [base, periodo]);
+    }
+    const total = totalCol.reduce((s, x) => s + x, 0);
+    const lista = (m) => [...m.values()].filter((f) => f.total > UMBRAL).sort((a, b) => b.total - a.total);
+    const filasPet = lista(porPet);
+    const filasGrupo = lista(grupos).map((g) => ({ ...g, emps: lista(g.emps) }));
+    return { columnas, encabezados, totalCol, total, filasPet, filasGrupo };
+  }, [base, periodo, ventas]);
 
   // Selección desde la tabla: alcance del treemap y del mapa
   const alcance = useMemo(() => ({
     petrolera: sel?.petrolera || null,
+    grupo: sel?.grupo || null,
+    empresa: sel?.empresa || null,
     desde: sel?.desde || periodo.desde,
     hasta: sel?.hasta || periodo.hasta,
   }), [sel, periodo]);
   const alternar = (nuevo) => {
+    const n = { petrolera: null, grupo: null, empresa: null, desde: null, hasta: null, ...nuevo };
     setSel((prev) => (
-      prev && prev.petrolera === nuevo.petrolera && prev.desde === nuevo.desde && prev.hasta === nuevo.hasta
-        ? null : nuevo
+      prev && ['petrolera', 'grupo', 'empresa', 'desde', 'hasta'].every((k) => prev[k] === n[k]) ? null : n
     ));
   };
   const rotuloRango = (desde, hasta) => (
@@ -303,80 +352,113 @@ export default function ComprasCupo({ seccion }) {
         : `${fmt.monthShort(desde)} a ${fmt.monthShort(hasta)}`
   );
 
-  // Baldosas del treemap y tortas del mapa, dentro del alcance
+  // Baldosas del treemap, tortas del mapa y tablas gemelas, dentro del alcance
   const detalle = useMemo(() => {
     const iDesde = MESES.indexOf(alcance.desde), iHasta = MESES.indexOf(alcance.hasta);
-    const enRango = base.filter((v) => v[0] >= iDesde && v[0] <= iHasta);
-    const porEmp = new Map(); // empresa → total a todas las petroleras (para el % de la empresa)
-    const porPet = new Map(); // petrolera → total de todas las empresas (para el % de la petrolera)
+    const pi = alcance.petrolera ? PETROLERAS.indexOf(alcance.petrolera) : null;
+    const enRango = base.filter((v) => (
+      v[0] >= iDesde && v[0] <= iHasta
+      && (!alcance.grupo || holdingDe(v[1]) === alcance.grupo)
+      && (!alcance.empresa || EMPRESAS[v[1]] === alcance.empresa)
+    ));
+    // En ventas el treemap va por grupo económico, salvo que se haya elegido
+    // una elaboradora; en compras siempre por elaboradora
+    const porGrupo = ventas && !alcance.empresa;
+    const vendedorDe = (ei) => (porGrupo ? holdingDe(ei) : EMPRESAS[ei]);
+    const porVend = new Map(); // vendedor → total a todas las petroleras
+    const porPet = new Map();  // petrolera → total de todos los vendedores
     for (const v of enRango) {
-      porEmp.set(v[1], (porEmp.get(v[1]) || 0) + v[3]);
+      const k = vendedorDe(v[1]);
+      porVend.set(k, (porVend.get(k) || 0) + v[3]);
       porPet.set(v[2], (porPet.get(v[2]) || 0) + v[3]);
     }
-    const pi = alcance.petrolera ? PETROLERAS.indexOf(alcance.petrolera) : null;
-    const celdas = new Map(); // empresa|petrolera → ton
+    // Hojas a nivel elaboradora (mapa, tablas gemelas) y a nivel del treemap
+    const celdasEmp = new Map(), celdasTm = new Map();
     for (const v of enRango) {
       if (pi != null && v[2] !== pi) continue;
-      const k = `${v[1]}|${v[2]}`;
-      celdas.set(k, (celdas.get(k) || 0) + v[3]);
+      const ke = `${v[1]}|${v[2]}`;
+      celdasEmp.set(ke, (celdasEmp.get(ke) || 0) + v[3]);
+      const kt = `${vendedorDe(v[1])}|${v[2]}`;
+      celdasTm.set(kt, (celdasTm.get(kt) || 0) + v[3]);
     }
-    const hojas = [];
-    for (const [k, ton] of celdas) {
+    const hojasEmp = [];
+    for (const [k, ton] of celdasEmp) {
       if (ton <= 0.5) continue;
       const [ei, pj] = k.split('|').map(Number);
-      hojas.push({
-        empresa: EMPRESAS[ei], holding: holdingDe(ei), petrolera: PETROLERAS[pj], v: ton,
-        pEmp: ton / (porEmp.get(ei) || 1), pPet: ton / (porPet.get(pj) || 1),
-        provincia: atrib(ei).provincia || '',
+      hojasEmp.push({ empresa: EMPRESAS[ei], holding: holdingDe(ei), petrolera: PETROLERAS[pj], v: ton, provincia: atrib(ei).provincia || '' });
+    }
+    const total = hojasEmp.reduce((s, h) => s + h.v, 0);
+    // Baldosas: vendedor × petrolera con los dos porcentajes
+    const baldosas = [];
+    for (const [k, ton] of celdasTm) {
+      if (ton <= 0.5) continue;
+      const [vendedor, pj] = k.split('|');
+      const petrolera = PETROLERAS[Number(pj)];
+      baldosas.push({
+        vendedor, petrolera, v: ton,
+        holding: porGrupo ? vendedor : (ATRIB.get(vendedor)?.grupo || vendedor),
+        pVend: ton / (porVend.get(vendedor) || 1), pPet: ton / (porPet.get(Number(pj)) || 1),
       });
     }
-    const total = hojas.reduce((s, h) => s + h.v, 0);
-    // Grupos del treemap: holding → hojas
+    // Grupos del treemap: por grupo económico (compras) o por petrolera (ventas)
+    const claveTm = (b) => (ventas ? b.petrolera : b.holding);
     const grupos = new Map();
-    for (const h of hojas) {
-      if (!grupos.has(h.holding)) grupos.set(h.holding, { nombre: h.holding, v: 0, hojas: [] });
-      const g = grupos.get(h.holding);
-      g.v += h.v;
-      g.hojas.push(h);
+    for (const b of baldosas) {
+      const k = claveTm(b);
+      if (!grupos.has(k)) grupos.set(k, { nombre: k, v: 0, hojas: [] });
+      const g = grupos.get(k);
+      g.v += b.v;
+      g.hojas.push(b);
     }
     const gruposOrden = [...grupos.values()].sort((a, b) => b.v - a.v);
     for (const g of gruposOrden) g.hojas.sort((a, b) => b.v - a.v);
-    // Provincias del mapa: provincia → total y holdings
+    // Tabla gemela izquierda: grupo → elaboradora → petrolera, con los porcentajes a nivel elaboradora
+    const totEmp = new Map(), totPetEmp = new Map();
+    for (const h of hojasEmp) {
+      totEmp.set(h.empresa, (totEmp.get(h.empresa) || 0) + h.v);
+      totPetEmp.set(h.petrolera, (totPetEmp.get(h.petrolera) || 0) + h.v);
+    }
+    const filasDetalle = [...hojasEmp]
+      .map((h) => ({ ...h, pEmp: h.v / (totEmp.get(h.empresa) || 1), pPet: h.v / (totPetEmp.get(h.petrolera) || 1) }))
+      .sort((a, b) => a.holding.localeCompare(b.holding, 'es') || a.empresa.localeCompare(b.empresa, 'es') || b.v - a.v);
+    // Provincias del mapa: provincia → total y partes (grupo o petrolera)
+    const clavePart = (h) => (ventas ? h.petrolera : h.holding);
     const provincias = new Map();
-    for (const h of hojas) {
-      if (!provincias.has(h.provincia)) provincias.set(h.provincia, { provincia: h.provincia, v: 0, holdings: new Map() });
+    for (const h of hojasEmp) {
+      if (!provincias.has(h.provincia)) provincias.set(h.provincia, { provincia: h.provincia, v: 0, partes: new Map() });
       const p = provincias.get(h.provincia);
       p.v += h.v;
-      p.holdings.set(h.holding, (p.holdings.get(h.holding) || 0) + h.v);
+      p.partes.set(clavePart(h), (p.partes.get(clavePart(h)) || 0) + h.v);
     }
     const provOrden = [...provincias.values()].map((p) => ({
-      ...p, holdings: [...p.holdings.entries()].map(([nombre, v]) => ({ nombre, v })).sort((a, b) => b.v - a.v),
+      ...p, partes: [...p.partes.entries()].map(([nombre, v]) => ({ nombre, v })).sort((a, b) => b.v - a.v),
     })).sort((a, b) => b.v - a.v);
-    return { hojas, total, grupos: gruposOrden, provincias: provOrden };
-  }, [base, alcance]);
+    return { total, grupos: gruposOrden, provincias: provOrden, filasDetalle };
+  }, [base, alcance, ventas]);
 
   const rotuloAlcance = sel
-    ? [sel.petrolera, sel.desde ? rotuloRango(sel.desde, sel.hasta) : null].filter(Boolean).join(' · ')
+    ? [sel.empresa || sel.grupo, sel.petrolera, sel.desde ? rotuloRango(sel.desde, sel.hasta) : null].filter(Boolean).join(' · ')
     : null;
   const conCotab = periodo.desde <= '2022-11' && periodo.hasta >= '2022-06';
+  const colorParte = (nombre) => (ventas ? colorPetrolera(nombre, theme) : colorHolding(nombre, theme));
 
   return (
     <div className="mh-cuadro mz cc">
       <div className="mz-controles-sticky cc-controles">
         <p className="section-kicker">Mercado Biodiesel</p>
-        <h2>{seccion?.title ?? 'Compras al cupo por petrolera'}</h2>
+        <h2>{seccion?.title ?? (ventas ? 'Ventas al cupo por elaboradora' : 'Compras al cupo por petrolera')}</h2>
         {seccion?.intro && <p className="section-intro">{seccion.intro}</p>}
         <div className="cc-filtros">
           <div className="cc-filtro">
-            <label htmlFor="cc-anio">Año</label>
-            <select id="cc-anio" className="empresa-select" value={presidencia ? '' : anio} onChange={(e) => elegirAnio(e.target.value)}>
+            <label htmlFor={`cc-anio-${vista}`}>Año</label>
+            <select id={`cc-anio-${vista}`} className="empresa-select" value={presidencia ? '' : anio} onChange={(e) => elegirAnio(e.target.value)}>
               {presidencia && <option value="">Elegir un año…</option>}
               {ANIOS.map((a) => <option key={a} value={a}>{a}</option>)}
             </select>
           </div>
           <div className="cc-filtro">
-            <label htmlFor="cc-presidencia">Presidencia</label>
-            <select id="cc-presidencia" className="empresa-select" value={presidencia} onChange={(e) => elegirPresidencia(e.target.value)}>
+            <label htmlFor={`cc-presidencia-${vista}`}>Presidencia</label>
+            <select id={`cc-presidencia-${vista}`} className="empresa-select" value={presidencia} onChange={(e) => elegirPresidencia(e.target.value)}>
               <option value="">Elegir una presidencia…</option>
               {PERIODOS_PRESIDENCIA.map((p) => (
                 <option key={p.id} value={p.id}>{p.nombre} · {fmt.monthShort(p.desde)} a {fmt.monthShort(p.hasta)}</option>
@@ -414,55 +496,88 @@ export default function ComprasCupo({ seccion }) {
         </div>
       </div>
 
-      <TablaPetroleras tabla={tabla} sel={sel} alternar={alternar} periodo={periodo} />
+      <TablaCupo tabla={tabla} sel={sel} alternar={alternar} periodo={periodo} ventas={ventas} T={T} />
       <div className="cc-grilla">
-        <Treemap detalle={detalle} tema={theme} rotuloAlcance={rotuloAlcance} soltar={() => setSel(null)} />
-        <MapaProvincias detalle={detalle} tema={theme} rotuloAlcance={rotuloAlcance} />
+        <Treemap detalle={detalle} ventas={ventas} colorParte={colorParte} rotuloAlcance={rotuloAlcance} soltar={() => setSel(null)} T={T} />
+        <MapaProvincias detalle={detalle} colorParte={colorParte} rotuloAlcance={rotuloAlcance} T={T} />
       </div>
-      <TablasGemelas detalle={detalle} />
+      <TablasGemelas detalle={detalle} T={T} />
 
       <p className="note">
         Fuente: Secretaría de Energía, reportes mensuales de biocombustibles - ventas de biodiesel al
         corte obligatorio (cupo) de cada elaboradora, abiertas por empresa petrolera compradora.
-        Porcentajes de la tabla: participación de la petrolera en las compras del mes. En cada
-        baldosa del treemap, los dos porcentajes son la parte de las ventas de la empresa que fue a
-        esa petrolera y la parte de las compras de la petrolera que vino de esa empresa.
-        {conCotab && ' Las compras de junio a noviembre de 2022 incluyen el COTAB (Res. 638/2022), que la fuente no abre por petrolera.'}
-        {' '}No se listan petroleras con menos de {UMBRAL_PETROLERA} t en el período.
+        {' '}{T.nota}
+        {conCotab && ' Las ventas de junio a noviembre de 2022 incluyen el COTAB (Res. 638/2022), que la fuente no abre por petrolera.'}
+        {' '}No se listan filas con menos de {UMBRAL} t en el período.
       </p>
     </div>
   );
 }
 
-/* ── Tabla petrolera × mes ─────────────────────────────────────────────── */
+/* ── Tabla por período: petroleras (compras) o grupos → petroleras → elaboradoras (ventas) ── */
 
-function TablaPetroleras({ tabla, sel, alternar, periodo }) {
-  const { columnas, filas, totalCol, total, encabezados } = tabla;
-  const esSel = (petrolera, desde, hasta) =>
-    !!sel && sel.petrolera === petrolera && sel.desde === desde && sel.hasta === hasta;
-  // Columna o encabezado dentro del período elegido en la tabla (sin petrolera)
-  const claseCol = (desde, hasta = desde) => (sel && !sel.petrolera && sel.desde && hasta >= sel.desde && desde <= sel.hasta ? ' cc-col-sel' : '');
+function TablaCupo({ tabla, sel, alternar, periodo, ventas, T }) {
+  const { columnas, encabezados, totalCol, total, filasPet, filasGrupo } = tabla;
+  const [abiertos, setAbiertos] = useState(() => new Set());
+  const alternarGrupo = (g) => setAbiertos((prev) => { const s = new Set(prev); if (s.has(g)) s.delete(g); else s.add(g); return s; });
+  const mismo = (a, b) => ['petrolera', 'grupo', 'empresa', 'desde', 'hasta'].every((k) => (a?.[k] || null) === (b?.[k] || null));
+  const esSel = (o) => !!sel && mismo(sel, o);
+  // Columna o encabezado dentro del período elegido en la tabla (sin entidad)
+  const claseCol = (desde, hasta = desde) => (sel && !sel.petrolera && !sel.grupo && !sel.empresa && sel.desde && hasta >= sel.desde && desde <= sel.hasta ? ' cc-col-sel' : '');
   const nivelClase = ['cc-th-anio', 'cc-th-trim'];
-  const subtitulo = periodo.semestres
-    ? 'toneladas y participación en el semestre · clic para acotar los gráficos'
-    : 'toneladas y participación en el mes · clic para acotar los gráficos';
-  const claseFila = (p) => (sel && sel.petrolera === p && !sel.desde ? ' cc-fila-sel' : '');
-  const ninguna = filas.length === 0;
+  const ninguna = ventas ? filasGrupo.length === 0 : filasPet.length === 0;
+
+  // Una fila de la tabla: nombre fijo + celdas por columna + total. `ent` es
+  // la entidad de la fila ({petrolera, grupo, empresa}); `den(i)` y `denTotal`
+  // dan el denominador del porcentaje.
+  const Fila = ({ ent, nombre, cols, totalFila, den, denTotal, clase, sangria, toggle }) => (
+    <tr className={`${clase || ''}${esSel(ent) ? ' cc-fila-sel' : ''}`}>
+      <td className={`mz-fija${sangria ? ` cc-sangria-${sangria}` : ''}`}>
+        {toggle}
+        <button type="button" className="cc-pet" aria-pressed={esSel(ent)} onClick={() => alternar(ent)}>{nombre}</button>
+      </td>
+      {cols.map((v, i) => {
+        const c = columnas[i];
+        const o = { ...ent, desde: c.desde, hasta: c.hasta };
+        return (
+          <td key={c.key} className={`num${claseCol(c.desde, c.hasta)}`}>
+            {v > 0.5 ? (
+              <button
+                type="button" className={`cc-celda${esSel(o) ? ' cc-sel' : ''}`} aria-pressed={esSel(o)}
+                onClick={() => alternar(o)}
+                title={`${nombre} · ${c.desde === c.hasta ? fmt.monthShort(c.desde) : `${fmt.monthShort(c.desde)} a ${fmt.monthShort(c.hasta)}`}`}
+              >
+                <span className="cc-ton">{fmt.int(v)}</span>
+                <span className="cc-pct">{den(i) > 0 ? pct0((v / den(i)) * 100) : ''}</span>
+              </button>
+            ) : <span className="cc-celda cc-celda-vacia" />}
+          </td>
+        );
+      })}
+      <td className="num cc-total-col">
+        <button type="button" className={`cc-celda${esSel(ent) ? ' cc-sel' : ''}`} aria-pressed={esSel(ent)} onClick={() => alternar(ent)}>
+          <span className="cc-ton">{fmt.int(totalFila)}</span>
+          <span className="cc-pct">{denTotal > 0 ? pct0((totalFila / denTotal) * 100) : ''}</span>
+        </button>
+      </td>
+    </tr>
+  );
+
   return (
     <div className="cc-tabla-card">
       <div className="cc-titulo">
-        <span className="chart-card-title">Compras de las petroleras · {periodo.rotulo}</span>
-        <span className="chart-card-subtitle">{subtitulo}</span>
+        <span className="chart-card-title">{T.tabla} · {periodo.rotulo}</span>
+        <span className="chart-card-subtitle">{T.tablaSub(periodo.semestres)}</span>
       </div>
       <div className="mh-tabla-scroll">
-        <table className="mh-tabla mz-tabla cc-tabla">
+        <table className={`mh-tabla mz-tabla cc-tabla${ventas ? ' cc-tabla-ventas' : ''}`}>
           <thead>
             {encabezados.map((fila, nivel) => (
               <tr key={nivel}>
-                {nivel === 0 && <th rowSpan={encabezados.length + 1} className="mz-fija">Petrolera</th>}
+                {nivel === 0 && <th rowSpan={encabezados.length + 1} className="mz-fija">{ventas ? 'Grupo económico / elaboradora' : 'Petrolera'}</th>}
                 {fila.map((g) => (
                   <th key={g.key} colSpan={g.n} className={`cc-th ${nivelClase[nivel]}${claseCol(g.desde, g.hasta)}`}>
-                    <button type="button" aria-pressed={esSel(null, g.desde, g.hasta)} onClick={() => alternar({ petrolera: null, desde: g.desde, hasta: g.hasta })}>{g.label}</button>
+                    <button type="button" aria-pressed={esSel({ desde: g.desde, hasta: g.hasta })} onClick={() => alternar({ desde: g.desde, hasta: g.hasta })}>{g.label}</button>
                   </th>
                 ))}
                 {nivel === 0 && <th rowSpan={encabezados.length + 1} className="num cc-total-col">Total</th>}
@@ -471,48 +586,36 @@ function TablaPetroleras({ tabla, sel, alternar, periodo }) {
             <tr>
               {columnas.map((c) => (
                 <th key={c.key} className={`num cc-th cc-th-mes${claseCol(c.desde, c.hasta)}`}>
-                  <button type="button" aria-pressed={esSel(null, c.desde, c.hasta)} onClick={() => alternar({ petrolera: null, desde: c.desde, hasta: c.hasta })}>{c.label}</button>
+                  <button type="button" aria-pressed={esSel({ desde: c.desde, hasta: c.hasta })} onClick={() => alternar({ desde: c.desde, hasta: c.hasta })}>{c.label}</button>
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
             {ninguna && (
-              <tr><td className="mz-fija">Sin compras</td><td colSpan={columnas.length + 1} className="cc-vacio">No hay ventas de cupo con estos filtros en {periodo.rotulo}.</td></tr>
+              <tr><td className="mz-fija">Sin ventas</td><td colSpan={columnas.length + 1} className="cc-vacio">No hay ventas de cupo con estos filtros en {periodo.rotulo}.</td></tr>
             )}
-            {filas.map((f) => (
-              <tr key={f.petrolera} className={claseFila(f.petrolera)}>
-                <td className="mz-fija">
-                  <button type="button" className="cc-pet" aria-pressed={esSel(f.petrolera, null, null)} onClick={() => alternar({ petrolera: f.petrolera, desde: null, hasta: null })}>
-                    {f.petrolera}
-                  </button>
-                </td>
-                {f.cols.map((v, i) => {
-                  const c = columnas[i];
-                  return (
-                    <td key={c.key} className={`num${claseCol(c.desde, c.hasta)}`}>
-                      {v > 0.5 ? (
-                        <button
-                          type="button" className={`cc-celda${esSel(f.petrolera, c.desde, c.hasta) ? ' cc-sel' : ''}`}
-                          aria-pressed={esSel(f.petrolera, c.desde, c.hasta)}
-                          onClick={() => alternar({ petrolera: f.petrolera, desde: c.desde, hasta: c.hasta })}
-                          title={`${f.petrolera} · ${c.desde === c.hasta ? fmt.monthShort(c.desde) : `${fmt.monthShort(c.desde)} a ${fmt.monthShort(c.hasta)}`}`}
-                        >
-                          <span className="cc-ton">{fmt.int(v)}</span>
-                          <span className="cc-pct">{totalCol[i] > 0 ? pct0((v / totalCol[i]) * 100) : ''}</span>
-                        </button>
-                      ) : <span className="cc-celda cc-celda-vacia" />}
-                    </td>
-                  );
-                })}
-                <td className="num cc-total-col">
-                  <button type="button" className={`cc-celda${esSel(f.petrolera, null, null) ? ' cc-sel' : ''}`} aria-pressed={esSel(f.petrolera, null, null)} onClick={() => alternar({ petrolera: f.petrolera, desde: null, hasta: null })}>
-                    <span className="cc-ton">{fmt.int(f.total)}</span>
-                    <span className="cc-pct">{total > 0 ? pct0((f.total / total) * 100) : ''}</span>
-                  </button>
-                </td>
-              </tr>
+            {!ventas && filasPet.map((f) => (
+              <Fila key={f.nombre} ent={{ petrolera: f.nombre }} nombre={f.nombre} cols={f.cols} totalFila={f.total} den={(i) => totalCol[i]} denTotal={total} />
             ))}
+            {ventas && filasGrupo.map((g) => {
+              const conEmpresas = g.emps.length > 1 || (g.emps.length === 1 && g.emps[0].nombre !== g.nombre);
+              const abierto = abiertos.has(g.nombre);
+              return [
+                <Fila
+                  key={g.nombre} ent={{ grupo: g.nombre }} nombre={g.nombre} cols={g.cols} totalFila={g.total}
+                  den={(i) => totalCol[i]} denTotal={total} clase="cc-fila-grupo"
+                  toggle={conEmpresas && (
+                    <button type="button" className="cc-desplegar" aria-expanded={abierto} aria-label={abierto ? 'Ocultar elaboradoras' : 'Ver elaboradoras'} onClick={() => alternarGrupo(g.nombre)}>
+                      {abierto ? '▾' : '▸'}
+                    </button>
+                  )}
+                />,
+                ...(abierto && conEmpresas ? g.emps.map((e) => (
+                  <Fila key={`${g.nombre}|${e.nombre}`} ent={{ empresa: e.nombre }} nombre={e.nombre} cols={e.cols} totalFila={e.total} den={(i) => totalCol[i]} denTotal={total} clase="cc-fila-emp" sangria={1} />
+                )) : []),
+              ];
+            })}
             {!ninguna && (
               <tr className="mz-total">
                 <td className="mz-fija">Total</td>
@@ -529,16 +632,19 @@ function TablaPetroleras({ tabla, sel, alternar, periodo }) {
           </tbody>
         </table>
       </div>
+      {ventas && filasGrupo.some((g) => g.emps.length > 1) && (
+        <p className="mz-leyenda">Los grupos con más de una elaboradora se despliegan con la flecha. Las petroleras a las que vendió cada fila se ven en el treemap y en el mapa al hacer clic.</p>
+      )}
     </div>
   );
 }
 
-/* ── Treemap elaboradora × petrolera, color por grupo ──────────────────── */
+/* ── Treemap vendedor × petrolera ──────────────────────────────────────── */
 
 const ALTO_TREEMAP = 520;
 const SEP = 2; // px de fondo entre baldosas (guía dataviz)
 
-function Treemap({ detalle, tema, rotuloAlcance, soltar }) {
+function Treemap({ detalle, ventas, colorParte, rotuloAlcance, soltar, T }) {
   const ref = useRef(null);
   const ancho = useAncho(ref);
   const [hover, setHover] = useState(null); // { hoja, x, y }
@@ -561,33 +667,35 @@ function Treemap({ detalle, tema, rotuloAlcance, soltar }) {
     return box ? { x: e.clientX - box.left, y: e.clientY - box.top } : null;
   };
   const derecha = hover && ancho && hover.x > ancho * 0.55;
+  // Etiquetas: compras = grupo - empresa / petrolera; ventas = petrolera / vendedor
+  const titulo = (h) => (ventas ? h.petrolera : (h.holding === h.vendedor ? h.vendedor : `${h.holding} - ${h.vendedor}`));
+  const subtitulo = (h) => (ventas ? h.vendedor : h.petrolera);
+  const colorDe = (h) => colorParte(ventas ? h.petrolera : h.holding);
 
-  const colorDe = (holding) => colorHolding(holding, tema);
   return (
     <div className="chart-card cc-treemap-card">
       <div className="cc-titulo">
-        <span className="chart-card-title">Quién le vendió a quién</span>
+        <span className="chart-card-title">{T.treemap}</span>
         <span className="chart-card-subtitle">
-          {rotuloAlcance ? <>mostrando <strong>{rotuloAlcance}</strong> <button type="button" className="cc-soltar" onClick={soltar}>✕ ver todo</button></> : 'cada baldosa es una elaboradora y la petrolera a la que le vendió; el tamaño, las toneladas; el color, el grupo económico'}
+          {rotuloAlcance ? <>mostrando <strong>{rotuloAlcance}</strong> <button type="button" className="cc-soltar" onClick={soltar}>✕ ver todo</button></> : T.treemapSub}
         </span>
       </div>
       <div className="cc-treemap" ref={ref} style={{ height: ALTO_TREEMAP }}>
         {ancho > 0 && (
           baldosas.length ? (
-            <svg width={ancho} height={ALTO_TREEMAP} role="img" aria-label="Treemap de ventas de cupo por elaboradora y petrolera">
+            <svg width={ancho} height={ALTO_TREEMAP} role="img" aria-label="Treemap de ventas de cupo">
               {baldosas.map((b) => {
                 const { hoja } = b;
-                const fondo = colorDe(hoja.holding);
+                const fondo = colorDe(hoja);
                 const tinta = textoSobre(fondo);
                 const w = Math.max(0, b.w - SEP), h = Math.max(0, b.h - SEP);
                 const lineas = h >= 60 && w >= 96 ? 4 : h >= 32 && w >= 70 ? 2 : h >= 16 && w >= 40 ? 1 : 0;
                 const maxChars = Math.max(3, Math.floor(w / 6.4));
-                const titulo = hoja.holding === hoja.empresa ? hoja.empresa : `${hoja.holding} - ${hoja.empresa}`;
                 return (
                   <g
-                    key={`${hoja.empresa}|${hoja.petrolera}`}
+                    key={`${hoja.vendedor}|${hoja.petrolera}`}
                     tabIndex={0}
-                    aria-label={`${titulo}, ${hoja.petrolera}: ${fmt.int(hoja.v)} toneladas`}
+                    aria-label={`${titulo(hoja)}, ${subtitulo(hoja)}: ${fmt.int(hoja.v)} toneladas`}
                     onMouseMove={(e) => { const p = posicion(e); if (p) setHover({ hoja, ...p }); }}
                     onMouseLeave={() => setHover(null)}
                     onFocus={() => setHover({ hoja, x: b.x + w / 2, y: b.y + h / 2 })}
@@ -596,12 +704,12 @@ function Treemap({ detalle, tema, rotuloAlcance, soltar }) {
                     <rect x={b.x + SEP / 2} y={b.y + SEP / 2} width={w} height={h} fill={fondo} rx={2} />
                     {lineas >= 1 && (
                       <text x={b.x + SEP / 2 + 6} y={b.y + SEP / 2 + 14} fill={tinta} fontSize={11} fontWeight={700}>
-                        {fmt.truncate(titulo, maxChars)}
+                        {fmt.truncate(titulo(hoja), maxChars)}
                       </text>
                     )}
                     {lineas >= 2 && (
                       <text x={b.x + SEP / 2 + 6} y={b.y + SEP / 2 + 27} fill={tinta} fontSize={10} opacity={0.9}>
-                        {fmt.truncate(hoja.petrolera, maxChars)}
+                        {fmt.truncate(subtitulo(hoja), maxChars)}
                       </text>
                     )}
                     {lineas >= 4 && (
@@ -610,7 +718,7 @@ function Treemap({ detalle, tema, rotuloAlcance, soltar }) {
                           {fmt.int(hoja.v)} t
                         </text>
                         <text x={b.x + SEP / 2 + 6} y={b.y + SEP / 2 + 54} fill={tinta} fontSize={10} opacity={0.9}>
-                          {pct0(hoja.pEmp * 100)} · {pct0(hoja.pPet * 100)}
+                          {pct0(hoja.pVend * 100)} · {pct0(hoja.pPet * 100)}
                         </text>
                       </>
                     )}
@@ -622,11 +730,11 @@ function Treemap({ detalle, tema, rotuloAlcance, soltar }) {
         )}
         {hover && (
           <div className={`cc-tooltip ${derecha ? 'izquierda' : ''}`} style={{ left: hover.x, top: hover.y }}>
-            <div className="cc-tooltip-titulo">{hover.hoja.empresa}</div>
-            {hover.hoja.holding !== hover.hoja.empresa && <div className="cc-tooltip-sub">{hover.hoja.holding}</div>}
+            <div className="cc-tooltip-titulo">{hover.hoja.vendedor}</div>
+            {hover.hoja.holding !== hover.hoja.vendedor && <div className="cc-tooltip-sub">{hover.hoja.holding}</div>}
             <div className="cc-tooltip-fila"><span>Petrolera</span><strong>{hover.hoja.petrolera}</strong></div>
             <div className="cc-tooltip-fila"><span>Ventas de cupo</span><strong>{fmt.int(hover.hoja.v)} t</strong></div>
-            <div className="cc-tooltip-fila"><span>De lo que vendió la empresa</span><strong>{pct0(hover.hoja.pEmp * 100)}</strong></div>
+            <div className="cc-tooltip-fila"><span>De lo que vendió {ventas && hover.hoja.holding === hover.hoja.vendedor ? 'el grupo' : 'la empresa'}</span><strong>{pct0(hover.hoja.pVend * 100)}</strong></div>
             <div className="cc-tooltip-fila"><span>De lo que compró la petrolera</span><strong>{pct0(hover.hoja.pPet * 100)}</strong></div>
             <div className="cc-tooltip-fila"><span>Del total mostrado</span><strong>{pct0((hover.hoja.v / (total || 1)) * 100)}</strong></div>
           </div>
@@ -636,7 +744,7 @@ function Treemap({ detalle, tema, rotuloAlcance, soltar }) {
   );
 }
 
-/* ── Mapa: una torta por provincia, gajos por grupo ────────────────────── */
+/* ── Mapa: una torta por provincia, gajos por grupo (compras) o por petrolera (ventas) ── */
 
 const R_MIN = 6, R_MAX = 42; // radio de las tortas en unidades del mapa
 
@@ -652,13 +760,12 @@ function arco(cx, cy, r, a0, a1) {
 }
 
 /**
- * Mapa con una torta por provincia. Al pasar por un gajo se ve ese grupo
- * solo; al pasar por la provincia (fuera de la torta) se ven todos sus
- * grupos (pedido HDO, 12/10/2026).
+ * Al pasar por un gajo se ve esa parte sola; al pasar por la provincia
+ * (fuera de la torta) se ven todas sus partes (pedido HDO, 12/10/2026).
  */
-function MapaProvincias({ detalle, tema, rotuloAlcance }) {
+function MapaProvincias({ detalle, colorParte, rotuloAlcance, T }) {
   const ref = useRef(null);
-  const [hover, setHover] = useState(null); // { prov, holding | null, x, y }
+  const [hover, setHover] = useState(null); // { prov, parte | null, x, y }
   const { provincias, total } = detalle;
 
   // Encuadre: las provincias con ventas (o el país) con un margen
@@ -678,20 +785,20 @@ function MapaProvincias({ detalle, tema, rotuloAlcance }) {
     const box = ref.current?.getBoundingClientRect();
     return box ? { x: e.clientX - box.left, y: e.clientY - box.top } : null;
   };
-  const mover = (prov, holding) => (e) => {
+  const mover = (prov, parte) => (e) => {
     const q = posicion(e);
-    if (q) setHover({ prov, holding, ...q });
+    if (q) setHover({ prov, parte, ...q });
   };
   // El mapa va a la derecha de la página: el tooltip se abre hacia la izquierda enseguida
   const derecha = hover && ref.current && hover.x > ref.current.clientWidth * 0.4;
   const fuente = vb[2] / 40; // tamaño de letra en unidades del viewBox
-  const gajoHover = hover?.holding ? hover.prov.holdings.find((h) => h.nombre === hover.holding) : null;
+  const parteHover = hover?.parte ? hover.prov.partes.find((h) => h.nombre === hover.parte) : null;
 
   return (
     <div className="chart-card cc-mapa-card">
       <div className="cc-titulo">
         <span className="chart-card-title">De qué provincias sale</span>
-        <span className="chart-card-subtitle">{rotuloAlcance ? <>mostrando <strong>{rotuloAlcance}</strong></> : 'tamaño: participación de la provincia · gajos: grupo económico'}</span>
+        <span className="chart-card-subtitle">{rotuloAlcance ? <>mostrando <strong>{rotuloAlcance}</strong></> : T.mapaSub}</span>
       </div>
       <div className="cc-mapa" ref={ref}>
         <svg viewBox={vb.join(' ')} role="img" aria-label="Mapa de ventas de cupo por provincia">
@@ -702,7 +809,7 @@ function MapaProvincias({ detalle, tema, rotuloAlcance }) {
             const datos = porMapa.get(p.nombre);
             return (
               <path
-                key={p.nombre} className={`cc-prov${datos ? ' con-ventas' : ''}${hover && !hover.holding && hover.prov.mapa === p.nombre ? ' activa' : ''}`}
+                key={p.nombre} className={`cc-prov${datos ? ' con-ventas' : ''}${hover && !hover.parte && hover.prov.mapa === p.nombre ? ' activa' : ''}`}
                 d={p.path} vectorEffect="non-scaling-stroke"
                 onMouseMove={datos ? mover(datos, null) : undefined}
                 onMouseLeave={datos ? () => setHover(null) : undefined}
@@ -714,47 +821,41 @@ function MapaProvincias({ detalle, tema, rotuloAlcance }) {
             const share = total > 0 ? p.v / total : 0;
             const r = R_MIN + (R_MAX - R_MIN) * Math.sqrt(share);
             let a = 0;
-            const gajos = p.holdings.map((h) => {
+            const gajos = p.partes.map((h) => {
               const a0 = a;
               a += (h.v / p.v) * 2 * Math.PI;
               return { ...h, d: arco(cx, cy, r, a0, a) };
             });
+            const l1 = rotuloProv(p.provincia);
+            const l2 = `${fmt.int(p.v)} t · ${pct0(share * 100)}`;
+            const w = Math.max(l1.length * 0.64, l2.length * 0.58) * fuente + fuente * 1.4;
+            const hCaja = fuente * 2.75;
+            const y0 = cy + r + fuente * 0.45;
             return (
               <g
                 key={p.provincia} className="cc-torta" tabIndex={0}
-                aria-label={`${rotuloProv(p.provincia)}: ${fmt.int(p.v)} toneladas, ${pct0(share * 100)} del total`}
-                onFocus={() => setHover({ prov: p, holding: null, x: 20, y: 20 })}
+                aria-label={`${l1}: ${fmt.int(p.v)} toneladas, ${pct0(share * 100)} del total`}
+                onFocus={() => setHover({ prov: p, parte: null, x: 20, y: 20 })}
                 onBlur={() => setHover(null)}
               >
                 {gajos.map((g) => (
                   <path
-                    key={g.nombre} d={g.d} fill={colorHolding(g.nombre, tema)}
-                    className={`cc-gajo${hover?.holding === g.nombre && hover.prov === p ? ' activo' : ''}`}
+                    key={g.nombre} d={g.d} fill={colorParte(g.nombre)}
+                    className={`cc-gajo${hover?.parte === g.nombre && hover.prov === p ? ' activo' : ''}`}
                     vectorEffect="non-scaling-stroke"
                     onMouseMove={mover(p, g.nombre)}
                     onMouseLeave={() => setHover(null)}
                   >
-                    <title>{`${g.nombre}: ${fmt.int(g.v)} t · ${pct0((g.v / p.v) * 100)} de ${rotuloProv(p.provincia)}`}</title>
+                    <title>{`${g.nombre}: ${fmt.int(g.v)} t · ${pct0((g.v / p.v) * 100)} de ${l1}`}</title>
                   </path>
                 ))}
-                {(() => {
-                  // Cajita de rótulo (como las etiquetas del Tableau): dos líneas,
-                  // ancho estimado por la cantidad de caracteres
-                  const l1 = rotuloProv(p.provincia);
-                  const l2 = `${fmt.int(p.v)} t · ${pct0(share * 100)}`;
-                  const w = Math.max(l1.length * 0.64, l2.length * 0.58) * fuente + fuente * 1.4;
-                  const h = fuente * 2.75;
-                  const y0 = cy + r + fuente * 0.45;
-                  return (
-                    <g className="cc-mapa-rotulo">
-                      <rect x={cx - w / 2} y={y0} width={w} height={h} rx={fuente * 0.35} className="cc-mapa-rotulo-caja" />
-                      <text x={cx} y={y0 + fuente * 1.15} textAnchor="middle" style={{ fontSize: fuente }}>
-                        <tspan x={cx} className="fuerte">{l1}</tspan>
-                        <tspan x={cx} dy={fuente * 1.2}>{l2}</tspan>
-                      </text>
-                    </g>
-                  );
-                })()}
+                <g className="cc-mapa-rotulo">
+                  <rect x={cx - w / 2} y={y0} width={w} height={hCaja} rx={fuente * 0.35} className="cc-mapa-rotulo-caja" />
+                  <text x={cx} y={y0 + fuente * 1.15} textAnchor="middle" style={{ fontSize: fuente }}>
+                    <tspan x={cx} className="fuerte">{l1}</tspan>
+                    <tspan x={cx} dy={fuente * 1.2}>{l2}</tspan>
+                  </text>
+                </g>
               </g>
             );
           })}
@@ -762,22 +863,22 @@ function MapaProvincias({ detalle, tema, rotuloAlcance }) {
         {!tortas.length && <p className="cc-vacio cc-vacio-mapa">Sin ventas de cupo en esta selección.</p>}
         {hover && (
           <div className={`cc-tooltip ${derecha ? 'izquierda' : ''}`} style={{ left: hover.x, top: hover.y }}>
-            {gajoHover ? (
+            {parteHover ? (
               <>
-                <div className="cc-tooltip-titulo"><i className="cc-tooltip-swatch" style={{ background: colorHolding(gajoHover.nombre, tema) }} />{gajoHover.nombre}</div>
+                <div className="cc-tooltip-titulo"><i className="cc-tooltip-swatch" style={{ background: colorParte(parteHover.nombre) }} />{parteHover.nombre}</div>
                 <div className="cc-tooltip-sub">{rotuloProv(hover.prov.provincia)}</div>
-                <div className="cc-tooltip-fila"><span>Ventas de cupo</span><strong>{fmt.int(gajoHover.v)} t</strong></div>
-                <div className="cc-tooltip-fila"><span>De la provincia</span><strong>{pct0((gajoHover.v / hover.prov.v) * 100)}</strong></div>
-                <div className="cc-tooltip-fila"><span>Del total mostrado</span><strong>{pct0((gajoHover.v / (total || 1)) * 100)}</strong></div>
+                <div className="cc-tooltip-fila"><span>Ventas de cupo</span><strong>{fmt.int(parteHover.v)} t</strong></div>
+                <div className="cc-tooltip-fila"><span>De la provincia</span><strong>{pct0((parteHover.v / hover.prov.v) * 100)}</strong></div>
+                <div className="cc-tooltip-fila"><span>Del total mostrado</span><strong>{pct0((parteHover.v / (total || 1)) * 100)}</strong></div>
               </>
             ) : (
               <>
                 <div className="cc-tooltip-titulo">{rotuloProv(hover.prov.provincia)}</div>
                 <div className="cc-tooltip-fila"><span>Ventas de cupo</span><strong>{fmt.int(hover.prov.v)} t · {pct0((hover.prov.v / (total || 1)) * 100)}</strong></div>
                 <div className="cc-tooltip-sep" />
-                {hover.prov.holdings.map((h) => (
+                {hover.prov.partes.map((h) => (
                   <div key={h.nombre} className="cc-tooltip-fila">
-                    <span><i className="cc-tooltip-swatch" style={{ background: colorHolding(h.nombre, tema) }} />{h.nombre}</span>
+                    <span><i className="cc-tooltip-swatch" style={{ background: colorParte(h.nombre) }} />{h.nombre}</span>
                     <strong>{fmt.int(h.v)} t · {pct0((h.v / hover.prov.v) * 100)}</strong>
                   </div>
                 ))}
@@ -792,26 +893,26 @@ function MapaProvincias({ detalle, tema, rotuloAlcance }) {
 
 /* ── Un solo "Ver como tabla": las dos tablas gemelas, lado a lado ─────── */
 
-function TablasGemelas({ detalle }) {
-  const { grupos, provincias, total } = detalle;
+function TablasGemelas({ detalle, T }) {
+  const { filasDetalle, provincias, total } = detalle;
   return (
     <details className="cc-detalle">
       <summary>Ver como tabla</summary>
       <div className="cc-tablas-gemelas">
         <div>
-          <div className="cc-tabla-gemela-titulo">Quién le vendió a quién</div>
+          <div className="cc-tabla-gemela-titulo">{T.treemap}</div>
           <div className="mh-tabla-scroll">
             <table className="mh-tabla cc-tabla-detalle">
               <thead>
                 <tr><th>Grupo económico</th><th>Elaboradora</th><th>Petrolera</th><th className="num">Toneladas</th><th className="num">De la empresa</th><th className="num">De la petrolera</th></tr>
               </thead>
               <tbody>
-                {grupos.flatMap((g) => g.hojas.map((h) => (
+                {filasDetalle.map((h) => (
                   <tr key={`${h.empresa}|${h.petrolera}`}>
                     <td>{h.holding}</td><td>{h.empresa}</td><td>{h.petrolera}</td>
                     <td className="num">{fmt.int(h.v)}</td><td className="num">{pct0(h.pEmp * 100)}</td><td className="num">{pct0(h.pPet * 100)}</td>
                   </tr>
-                )))}
+                ))}
               </tbody>
             </table>
           </div>
@@ -821,10 +922,10 @@ function TablasGemelas({ detalle }) {
           <div className="mh-tabla-scroll">
             <table className="mh-tabla cc-tabla-detalle">
               <thead>
-                <tr><th>Provincia</th><th>Grupo económico</th><th className="num">Toneladas</th><th className="num">De la provincia</th><th className="num">Del total</th></tr>
+                <tr><th>Provincia</th><th>{T.parte}</th><th className="num">Toneladas</th><th className="num">De la provincia</th><th className="num">Del total</th></tr>
               </thead>
               <tbody>
-                {provincias.flatMap((p) => p.holdings.map((h) => (
+                {provincias.flatMap((p) => p.partes.map((h) => (
                   <tr key={`${p.provincia}|${h.nombre}`}>
                     <td>{rotuloProv(p.provincia)}</td><td>{h.nombre}</td>
                     <td className="num">{fmt.int(h.v)}</td><td className="num">{pct0((h.v / p.v) * 100)}</td><td className="num">{pct0((h.v / (total || 1)) * 100)}</td>

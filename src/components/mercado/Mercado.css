@@ -1620,3 +1620,36 @@ section.page-section-compacta {
   }
 }
 
+
+/* Ventas al cupo: la tabla abre por grupo económico, con sus petroleras
+   debajo y, desplegado, sus elaboradoras (cada una con sus petroleras) */
+.cc-tabla-ventas .mz-fija {
+  min-width: 250px;
+}
+.cc-tabla .cc-fila-grupo .cc-pet {
+  font-weight: 700;
+}
+.cc-tabla .cc-fila-emp td {
+  background: var(--bg-3);
+}
+.cc-tabla .cc-fila-emp .cc-pet {
+  font-weight: 500;
+  color: var(--ink-2);
+}
+.cc-tabla .cc-sangria-1 {
+  padding-left: 1.9rem;
+}
+.cc-desplegar {
+  background: none;
+  border: none;
+  color: var(--ink-muted);
+  font-size: 0.8rem;
+  width: 1.1rem;
+  padding: 0;
+  margin-right: 0.1rem;
+  cursor: pointer;
+  vertical-align: 0;
+}
+.cc-desplegar:hover {
+  color: var(--ink);
+}
