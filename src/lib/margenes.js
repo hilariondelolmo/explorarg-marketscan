@@ -109,7 +109,8 @@ export function convertir(vTon, densidad, unidad) {
 /**
  * Serie mensual del intervalo en la unidad elegida: precios, margen sobre
  * aceite, crack spread 10:9:1 (valor, % del aceite y variación acumulada
- * desde el primer mes con crack spread) y los promedios del intervalo.
+ * desde el primer mes con crack spread) y los promedios del intervalo de cada
+ * serie (las tarjetas de Resultado muestran los del período, HDO 12/10/2026).
  */
 export function calcular({ aceiteId, unidadId, desde, hasta }) {
   const unidad = UNIDADES.find((u) => u.id === unidadId) || UNIDADES[0];
@@ -139,7 +140,7 @@ export function calcular({ aceiteId, unidadId, desde, hasta }) {
   const conCrack = pts.filter((p) => p.crack != null);
   return {
     pts, unidad, rotuloUnidad: `usd/${unidad.label}`,
-    promedios: { margen: promedio('margen'), margenPct: promedio('margenPct'), crack: promedio('crack'), crackPct: promedio('crackPct') },
+    promedios: { bio: promedio('bio'), aceite: promedio('aceite'), margen: promedio('margen'), margenPct: promedio('margenPct'), crack: promedio('crack'), crackPct: promedio('crackPct') },
     primero: conMargen[0] || null, ultimo: conMargen.at(-1) || null,
     primerCrack: conCrack[0] || null, ultimoCrack: conCrack.at(-1) || null,
     meses: conMargen.length, mesesCrack: conCrack.length,

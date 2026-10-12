@@ -1,6 +1,6 @@
 # Handoff - página Márgenes (`/margenes`)
 
-Actualizado: **2026-10-12, sesión 1**. **Sin commitear**: HDO decide. Reglas: las de `CLAUDE.md` (commits y pushes solo con orden de HDO; guion corto; alinear antes de codear; con cada pedido, decir primero qué se entendió y de qué base salen los datos; verificar los números por fuera de la página y mostrarlos en imagen).
+Actualizado: **2026-10-12, sesión 1**. **Publicado** por orden de HDO en el commit `75a66ad` (la pestaña Biodiésel completa, el generador y este handoff). Reglas: las de `CLAUDE.md` (commits y pushes solo con orden de HDO; guion corto; alinear antes de codear; con cada pedido, decir primero qué se entendió y de qué base salen los datos; verificar los números por fuera de la página y mostrarlos en imagen).
 
 ## Qué es
 
@@ -13,7 +13,7 @@ Archivos: `src/pages/Margenes.jsx` (sub-nav con `SectionNav`, kicker "Márgenes"
 ## Página Biodiésel
 
 - **Controles** (formato con el nombre arriba, como Precios comparados): Intervalo (desde / hasta, atajos 12 m / 24 m / 5 a / Todo; **abre en Todo, feb-2010 a sep-2026**), Presidencia (regla del sitio: diciembre del año que asume a noviembre del que termina, recortada a los meses de la página; se suelta al mover una fecha), Aceite (**FAS Minagri** / FAS JJ) y Unidad (ton / m³ / l / bbl / gal, abre en ton). Solo dólares corrientes, como el workbook. Debajo, la nota con los meses, la unidad, el aceite y de dónde salió la glicerina en el intervalo.
-- **Cajas** (abren las cuatro): Resultado (tarjetas del último mes con los promedios del intervalo), Biodiésel y aceite FAS (las tres líneas: biodiésel, aceite y margen, con el valor al inicio y al final), Margen sobre aceite (el margen solo, con la línea punteada del promedio) y Crack spread 10:9:1 (tres paneles: usd por unidad con promedio, % del aceite con promedio y variación acumulada desde el primer mes; los meses con glicerina de Explora van sombreados).
+- **Cajas** (abren las cuatro): Resultado del período (tarjetas con el **promedio del intervalo** de biodiésel, aceite, margen y crack spread como número grande, y debajo el primer y el último mes con la variación; corrección de HDO del 12/10/2026: antes el número grande era el del último mes y elegir Milei o Todo daba los mismos cuatro números), Biodiésel y aceite FAS (las tres líneas: biodiésel, aceite y margen, con el valor al inicio y al final), Margen sobre aceite (el margen solo, con la línea punteada del promedio) y Crack spread 10:9:1 (tres paneles: usd por unidad con promedio, % del aceite con promedio y variación acumulada desde el primer mes; los meses con glicerina de Explora van sombreados).
 - **Decisiones de HDO (12/10/2026):** meses completos desde feb-2010 (el workbook arranca el 13/03/2010 y marzo le queda parcial: sus primeros valores 558 y 293 son 566 y 286 con el mes entero); el margen en % del biodiésel **no va** en esta página, solo cuando se compare con el gas oil; el costo variable de producción queda afuera por ahora ("después vemos"); el nombre del menú.
 
 ## Datos y fórmulas (`src/lib/margenes.js`)
@@ -32,9 +32,9 @@ Todo sale de `src/data/gasoil_ranking.json` (Master data), en usd/ton:
 
 ## Controles (calculados por fuera con `control_margenes.py` en el scratchpad de la sesión, desde `gasoil_ranking.json`; iguales en la página, leídos por DOM con `captura.mjs`)
 
-- Todo, FAS Minagri, usd/ton: feb-2010 biodiésel 855, aceite 566, margen 289; sep-2026 1.336, 936, 400; promedio del margen 325; crack spread sep-2026 308 (32,9% del aceite), acumulado +41%, promedios 254 y 39,3%. Contra las capturas de HDO (desde el 13/03/2010 y con el LOOKUP de la glicerina): 852 / 558 / 293 al inicio, 1.336 / 936 / 400 al final, promedio del crack 253 y 39%.
+- Todo, FAS Minagri, usd/ton: feb-2010 biodiésel 855, aceite 566, margen 289; sep-2026 1.336, 936, 400; promedios del período biodiésel 992, aceite 668 (+56,3% y +65,5% entre el primer y el último mes) y margen 325; crack spread sep-2026 308 (32,9% del aceite), acumulado +41%, promedios 254 y 39,3%. Contra las capturas de HDO (desde el 13/03/2010 y con el LOOKUP de la glicerina): 852 / 558 / 293 al inicio, 1.336 / 936 / 400 al final, promedio del crack 253 y 39%.
 - Todo, FAS JJ: 599 → 999, margen 256 → 337, promedio 262 (la captura dice 261); crack 246 (24,6%), promedios 190,7 y 27,5%, acumulado +33%.
-- Milei (dic-2023 a sep-2026) con FAS JJ: 1.134 → 1.336, 948 → 999, margen 186,5 → 337, promedio 283; crack 95,1 → 246, promedios 205 y 24,7%, acumulado +158%.
+- Milei (dic-2023 a sep-2026) con FAS Minagri: promedios biodiésel 1.135, aceite 767, margen 368, crack 290 (39,6%). Con FAS JJ: 1.134 → 1.336, 948 → 999, margen 186,5 → 337, promedios biodiésel 1.135, aceite 852 y margen 283; crack 95,1 → 246, promedios 205 y 24,7%, acumulado +158%.
 - Macri (dic-2015 a nov-2019), FAS Minagri: 655 → 645, 465 → 524, margen 190,2 → 121,3, promedio 261; crack 137,7 → 72,7 (13,9%), promedios 203 y 39,2%, acumulado -47%.
 - Todo en usd/bbl: 120,3 → 188,0, 82,7 → 136,9, margen 37,6 → 51,1, promedio 41,9; crack 40,7 (29,7%), promedios 33,7 y 35,7%, acumulado +43%.
 - Sin scroll horizontal a 390 px (los años del eje van uno por medio hasta 720 px); modo oscuro verificado; `npx vite build` pasa.

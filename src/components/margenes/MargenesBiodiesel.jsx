@@ -23,6 +23,7 @@ const valor = (v) => {
 };
 const pct = (v, d = 1) => (v == null ? '-' : fmt.pct(v, d));
 const pctSigno = (v, d = 0) => (v == null ? '-' : `${v > 0 ? '+' : ''}${fmt.pct(v, d)}`);
+const variacionPct = (v, base) => (v == null || base == null || base === 0 ? null : (v / base - 1) * 100);
 const ejeAnio = (f) => (f.endsWith('-01') ? f.slice(0, 4) : '');
 // En pantallas angostas los dieciséis años no entran: uno por medio
 const ejeAnioPar = (f) => (f.endsWith('-01') && Number(f.slice(0, 4)) % 2 === 0 ? f.slice(0, 4) : '');
@@ -210,7 +211,7 @@ export default function MargenesBiodiesel({ seccion }) {
   };
 
   const cajas = [
-    { id: 'resultado', titulo: 'Resultado', detalle: ultimo ? `${fmt.monthShort(ultimo.fecha)} · biodiésel ${valor(ultimo.bio)} · ${aceite.label} ${valor(ultimo.aceite)} ${rotuloUnidad}` : 'sin datos' },
+    { id: 'resultado', titulo: 'Resultado del período', detalle: ultimo ? `Promedios de ${fmt.monthShort(desde)} a ${fmt.monthShort(hasta)} · biodiésel ${valor(promedios.bio)} · ${aceite.label} ${valor(promedios.aceite)} ${rotuloUnidad}` : 'sin datos' },
     { id: 'precios', titulo: 'Biodiésel y aceite FAS', detalle: `Precio del biodiésel de corte, ${aceite.enFrase} y el margen entre los dos` },
     { id: 'margen', titulo: 'Margen sobre aceite', detalle: `Biodiésel menos aceite · promedio ${valor(promedios.margen)} ${rotuloUnidad}` },
     { id: 'crack', titulo: 'Crack spread 10:9:1', detalle: `0,9 × biodiésel + 0,1 × glicerina - aceite · promedio ${valor(promedios.crack)} ${rotuloUnidad}, ${pct(promedios.crackPct)} del aceite` },
@@ -268,18 +269,22 @@ export default function MargenesBiodiesel({ seccion }) {
         <Cajas cajas={cajas} abiertos={abiertos} alternar={alternar} />
       </div>
 
+      {/* Tarjetas del período (HDO, 12/10/2026): el número grande es el promedio
+          del intervalo, así cambia con cada presidencia o ventana; el último mes
+          y el primero van debajo. Antes el número grande era el del último mes y
+          elegir Milei o Todo daba los mismos cuatro números. */}
       {abiertos.resultado && ultimo && (
         <div className="go-kpi-bloque">
           <div className="go-kpi-cabecera">
-            <span className="chart-card-subtitle">{fmt.monthShort(ultimo.fecha)} · {rotuloUnidad} corrientes · promedios de {fmt.monthShort(desde)} a {fmt.monthShort(hasta)}</span>
+            <span className="chart-card-subtitle">Promedios de {fmt.monthShort(desde)} a {fmt.monthShort(hasta)} ({R.meses} meses) · {rotuloUnidad} corrientes · último mes {fmt.monthShort(ultimo.fecha)}</span>
           </div>
           <div className="kpi-grid go-kpis-fila">
-            <Tarjeta label="Biodiésel" valor={valor(ultimo.bio)} unidad={rotuloUnidad} tono="pos" sub={`corte obligatorio, precio mediana Res. 963 · ${fmt.monthShort(primero.fecha)}: ${valor(primero.bio)}`} />
-            <Tarjeta label={aceite.nombre} valor={valor(ultimo.aceite)} unidad={rotuloUnidad} tono="warn" sub={`${aceite.detalle} · ${fmt.monthShort(primero.fecha)}: ${valor(primero.aceite)}`} />
-            <Tarjeta label="Margen sobre aceite" valor={valor(ultimo.margen)} unidad={rotuloUnidad} tono={tono(ultimo.margen)} sub={`biodiésel menos aceite · promedio del intervalo ${valor(promedios.margen)}`} />
+            <Tarjeta label="Biodiésel" valor={valor(promedios.bio)} unidad={rotuloUnidad} tono="pos" sub={`promedio del período · ${fmt.monthShort(primero.fecha)}: ${valor(primero.bio)} → ${fmt.monthShort(ultimo.fecha)}: ${valor(ultimo.bio)} (${pctSigno(variacionPct(ultimo.bio, primero.bio), 1)})`} />
+            <Tarjeta label={aceite.nombre} valor={valor(promedios.aceite)} unidad={rotuloUnidad} tono="warn" sub={`promedio del período · ${fmt.monthShort(primero.fecha)}: ${valor(primero.aceite)} → ${fmt.monthShort(ultimo.fecha)}: ${valor(ultimo.aceite)} (${pctSigno(variacionPct(ultimo.aceite, primero.aceite), 1)})`} />
+            <Tarjeta label="Margen sobre aceite" valor={valor(promedios.margen)} unidad={rotuloUnidad} tono={tono(promedios.margen)} sub={`promedio del período · ${fmt.monthShort(primero.fecha)}: ${valor(primero.margen)} → ${fmt.monthShort(ultimo.fecha)}: ${valor(ultimo.margen)}`} />
             <Tarjeta
-              label="Crack spread 10:9:1" valor={ultimoCrack ? valor(ultimoCrack.crack) : '-'} unidad={rotuloUnidad} tono={tono(ultimoCrack?.crack)}
-              sub={ultimoCrack ? `${fmt.monthShort(ultimoCrack.fecha)}, ${pct(ultimoCrack.crackPct)} del aceite · promedio ${valor(promedios.crack)} (${pct(promedios.crackPct)})` : 'sin precio de glicerina'}
+              label="Crack spread 10:9:1" valor={promedios.crack != null ? valor(promedios.crack) : '-'} unidad={rotuloUnidad} tono={tono(promedios.crack)}
+              sub={ultimoCrack ? `promedio del período, ${pct(promedios.crackPct)} del aceite · ${fmt.monthShort(ultimoCrack.fecha)}: ${valor(ultimoCrack.crack)} (${pct(ultimoCrack.crackPct)}), acumulado ${pctSigno(ultimoCrack.crackAcum, 0)}` : 'sin precio de glicerina'}
             />
           </div>
         </div>
