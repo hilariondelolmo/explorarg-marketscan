@@ -9,6 +9,7 @@ import { fmt } from './lib/format.js';
 const Mercado = lazy(() => import('./pages/Mercado.jsx'));
 const Gestion = lazy(() => import('./pages/Gestion.jsx'));
 const GasOil = lazy(() => import('./pages/GasOil.jsx'));
+const Margenes = lazy(() => import('./pages/Margenes.jsx'));
 const MarcoLegal = lazy(() => import('./pages/MarcoLegal.jsx'));
 const Articulos = lazy(() => import('./pages/Articulos.jsx'));
 const ReformaLey = lazy(() => import('./pages/ReformaLey.jsx'));
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/mercado/:seccion?" element={<Mercado />} />
           <Route path="/gestion" element={<Gestion />} />
           <Route path="/gas-oil/:seccion?" element={<GasOil />} />
+          <Route path="/margenes/:seccion?" element={<Margenes />} />
           <Route path="/marco-legal" element={<MarcoLegal />} />
           <Route path="/articulos" element={<Articulos />} />
           <Route path="/reforma-ley-27640" element={<ReformaLey />} />

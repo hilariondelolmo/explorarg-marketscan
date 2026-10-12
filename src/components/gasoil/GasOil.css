@@ -1137,13 +1137,34 @@
 .go-sticky .go-filtros-corte {
   margin: -0.5rem 0 0.35rem;
 }
+/* Márgenes del biodiésel: Intervalo (desde, hasta, atajos), Presidencia, Aceite y Unidad con el nombre arriba */
+@media (min-width: 1101px) {
+  .go-filtros.go-filtros-margenes {
+    grid-template-columns: 430fr 320fr 170fr 95fr;
+    max-width: 1080px;
+  }
+}
+.go-sticky .go-filtros-margenes {
+  margin: -0.5rem 0 0.35rem;
+}
+/* Crack spread: tres paneles apilados (valor, % y acumulado) con su rótulo */
+.go-crack-rotulo {
+  margin: 0.2rem 0 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+.go-crack-rotulo + .recharts-responsive-container {
+  margin-bottom: 0.6rem;
+}
 .go-intervalo-nota {
   display: block;
   margin: 0 0 0.9rem;
 }
 @media (max-width: 720px) {
   .go-filtros-comparados .go-f-intervalo,
-  .go-filtros-resultado-periodo .go-f-intervalo {
+  .go-filtros-resultado-periodo .go-f-intervalo,
+  .go-filtros-margenes .go-f-intervalo {
     grid-column: 1 / -1;
   }
   .go-intervalo-controles {

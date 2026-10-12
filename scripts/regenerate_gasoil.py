@@ -21,8 +21,10 @@ Salidas:
                          bandera), flujos para el Sankey y EESS del mapa
   - gasoil_ranking.json  series mensuales en usd/ton para el ranking, tipo de
                          cambio, CPI US, importaciones, las series de Precios
-                         comparados (aceite FAS MINAGRI, metanol YPF) y el precio
-                         Res. 963 publicado vs. fórmula (res963)
+                         comparados (aceite FAS MINAGRI, metanol YPF, glicerina
+                         USA y glicerina de Explora, estas dos para la página
+                         Márgenes) y el precio Res. 963 publicado vs. fórmula
+                         (res963)
   - public/data/         cruce fino del relevamiento (gasoil_retail.json, con
                          la cantidad de estaciones de cada celda que arma
                          gasoil_estaciones.py), datos por boca y por mes
@@ -184,7 +186,19 @@ CRUDOS = tuple(k for k, v in PRODUCTOS_MASTER.items() if v[3] == "crudo")
 SERIES_COMPARADOS = {
     "aceite_minagri": ("FOB SAGYPYA SPOT SBO", "Aceite de soja FAS MINAGRI", "MINAGRI: FOB oficial menos retención"),
     "metanol_ypf": ("Metanol YPF (usd/ton)", "Metanol YPF", "YPF"),
+    # Glicerina cruda de USA (F.O. Licht, hasta jul-2022): la página Márgenes la
+    # usa en los meses en que la de Rosario (producto `glicerina` del ranking)
+    # no tiene precio, como el workbook 03 (crack spread del biodiésel).
+    "glicerina_usa": ("Glycerine  USA min. 80% crude, exw  (usd/ton)", "Glicerina cruda 80% USA exw", "F.O. Licht"),
 }
+# Precio de venta de la glicerina 80% de Explora, del Reporte de Gestión
+# (hoja COMERCIAL_long del Excel que alimenta el tablero: escenario REAL por
+# mes, ponderado de Local y Exportación, usd/ton). Decisión de HDO del
+# 12/10/2026: es la glicerina del crack spread del biodiésel en los meses en
+# que F.O. Licht no cotiza ni la de Rosario (termina en may-2025) ni la de
+# USA (jul-2022). Va al bloque `comparados` como `glicerina_explora`.
+EXCEL_GLICERINA_EXPLORA = Path.home() / "Explora_projects/Explora_Reporte_Gestion/data/excel/Explora_ReporteGestion_Tableau_ready.xlsx"
+CUENTA_GLICERINA_EXPLORA = "PRECIO DE VENTA > Glicerina 80%"
 RETENCION_ACEITE = "ARGENTINA  SBO Export tax"  # fracción (0,245 = 24,5%)
 PRODUCTOS_GO = {
     "go2_surtidor": ("Gas oil grado 2 - surtidor", 2, "s"),
@@ -503,6 +517,40 @@ def extraer_master(hy):
         for k, vals in d.items():
             series[k][f] = sum(vals) / len(vals)
     return series
+
+
+def extraer_glicerina_explora():
+    """Precio de venta mensual de la glicerina 80% de Explora (usd/ton), de la
+    hoja COMERCIAL_long del Reporte de Gestión: filas REAL, granularidad MES,
+    cuenta "PRECIO DE VENTA > Glicerina 80%" (ponderado de Local y
+    Exportación). Los meses con 0 (sin ventas) quedan afuera."""
+    check(EXCEL_GLICERINA_EXPLORA.exists(), f"Reporte de Gestión no encontrado: {EXCEL_GLICERINA_EXPLORA}")
+    try:
+        import openpyxl
+    except ImportError:
+        sys.exit("Falta openpyxl:  pip3 install openpyxl")
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        wb = openpyxl.load_workbook(EXCEL_GLICERINA_EXPLORA, read_only=True, data_only=True)
+    check("COMERCIAL_long" in wb.sheetnames, "Reporte de Gestión: falta la hoja COMERCIAL_long")
+    filas = wb["COMERCIAL_long"].iter_rows(values_only=True)
+    pos = {h: i for i, h in enumerate(next(filas))}
+    for col in ("escenario", "granularidad", "cuenta_path", "fecha", "valor", "unidad"):
+        check(col in pos, f"Reporte de Gestión: COMERCIAL_long sin la columna '{col}'")
+    serie = {}
+    for r in filas:
+        if r[pos["escenario"]] != "REAL" or r[pos["granularidad"]] != "MES":
+            continue
+        if r[pos["cuenta_path"]] != CUENTA_GLICERINA_EXPLORA:
+            continue
+        v = r[pos["valor"]]
+        if v is None or float(v) <= 0:
+            continue
+        check(r[pos["unidad"]] == "usd/ton", f"Reporte de Gestión: glicerina en '{r[pos['unidad']]}', se esperaba usd/ton")
+        serie[ym(r[pos["fecha"]])] = float(v)
+    wb.close()
+    check(len(serie) > 12, f"Reporte de Gestión: glicerina de Explora con {len(serie)} meses")
+    return serie
 
 
 def extraer_res963(master):
@@ -879,6 +927,11 @@ def generar(dry=False):
         check(serie, f"Master data: '{col}' sin datos desde {DESDE}")
         comparados.append(dict(id=pid, nombre=nombre, fuente=fuente, unidad="usd/ton", serie=serie,
                                hasta=serie[-1][0]))
+    glic_explora = [[f, round(v, 2)] for f, v in sorted(extraer_glicerina_explora().items())]
+    comparados.append(dict(id="glicerina_explora", nombre="Glicerina 80% de Explora, precio de venta",
+                           fuente="Explora, Reporte de Gestión (ponderado de ventas locales y de exportación)",
+                           unidad="usd/ton", serie=glic_explora, desde=glic_explora[0][0], hasta=glic_explora[-1][0]))
+    print(f"  glicerina de Explora: {len(glic_explora)} meses, {glic_explora[0][0]} a {glic_explora[-1][0]}")
     for pid, (nombre, grado, tipo) in PRODUCTOS_GO.items():
         k = f"{tipo}{grado}"
         serie = []
@@ -962,7 +1015,8 @@ def generar(dry=False):
         cpi_us=[[f, round(v, 3)] for f, v in sorted(master["cpi"].items())],
         importaciones=importaciones, comparados=comparados, res963=res963,
     ), ["Master data database.hyper", "Go Imports.hyper", "Database Precio Formula 963.xlsx",
-        "Precio derivados petroleo 1104 minorista y mayorista new.hyper"]
+        "Precio derivados petroleo 1104 minorista y mayorista new.hyper",
+        "Explora_ReporteGestion_Tableau_ready.xlsx (glicerina de Explora)"]
        + (["Informe Regalias CRUDO.xlsx"] if any(de_regalias.values()) else []), dry)
 
 
