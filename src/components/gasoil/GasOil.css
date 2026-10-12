@@ -1106,6 +1106,16 @@
   width: auto;
   flex: 0 0 auto;
 }
+/* Resultado de importar: Período (desde, hasta, atajos), Presidencia y Valores con el nombre arriba */
+@media (min-width: 1101px) {
+  .go-filtros.go-filtros-resultado-periodo {
+    grid-template-columns: 470fr 320fr 150fr;
+    max-width: 960px;
+  }
+}
+.go-sticky .go-filtros-resultado-periodo {
+  margin: -0.5rem 0 0.35rem;
+}
 /* Corte obligatorio: Período, Presidencia, Sustituto y Valores con el nombre arriba */
 @media (min-width: 1101px) {
   .go-filtros.go-filtros-corte {
@@ -1121,7 +1131,8 @@
   margin: 0 0 0.9rem;
 }
 @media (max-width: 720px) {
-  .go-filtros-comparados .go-f-intervalo {
+  .go-filtros-comparados .go-f-intervalo,
+  .go-filtros-resultado-periodo .go-f-intervalo {
     grid-column: 1 / -1;
   }
   .go-intervalo-controles {

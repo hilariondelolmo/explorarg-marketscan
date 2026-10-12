@@ -3,7 +3,7 @@ import {
   ComposedChart, Bar, Line, Area, Cell, XAxis, YAxis, Tooltip, ReferenceLine, ResponsiveContainer,
 } from 'recharts';
 import {
-  MESES, IDX_MES, TC, CPI_US, DENSIDAD_GO, DENSIDAD_BIO, CANALES_DIST, CANALES_COM, MESES_ANOMALOS, cargarImportaciones, ponderarCol,
+  MESES, IDX_MES, TC, CPI_US, DENSIDAD_GO, DENSIDAD_BIO, CANALES_DIST, CANALES_COM, MESES_ANOMALOS, PERIODOS_PRESIDENCIA, cargarImportaciones, ponderarCol,
   nombreProvincia,
 } from '../../lib/gasoil.js';
 import { mensual as CORTE_JSON } from '../../data/corte.json';
@@ -117,6 +117,15 @@ function Resultado({ D, F, seccion }) {
   useEffect(() => { setBandera(unico ? (BANDERA_DE[unico] ?? TODAS) : TODAS); }, [unico]);
   const cambiarDesde = (f) => { setDesde(f); if (f > hasta) setHasta(f); };
   const cambiarHasta = (f) => { setHasta(f); if (f < desde) setDesde(f); };
+  // Presidencia (HDO, 12/10/2026): el período entero, recortado a mar-2010 y al último mes; se suelta al mover una fecha
+  const periodos = useMemo(() => PERIODOS_PRESIDENCIA.map((p) => ({
+    ...p, desde: p.desde < PRIMER_MES ? PRIMER_MES : p.desde, hasta: p.hasta > D.ultimo_mes ? D.ultimo_mes : p.hasta,
+  })), [D]);
+  const presidenciaActiva = periodos.find((p) => p.desde === desde && p.hasta === hasta)?.id || '';
+  const elegirPresidencia = (id) => {
+    const p = periodos.find((q) => q.id === id);
+    if (p) { setDesde(p.desde); setHasta(p.hasta); }
+  };
   const ultimoIdx = IDX_MES.get(D.ultimo_mes) ?? MESES.length - 1;
   const atajo = (n) => { setHasta(D.ultimo_mes); setDesde(n == null ? PRIMER_MES : MESES[Math.max(IDX_MES.get(PRIMER_MES), ultimoIdx - n + 1)]); };
   const ccIdx = useMemo(() => new Set(CANALES_COM.map((c, i) => (ccs.has(c) ? i : -1)).filter((i) => i >= 0)), [ccs]);
@@ -299,25 +308,40 @@ function Resultado({ D, F, seccion }) {
             />
           </div>
         </div>
-        <div className="go-intervalo">
-          <span className="go-filtro-label">Período</span>
-          <select className="empresa-select" value={desde} onChange={(e) => cambiarDesde(e.target.value)} aria-label="Desde">
-            {[...MESES_PERIODO].reverse().map((f) => <option key={f} value={f}>{fmt.monthShort(f)}</option>)}
-          </select>
-          <span className="go-filtro-label">a</span>
-          <select className="empresa-select" value={hasta} onChange={(e) => cambiarHasta(e.target.value)} aria-label="Hasta">
-            {[...MESES_PERIODO].reverse().map((f) => <option key={f} value={f}>{fmt.monthShort(f)}</option>)}
-          </select>
-          <div className="chart-range-selector">
-            {RANGOS.map(([id, n, label]) => <button key={id} className={desde === (n == null ? PRIMER_MES : MESES[Math.max(IDX_MES.get(PRIMER_MES), ultimoIdx - n + 1)]) && hasta === D.ultimo_mes ? 'active' : ''} onClick={() => atajo(n)}>{label}</button>)}
+        <div className="go-filtros go-filtros-resultado-periodo">
+          <div className="go-filtro go-f-intervalo">
+            <span className="go-filtro-label">Período</span>
+            <div className="go-intervalo-controles">
+              <select className="empresa-select" value={desde} onChange={(e) => cambiarDesde(e.target.value)} aria-label="Desde">
+                {[...MESES_PERIODO].reverse().map((f) => <option key={f} value={f}>{fmt.monthShort(f)}</option>)}
+              </select>
+              <span className="go-filtro-label">a</span>
+              <select className="empresa-select" value={hasta} onChange={(e) => cambiarHasta(e.target.value)} aria-label="Hasta">
+                {[...MESES_PERIODO].reverse().map((f) => <option key={f} value={f}>{fmt.monthShort(f)}</option>)}
+              </select>
+              <div className="chart-range-selector">
+                {RANGOS.map(([id, n, label]) => <button key={id} className={desde === (n == null ? PRIMER_MES : MESES[Math.max(IDX_MES.get(PRIMER_MES), ultimoIdx - n + 1)]) && hasta === D.ultimo_mes ? 'active' : ''} onClick={() => atajo(n)}>{label}</button>)}
+              </div>
+            </div>
           </div>
-          <span className="go-filtro-label">Valores</span>
-          <div className="chart-range-selector">
-            <button className={constantes ? '' : 'active'} onClick={() => setConstantes(false)}>Corrientes</button>
-            <button className={constantes ? 'active' : ''} onClick={() => setConstantes(true)}>Constantes</button>
+          <div className="go-filtro">
+            <label htmlFor="go-ri-presidencia">Presidencia</label>
+            <select id="go-ri-presidencia" className="empresa-select" value={presidenciaActiva} onChange={(e) => elegirPresidencia(e.target.value)}>
+              <option value="">Elegir una presidencia…</option>
+              {periodos.map((p) => (
+                <option key={p.id} value={p.id}>{p.nombre} · {fmt.monthShort(p.desde)} a {fmt.monthShort(p.hasta)}</option>
+              ))}
+            </select>
           </div>
-          <span className="chart-card-subtitle">fósil {detalleFosil} · {rotuloValores}</span>
+          <div className="go-filtro">
+            <label htmlFor="go-ri-valores">Valores</label>
+            <select id="go-ri-valores" className="empresa-select" value={constantes ? 'cte' : 'cor'} onChange={(e) => setConstantes(e.target.value === 'cte')}>
+              <option value="cor">Corrientes</option>
+              <option value="cte">Constantes</option>
+            </select>
+          </div>
         </div>
+        <p className="chart-card-subtitle go-intervalo-nota">fósil {detalleFosil} · {rotuloValores}</p>
         <Cajas cajas={cajas} abiertos={abiertos} alternar={alternar} />
       </div>
 
