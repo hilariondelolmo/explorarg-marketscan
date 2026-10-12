@@ -22,7 +22,7 @@
  *  - $/l ÷ TC × 1.000 = usd/m³; a la unidad elegida con la densidad de cada
  *    producto (gas oil 0,845, naftas 0,68, crudo 0,835 ton/m³).
  */
-import { TC, PRODUCTOS, DENSIDAD_GO, DENSIDAD_BIO, cargarProductos } from './gasoil.js';
+import { TC, PRODUCTOS, DENSIDAD_GO, DENSIDAD_BIO, MESES_ANOMALOS, MESES_ANOMALOS_PRODUCTOS, cargarProductos } from './gasoil.js';
 import { PRESIDENCIAS } from './gestiones.js';
 import { UNIDADES } from './margenes.js';
 import { mensual as CORTE_JSON } from '../data/corte.json';
@@ -47,6 +47,12 @@ export const FUENTES = [
   { id: 'terminales', label: 'Terminales', nombre: 'precios en planta por reventa a estaciones de servicio' },
 ];
 export const PRIMER_MES = '2010-01';
+// Meses que el crack spread con precios de mercado saltea enteros: los seis
+// con precios anómalos de gas oil que excluye todo el sitio y los de las
+// naftas sin impuestos (abr-2025 y jun-2025 los pidió HDO el 12/10/2026 desde
+// esta página: la nafta premium del minorista viene por diez). Con una sola
+// nafta el mix no sería súper + premium, así que el mes queda afuera.
+export const EXCLUIDOS_MERCADO = new Set([...MESES_ANOMALOS, ...Object.values(MESES_ANOMALOS_PRODUCTOS).flat()]);
 
 const CRUDO_SERIE = Object.fromEntries(CRUDOS.map((c) => [c.id, new Map(PRODUCTOS.find((p) => p.id === c.id)?.serie || [])]));
 export const FICHA_CRUDO = Object.fromEntries(CRUDOS.map((c) => [c.id, PRODUCTOS.find((p) => p.id === c.id) || null]));

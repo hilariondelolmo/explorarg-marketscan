@@ -87,7 +87,9 @@ const NOTA_DENSIDADES = 'gas oil, kerosene y diésel 0,845; naftas 0,68; biodié
 const NOTA_ANOMALOS_PRODUCTOS = Object.entries(MESES_ANOMALOS_PRODUCTOS).map(([col, fechas]) => {
   const [, tipo, producto] = col.match(/^p(\w)_(\w+)$/);
   const p = PRODUCTOS_1104.find((q) => q.producto === producto && q.tipo === tipo);
-  return `${p ? p.nombre.toLowerCase() : col} de ${fechas.map(fmt.monthShort).join(' y ')}`;
+  const meses = fechas.map(fmt.monthShort);
+  const lista = meses.length > 1 ? `${meses.slice(0, -1).join(', ')} y ${meses.at(-1)}` : meses[0];
+  return `${p ? p.nombre.toLowerCase() : col} de ${lista}`;
 }).join(', ni la ');
 
 /**

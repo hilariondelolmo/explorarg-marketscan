@@ -139,9 +139,11 @@ export function cargarMes(f) {
 // Meses anómalos propios de las naftas (decisión de HDO del 07/10/2026, solo
 // para estas series; el surtidor y el con impuestos de esos meses son normales):
 // nafta premium sin impuestos ene-2015 y feb-2017 (347 y 322 $/l contra 10,7 y
-// 13,3 en los meses vecinos) y nafta súper sin impuestos mar-2026 (2.056 contra
-// 1.163 en feb). Columna del archivo → meses que se dejan sin precio.
-export const MESES_ANOMALOS_PRODUCTOS = { pn_np: ['2015-01', '2017-02'], pn_ns: ['2026-03'] };
+// 13,3 en los meses vecinos), abr-2025 y jun-2025 (11.644 y 10.969 $/l en el
+// minorista contra 1.030 a 1.100: vienen por diez; HDO, 12/10/2026, desde el
+// crack spread de refinación) y nafta súper sin impuestos mar-2026 (2.056
+// contra 1.163 en feb). Columna del archivo → meses que se dejan sin precio.
+export const MESES_ANOMALOS_PRODUCTOS = { pn_np: ['2015-01', '2017-02', '2025-04', '2025-06'], pn_ns: ['2026-03'] };
 let productosPromesa = null;
 export function cargarProductos() {
   if (!productosPromesa) {

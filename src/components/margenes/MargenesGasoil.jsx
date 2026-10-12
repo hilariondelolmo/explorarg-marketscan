@@ -3,9 +3,9 @@ import { ComposedChart, Line, XAxis, YAxis, Tooltip, ReferenceLine, ResponsiveCo
 import { fmt } from '../../lib/format.js';
 import { useChartColors } from '../../lib/theme.jsx';
 import { useCajas, Cajas, DropdownMulti, TODAS } from '../gasoil/relevamiento.jsx';
-import { TIPOS_NEGOCIO, CANALES_COM } from '../../lib/gasoil.js';
+import { TIPOS_NEGOCIO, CANALES_COM, MESES_ANOMALOS, MESES_ANOMALOS_PRODUCTOS } from '../../lib/gasoil.js';
 import {
-  RATIOS, CRUDOS, PCT_INICIAL, DENSIDADES, FUENTES, PRIMER_MES, UNIDADES, FICHA_CRUDO,
+  RATIOS, CRUDOS, PCT_INICIAL, DENSIDADES, FUENTES, PRIMER_MES, UNIDADES, FICHA_CRUDO, EXCLUIDOS_MERCADO,
   cargarProductos, cargarTerminales, preciosMercado, preciosTerminales, periodosEntre, calcular,
 } from '../../lib/margenesGasoil.js';
 import '../mercado/Mercado.css';
@@ -153,7 +153,7 @@ export default function MargenesGasoil({ seccion }) {
     if (!T || !empresas || !terminales) return new Map();
     return preciosTerminales(T, empresas, terminales);
   }, [fuente, D, T, cdN, tiposIdx, ccN, empresas, terminales]);
-  const excluidos = useMemo(() => new Set(fuente === 'terminales' && T ? T.meses_excluidos : []), [fuente, T]);
+  const excluidos = useMemo(() => (fuente === 'terminales' ? new Set(T ? T.meses_excluidos : []) : EXCLUIDOS_MERCADO), [fuente, T]);
   const R = useMemo(() => calcular({ precios, meses, excluidos, ratioId, unidadId, pct: pctCrudo, desde, hasta: hastaEf }),
     [precios, meses, excluidos, ratioId, unidadId, pctCrudo, desde, hastaEf]);
   const { pts, ratio, rotuloUnidad, promedios, primero, ultimo } = R;
@@ -337,7 +337,7 @@ export default function MargenesGasoil({ seccion }) {
         </div>
         <p className="chart-card-subtitle go-intervalo-nota">
           {R.meses} meses con crack spread, {fmt.monthShort(desde)} a {fmt.monthShort(hastaEf)} · {rotuloUnidad} corrientes · precios sin impuestos, {fuenteDef.nombre}: {recorte}
-          {excluidos.size > 0 && ` · sin ${[...excluidos].filter((f) => f >= desde && f <= hastaEf).length} meses que excluye la hoja del workbook`}
+          {excluidos.size > 0 && ` · sin ${[...excluidos].filter((f) => f >= desde && f <= hastaEf).length} meses ${fuente === 'terminales' ? 'que excluye la hoja del workbook' : 'con precios anómalos del relevamiento'}`}
         </p>
         <Cajas cajas={cajas} abiertos={abiertos} alternar={alternar} />
       </div>
@@ -451,7 +451,7 @@ export default function MargenesGasoil({ seccion }) {
         y Cañadón Seco del informe de regalías de la SE en usd/m³{FICHA_CRUDO.escalante?.nota ? ` (${FICHA_CRUDO.escalante.nota})` : ''}; tipo de cambio mensual. Naftas y gas oil pasan de $/l a usd/m³ con el TC del mes;
         a la unidad elegida con la densidad de cada producto (gas oil {DENSIDADES.gasoil}, naftas {DENSIDADES.naftas}, crudo {DENSIDADES.crudo} ton/m³; 6,2898 bbl y 264,172 gal por m³). Las naftas no se netean del bioetanol.
         Crack spread = (a × naftas + b × gas oil fósil - (a + b) × crudo) ÷ (a + b), con a:b = 1:1 (ratio 2:1:1), 2:1 (3:2:1) o 3:2 (5:3:2); en % = crack spread ÷ crudo;
-        acumulado = variación contra el primer mes del intervalo. Dólares corrientes. Quedan afuera los meses con precios anómalos del relevamiento que excluye todo el sitio.
+        acumulado = variación contra el primer mes del intervalo. Dólares corrientes. Con precios de mercado quedan afuera los meses con precios anómalos del relevamiento: los seis del gas oil que excluye todo el sitio ({[...MESES_ANOMALOS].map(fmt.monthShort).join(', ')}) y los de las naftas sin impuestos ({Object.values(MESES_ANOMALOS_PRODUCTOS).flat().sort().map(fmt.monthShort).join(', ')}; abr y jun-2025 vienen por diez en la nafta premium del minorista).
       </p>
     </div>
   );
