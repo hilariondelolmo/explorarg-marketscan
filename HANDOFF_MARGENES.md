@@ -1,6 +1,6 @@
 # Handoff - página Márgenes (`/margenes`)
 
-Actualizado: **2026-10-12, sesión 1**. **Publicado** por orden de HDO en los commits `75a66ad` (la pestaña Biodiésel completa, el generador y este handoff) y `4ac9f71` (tarjetas con los promedios del período); la pestaña Gas oil, en `dd3085d`; la exclusión de abr-2025 y jun-2025, en `b403c13`; la pestaña Comparación y los filtros compartidos, en `8c41996`. Reglas: las de `CLAUDE.md` (commits y pushes solo con orden de HDO; guion corto; alinear antes de codear; con cada pedido, decir primero qué se entendió y de qué base salen los datos; verificar los números por fuera de la página y mostrarlos en imagen).
+Actualizado: **2026-10-12, sesión 1**. **Publicado** por orden de HDO en los commits `75a66ad` (la pestaña Biodiésel completa, el generador y este handoff) y `4ac9f71` (tarjetas con los promedios del período); la pestaña Gas oil, en `dd3085d`; la exclusión de abr-2025 y jun-2025, en `b403c13`; la pestaña Comparación y los filtros compartidos, en `8c41996`; sep-2025 afuera y la diferencia refinación menos biodiésel, en `c5a7948`. Reglas: las de `CLAUDE.md` (commits y pushes solo con orden de HDO; guion corto; alinear antes de codear; con cada pedido, decir primero qué se entendió y de qué base salen los datos; verificar los números por fuera de la página y mostrarlos en imagen).
 
 ## Qué es
 
