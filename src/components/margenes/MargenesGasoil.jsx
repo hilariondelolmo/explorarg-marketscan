@@ -322,7 +322,7 @@ export default function MargenesGasoil({ seccion }) {
         y Cañadón Seco del informe de regalías de la SE en usd/m³{FICHA_CRUDO.escalante?.nota ? ` (${FICHA_CRUDO.escalante.nota})` : ''}; tipo de cambio mensual. Naftas y gas oil pasan de $/l a usd/m³ con el TC del mes;
         a la unidad elegida con la densidad de cada producto (gas oil {DENSIDADES.gasoil}, naftas {DENSIDADES.naftas}, crudo {DENSIDADES.crudo} ton/m³; 6,2898 bbl y 264,172 gal por m³). Las naftas no se netean del bioetanol.
         Crack spread = (a × naftas + b × gas oil fósil - (a + b) × crudo) ÷ (a + b), con a:b = 1:1 (ratio 2:1:1), 2:1 (3:2:1) o 3:2 (5:3:2); en % = crack spread ÷ crudo;
-        acumulado = variación contra el primer mes del intervalo. Dólares corrientes. Con precios de mercado quedan afuera los meses con precios anómalos del relevamiento: los seis del gas oil que excluye todo el sitio ({[...MESES_ANOMALOS].map(fmt.monthShort).join(', ')}) y los de las naftas sin impuestos ({Object.values(MESES_ANOMALOS_PRODUCTOS).flat().sort().map(fmt.monthShort).join(', ')}; abr y jun-2025 vienen por diez en la nafta premium del minorista).
+        acumulado = variación contra el primer mes del intervalo. Dólares corrientes. Con precios de mercado quedan afuera los meses con precios anómalos del relevamiento: los seis del gas oil que excluye todo el sitio ({[...MESES_ANOMALOS].map(fmt.monthShort).join(', ')}) y los de las naftas sin impuestos ({Object.values(MESES_ANOMALOS_PRODUCTOS).flat().sort().map(fmt.monthShort).join(', ')}; abr y jun-2025 vienen por diez en la nafta premium del minorista y sep-2025 trae la del mayorista a 2.307 $/l).
       </p>
     </div>
   );

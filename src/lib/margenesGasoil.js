@@ -49,8 +49,9 @@ export const FUENTES = [
 export const PRIMER_MES = '2010-01';
 // Meses que el crack spread con precios de mercado saltea enteros: los seis
 // con precios anómalos de gas oil que excluye todo el sitio y los de las
-// naftas sin impuestos (abr-2025 y jun-2025 los pidió HDO el 12/10/2026 desde
-// esta página: la nafta premium del minorista viene por diez). Con una sola
+// naftas sin impuestos (abr-2025, jun-2025 y sep-2025 los pidió HDO el 12/10/2026
+// desde esta página: la nafta premium viene por diez en el minorista los dos
+// primeros y a 2.307 $/l en el mayorista el tercero). Con una sola
 // nafta el mix no sería súper + premium, así que el mes queda afuera.
 export const EXCLUIDOS_MERCADO = new Set([...MESES_ANOMALOS, ...Object.values(MESES_ANOMALOS_PRODUCTOS).flat()]);
 

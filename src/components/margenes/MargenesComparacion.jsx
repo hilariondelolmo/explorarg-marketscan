@@ -70,7 +70,8 @@ function Fila({ color, label, children }) {
  * el de refinación (2:1:1, 3:2:1 o 5:3:2 sobre el crudo, pestaña Gas oil),
  * en la misma unidad y el mismo intervalo, con las variables de cada uno a
  * mano: el aceite del biodiésel; la fuente de precios, las aperturas, el
- * ratio y la mezcla de crudo de la refinación. Reutiliza los cálculos de las
+ * ratio y la mezcla de crudo de la refinación. La diferencia es refinación
+ * menos biodiésel (HDO, 12/10/2026). Reutiliza los cálculos de las
  * dos pestañas (src/lib/margenes.js y src/lib/margenesGasoil.js); los
  * promedios van sobre los meses en que existen los dos crack spreads.
  */
@@ -118,7 +119,7 @@ export default function MargenesComparacion({ seccion }) {
       const ambos = b?.crack != null && g?.crack != null;
       return {
         fecha: f, bio: b?.crack ?? null, bioPct: b?.crackPct ?? null, go: g?.crack ?? null, goPct: g?.crackPct ?? null,
-        dif: ambos ? b.crack - g.crack : null, glicFuente: b?.glicFuente ?? null, excluido: !!g?.excluido,
+        dif: ambos ? g.crack - b.crack : null, glicFuente: b?.glicFuente ?? null, excluido: !!g?.excluido, // refinación menos biodiésel (HDO, 12/10/2026)
       };
     });
     const con = pts.filter((p) => p.dif != null);
@@ -126,7 +127,7 @@ export default function MargenesComparacion({ seccion }) {
     return {
       pts, n: con.length, primero: con[0] || null, ultimo: con.at(-1) || null,
       promedios: { bio: promedio('bio'), bioPct: promedio('bioPct'), go: promedio('go'), goPct: promedio('goPct'), dif: promedio('dif') },
-      bioArriba: con.filter((p) => p.dif > 0).length,
+      refArriba: con.filter((p) => p.dif > 0).length,
     };
   }, [RB, RG, meses, desdeEf, hastaEf]);
   const { pts, promedios, primero, ultimo } = R;
@@ -176,7 +177,7 @@ export default function MargenesComparacion({ seccion }) {
         <div className="chart-tooltip-label">{fmt.monthShort(label)} · {rotuloUnidad}{p.excluido ? ' · mes excluido en refinación' : ''}</div>
         <Fila color={colores.bio} label="Crack spread biodiésel 10:9:1">{valor(p.bio)}{p.bioPct != null ? ` (${pct(p.bioPct)} del aceite)` : ''}</Fila>
         <Fila color={colores.go} label={`Crack spread refinación ${G.ratio.label}`}>{valor(p.go)}{p.goPct != null ? ` (${pct(p.goPct)} del crudo)` : ''}</Fila>
-        <Fila color={colores.dif} label="Biodiésel menos refinación">{conSigno(p.dif)}</Fila>
+        <Fila color={colores.dif} label="Refinación menos biodiésel">{conSigno(p.dif)}</Fila>
         {p.glicFuente && p.glicFuente !== 'rosario' && <Fila label="Glicerina">{FUENTES_GLICERINA[p.glicFuente]}</Fila>}
       </div>
     );
@@ -184,7 +185,7 @@ export default function MargenesComparacion({ seccion }) {
 
   const cajas = [
     { id: 'resultado', titulo: 'Resultado del período', detalle: ultimo ? `Promedios de ${fmt.monthShort(desdeEf)} a ${fmt.monthShort(hastaEf)} · biodiésel ${valor(promedios.bio)} · refinación ${valor(promedios.go)} ${rotuloUnidad}` : 'sin datos' },
-    { id: 'crack', titulo: 'Crack spread, uno contra otro', detalle: `Biodiésel 10:9:1 sobre ${aceite.label} y refinación ${G.ratio.label} sobre el crudo · en ${rotuloUnidad}, en % de su materia prima y la diferencia` },
+    { id: 'crack', titulo: 'Crack spread, uno contra otro', detalle: `Biodiésel 10:9:1 sobre ${aceite.label} y refinación ${G.ratio.label} sobre el crudo · en ${rotuloUnidad}, en % de su materia prima y la diferencia refinación menos biodiésel` },
   ];
   const tono = (v) => (v == null ? undefined : v < 0 ? 'warn' : 'pos');
   const cargando = G.cargando;
@@ -259,8 +260,8 @@ export default function MargenesComparacion({ seccion }) {
           <div className="kpi-grid go-kpis-fila">
             <Tarjeta label={`Crack spread biodiésel 10:9:1 · ${aceite.label}`} valor={valor(promedios.bio)} unidad={rotuloUnidad} tono="pos" sub={`${pct(promedios.bioPct)} del aceite en promedio · ${fmt.monthShort(ultimo.fecha)}: ${valor(ultimo.bio)} (${pct(ultimo.bioPct)})`} />
             <Tarjeta label={`Crack spread refinación ${G.ratio.label}`} valor={valor(promedios.go)} unidad={rotuloUnidad} tono="warn" sub={`${pct(promedios.goPct)} del crudo en promedio · ${fmt.monthShort(ultimo.fecha)}: ${valor(ultimo.go)} (${pct(ultimo.goPct)})`} />
-            <Tarjeta label="Biodiésel menos refinación" valor={conSigno(promedios.dif)} unidad={rotuloUnidad} tono={tono(promedios.dif)} sub={`promedio del período · ${fmt.monthShort(ultimo.fecha)}: ${conSigno(ultimo.dif)}`} />
-            <Tarjeta label="Meses con el biodiésel arriba" valor={`${R.bioArriba} de ${R.n}`} tono={R.bioArriba * 2 >= R.n ? 'pos' : 'warn'} sub={`${pct(R.n ? (R.bioArriba / R.n) * 100 : null, 0)} de los meses el crack spread del biodiésel superó al de refinación`} />
+            <Tarjeta label="Refinación menos biodiésel" valor={conSigno(promedios.dif)} unidad={rotuloUnidad} tono={promedios.dif == null ? undefined : promedios.dif > 0 ? 'warn' : 'pos'} sub={`promedio del período · ${fmt.monthShort(ultimo.fecha)}: ${conSigno(ultimo.dif)}`} />
+            <Tarjeta label="Meses con la refinación arriba" valor={`${R.refArriba} de ${R.n}`} tono={R.refArriba * 2 >= R.n ? 'warn' : 'pos'} sub={`${pct(R.n ? (R.refArriba / R.n) * 100 : null, 0)} de los meses el crack spread de refinación superó al del biodiésel`} />
           </div>
         </div>
       )}
@@ -300,7 +301,7 @@ export default function MargenesComparacion({ seccion }) {
                 <Line {...lineaProps} dataKey="goPct" name="Refinación %" stroke={colores.go} label={<EtiquetaExtremos extremos={extremos.goPct} color={colores.go} formato={(v) => fmt.pct(v, 1)} />} />
               </ComposedChart>
             </ResponsiveContainer>
-            <p className="go-crack-rotulo">Biodiésel menos refinación [{rotuloUnidad}] · promedio {conSigno(promedios.dif)} · el biodiésel arriba en {R.bioArriba} de {R.n} meses</p>
+            <p className="go-crack-rotulo">Refinación menos biodiésel [{rotuloUnidad}] · promedio {conSigno(promedios.dif)} · la refinación arriba en {R.refArriba} de {R.n} meses</p>
             <ResponsiveContainer width="100%" height={280}>
               <ComposedChart data={pts} margin={{ top: 14, right: 64, left: 0, bottom: 0 }} syncId="comparacion" barCategoryGap={1}>
                 <XAxis {...ejeX} />
@@ -308,15 +309,15 @@ export default function MargenesComparacion({ seccion }) {
                 <ReferenceLine y={0} stroke={C.axis} />
                 {promedios.dif != null && <ReferenceLine y={promedios.dif} stroke={colores.dif} strokeDasharray="5 4" label={{ value: `Promedio: ${conSigno(promedios.dif)}`, position: 'insideBottomLeft', fill: colores.dif, fontSize: 11 }} />}
                 <Tooltip content={<TooltipCrack />} cursor={{ fill: C.cursor }} />
-                <Bar dataKey="dif" name="Biodiésel menos refinación" isAnimationActive={false}>
-                  {pts.map((p) => <Cell key={p.fecha} fill={p.dif == null ? 'transparent' : p.dif >= 0 ? colores.bio : colores.go} />)}
+                <Bar dataKey="dif" name="Refinación menos biodiésel" isAnimationActive={false}>
+                  {pts.map((p) => <Cell key={p.fecha} fill={p.dif == null ? 'transparent' : p.dif >= 0 ? colores.go : colores.bio} />)}
                 </Bar>
               </ComposedChart>
             </ResponsiveContainer>
             <div className="chart-legend">
               <div className="chart-legend-item"><span className="chart-legend-swatch" style={{ background: colores.bio }} />Crack spread biodiésel 10:9:1 sobre {aceite.label}</div>
               <div className="chart-legend-item"><span className="chart-legend-swatch" style={{ background: colores.go }} />Crack spread refinación {G.ratio.label} sobre el crudo ({G.fuenteDef.label.toLowerCase()})</div>
-              <div className="chart-legend-item"><span className="chart-legend-swatch" style={{ background: colores.dif }} />Diferencia: barra verde cuando el biodiésel deja más, ámbar cuando deja más la refinación</div>
+              <div className="chart-legend-item"><span className="chart-legend-swatch" style={{ background: colores.dif }} />Diferencia: barra ámbar cuando la refinación deja más, verde cuando deja más el biodiésel</div>
             </div>
           </div>
         </div>
