@@ -1147,6 +1147,56 @@
 .go-sticky .go-filtros-margenes {
   margin: -0.5rem 0 0.35rem;
 }
+/* Márgenes del gas oil: dos filas (Intervalo, Presidencia, Precios, Ratio, Unidad; y las aperturas con la mezcla de crudo) */
+@media (min-width: 1101px) {
+  .go-filtros.go-filtros-margenes-go {
+    grid-template-columns: 430fr 300fr 130fr 95fr 95fr;
+    max-width: 1180px;
+  }
+  .go-filtros.go-filtros-margenes-go2.con-mercado {
+    grid-template-columns: 170fr 230fr 230fr 470fr;
+    max-width: 1180px;
+  }
+  .go-filtros.go-filtros-margenes-go2.con-terminales {
+    grid-template-columns: 300fr 300fr 470fr;
+    max-width: 1180px;
+  }
+}
+.go-sticky .go-filtros-margenes-go {
+  margin: -0.5rem 0 0.35rem;
+}
+.go-sticky .go-filtros-margenes-go2 {
+  margin: 0 0 0.35rem;
+}
+.go-crudo-mezcla {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.6rem;
+  min-height: 34px;
+}
+.go-crudo-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--ink-2);
+}
+.go-crudo-item input {
+  width: 58px;
+  height: 30px;
+  padding: 0 0.3rem;
+  font: inherit;
+  font-size: 0.82rem;
+  color: var(--ink);
+  background: var(--bg-2, transparent);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+.go-crudo-aviso {
+  font-size: 0.74rem;
+  color: var(--ink-muted);
+}
 /* Crack spread: tres paneles apilados (valor, % y acumulado) con su rótulo */
 .go-crack-rotulo {
   margin: 0.2rem 0 0;
@@ -1164,7 +1214,9 @@
 @media (max-width: 720px) {
   .go-filtros-comparados .go-f-intervalo,
   .go-filtros-resultado-periodo .go-f-intervalo,
-  .go-filtros-margenes .go-f-intervalo {
+  .go-filtros-margenes .go-f-intervalo,
+  .go-filtros-margenes-go .go-f-intervalo,
+  .go-filtros-margenes-go2 .go-f-crudo {
     grid-column: 1 / -1;
   }
   .go-intervalo-controles {

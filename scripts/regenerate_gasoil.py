@@ -30,6 +30,9 @@ Salidas:
                          gasoil_estaciones.py), datos por boca y por mes
   - public/data/gasoil_sesco.json   ventas de combustibles de las tablas SESCO
                          (mes × provincia × empresa × sector, por producto)
+  - public/data/gasoil_terminales.json   precios en planta por reventa a EESS
+                         (mes × empresa × terminal × producto; lo arma
+                         gasoil_terminales.py para la página Márgenes)
   - public/data/gasoil_importaciones.json   despachos de importación de gas oil
                          (mes × importador × origen × procedencia; lo arma
                          gasoil_importaciones.py para la página Importaciones)
@@ -69,6 +72,7 @@ from gasoil_estaciones import COLS_ESTACIONES, NOTA_ESTACIONES, contar_estacione
 from gasoil_importaciones import CAMMESA, escribir_despachos, extraer_despachos
 from gasoil_productos import escribir_productos, extraer_productos, serie_filtrada
 from gasoil_sesco import FUENTE as FUENTE_SESCO, escribir_sesco, extraer_sesco
+from gasoil_terminales import FUENTE as FUENTE_TERMINALES, escribir_terminales, extraer_terminales
 
 VOL = Path("/Volumes/comun/01. TABLEAU")
 DB = VOL / "EXP MKTS DATABASES/Revision Actual"
@@ -78,6 +82,7 @@ SRC = {
     "imports": DB / "Go Imports.hyper",
     "eess": DB / "EESS Localidad departamento provincia.hyper",
     "sesco": FUENTE_SESCO,
+    "terminales": FUENTE_TERMINALES,
 }
 # Informe de regalías de crudo de la SE: de su hoja "Tabla precios (2)" toma el
 # flujo de Prep las columnas BRENT y WTI de Master data. Si la base quedó
@@ -818,12 +823,14 @@ def generar(dry=False):
         importaciones = extraer_importaciones(hy)
         sesco, resumen_sesco = extraer_sesco(lambda sql: hy.query("sesco", sql))
         despachos, resumen_despachos = extraer_despachos(lambda sql: hy.query("imports", sql))
+        terminales, resumen_terminales = extraer_terminales(lambda sql: hy.query("terminales", sql))
     finally:
         hy.close()
     print(f"  retail: {len(retail['mes'])} filas · canales: {len(canales)} · flujos: {len(flujos)} · "
           f"EESS: {len(eess)} · importaciones: {len(importaciones)} meses")
     print(f"  SESCO: {resumen_sesco}")
     print(f"  Importaciones: {resumen_despachos}")
+    print(f"  Terminales: {resumen_terminales}")
     # El cruce por despacho, sin CAMMESA, tiene que sumar por mes lo mismo que la serie
     # mensual (misma base y misma exclusión; el cruce deja afuera los despachos de menos de 100 kg)
     ton_mes = defaultdict(float)
@@ -1007,6 +1014,8 @@ def generar(dry=False):
     escribir_sesco(sesco, dry)
     # Despachos de importación (página Importaciones), también fuera del bundle
     escribir_despachos(despachos, dry)
+    # Precios en planta por reventa a EESS (pestaña Gas oil de Márgenes), también fuera del bundle
+    escribir_terminales(terminales, dry)
 
     escribir("gasoil_ranking.json", dict(
         desde=DESDE, ultimo_mes=ultimo_mes, densidad_go=DENSIDAD_GO,

@@ -1,12 +1,14 @@
 import { Navigate, useParams } from 'react-router-dom';
 import SectionNav from '../components/SectionNav.jsx';
 import MargenesBiodiesel from '../components/margenes/MargenesBiodiesel.jsx';
+import MargenesGasoil from '../components/margenes/MargenesGasoil.jsx';
 import './Page.css';
 
 // Márgenes del biodiésel y del gas oil (pedido de HDO del 12/10/2026, en el
 // lugar de "Biodiesel - Primas y Precios Relativos" del menú). Réplica de las
-// hojas del workbook Tableau 03 "MARKET & INDUSTRY - MARGEN BIODIESEL": primero
-// el biodiésel; el gas oil y la comparación entre los dos vienen después.
+// hojas del workbook Tableau 03 "MARKET & INDUSTRY - MARGEN BIODIESEL": el
+// biodiésel (12/10/2026), el gas oil (crack spread de refinación, 12/10/2026)
+// y la comparación entre los dos, que viene después.
 function EnPreparacion() {
   return <div className="section-placeholder">En preparación.</div>;
 }
@@ -20,10 +22,11 @@ const SECTIONS = [
     encabezadoPropio: true,
   },
   {
-    id: 'gas-oil', label: 'Gas oil',
-    title: 'Márgenes del gas oil',
-    intro: 'En preparación.',
-    Comp: EnPreparacion,
+    id: 'gas-oil', label: 'Gas oil', tableau: 'CRACK SPREAD INICIO',
+    title: 'Crack spread de refinación',
+    intro: 'Qué deja refinar un barril de crudo: las naftas y el gas oil fósil sin impuestos, ponderados por volumen, contra el crudo argentino, con los ratios 2:1:1, 3:2:1 y 5:3:2, desde el inicio del corte obligatorio. Precios del relevamiento con sus aperturas o de las terminales, y la mezcla de crudo que se elija.',
+    Comp: MargenesGasoil,
+    encabezadoPropio: true,
   },
   {
     id: 'comparacion', label: 'Comparación',
