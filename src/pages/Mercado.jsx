@@ -199,6 +199,8 @@ const GRUPO_DETALLE = SECTIONS.filter((s) => !IDS_INDICADORES.includes(s.id));
 // Tutorial en video de cada grupo de pestañas (src/data/tutoriales.json, lo
 // escribe scripts/tutorial/armar.py); sin entrada en el catálogo no hay botón
 const TUTORIAL_DE = { indicadores: 'indicadores', detalle: 'detalle-ventas' };
+// Pestañas con tutorial propio dentro de su grupo (las demás usan el del grupo)
+const TUTORIAL_POR_PESTANA = { 'compras-cupo': 'cupo-compras-ventas', 'ventas-cupo': 'cupo-compras-ventas' };
 
 export default function Mercado() {
   const { seccion } = useParams();
@@ -207,7 +209,7 @@ export default function Mercado() {
   const { id, title, intro, Comp } = activa;
   const esIndicadores = IDS_INDICADORES.includes(id);
   const grupo = esIndicadores ? GRUPO_INDICADORES : GRUPO_DETALLE;
-  const tutorial = tutoriales.find((t) => t.id === TUTORIAL_DE[esIndicadores ? 'indicadores' : 'detalle']);
+  const tutorial = tutoriales.find((t) => t.id === (TUTORIAL_POR_PESTANA[id] || TUTORIAL_DE[esIndicadores ? 'indicadores' : 'detalle']));
 
   return (
     <>

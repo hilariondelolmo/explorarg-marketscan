@@ -294,5 +294,52 @@
     "titulo": "Cierre"
    }
   ]
+ },
+ {
+  "id": "cupo-compras-ventas",
+  "titulo": "Compras y Ventas al cupo",
+  "pagina": "/mercado/compras-cupo",
+  "youtube": "BsTkNZ89Cyc",
+  "duracion": 221,
+  "grabado": "2026-10-13",
+  "descripcion": "Cómo se usan las pestañas Compras al cupo y Ventas al cupo del tablero Detalle de ventas de Explorarg: las ventas de biodiésel al corte obligatorio vistas desde las petroleras que compran y desde las elaboradoras que venden, con la tabla por período, el gráfico de baldosas, el mapa por provincia y las tablas gemelas.",
+  "capitulos": [
+   {
+    "t": 0,
+    "titulo": "Apertura y cómo se llega"
+   },
+   {
+    "t": 35,
+    "titulo": "Compras al cupo · Los filtros"
+   },
+   {
+    "t": 58,
+    "titulo": "Compras al cupo · La tabla"
+   },
+   {
+    "t": 78,
+    "titulo": "Compras al cupo · El clic acota los gráficos"
+   },
+   {
+    "t": 101,
+    "titulo": "Compras al cupo · Quién le vendió a quién"
+   },
+   {
+    "t": 126,
+    "titulo": "Compras al cupo · De qué provincias sale, y las tablas"
+   },
+   {
+    "t": 150,
+    "titulo": "Ventas al cupo · La misma mirada desde el vendedor"
+   },
+   {
+    "t": 173,
+    "titulo": "Ventas al cupo · A quién le vendió cada uno"
+   },
+   {
+    "t": 199,
+    "titulo": "Cierre"
+   }
+  ]
  }
 ]

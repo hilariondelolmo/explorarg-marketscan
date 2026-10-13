@@ -1,0 +1,155 @@
+{
+  "id": "cupo-compras-ventas",
+  "titulo": "Compras y Ventas al cupo",
+  "pagina": "/mercado/compras-cupo",
+  "youtube": "BsTkNZ89Cyc",
+  "descripcion": "Cómo se usan las pestañas Compras al cupo y Ventas al cupo del tablero Detalle de ventas de Explorarg: las ventas de biodiésel al corte obligatorio vistas desde las petroleras que compran y desde las elaboradoras que venden, con la tabla por período, el gráfico de baldosas, el mapa por provincia y las tablas gemelas.",
+  "url": "https://www.explorarg.com/",
+  "viewport": [1920, 1080],
+  "cartel": { "kicker": "Tutorial", "titulo": "Compras y Ventas al cupo", "sub": "Las ventas de cupo vistas desde las petroleras y desde las elaboradoras", "marca": "EXPLORARG · MARKETSCAN" },
+  "paginas": {
+    "p00": "/", "p02": "/mercado/compras-cupo", "p07": "/mercado/ventas-cupo"
+  },
+  "pasos": [
+    {
+      "id": "p00", "titulo": "Apertura", "capitulo": "Apertura y cómo se llega",
+      "texto": "Este es el tutorial de dos pestañas de Detalle de ventas, el tablero de biodiésel de Explorarg: Compras al cupo y Ventas al cupo. Son las mismas ventas de biodiésel al corte obligatorio, mes a mes, vistas desde quien compra, las petroleras, y desde quien vende, las elaboradoras y sus grupos económicos.",
+      "acciones": [
+        { "tipo": "esperar", "s": 0.3 }
+      ]
+    },
+    {
+      "id": "p01", "titulo": "Cómo se llega: menú Dashboards", "capitulo": false,
+      "texto": "Se entra por el menú principal: en Dashboards, Biodiesel, Detalle de ventas. En la fila de pestañas, Compras al cupo es la tercera y Ventas al cupo, la cuarta.",
+      "acciones": [
+        { "tipo": "ocultar_cartel" },
+        { "tipo": "esperar", "s": 0.5 },
+        { "tipo": "click", "sel": ".nav-dropdown-trigger" },
+        { "tipo": "resaltar", "sel": ".nav-dropdown-menu", "margen": 4 },
+        { "tipo": "esperar", "s": 1.0 },
+        { "tipo": "hover", "sel": { "sel": ".nav-dropdown-item", "texto": "Detalle de ventas" }, "espera": 0.8 },
+        { "tipo": "click", "sel": { "sel": ".nav-dropdown-item", "texto": "Detalle de ventas" } },
+        { "tipo": "limpiar" },
+        { "tipo": "cargar", "extra": 600 },
+        { "tipo": "resaltar", "sel": ".section-nav-inner ul", "margen": 4 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Compras al cupo", "exacto": true }, "espera": 1.0 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Ventas al cupo", "exacto": true }, "espera": 1.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Compras al cupo", "exacto": true } },
+        { "tipo": "cargar", "extra": 800 }
+      ]
+    },
+    {
+      "id": "p02", "titulo": "Compras al cupo · Los filtros",
+      "texto": "Arriba va la fila de filtros, que queda fija al bajar. El período se elige por Año o por Presidencia, y uno suelta al otro: con un año la tabla abre por trimestres y meses; con una presidencia, por años y semestres, así el mandato entero entra en la tabla. Provincia, Categoría, Cámara y Grupo económico son desplegables con casillas: recortan por la elaboradora que vendió.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Compras al cupo" },
+        { "tipo": "resaltar", "sel": "#compras-cupo .cc-filtros", "margen": 6 },
+        { "tipo": "esperar", "s": 1.6 },
+        { "tipo": "select", "sel": "#cc-presidencia-compras", "etiqueta": "Mauricio Macri · dic 2015 a nov 2019", "espera": 3.0 },
+        { "tipo": "select", "sel": "#cc-anio-compras", "etiqueta": "2026", "espera": 1.6 },
+        { "tipo": "click", "sel": { "sel": "#compras-cupo .mh-dropdown-boton", "nth": 1 }, "espera": 0.6 },
+        { "tipo": "resaltar", "sel": "#compras-cupo .mh-dropdown-panel", "margen": 4 },
+        { "tipo": "hover", "sel": { "sel": "#compras-cupo .mh-dropdown-item", "texto": "Integradas" }, "espera": 1.2 },
+        { "tipo": "hover", "sel": { "sel": "#compras-cupo .mh-dropdown-item", "texto": "Comercializadoras" }, "espera": 1.2 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": { "sel": "#compras-cupo .mh-dropdown-boton", "nth": 1 }, "espera": 0.5 }
+      ]
+    },
+    {
+      "id": "p03", "titulo": "Compras al cupo · La tabla",
+      "texto": "La tabla lista las petroleras que compraron en el período, de la que más compró a la que menos. Cada celda trae las toneladas y, debajo, la participación de esa petrolera en la columna; la última columna es el total del período y la última fila, el total del mercado. Al pasar el mouse, la celda dice de qué mes es.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": "#compras-cupo .cc-tabla-card", "margen": 6 },
+        { "tipo": "esperar", "s": 1.4 },
+        { "tipo": "limpiar" },
+        { "tipo": "hover", "sel": { "sel": "#compras-cupo button.cc-celda", "nth": 0 }, "espera": 1.8 },
+        { "tipo": "hover", "sel": { "sel": "#compras-cupo button.cc-celda", "nth": 3 }, "espera": 1.4 },
+        { "tipo": "hover", "sel": { "sel": "#compras-cupo td.cc-total-col", "nth": 0 }, "espera": 1.4 },
+        { "tipo": "hover", "sel": "#compras-cupo tr.mz-total", "espera": 1.6 }
+      ]
+    },
+    {
+      "id": "p04", "titulo": "Compras al cupo · El clic acota los gráficos",
+      "texto": "La tabla también se usa. Un clic en una petrolera deja en los dos gráficos de abajo solo lo que ella compró, y el subtítulo dice qué se está mostrando. Lo mismo hace un clic en un año, un trimestre, un mes o una celda sola, que es una petrolera en un mes. Otro clic en lo mismo lo suelta, y también el botón ver todo.",
+      "acciones": [
+        { "tipo": "click", "sel": { "sel": "#compras-cupo .cc-pet", "texto": "YPF S.A.", "exacto": true }, "espera": 1.4 },
+        { "tipo": "click", "sel": { "sel": "#compras-cupo .cc-th button", "texto": "T2", "exacto": true }, "espera": 1.4 },
+        { "tipo": "click", "sel": { "sel": "#compras-cupo button.cc-celda", "nth": 1 }, "espera": 1.2 },
+        { "tipo": "scroll", "sel": "#compras-cupo .cc-treemap-card", "margen": 12, "espera": 1.2 },
+        { "tipo": "resaltar", "sel": "#compras-cupo .cc-treemap-card .chart-card-subtitle", "margen": 4 },
+        { "tipo": "esperar", "s": 1.6 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": "#compras-cupo .cc-soltar", "espera": 1.2 }
+      ]
+    },
+    {
+      "id": "p05", "titulo": "Compras al cupo · Quién le vendió a quién",
+      "texto": "El gráfico de baldosas responde quién le vendió a quién. Cada baldosa es una elaboradora y la petrolera a la que le vendió; el tamaño son las toneladas y el color, el grupo económico de la elaboradora. Los dos porcentajes se leen así: qué parte de lo que vendió esa empresa fue a esa petrolera, y qué parte de lo que compró la petrolera vino de esa empresa. El cuadro flotante lo dice completo.",
+      "acciones": [
+        { "tipo": "scroll", "sel": "#compras-cupo .cc-treemap-card", "margen": 12 },
+        { "tipo": "resaltar", "sel": "#compras-cupo .cc-treemap-card", "margen": 4 },
+        { "tipo": "esperar", "s": 1.2 },
+        { "tipo": "limpiar" },
+        { "tipo": "hover", "sel": { "sel": "#compras-cupo .cc-treemap rect", "nth": 0 }, "espera": 2.2 },
+        { "tipo": "hover", "sel": { "sel": "#compras-cupo .cc-treemap rect", "nth": 4 }, "espera": 2.0 },
+        { "tipo": "hover", "sel": { "sel": "#compras-cupo .cc-treemap rect", "nth": 12 }, "espera": 1.8 }
+      ]
+    },
+    {
+      "id": "p06", "titulo": "Compras al cupo · De qué provincias sale, y las tablas",
+      "texto": "El mapa muestra de qué provincias sale el biodiésel: una torta por provincia, con el tamaño según su participación y los gajos por grupo económico. Al pasar por un gajo se ve ese grupo solo; al pasar por la provincia, fuera de la torta, se ven todos sus grupos. Y al pie, Ver como tabla abre las dos tablas gemelas de los gráficos, con las mismas cifras en filas.",
+      "acciones": [
+        { "tipo": "scroll", "sel": "#compras-cupo .cc-mapa-card", "margen": 12 },
+        { "tipo": "hover", "sel": { "sel": "#compras-cupo .cc-gajo", "nth": 0 }, "espera": 1.8 },
+        { "tipo": "hover", "sel": { "sel": "#compras-cupo .cc-gajo", "nth": 3 }, "espera": 1.6 },
+        { "tipo": "hover", "sel": { "sel": "#compras-cupo .cc-prov.con-ventas", "nth": 1 }, "espera": 1.8 },
+        { "tipo": "click", "sel": "#compras-cupo details.cc-detalle summary", "espera": 0.6 },
+        { "tipo": "scroll", "sel": "#compras-cupo .cc-tablas-gemelas", "margen": 12, "espera": 0.6 },
+        { "tipo": "resaltar", "sel": "#compras-cupo .cc-tablas-gemelas", "margen": 4 },
+        { "tipo": "esperar", "s": 2.0 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p07", "titulo": "Ventas al cupo · La misma mirada desde el vendedor",
+      "texto": "Ventas al cupo es el mismo tablero visto desde quien vende. La tabla lista los grupos económicos, y la flecha despliega las elaboradoras de cada uno. Las petroleras no están en la tabla: se ven en los gráficos. El clic acota igual que en Compras: un grupo, una elaboradora, un período o una celda dejan en los gráficos solo lo que esa fila vendió.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "Ventas al cupo" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Ventas al cupo", "exacto": true } },
+        { "tipo": "cargar", "extra": 800 },
+        { "tipo": "resaltar", "sel": "#ventas-cupo .cc-tabla-card", "margen": 6 },
+        { "tipo": "esperar", "s": 1.4 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": { "sel": "#ventas-cupo .cc-desplegar", "nth": 0 }, "espera": 1.4 },
+        { "tipo": "hover", "sel": { "sel": "#ventas-cupo .cc-fila-emp .cc-pet", "nth": 1 }, "espera": 1.2 },
+        { "tipo": "click", "sel": { "sel": "#ventas-cupo .cc-fila-emp .cc-pet", "nth": 0 }, "espera": 1.0 },
+        { "tipo": "scroll", "sel": "#ventas-cupo .cc-treemap-card", "margen": 12, "espera": 2.2 },
+        { "tipo": "click", "sel": "#ventas-cupo .cc-soltar", "espera": 1.0 }
+      ]
+    },
+    {
+      "id": "p08", "titulo": "Ventas al cupo · A quién le vendió cada uno",
+      "texto": "Acá cada baldosa es un grupo económico, o la elaboradora elegida, y la petrolera a la que le vendió; el color es la petrolera, y los gajos del mapa también. Los porcentajes se leen al revés que en Compras: qué parte de lo que vendió ese grupo fue a esa petrolera, y qué parte de lo que compró la petrolera vino de ese grupo. Es la forma más rápida de ver cuánto depende cada elaboradora de una sola petrolera.",
+      "acciones": [
+        { "tipo": "scroll", "sel": "#ventas-cupo .cc-treemap-card", "margen": 12 },
+        { "tipo": "hover", "sel": { "sel": "#ventas-cupo .cc-treemap rect", "nth": 0 }, "espera": 2.2 },
+        { "tipo": "hover", "sel": { "sel": "#ventas-cupo .cc-treemap rect", "nth": 3 }, "espera": 2.0 },
+        { "tipo": "hover", "sel": { "sel": "#ventas-cupo .cc-gajo", "nth": 0 }, "espera": 1.8 },
+        { "tipo": "hover", "sel": { "sel": "#ventas-cupo .cc-gajo", "nth": 2 }, "espera": 1.6 },
+        { "tipo": "scroll", "arriba": true }
+      ]
+    },
+    {
+      "id": "p09", "titulo": "Cierre",
+      "texto": "Eso es todo. Compras al cupo y Ventas al cupo son la misma venta vista de los dos lados: quién compra, a quién, cuánto y de dónde. Los datos salen de los reportes mensuales de la Secretaría de Energía, abiertos por elaboradora y por petrolera compradora.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Compras al cupo", "exacto": true } },
+        { "tipo": "cargar", "extra": 400 },
+        { "tipo": "esperar", "s": 2.0 },
+        { "tipo": "cartel", "kicker": "Tutorial", "titulo": "Compras y Ventas al cupo", "sub": "explorarg.com · Dashboards · Biodiesel - Detalle de ventas", "marca": "EXPLORARG · MARKETSCAN" }
+      ]
+    }
+  ]
+}
