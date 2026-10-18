@@ -156,6 +156,7 @@ y locución: `docs/2026.09.14 Guion - video La Argentina segun CEPREB v8.md`.
 | 6 | La Argentina real (32 s) | 54 aceiteras + tabla por provincia (nueva, 14/09). |
 | 7 | Zoom (2:15) | Ramallo (5 Bojanich), Bahía Blanca, Junín, Alvear, General Pico, Catriló: cada parada con su duración; rótulo de a dos nombres por renglón. **Ojo: el orden real es Bahía Blanca antes que Junín** (la v7 tenía las voces cruzadas). |
 | 8 | Resumen y remate (63 s) | Tabla de las 23 por grupo; cierre dictado por HDO: veredicto de la tabla; "cinco minutos bastan para formular dos afirmaciones (a) y (b)"; demostrar que el transporte depende de la distancia al proveedor con molienda disponible, no al puerto, exige más tiempo. |
+| 9 | La Secretaría de Energía lo confirma (51 s, 18/10/2026) | Anillos desde Rosario con las cinco zonas de la nota del 14/10, una tarjeta por zona y el remate. Ver 4.8. |
 
 ### 4.4 Revisión cuadro por cuadro: TERMINADA el 14/09/2026
 
@@ -225,6 +226,28 @@ agrega un objeto a `entregas`. Video: `public/video/cinco-minutos/la-argentina-s
 es la copia web (1080p, crf 30, 11,7 MB) de la reexportación de HDO
 `output/video/Lo que no entra en 5 minutos.mp4` (90 MB, 6:40, no va al repo);
 póster a los 45 s. HDO pidió que la ficha del video no diga "locución sintética" (14/09).
+
+### 4.8 Cuadro 9 (18/10/2026): la nota de la Secretaría de Energía
+
+HDO pidió el 17/10 meter en este video la respuesta de la Secretaría de Energía (nota NO-2026-100181180-APN-SSH#MEC
+del 14/10/2026 al pedido de CASFER y CAPBA: precio de compra del aceite por zona de distancia de la planta a Rosario,
+base Rosario = 100, enero de 2024 a agosto de 2026). Aprobó el cuadro y la locución el 18/10.
+
+- Datos: `src/data/precio_aceite_rosario.json` (32 meses × 5 zonas y el resumen por zona: meses como la más cara
+  8/9/4/4/7, como la más barata 1/4/9/16/2, más caro que Rosario 4/7/4/4/6, promedio -2,6/-2,8/-3,6/-3,8/-2,4 puntos;
+  los dos empates se cuentan para la zona que lo tiene menos veces, como en la lámina 6 del video CEPREB).
+- Generador: escena 6 (`T6`, `SE_T0`, `SE_PASO`, `ESCENAS[6]`), `panel_se` (tarjetas con la jerarquía de HDO: arriba
+  más caro / más barato, la zona en grande, una línea con las veces), zonas teñidas sobre la tierra (`mascara_tierra`)
+  con anillos geodésicos a 50/100/200/600 km (`destino`, `anillo_rosario`); las aceiteras se apagan con el fundido; el
+  pie cita la nota. El anillo de 600 km queda cortado arriba por el encuadre (28° S): decisión de no cambiar el
+  encuadre de los otros cuadros.
+- Locución: bloque 13 en `mezclar_locucion.py` (el 12 termina en `T6`); `b13.mp3` 48,1 s (Whisper 93,6 %, solo
+  números en cifras). Duración total 7:32. Guion: `docs/2026.10.18 Guion - video La Argentina segun CEPREB v9.md`
+  (el v8 quedó como superado).
+- Sitio: `src/content/cinco-minutos.json` (duración 7:32, bloque 14 de la transcripción, fuente de la nota, bajada);
+  copia web en `public/video/cinco-minutos/la-argentina-segun-cepreb.mp4` (ver 4.7). **Estado 18/10/2026:** HDO aprobó el cuadro;
+  voz generada, v9 rendida y mezclada (`output/video/La Argentina segun CEPREB - v9 (Fernando).mp4`, 7:29; copias en
+  `output/entregas/` y en la carpeta Diputados final Cepreb de HDO), copia web reemplazada. Sin commitear: HDO decide (el push publica).
 
 ## 5. Pendientes y decisiones abiertas
 

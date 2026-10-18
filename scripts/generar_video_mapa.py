@@ -12,7 +12,9 @@
      elaboradoras.
   4. Zoom planta por planta (Grupo Bojanich, Pampa Bio y Enresa): las
      aceiteras dentro del radio de cada una, molienda y cobertura.
-  (El remate final lo dicta HDO; por ahora el video termina en la escena 4.)
+  5. Resumen y remate (texto de HDO).
+  6. (18/10/2026) La Secretaría de Energía lo confirma: anillos de distancia desde Rosario con el
+     precio de compra del aceite por zona (nota NO-2026-100181180-APN-SSH#MEC, base Rosario = 100).
 
 Usa los mismos datos y la misma proyección que el mapa del sitio
 (src/data/mapa_argentina.json, capacidad.json, plantas_aceite.json,
@@ -154,6 +156,14 @@ def km_a_unidades(km, lat):
 def lat_de_y(y):
     """Ordenada del mapa → latitud (Mercator inverso)."""
     return math.degrees(math.atan(math.sinh(MERC_TOP - y / P["ky"])))
+
+
+def destino(lat, lng, km, rumbo):
+    """Punto a `km` de (lat, lng) con rumbo `rumbo` (grados, norte 0, horario)."""
+    R = 6371.0; d = km / R; b = math.radians(rumbo); la1, lo1 = math.radians(lat), math.radians(lng)
+    la2 = math.asin(math.sin(la1) * math.cos(d) + math.cos(la1) * math.sin(d) * math.cos(b))
+    lo2 = lo1 + math.atan2(math.sin(b) * math.sin(d) * math.cos(la1), math.cos(d) - math.sin(la1) * math.sin(la2))
+    return math.degrees(la2), math.degrees(lo2)
 
 
 def distancia_km(a, b):
@@ -312,6 +322,34 @@ def base_mapa(vb):
     return im
 
 
+_cache_tierra = {}
+
+
+def mascara_tierra(vb):
+    """Máscara (L) de la tierra argentina para el encuadre, del tamaño del cuadro completo a escala SS (con caché)."""
+    clave = tuple(round(v, 3) for v in vb)
+    if clave not in _cache_tierra:
+        m = Image.new("L", (ANCHO * SS, ALTO * SS), 0)
+        dm = ImageDraw.Draw(m)
+        for pol in PROV_POL:
+            dm.polygon([a_px(*pt, vb) if False else a_px_u(pt, vb) for pt in pol], fill=255)
+        if len(_cache_tierra) > 4:
+            _cache_tierra.clear()
+        _cache_tierra[clave] = m
+    return _cache_tierra[clave]
+
+
+def a_px_u(pt, vb, ss=SS):
+    """Unidades del mapa (ya proyectadas) -> px del cuadro."""
+    esc = MAPA_W / vb[2]
+    return ((MAPA[0] + (pt[0] - vb[0]) * esc) * ss, (MAPA[1] + (pt[1] - vb[1]) * esc) * ss)
+
+
+def anillo_rosario(km, vb, paso=3):
+    """Polígono (px) del círculo geodésico de `km` alrededor de Rosario."""
+    return [a_px(lng, lat, vb) for lat, lng in (destino(ROSARIO["lat"], ROSARIO["lng"], km, r) for r in range(0, 360, paso))]
+
+
 def circulo(capa, xy, r, color, alpha, borde=None, ancho=0, alpha_borde=None):
     x, y = xy
     d = ImageDraw.Draw(capa)
@@ -463,7 +501,20 @@ PARADA_INICIOS = [round(PARADA_T0 + sum(PARADA_DURS[:k]), 1) for k in range(len(
 T5 = PARADA_T0 + sum(PARADA_DURS)  # resumen final: el mapa vuelve al país
 ESCENAS[5]["t0"] = T5
 RESUMEN_T0 = T5 + 1.8
-DURACION = T5 + 1.5 + dur_bloque(12, 19.4) + 2.5   # el bloque 12 arranca a los 1,5 s; 2,5 s de cierre
+# ── escena 6 (18/10/2026): la Secretaría de Energía lo confirma. Precio de compra del aceite por zona de distancia a Rosario,
+# base Rosario = 100 (nota NO-2026-100181180-APN-SSH#MEC del 14/10/2026; datos en src/data/precio_aceite_rosario.json) ──
+SE = json.load(open(DATA / "precio_aceite_rosario.json", encoding="utf-8"))
+SE_ZONAS = SE["resumen"]                       # cinco zonas, en orden: hasta 50, 50-100, 101-200, 201-600, más de 600 km
+SE_RADIOS = [50, 100, 200, 600]                # anillos, en km en línea recta desde Rosario
+ROSARIO = dict(lat=-32.9468, lng=-60.6393)
+T6 = T5 + 1.5 + dur_bloque(12, 78.1) + AIRE + 0.4   # después del remate del bloque 12
+SE_T0 = T6 + 1.2                               # el bloque 13 arranca 1,2 s después del fundido
+SE_PASO = 0.7                                  # cada zona (anillo + tarjeta) entra 0,7 s después de la anterior
+ESCENAS.append(dict(t0=T6, titulo="La Secretaría de Energía lo confirma",
+                    sub="Precio de compra del aceite que las elaboradoras informan, por zona de distancia de la planta a Rosario, con Rosario = 100. "
+                        "Nota NO-2026-100181180-APN-SSH#MEC del 14/10/2026, respuesta al pedido de CASFER y CAPBA. 32 meses, enero de 2024 a agosto de 2026.",
+                    leyenda=[("ambar", "Zona que fue más veces la más cara del mes"), ("verde", "Zona que fue más veces la más barata del mes")]))
+DURACION = SE_T0 + dur_bloque(13, 46.0) + 2.5   # 2,5 s de cierre
 
 
 # ── resumen final: cada planta con su radio, aceiteras, molienda, aceite y cobertura ──
@@ -756,6 +807,59 @@ def panel_resumen(d, t, alpha, x0, x1):
             n += 1
 
 
+def panel_se(d, t, alpha, x0, x1):
+    """Panel de la escena 6: la nota de la Secretaría de Energía, una tarjeta por zona y el remate."""
+    ancho = x1 - x0
+    e = ESCENAS[6]
+    y = 150 * SS
+    f_tit = fuente(50, 800)
+    for linea in envolver(e["titulo"], f_tit, ancho):
+        d.text((x0, y), linea, font=f_tit, fill=mezclar(COL["tinta"], alpha))
+        y += 58 * SS
+    y += 8 * SS
+    f_sub = fuente(21, 450)
+    for linea in envolver(e["sub"], f_sub, ancho):
+        d.text((x0, y), linea, font=f_sub, fill=mezclar(COL["tinta2"], alpha))
+        y += 29 * SS
+    y += 10 * SS
+    f_ley = fuente(18, 500)
+    for color, texto in e["leyenda"]:
+        d.ellipse([x0, y + 5 * SS, x0 + 16 * SS, y + 21 * SS], fill=mezclar(COL[color], alpha))
+        d.text((x0 + 26 * SS, y), texto, font=f_ley, fill=mezclar(COL["tinta2"], alpha))
+        y += 27 * SS
+    y += 14 * SS
+    # una tarjeta por zona: arriba "más caro" / "más barato", la zona en grande y, en una línea, las veces (jerarquía de HDO, 18/10)
+    f_k, f_z, f_n, f_nb = fuente(13, 700), fuente(27, 800), fuente(18, 500), fuente(22, 800)
+    alto = 78 * SS
+    for k, z in enumerate(SE_ZONAS):
+        vis = suavizar((t - SE_T0 - 5.0 - k * SE_PASO) / 0.5) * alpha
+        if vis > 0:
+            caro = z["mas_cara"] > z["mas_barata"]
+            col = COL["ambar"] if caro else COL["verde"]
+            d.rectangle([x0, y, x1, y + alto - 8 * SS], fill=mezclar((243, 241, 236), vis))
+            d.rectangle([x0, y, x0 + 7 * SS, y + alto - 8 * SS], fill=mezclar(col, vis))
+            d.text((x0 + 20 * SS, y + 8 * SS), "MÁS CARO" if caro else "MÁS BARATO", font=f_k, fill=mezclar(col, vis))
+            d.text((x0 + 20 * SS, y + 24 * SS), z["rotulo"], font=f_z, fill=mezclar(COL["tinta"], vis))
+            # a la derecha, en una línea: la más cara N · la más barata M
+            xr = x1 - 16 * SS
+            partes = [("la más cara ", f_n, COL["tinta2"]), (str(z["mas_cara"]), f_nb, COL["tinta"]), ("  ·  la más barata ", f_n, COL["tinta2"]), (str(z["mas_barata"]), f_nb, COL["tinta"])]
+            total = sum(f.getlength(s) for s, f, _ in partes)
+            xx = xr - total
+            for s, f, c in partes:
+                d.text((xx, y + 36 * SS), s, font=f, fill=mezclar(c, vis), anchor="ls")
+                xx += f.getlength(s)
+            d.text((xr, y + 42 * SS), "de 32 meses", font=fuente(13, 600), fill=mezclar(COL["suave"], vis), anchor="ra")
+        y += alto
+    # remate, cuando la voz llega a "El kilómetro cero no existe"
+    vis = suavizar((t - SE_T0 - dur_bloque(13, 46.0) * 0.70) / 0.6) * alpha
+    if vis > 0:
+        y += 4 * SS
+        f_r = fuente(27, 800)
+        for linea in envolver("Lo que importa es la distancia al proveedor de aceite, no al puerto.", f_r, ancho):
+            d.text((x0, y), linea, font=f_r, fill=mezclar(COL["tinta"], vis))
+            y += 34 * SS
+
+
 def cuadro(t, icono):
     idx, avance = escena_en(t)
     vb = encuadre_en(t)
@@ -780,6 +884,26 @@ def cuadro(t, icono):
                 d.line(pts, fill=(*col, int(255 * 0.9 * vis * resaltar)), width=int(4 * SS), joint="curve")
             else:
                 d.line(pts, fill=(*COL["tinta2"], int(255 * (0.45 - 0.25 * resaltar) * vis)), width=int(2 * SS), joint="curve")
+    # ── escena 6: las zonas de la Secretaría teñidas sobre la tierra (ámbar: más veces la más cara; verde: más veces la más barata) ──
+    if idx == 6:
+        zonas = Image.new("RGBA", im.size, (0, 0, 0, 0))
+        dz = ImageDraw.Draw(zonas)
+        vis = [suavizar((t - SE_T0 - 5.0 - k * SE_PASO) / 0.5) * avance for k in range(5)]
+        tinta_zona = [(COL["ambar"], 0.30), (COL["ambar"], 0.18), (COL["verde"], 0.20), (COL["verde"], 0.14), (COL["ambar"], 0.09)]
+        # del más grande al más chico: primero toda la tierra (más de 600 km), después cada disco
+        if vis[4] > 0:
+            dz.rectangle([0, 0, zonas.size[0], zonas.size[1]], fill=(*tinta_zona[4][0], int(255 * tinta_zona[4][1] * vis[4])))
+        for k in (3, 2, 1, 0):
+            if vis[k] > 0:
+                col, al = tinta_zona[k]
+                dz.polygon(anillo_rosario(SE_RADIOS[k], vb), fill=(*col, int(255 * al * vis[k])))
+        from PIL import ImageChops
+        zonas.putalpha(ImageChops.multiply(zonas.getchannel("A"), mascara_tierra(vb)))
+        capa = Image.alpha_composite(capa, zonas)
+        dz = ImageDraw.Draw(capa)
+        for k in range(4):   # contornos enteros, también sobre el agua
+            if vis[k] > 0:
+                dz.line(anillo_rosario(SE_RADIOS[k], vb, 2) + anillo_rosario(SE_RADIOS[k], vb, 2)[:1], fill=(*COL["tinta"], int(255 * 0.85 * vis[k])), width=int(2 * SS), joint="curve")
     # ── escena 1 en adelante: elaboradoras de biodiesel (capa de base) ──
     if idx >= 0:
         t1 = T1 + 0.6
@@ -798,10 +922,11 @@ def cuadro(t, icono):
             r = km_a_unidades(parada["km"], parada["lat"]) * (MAPA_W / vb[2]) * SS * crece
             circulo(capa, xy, r, COL["verde"], 0.07, COL["verde"], int(2 * SS), 0.75)
     # ── escena "real" en adelante: aceiteras como anillos ámbar, de mayor a menor molienda ──
-    if idx >= 3:
+    apag_ac = (1 - avance) if idx == 6 else 1.0   # en la escena 6 las aceiteras se van con el fundido
+    if idx >= 3 and apag_ac > 0:
         t3 = T3 + 0.8
         for i, p in enumerate(ACEITERAS):
-            k = pop((t - t3 - i * 0.085) / 0.5)
+            k = pop((t - t3 - i * 0.085) / 0.5) * apag_ac
             if k <= 0 or not en_cuadro(p, vb):
                 continue
             adentro = en_zoom and p["id"] in parada["dentro"]
@@ -845,6 +970,15 @@ def cuadro(t, icono):
             x, y = a_px(PGSM["lng"], PGSM["lat"], vb)
             d.text((x + 34 * SS, y - 12 * SS), "Puerto General San Martín", font=fuente(20, 700), fill=mezclar(COL["ambar"], vis),
                    stroke_width=3 * SS, stroke_fill=(255, 255, 255))
+    # escena 6: Rosario, la base 100 de la Secretaría
+    if idx == 6:
+        vis = suavizar((t - SE_T0 - 4.2) / 0.5) * avance
+        if vis > 0:
+            x, y = a_px(ROSARIO["lng"], ROSARIO["lat"], vb)
+            r = 9 * SS
+            d.ellipse([x - r, y - r, x + r, y + r], fill=mezclar(COL["tinta"], vis), outline=(255, 255, 255), width=int(2 * SS))
+            d.text((x - 16 * SS, y + 2 * SS), "Rosario · base 100", font=fuente(21, 800), fill=mezclar(COL["tinta"], vis),
+                   stroke_width=3 * SS, stroke_fill=(255, 255, 255), anchor="rm")
     # radio marcado desde el centro del círculo hasta el borde, con su medida (pedido HDO)
     if en_zoom and k_par > 0.9:
         vis = suavizar((k_par - 0.9) / 0.1)
@@ -928,6 +1062,9 @@ def cuadro(t, icono):
                 continue
             if j == 5:
                 panel_resumen(d, t, alpha, x0, x1)
+                continue
+            if j == 6:
+                panel_se(d, t, alpha, x0, x1)
                 continue
             y = 150 * SS
             f_tit = fuente(58, 800)
@@ -1021,8 +1158,9 @@ def cuadro(t, icono):
     d.line([(x0, 930 * SS), (x1, 930 * SS)], fill=COL["regla"], width=1 * SS)
     f_pie = fuente(15, 500)
     y = 942 * SS
-    for linea in envolver("Fuente: Secretaría de Energía de la Nación (plantas en operación y capacidad instalada) · aceiteras: relevamiento oct-2024 · rutas: OSRM sobre OpenStreetMap",
-                          f_pie, ancho - 300 * SS):
+    pie = ("Fuente: Secretaría de Energía, Subsecretaría de Hidrocarburos, nota NO-2026-100181180-APN-SSH#MEC (14/10/2026): precio de compra del aceite por zona de distancia a Rosario, base 100 · plantas: registro de la Secretaría de Energía"
+           if idx == 6 else "Fuente: Secretaría de Energía de la Nación (plantas en operación y capacidad instalada) · aceiteras: relevamiento oct-2024 · rutas: OSRM sobre OpenStreetMap")
+    for linea in envolver(pie, f_pie, ancho - 300 * SS):
         d.text((x0, y), linea, font=f_pie, fill=COL["suave"])
         y += 21 * SS
     d.text((x0, y + 6 * SS), "por Hilarión del Olmo - Presidente - Explora S.A.", font=fuente(16, 600), fill=COL["tinta2"])

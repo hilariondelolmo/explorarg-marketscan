@@ -6,10 +6,10 @@
       "numero": 1,
       "titulo": "La Argentina según CEPREB",
       "fecha": "2026-09-14",
-      "bajada": "CEPREB sostiene que el costo del aceite depende de la distancia a Puerto General San Martín. Puesta sobre el mapa, con los datos públicos de la Secretaría de Energía, la afirmación no resiste: el aceite está donde está el grano.",
+      "bajada": "CEPREB sostiene que el costo del aceite depende de la distancia a Puerto General San Martín. Puesta sobre el mapa, con los datos públicos de la Secretaría de Energía, la afirmación no resiste: el aceite está donde está el grano. Desde el 18/10/2026 el video cierra con la nota de la Secretaría de Energía del 14/10: el precio de compra del aceite por zona de distancia a Rosario confirma que el kilómetro cero no existe.",
       "video": "/video/cinco-minutos/la-argentina-segun-cepreb.mp4",
       "poster": "/video/cinco-minutos/la-argentina-segun-cepreb-poster.jpg",
-      "duracion": "6:40",
+      "duracion": "7:32",
       "transcripcion": [
         {
           "t": "0:00",
@@ -75,13 +75,19 @@
           "t": "5:21",
           "cuadro": "Resumen y remate",
           "texto": "El cuadro completo revela el mismo patrón en las veintitrés plantas: todas cuentan, en su entorno, con más aceite del que podrían transformar en biodiesel. Incluso en el caso menos favorable, la oferta supera en un 30 % las necesidades de la planta; en la mayoría, las excede varias decenas de veces. Cinco minutos bastan para formular dos afirmaciones: a, que el costo de la materia prima puesta en una planta de biodiesel se compone del precio del aceite a la salida de la planta productora y del costo de transportarlo hasta la planta elaboradora; y b, que ese transporte depende de la distancia entre la planta de biodiesel y el puerto. Demostrar, como acabamos de hacer, que el transporte sí depende de la distancia, pero no de la distancia al puerto, exige algo más de tiempo. La distancia relevante es la que separa a la planta de biodiesel del proveedor más cercano con capacidad de molienda disponible. La conclusión es clara: el planteo de CEPREB es errado. Busca establecer una categorización de las empresas según su distancia al puerto que los datos no verifican. Todas las plantas tienen, en un radio de cien kilómetros, o de hasta doscientos cincuenta en las zonas más aisladas, aceite suficiente para cubrir su producción anual; y la mayoría, para varias veces esa producción."
+        },
+        {
+          "t": "6:41",
+          "cuadro": "La Secretaría de Energía lo confirma",
+          "texto": "Un mes después de la media sanción, la propia Secretaría de Energía puso los números sobre la mesa. CASFER y CAPBA le habían pedido que publicara los precios del aceite que las plantas le informan, y el catorce de octubre respondió. Rosario es la base cien, y cada zona muestra lo que pagó por el aceite, mes por mes, según su distancia al llamado kilómetro cero. Las dos zonas que tienen a Rosario al lado fueron la más cara del mes diecisiete veces en treinta y dos meses. Y la zona que más veces compró barato está a entre doscientos y seiscientos kilómetros: dieciséis veces. El kilómetro cero no existe. Lo que importa es la distancia al proveedor de aceite, no al puerto. Y esta vez no lo decimos nosotros: son datos de la Secretaría de Energía, informados por las propias empresas."
         }
       ],
       "fuentes": [
         "Secretaría de Energía de la Nación: plantas en operación, capacidad instalada, cupos y ventas al corte (2010-2026).",
         "Aceiteras: relevamiento de plantas procesadoras de aceite, octubre de 2024.",
         "Distancias por ruta: OSRM sobre OpenStreetMap.",
-        "Supuestos: aceite anual = molienda diaria × 19 % × 300 días; 1 t de aceite ≈ 1 t de biodiesel."
+        "Supuestos: aceite anual = molienda diaria × 19 % × 300 días; 1 t de aceite ≈ 1 t de biodiesel.",
+        "Precio de compra del aceite por zona de distancia a Rosario (base Rosario = 100, enero de 2024 a agosto de 2026): Secretaría de Energía, Subsecretaría de Hidrocarburos, nota NO-2026-100181180-APN-SSH#MEC del 14/10/2026, respuesta al pedido de CASFER y CAPBA."
       ],
       "relacionados": [
         {

@@ -107,7 +107,7 @@ BLOQUES = [
      "Enresa, en Catriló, también en La Pampa, más lejos todavía. Con ciento sesenta kilómetros de radio, tres aceiteras y "
      "aceite para casi cinco veces su capacidad. Otra de las que más cumplen. Lo mismo, planta por planta, para las "
      "veintitrés: veámoslo todo junto."),
-    (v.T5 + 1.5, v.DURACION,  # cuadro 8: texto de HDO, 14/09/2026 (definitivo)
+    (v.T5 + 1.5, v.T6,  # cuadro 8: texto de HDO, 14/09/2026 (definitivo); desde el 18/10 termina donde arranca el cuadro 9
      "El cuadro completo revela el mismo patrón en las veintitrés plantas: todas cuentan, en su entorno, con más "
      "aceite del que podrían transformar en biodiesel. Incluso en el caso menos favorable, la oferta supera en un "
      "30 % las necesidades de la planta; en la mayoría, las excede varias decenas de veces. "
@@ -122,6 +122,14 @@ BLOQUES = [
      "según su distancia al puerto que los datos no verifican. Todas las plantas tienen, en un radio de cien "
      "kilómetros, o de hasta doscientos cincuenta en las zonas más aisladas, aceite suficiente para cubrir su "
      "producción anual; y la mayoría, para varias veces esa producción."),
+    (v.SE_T0, v.DURACION,  # cuadro 9 (18/10/2026): la nota de la Secretaría de Energía del 14/10 sobre el precio del aceite por zona
+     "Un mes después de la media sanción, la propia Secretaría de Energía puso los números sobre la mesa. CASFER y CAPBA "
+     "le habían pedido que publicara los precios del aceite que las plantas le informan, y el catorce de octubre respondió. "
+     "Rosario es la base cien, y cada zona muestra lo que pagó por el aceite, mes por mes, según su distancia al llamado "
+     "kilómetro cero. Las dos zonas que tienen a Rosario al lado fueron la más cara del mes diecisiete veces en treinta y "
+     "dos meses. Y la zona que más veces compró barato está a entre doscientos y seiscientos kilómetros: dieciséis veces. "
+     "El kilómetro cero no existe. Lo que importa es la distancia al proveedor de aceite, no al puerto. Y esta vez no lo "
+     "decimos nosotros: son datos de la Secretaría de Energía, informados por las propias empresas."),
 ]
 
 
