@@ -12,7 +12,9 @@ const DASHBOARDS = [
   { to: '/margenes', label: 'Márgenes - Biodiésel y gas oil' },
 ];
 
-// Rutas de la sección Reforma (el link se marca activo en ambas; la
+// Rutas de la sección Reforma (el link se marca activo en todas; desde el
+// 19/10/2026 el ítem abre en Cámara de Diputados, "Qué pasa y qué se juega en
+// Diputados", por pedido de HDO; la
 // sub-barra de la sección vive en las páginas)
 const RUTAS_REFORMA = [
   '/reforma-ley-27640',
@@ -135,7 +137,7 @@ export default function Nav() {
           </li>
           <li>
             <NavLink
-              to="/reforma-ley-27640"
+              to="/que-se-juega-en-diputados"
               className={enReforma ? 'active' : ''}
             >
               Reforma Ley 27.640
