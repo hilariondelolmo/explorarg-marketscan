@@ -56,9 +56,12 @@ export default function QueSeJuegaDiputados({ esquemas = false }) {
               <div>
                 <div className="kicker">Cámara de Diputados · Reforma Ley 27.640{!esquemas && ' · versión de texto (respaldo)'}</div>
                 <h1>Biodiésel en la Argentina: qué pasa y qué se juega en Diputados</h1>
-                {/* Con un capítulo abierto, la firma va debajo del título general, a la derecha (HDO, 19/10/2026) */}
-                {esquemas && actual && (
-                  <div className="firma dip-firma-encabezado">por Hilarión Del Olmo - Presidente - Explora S.A.</div>
+                {/* La firma va debajo del título general, a la derecha, y queda fija al scrollear
+                    también en la portada (HDO, 19/10/2026); en la portada lleva la fecha */}
+                {esquemas && (
+                  <div className="firma dip-firma-encabezado">
+                    por Hilarión Del Olmo - Presidente - Explora S.A.{!actual && ` · ${FECHA}`}
+                  </div>
                 )}
                 {!esquemas && <p className="bajada">{BAJADA}</p>}
                 {!esquemas && <div className="firma">Hilarión Del Olmo - Presidente, Explora S.A. · {FECHA}</div>}
@@ -89,7 +92,6 @@ function Portada({ capitulos, esquemas, ir }) {
       <div className="apertura apertura-inicial">
         <p>{APERTURA}</p>
       </div>
-      {esquemas && <div className="firma dip-firma-portada">por Hilarión Del Olmo - Presidente - Explora S.A. · {FECHA}</div>}
       <div className="ayuda">
         {esquemas
           ? 'Tocá un capítulo para abrirlo. Cada capítulo se lee solo, y desde su final se pasa al siguiente.'
