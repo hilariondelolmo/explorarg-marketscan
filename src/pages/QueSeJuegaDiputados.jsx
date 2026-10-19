@@ -56,6 +56,10 @@ export default function QueSeJuegaDiputados({ esquemas = false }) {
               <div>
                 <div className="kicker">Cámara de Diputados · Reforma Ley 27.640{!esquemas && ' · versión de texto (respaldo)'}</div>
                 <h1>Biodiésel en la Argentina: qué pasa y qué se juega en Diputados</h1>
+                {/* Con un capítulo abierto, la firma va debajo del título general, a la derecha (HDO, 19/10/2026) */}
+                {esquemas && actual && (
+                  <div className="firma dip-firma-encabezado">por Hilarión Del Olmo - Presidente - Explora S.A.</div>
+                )}
                 {!esquemas && <p className="bajada">{BAJADA}</p>}
                 {!esquemas && <div className="firma">Hilarión Del Olmo - Presidente, Explora S.A. · {FECHA}</div>}
               </div>
@@ -221,8 +225,6 @@ function Capitulo({ cap, capitulos, ir }) {
           <h2>{cap.titulo}</h2>
           <VideoCapitulo capId={cap.id} numero={pos >= 0 ? pos + 1 : null} titulo={cap.titulo.replace(/^\d+\.\s/, '')} />
         </div>
-        {/* Firma en cada capítulo (HDO, 19/10/2026) */}
-        {!cap.notas && <div className="firma dip-firma-capitulo">por Hilarión Del Olmo - Presidente - Explora S.A.</div>}
         {cap.cuerpo}
       </section>
 

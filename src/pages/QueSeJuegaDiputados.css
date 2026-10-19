@@ -274,6 +274,14 @@
   margin-bottom: 18px;
 }
 
+/* Firma debajo del título general cuando hay un capítulo abierto: a la derecha, sin línea */
+.articulo-reforma .ar-encabezado .dip-firma-encabezado {
+  margin: 6px 0 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+  text-align: right;
+}
+
 /* ══════════════════════════════════════════════════════════════════════
    Esquemas de la versión "con esquemas" (components/diputados/esquemas.jsx).
    Toman el color del capítulo (--acc / --acc-bg de .grupo); las cifras y
