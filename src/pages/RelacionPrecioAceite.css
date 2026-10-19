@@ -1,0 +1,335 @@
+/* Relación del precio del aceite (pestaña de Reforma): tablero de la nota de la
+   Secretaría de Energía del 14/10/2026. Vive dentro del marco .articulo-reforma
+   (encabezado fijo con kicker, título y firma), así que cada regla lleva .rpa
+   adelante para ganarle al reset `.articulo-reforma *` y a las reglas de
+   tablas, svg y p de ReformaLey.css. */
+
+.rpa .rpa-bajada {
+  margin: 0 0 16px;
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.5;
+  max-width: 78ch;
+  text-align: left;
+}
+
+.rpa .rpa-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 0 0 18px;
+}
+.rpa .rpa-filtro-label {
+  color: var(--ink-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.rpa .chart-range-selector button {
+  padding: 0.3rem 0.8rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+/* Tarjetas */
+.rpa .rpa-card {
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 18px 18px 14px;
+  margin: 0 0 20px;
+  min-width: 0;
+}
+.rpa .rpa-card-cab {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.rpa .rpa-card-cab > div {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+.rpa .rpa-card h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.rpa .rpa-sub {
+  margin: 2px 0 0;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  text-align: left;
+  max-width: 90ch;
+}
+.rpa .rpa-boton {
+  flex: 0 0 auto;
+  padding: 0.42rem 1rem;
+  border: 1.5px solid var(--accent-exp);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--accent-exp);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.rpa .rpa-boton:hover,
+.rpa .rpa-boton[aria-pressed='true'] {
+  background: var(--accent-exp);
+  color: #fff;
+}
+
+/* Leyenda: cada serie se prende y apaga */
+.rpa .rpa-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 6px 0 4px;
+}
+.rpa .rpa-leyenda button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 2px;
+  border: 0;
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 13.5px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.rpa .rpa-leyenda button[aria-pressed='false'] {
+  color: var(--ink-muted);
+  text-decoration: line-through;
+}
+.rpa .rpa-leyenda button[aria-pressed='false'] .rpa-clave {
+  opacity: 0.35;
+}
+.rpa .rpa-leyenda-ref {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 2px;
+  color: var(--ink-muted);
+  font-size: 13.5px;
+}
+.rpa .rpa-clave {
+  display: inline-block;
+  width: 18px;
+  height: 0;
+  border-top: 2px solid var(--rule);
+  border-radius: 2px;
+  vertical-align: middle;
+}
+.rpa .rpa-clave-gruesa {
+  border-top-width: 3px !important;
+  margin-right: 8px;
+}
+
+/* SVG a todo el ancho (ReformaLey.css los limita a 760px y los centra) */
+.rpa .rpa-caja {
+  position: relative;
+}
+.rpa .rpa-svg {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  margin: 0;
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  outline: none;
+}
+.rpa .rpa-svg:focus-visible {
+  outline: 2px solid var(--accent-brand);
+  outline-offset: 2px;
+}
+.rpa .rpa-linea {
+  transition: opacity 0.15s;
+}
+
+/* Tooltip del gráfico de líneas */
+.rpa .rpa-tip {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  min-width: 230px;
+  padding: 8px 10px;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  box-shadow: var(--sombra-panel);
+  font-size: 12.5px;
+}
+.rpa .rpa-tip-mes {
+  margin-bottom: 4px;
+  font-weight: 650;
+  color: var(--ink);
+}
+.rpa .rpa-tip table {
+  width: auto;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+.rpa .rpa-tip td {
+  padding: 1px 4px 1px 0;
+  border: 0;
+  white-space: nowrap;
+  color: var(--ink-2);
+  vertical-align: middle;
+}
+.rpa .rpa-tip td.rpa-tip-v {
+  font-weight: 650;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.rpa .rpa-tip td .rpa-clave {
+  width: 14px;
+}
+.rpa .rpa-tip td.rpa-tip-tag {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.rpa .rpa-tip-brecha {
+  margin-top: 4px;
+  color: var(--ink-muted);
+  font-size: 12px;
+}
+
+/* Fichas de resumen */
+.rpa .rpa-fichas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.rpa .rpa-ficha {
+  padding: 12px 14px;
+  border: 1px solid var(--rule-soft);
+  border-radius: 8px;
+  min-width: 0;
+}
+.rpa .rpa-ficha-l {
+  font-size: 12.5px;
+  color: var(--ink-muted);
+}
+.rpa .rpa-ficha-v {
+  margin: 4px 0 2px;
+  font-size: 26px;
+  font-weight: 650;
+  line-height: 1.15;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.rpa .rpa-ficha-d {
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+/* Histogramas */
+.rpa .rpa-hists {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+}
+.rpa .rpa-hist h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--ink);
+}
+
+/* Tablas (las de ReformaLey.css traen bordes en todas las celdas) */
+.rpa .rpa-scroll {
+  overflow-x: auto;
+}
+.rpa table.rpa-tabla {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  font-variant-numeric: tabular-nums;
+}
+.rpa table.rpa-tabla th,
+.rpa table.rpa-tabla td {
+  padding: 5px 8px;
+  border: 0;
+  border-bottom: 1px solid var(--rule-soft);
+  text-align: left;
+  white-space: nowrap;
+  vertical-align: middle;
+  background: transparent;
+}
+.rpa table.rpa-tabla th {
+  color: var(--ink-muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--rule);
+}
+.rpa table.rpa-tabla th.num,
+.rpa table.rpa-tabla td.num {
+  text-align: right;
+}
+.rpa table.rpa-tabla td.rpa-mejor,
+.rpa table.rpa-tabla td.rpa-peor {
+  font-weight: 650;
+  color: var(--ink);
+}
+.rpa table.rpa-tabla tr.rpa-fin-anio td {
+  border-bottom: 2px solid var(--rule);
+}
+.rpa table.rpa-tabla td.rpa-zona .rpa-clave {
+  width: 14px;
+  margin-right: 4px;
+}
+.rpa .rpa-empate {
+  margin-left: 4px;
+  color: var(--ink-muted);
+  font-size: 12px;
+}
+
+.rpa .rpa-nota {
+  margin: 8px 0 0;
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  text-align: left;
+  max-width: 100ch;
+}
+.rpa .rpa-fuente {
+  margin: 4px 0 0;
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  text-align: left;
+  max-width: 100ch;
+}
+
+@media (max-width: 640px) {
+  .rpa .rpa-card {
+    padding: 14px 12px 12px;
+  }
+  .rpa .rpa-ficha-v {
+    font-size: 22px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rpa .rpa-linea {
+    transition: none;
+  }
+}

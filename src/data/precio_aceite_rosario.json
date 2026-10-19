@@ -4,6 +4,7 @@
  "meses_n": 32,
  "base": "Rosario = 100",
  "nota_empates": "En los dos meses con empate (jul-2024 en la más barata, may-2026 en la más cara) el mes se cuenta para la zona que lo tiene menos veces; cada columna suma 32.",
+ "nota_estimados": "Los valores salen de la lectura píxel a píxel del gráfico de la nota (24,8 px por punto; precisión de más o menos 0,1). En estos catorce puntos otra serie tapa a la línea en el gráfico: el valor se acotó por la línea que lo cubre o por los tramos vecinos, con un margen de más o menos 0,15.",
  "brecha_media": 4.0,
  "resumen": [
   {
@@ -45,6 +46,64 @@
    "mas_barata": 2,
    "mas_caro_que_rosario": 6,
    "promedio": -2.4
+  }
+ ],
+ "estimados": [
+  {
+   "fecha": "2024-03",
+   "zona": "101_200"
+  },
+  {
+   "fecha": "2024-05",
+   "zona": "50_100"
+  },
+  {
+   "fecha": "2024-05",
+   "zona": "hasta_50"
+  },
+  {
+   "fecha": "2024-06",
+   "zona": "50_100"
+  },
+  {
+   "fecha": "2024-07",
+   "zona": "50_100"
+  },
+  {
+   "fecha": "2024-08",
+   "zona": "50_100"
+  },
+  {
+   "fecha": "2025-06",
+   "zona": "hasta_50"
+  },
+  {
+   "fecha": "2025-07",
+   "zona": "hasta_50"
+  },
+  {
+   "fecha": "2025-09",
+   "zona": "hasta_50"
+  },
+  {
+   "fecha": "2026-01",
+   "zona": "101_200"
+  },
+  {
+   "fecha": "2026-06",
+   "zona": "50_100"
+  },
+  {
+   "fecha": "2026-07",
+   "zona": "50_100"
+  },
+  {
+   "fecha": "2026-07",
+   "zona": "hasta_50"
+  },
+  {
+   "fecha": "2026-08",
+   "zona": "hasta_50"
   }
  ],
  "meses": [

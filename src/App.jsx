@@ -30,6 +30,7 @@ const CincoMinutos = lazy(() => import('./pages/CincoMinutos.jsx'));
 const QueSeJuegaDiputados = lazy(() => import('./pages/QueSeJuegaDiputados.jsx'));
 const LeyBiocombustiblesVara = lazy(() => import('./pages/LeyBiocombustiblesVara.jsx'));
 const CeprebRepartir = lazy(() => import('./pages/CeprebRepartir.jsx'));
+const RelacionPrecioAceite = lazy(() => import('./pages/RelacionPrecioAceite.jsx'));
 const Tutoriales = lazy(() => import('./pages/Tutoriales.jsx'));
 const AcercaDe = lazy(() => import('./pages/AcercaDe.jsx'));
 
@@ -72,6 +73,7 @@ export default function App() {
           <Route path="/que-se-juega-en-diputados-esquemas" element={<Navigate to="/que-se-juega-en-diputados" replace />} />
           <Route path="/ley-biocombustibles-propia-vara" element={<LeyBiocombustiblesVara />} />
           <Route path="/respuesta-documento-cepreb" element={<CeprebRepartir />} />
+          <Route path="/relacion-precio-aceite" element={<RelacionPrecioAceite />} />
           <Route path="/cepreb-quiere-repartir" element={<Navigate to="/respuesta-documento-cepreb" replace />} />
           <Route path="/tutoriales" element={<Tutoriales />} />
           <Route path="/acerca-de" element={<AcercaDe />} />

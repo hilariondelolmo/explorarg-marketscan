@@ -29,5 +29,8 @@ export const SECCIONES_REFORMA = [
   // Pestaña propia, sin menú: el video y el documento de la respuesta al Documento CEPREB
   // (HDO, 19/10/2026; el rótulo tiene que decir de frente que es una respuesta)
   { id: 'cepreb', label: 'Respuesta al Documento CEPREB en Diputados', to: '/respuesta-documento-cepreb' },
+  // Pestaña propia, sin menú: la nota de la Secretaría de Energía del 14/10/2026 sobre el
+  // precio del aceite por distancia a Rosario, en tablero interactivo (HDO, 19/10/2026)
+  { id: 'aceite', label: 'Relación del precio del aceite', to: '/relacion-precio-aceite' },
   { id: 'senadores', label: 'Cámara de Senadores', menu: PAGINAS_SENADORES, derecha: true },
 ];
