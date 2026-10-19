@@ -157,6 +157,66 @@
   transition: opacity 0.15s;
 }
 
+/* Mapa de anillos: un solo SVG (1176 x 722) que escala con el ancho; en
+   pantallas angostas se desplaza a lo ancho en lugar de achicarse ilegible */
+.rpa .rpa-mapa-scroll {
+  overflow-x: auto;
+}
+.rpa .rpa-mapa {
+  min-width: 720px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f7f6f2;
+}
+.rpa .rpa-mapa svg {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  margin: 0;
+  font-family: var(--font-display);
+}
+.rpa .rpa-mapa-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 10px 0 0;
+  color: var(--ink-2);
+  font-size: 13.5px;
+}
+.rpa .rpa-mapa-leyenda span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.rpa .rpa-swatch {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #1a1a1a;
+  border-radius: 4px;
+  flex: none;
+}
+.rpa .rpa-swatch-planta {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px #1a1a1a;
+  margin: 0 3px;
+}
+.rpa .rpa-swatch-rosario {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #dc2626;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px #dc2626;
+  margin: 0 3px;
+}
+
 /* Tooltip del gráfico de líneas */
 .rpa .rpa-tip {
   position: absolute;

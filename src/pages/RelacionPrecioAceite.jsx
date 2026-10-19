@@ -3,6 +3,9 @@ import SectionNav from '../components/SectionNav.jsx';
 import { SECCIONES_REFORMA } from '../lib/reforma.js';
 import { useTheme, useChartColors } from '../lib/theme.jsx';
 import datos from '../data/precio_aceite_rosario.json';
+// Mapa de anillos (lámina 7 del video CEPREB) en un solo SVG: lo escribe
+// scripts/generar_mapa_anillos_aceite.py; va inline para que herede la tipografía
+import mapaAnillos from '../content/mapa_anillos_aceite.svg?raw';
 import './RelacionPrecioAceite.css';
 
 /**
@@ -177,6 +180,35 @@ export default function RelacionPrecioAceite() {
               <p className="rpa-nota">
                 Cuando la diferencia con el segundo es menor que 0,15 puntos, el empate técnico se marca con ≈ en la tabla: está
                 dentro del margen de lectura del gráfico.
+              </p>
+            </section>
+
+            {/* El mapa va entre el ranking y la tabla mes por mes (HDO, 19/10/2026); sus
+                conteos son siempre los de los 32 meses, no siguen el filtro de período */}
+            <section className="rpa-card" aria-labelledby="rpa-t0">
+              <div className="rpa-card-cab">
+                <div>
+                  <h2 id="rpa-t0">Las zonas en el mapa</h2>
+                  <p className="rpa-sub">
+                    Las cinco zonas de la nota, con las 24 plantas no integradas en operación. Rosario es la base 100 y los anillos
+                    son la distancia en línea recta desde Rosario: 50, 100, 200 y 600 km. En cada zona, cuántas veces fue la más cara
+                    del mes y cuántas la más barata, en los 32 meses.
+                  </p>
+                </div>
+              </div>
+              <div className="rpa-mapa-scroll">
+                {/* SVG propio, generado por el script del repo: no viene de un tercero */}
+                <div className="rpa-mapa" dangerouslySetInnerHTML={{ __html: mapaAnillos }} />
+              </div>
+              <div className="rpa-mapa-leyenda">
+                <span><i className="rpa-swatch" style={{ background: '#f1cfa9' }} /> Zona que fue más veces la más cara del mes</span>
+                <span><i className="rpa-swatch" style={{ background: '#cde2bf' }} /> Zona que fue más veces la más barata del mes</span>
+                <span><i className="rpa-swatch rpa-swatch-planta" /> Plantas no integradas en operación</span>
+                <span><i className="rpa-swatch rpa-swatch-rosario" /> Rosario</span>
+              </div>
+              <p className="rpa-nota">
+                Plantas: registro de la Secretaría de Energía, coordenadas procesadas en explorarg.com. Las siete plantas de hasta 50 km y
+                las cinco de Ramallo van en pilas con una guía a su punto.
               </p>
             </section>
 
