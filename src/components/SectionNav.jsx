@@ -18,6 +18,8 @@ const ANCHO_MENU = 190; // ancho mínimo del menú, para que no se salga de la p
  * muestra apagado y no navega (sección anunciada que todavía no tiene páginas).
  * `accion` ({ label, onClick }) dibuja un botón al final de la fila, a la
  * derecha (el "Cómo se usa" que abre el tutorial en video de la página).
+ * Una sección con `derecha` se empuja al extremo derecho de la fila (Cámara de
+ * Senadores en Reforma, HDO 19/10/2026); las demás quedan a la izquierda.
  */
 export default function SectionNav({ sections, basePath, accion }) {
   const ids = useMemo(() => sections.map((s) => s.id), [sections]);
@@ -30,7 +32,7 @@ export default function SectionNav({ sections, basePath, accion }) {
       <div className="section-nav-inner container">
         <ul>
           {sections.map((s) => (
-            <li key={s.id}>
+            <li key={s.id} className={s.derecha ? 'section-nav-derecha' : undefined}>
               {s.menu ? (
                 <PestanaMenu seccion={s} ruta={ruta} />
               ) : rutas ? (

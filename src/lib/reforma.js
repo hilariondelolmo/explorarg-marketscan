@@ -21,7 +21,9 @@ export const PAGINAS_DIPUTADOS = [
   { id: 'que-se-juega', label: 'Qué pasa y qué se juega en Diputados', to: '/que-se-juega-en-diputados' },
 ];
 
+// Diputados primero, a la izquierda (al lado irán más títulos); Senadores al
+// extremo derecho de la barra (HDO, 19/10/2026)
 export const SECCIONES_REFORMA = [
-  { id: 'senadores', label: 'Cámara de Senadores', menu: PAGINAS_SENADORES },
   { id: 'diputados', label: 'Cámara de Diputados', menu: PAGINAS_DIPUTADOS },
+  { id: 'senadores', label: 'Cámara de Senadores', menu: PAGINAS_SENADORES, derecha: true },
 ];

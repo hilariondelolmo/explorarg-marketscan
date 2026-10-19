@@ -61,6 +61,11 @@
   display: none;
 }
 
+/* Sección empujada al extremo derecho de la fila (`derecha` en la sección) */
+.section-nav li.section-nav-derecha {
+  margin-left: auto;
+}
+
 .section-nav a,
 .section-nav-trigger {
   display: block;
