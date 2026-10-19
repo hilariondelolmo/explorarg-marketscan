@@ -123,8 +123,10 @@
   padding: 0.5rem 0.8rem;
   color: var(--ink-2);
   font-size: 0.85rem;
+  line-height: 1.35;
   border-radius: 2px;
-  white-space: nowrap;
+  white-space: normal; /* los rótulos largos se parten en dos líneas */
+  max-width: min(440px, calc(100vw - 32px));
   transition: all 0.15s;
 }
 

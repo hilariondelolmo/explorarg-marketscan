@@ -28,6 +28,7 @@ const Infografia = lazy(() => import('./pages/Infografia.jsx'));
 const ExportGrafico = lazy(() => import('./pages/ExportGrafico.jsx'));
 const CincoMinutos = lazy(() => import('./pages/CincoMinutos.jsx'));
 const QueSeJuegaDiputados = lazy(() => import('./pages/QueSeJuegaDiputados.jsx'));
+const LeyBiocombustiblesVara = lazy(() => import('./pages/LeyBiocombustiblesVara.jsx'));
 const Tutoriales = lazy(() => import('./pages/Tutoriales.jsx'));
 const AcercaDe = lazy(() => import('./pages/AcercaDe.jsx'));
 
@@ -68,6 +69,7 @@ export default function App() {
           {/* Respaldo: la versión de texto del artículo, fuera del menú (HDO, 19/10/2026) */}
           <Route path="/que-se-juega-en-diputados-texto" element={<QueSeJuegaDiputados />} />
           <Route path="/que-se-juega-en-diputados-esquemas" element={<Navigate to="/que-se-juega-en-diputados" replace />} />
+          <Route path="/ley-biocombustibles-propia-vara" element={<LeyBiocombustiblesVara />} />
           <Route path="/tutoriales" element={<Tutoriales />} />
           <Route path="/acerca-de" element={<AcercaDe />} />
           <Route path="/export-grafico/:id" element={<ExportGrafico />} />

@@ -25,6 +25,7 @@ const RUTAS_REFORMA = [
   '/mapa-firmas',
   '/cinco-minutos',
   '/que-se-juega-en-diputados',
+  '/ley-biocombustibles-propia-vara',
 ];
 
 const MQ_ANGOSTO = '(max-width: 560px)';
