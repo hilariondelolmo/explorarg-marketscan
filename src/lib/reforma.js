@@ -26,7 +26,8 @@ export const PAGINAS_DIPUTADOS = [
 // extremo derecho de la barra (HDO, 19/10/2026)
 export const SECCIONES_REFORMA = [
   { id: 'diputados', label: 'Cámara de Diputados', menu: PAGINAS_DIPUTADOS },
-  // Pestaña propia, sin menú: el video y el documento de la respuesta a CEPREB (HDO, 19/10/2026)
-  { id: 'cepreb', label: 'CEPREB quiere repartir', to: '/cepreb-quiere-repartir' },
+  // Pestaña propia, sin menú: el video y el documento de la respuesta al Documento CEPREB
+  // (HDO, 19/10/2026; el rótulo tiene que decir de frente que es una respuesta)
+  { id: 'cepreb', label: 'Respuesta al Documento CEPREB en Diputados', to: '/respuesta-documento-cepreb' },
   { id: 'senadores', label: 'Cámara de Senadores', menu: PAGINAS_SENADORES, derecha: true },
 ];

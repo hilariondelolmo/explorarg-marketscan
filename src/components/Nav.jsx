@@ -27,6 +27,7 @@ const RUTAS_REFORMA = [
   '/que-se-juega-en-diputados',
   '/ley-biocombustibles-propia-vara',
   '/cepreb-quiere-repartir',
+  '/respuesta-documento-cepreb',
 ];
 
 const MQ_ANGOSTO = '(max-width: 560px)';

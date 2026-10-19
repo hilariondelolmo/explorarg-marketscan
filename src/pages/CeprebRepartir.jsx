@@ -5,8 +5,9 @@ import './LeyBiocombustiblesVara.css';
 import './CeprebRepartir.css';
 
 /**
- * "CEPREB quiere repartir": pestaña propia de la sección Reforma, al lado de
- * Cámara de Diputados (HDO, 19/10/2026). Aloja el video "Reforma Ley
+ * "Respuesta al Documento CEPREB en Diputados": pestaña propia de la sección
+ * Reforma, al lado de Cámara de Diputados (HDO, 19/10/2026; antes "CEPREB
+ * quiere repartir", que no decía de qué se trataba; la ruta vieja redirige). Aloja el video "Reforma Ley
  * Biocombustibles: ¿Nuevamente repartir o finalmente competir?" (YouTube,
  * canal Explora Biodiesel, no listado, 12:47) y el documento completo en PDF
  * (`public/docs/repartir-o-competir.pdf`, 21 páginas, 18/10/2026: la
@@ -26,7 +27,7 @@ export default function CeprebRepartir() {
       <SectionNav sections={SECCIONES_REFORMA} />
       <div className="articulo-reforma lbv cpr">
         <div className="marco lbv-marco">
-          <div className="kicker">CEPREB quiere repartir · Reforma Ley 27.640</div>
+          <div className="kicker">Respuesta al Documento CEPREB presentado a Diputados · Reforma Ley 27.640</div>
           <h1>{TITULO}</h1>
           <p className="bajada">{BAJADA}</p>
           <div className="firma lbv-firma">por Hilarión Del Olmo - Presidente - Explora S.A. · explorarg.com / CAPBA</div>

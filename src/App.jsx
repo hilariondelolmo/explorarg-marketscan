@@ -71,7 +71,8 @@ export default function App() {
           <Route path="/que-se-juega-en-diputados-texto" element={<QueSeJuegaDiputados />} />
           <Route path="/que-se-juega-en-diputados-esquemas" element={<Navigate to="/que-se-juega-en-diputados" replace />} />
           <Route path="/ley-biocombustibles-propia-vara" element={<LeyBiocombustiblesVara />} />
-          <Route path="/cepreb-quiere-repartir" element={<CeprebRepartir />} />
+          <Route path="/respuesta-documento-cepreb" element={<CeprebRepartir />} />
+          <Route path="/cepreb-quiere-repartir" element={<Navigate to="/respuesta-documento-cepreb" replace />} />
           <Route path="/tutoriales" element={<Tutoriales />} />
           <Route path="/acerca-de" element={<AcercaDe />} />
           <Route path="/export-grafico/:id" element={<ExportGrafico />} />
