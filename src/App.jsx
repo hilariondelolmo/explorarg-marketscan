@@ -5,6 +5,10 @@ import Nav from './components/Nav.jsx';
 import Home from './pages/Home.jsx';
 import mercadoData from './data/mercado.json';
 import { fmt } from './lib/format.js';
+// ReformaLey.css se carga acá, global, para que en el build quede siempre ANTES de las hojas de las
+// páginas que la extienden (QueSeJuegaDiputados.css): si Vite la sirve como chunk compartido después,
+// su reset `.articulo-reforma * { padding: 0 }` pisa los recuadros (visto en producción el 19/10/2026).
+import './pages/ReformaLey.css';
 
 const Mercado = lazy(() => import('./pages/Mercado.jsx'));
 const Gestion = lazy(() => import('./pages/Gestion.jsx'));

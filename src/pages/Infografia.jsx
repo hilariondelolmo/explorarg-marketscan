@@ -233,7 +233,7 @@ function Cabecera({ kicker, titulo, bajada, folio, total }) {
           Infografía del mercado de biodiesel
           <small>Datos a {mesLargo(KPI_MERCADO.hasta)} · Secretaría de Energía de la Nación</small>
         </div>
-        <div className="ig-cab-autor">por <b>Hilarión del Olmo</b> - Presidente - Explora S.A.</div>
+        <div className="ig-cab-autor">por <b>Hilarión Del Olmo</b> - Presidente - Explora S.A.</div>
         <div className="ig-cab-marca">
           <img src="/brand/explorarg-icon.png" alt="" />
           <span><b>EXPLORARG</b> <i>Marketscan</i></span>

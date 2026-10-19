@@ -6,7 +6,7 @@ import * as ED from './esquemasDatos.jsx';
 
 /**
  * Texto del artículo "Biodiésel en la Argentina: qué pasa y qué se juega en
- * Diputados" (Hilarión del Olmo, 13/10/2026), literal del Word de HDO,
+ * Diputados" (Hilarión Del Olmo, 13/10/2026), literal del Word de HDO,
  * repartido en capítulos. Cada capítulo lleva su color (paleta del artículo
  * de Reforma), la frase del propio artículo que lo presenta en el índice y
  * el cuerpo. Las cifras son las del artículo (datos a agosto de 2026,

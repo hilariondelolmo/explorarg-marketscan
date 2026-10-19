@@ -1163,7 +1163,7 @@ def cuadro(t, icono):
     for linea in envolver(pie, f_pie, ancho - 300 * SS):
         d.text((x0, y), linea, font=f_pie, fill=COL["suave"])
         y += 21 * SS
-    d.text((x0, y + 6 * SS), "por Hilarión del Olmo - Presidente - Explora S.A.", font=fuente(16, 600), fill=COL["tinta2"])
+    d.text((x0, y + 6 * SS), "por Hilarión Del Olmo - Presidente - Explora S.A.", font=fuente(16, 600), fill=COL["tinta2"])
     ic = icono.resize((42 * SS, 30 * SS), Image.LANCZOS)
     im.paste(ic, (x1 - 236 * SS, 944 * SS), ic)
     d.text((x1, 944 * SS), "EXPLORARG", font=fuente(19, 800), fill=COL["tinta"], anchor="ra")

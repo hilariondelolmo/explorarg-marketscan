@@ -9,7 +9,7 @@ import './QueSeJuegaDiputados.css';
 
 /**
  * "Biodiésel en la Argentina: qué pasa y qué se juega en Diputados"
- * (Hilarión del Olmo, 13/10/2026): apertura de la pestaña Cámara de
+ * (Hilarión Del Olmo, 13/10/2026): apertura de la pestaña Cámara de
  * Diputados de la sección Reforma Ley 27.640.
  *
  * Misma forma de presentación que "Una desregulación contra el interés
@@ -57,7 +57,7 @@ export default function QueSeJuegaDiputados({ esquemas = false }) {
                 <div className="kicker">Cámara de Diputados · Reforma Ley 27.640{!esquemas && ' · versión de texto (respaldo)'}</div>
                 <h1>Biodiésel en la Argentina: qué pasa y qué se juega en Diputados</h1>
                 {!esquemas && <p className="bajada">{BAJADA}</p>}
-                {!esquemas && <div className="firma">Hilarión del Olmo - Presidente, Explora S.A. · {FECHA}</div>}
+                {!esquemas && <div className="firma">Hilarión Del Olmo - Presidente, Explora S.A. · {FECHA}</div>}
               </div>
             </div>
           </div>
@@ -85,7 +85,7 @@ function Portada({ capitulos, esquemas, ir }) {
       <div className="apertura apertura-inicial">
         <p>{APERTURA}</p>
       </div>
-      {esquemas && <div className="firma dip-firma-portada">por Hilarión del Olmo - Presidente - Explora S.A. · {FECHA}</div>}
+      {esquemas && <div className="firma dip-firma-portada">por Hilarión Del Olmo - Presidente - Explora S.A. · {FECHA}</div>}
       <div className="ayuda">
         {esquemas
           ? 'Tocá un capítulo para abrirlo. Cada capítulo se lee solo, y desde su final se pasa al siguiente.'
@@ -221,6 +221,8 @@ function Capitulo({ cap, capitulos, ir }) {
           <h2>{cap.titulo}</h2>
           <VideoCapitulo capId={cap.id} numero={pos >= 0 ? pos + 1 : null} titulo={cap.titulo.replace(/^\d+\.\s/, '')} />
         </div>
+        {/* Firma en cada capítulo (HDO, 19/10/2026) */}
+        {!cap.notas && <div className="firma dip-firma-capitulo">por Hilarión Del Olmo - Presidente - Explora S.A.</div>}
         {cap.cuerpo}
       </section>
 
