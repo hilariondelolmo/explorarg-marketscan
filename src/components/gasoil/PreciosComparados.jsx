@@ -6,7 +6,7 @@ import {
 } from '../../lib/gasoil.js';
 import { fmt } from '../../lib/format.js';
 import { useChartColors } from '../../lib/theme.jsx';
-import { useRelevamiento, FiltrosRelevamiento, NOTA_MESES_EXCLUIDOS } from './relevamiento.jsx';
+import { useRelevamiento, FiltrosRelevamiento, NOTA_MESES_EXCLUIDOS, SIN_ZONA_FRIA } from './relevamiento.jsx';
 import '../mercado/Mercado.css';
 import '../charts/Chart.css';
 import '../KPIs.css';
@@ -214,18 +214,30 @@ function GraficoAmpliado({ p, C, onClose }) {
  * barras del eje derecho son la diferencia del mes en % (biodiésel sobre gas
  * oil) y, debajo, un histograma cuenta los meses del intervalo por tramo de
  * esa diferencia. Cada gráfico chico se abre en grande con un clic.
+ *
+ * `embebido` (artículo de Diputados, 19/10/2026): sin encabezado, filtros ni
+ * controles, con los valores fijos de `inicial` ({ desde, hasta, unidadId,
+ * moneda, constantes, goComp, sinZonaFria }), solo los paneles de `panelesIds`,
+ * el gas oil de la comparación fijo y sin el histograma ni la nota larga. El
+ * relevamiento abre en modo "abierto": precio sin impuestos, minorista y
+ * mayorista, todos los tipos de negocio y canales de comercialización.
  */
-export default function PreciosComparados({ seccion }) {
+export default function PreciosComparados({ seccion, embebido = false, inicial = {}, panelesIds = null }) {
   const C = useChartColors();
-  const F = useRelevamiento({ modo: 'surtidor' });
+  const F = useRelevamiento({ modo: embebido ? 'abierto' : 'surtidor' });
   const { DX, listo, error, tipo, fCanal, fBand, fProv, claves, etiquetaCanal, etiquetaFiltro } = F;
   const iUltimo = IDX_MES.get(ULTIMO_MES);
-  const [hasta, setHasta] = useState(ULTIMO_MES);
-  const [desde, setDesde] = useState(MESES[Math.max(0, iUltimo - INTERVALO_DEFAULT)]);
-  const [unidadId, setUnidadId] = useState('ton');
-  const [moneda, setMoneda] = useState('usd');
-  const [constantes, setConstantes] = useState(false);
-  const [goComp, setGoComp] = useState('g23');
+  const [hasta, setHasta] = useState(inicial.hasta ?? ULTIMO_MES);
+  const [desde, setDesde] = useState(inicial.desde ?? MESES[Math.max(0, iUltimo - INTERVALO_DEFAULT)]);
+  const [unidadId, setUnidadId] = useState(inicial.unidadId ?? 'ton');
+  const [moneda, setMoneda] = useState(inicial.moneda ?? 'usd');
+  const [constantes, setConstantes] = useState(inicial.constantes ?? false);
+  const [goComp, setGoComp] = useState(inicial.goComp ?? 'g23');
+  // Embebido sin Zona Fría: la preselección de provincias, una sola vez
+  useEffect(() => {
+    if (embebido && inicial.sinZonaFria) F.cambiarProvincias(new Set(SIN_ZONA_FRIA));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [ampliado, setAmpliado] = useState(null); // id del panel abierto en grande
   const cerrarAmpliado = useCallback(() => setAmpliado(null), []);
   const iDesde = IDX_MES.get(desde);
@@ -383,6 +395,7 @@ export default function PreciosComparados({ seccion }) {
     };
   }, [comparacion]);
   const panelAmpliado = ampliado ? paneles.find((p) => p.id === ampliado) : null;
+  const panelesVisibles = panelesIds ? paneles.filter((p) => panelesIds.includes(p.id)) : paneles;
 
   // Segunda fila de controles con el nombre arriba de cada uno, como la fila
   // de filtros (pedido de HDO del 08/10/2026): Intervalo (desde, hasta y los
@@ -443,17 +456,19 @@ export default function PreciosComparados({ seccion }) {
   );
 
   return (
-    <div className="go-seccion go-comparados-pagina">
-      <div className="go-sticky">
-        <Encabezado seccion={seccion} />
-        <FiltrosRelevamiento F={F} sinMes tiposPrecio={TIPOS_BASE} />
-        {controles}
-      </div>
+    <div className={`go-seccion go-comparados-pagina${embebido ? ' go-embebido' : ''}`}>
+      {!embebido && (
+        <div className="go-sticky">
+          <Encabezado seccion={seccion} />
+          <FiltrosRelevamiento F={F} sinMes tiposPrecio={TIPOS_BASE} />
+          {controles}
+        </div>
+      )}
       {!listo && !error && <div className="section-placeholder">Cargando el relevamiento (10 MB, una sola vez)…</div>}
       {error && <div className="section-placeholder">{error}</div>}
       {listo && (
         <div className="go-comparados">
-          {paneles.map((p) => (
+          {panelesVisibles.map((p) => (
             <div
               className="chart-card go-comparado-card" key={p.id} role="button" tabIndex={0} title="Clic para ampliar"
               onClick={() => setAmpliado(p.id)}
@@ -481,11 +496,13 @@ export default function PreciosComparados({ seccion }) {
                 Biodiésel: precio Res. 963 (mediana) · gas oil: precio sin impuestos del relevamiento, ponderado por volumen{etiquetaFiltro ? ` · ${etiquetaFiltro}` : ''} · {etiquetaCanal}
               </span>
             </div>
-            <div className="chart-range-selector" role="group" aria-label="Gas oil a comparar">
-              {GO_COMPARACION.map(([id, label]) => (
-                <button key={id} className={goComp === id ? 'active' : ''} onClick={() => setGoComp(id)}>{label}</button>
-              ))}
-            </div>
+            {!embebido && (
+              <div className="chart-range-selector" role="group" aria-label="Gas oil a comparar">
+                {GO_COMPARACION.map(([id, label]) => (
+                  <button key={id} className={goComp === id ? 'active' : ''} onClick={() => setGoComp(id)}>{label}</button>
+                ))}
+              </div>
+            )}
           </div>
           <div className="chart-card-body go-comparado-cuerpo go-comparacion-cuerpo">
             <div className="go-comparado-grafico">
@@ -529,7 +546,7 @@ export default function PreciosComparados({ seccion }) {
           </div>
         </div>
       )}
-      {listo && histograma && (
+      {listo && histograma && !embebido && (
         <div className="chart-card go-comparacion">
           <div className="chart-card-header">
             <div>
@@ -592,6 +609,7 @@ export default function PreciosComparados({ seccion }) {
         </div>
       )}
       {panelAmpliado && <GraficoAmpliado p={panelAmpliado} C={C} onClose={cerrarAmpliado} />}
+      {!embebido && (
       <p className="note go-nota">
         Fuente: Secretaría de Energía, relevamiento Res. 1104/2004 (gas oil grado 2 y 3: el mismo ponderado por volumen de la
         página Precio surtidor, con sus filtros y su tipo de precio) y despachos de importación de gas oil (CIF, sin CAMMESA);
@@ -609,6 +627,7 @@ export default function PreciosComparados({ seccion }) {
         unidad, porque el biodiésel y el gas oil tienen distinta densidad. {NOTA_MESES_EXCLUIDOS} Último mes del relevamiento:
         {' '}{fmt.monthShort(ULTIMO_MES)}.
       </p>
+      )}
     </div>
   );
 }

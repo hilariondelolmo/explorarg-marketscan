@@ -1,0 +1,254 @@
+/* ── Los videos de los capítulos de "Qué pasa y qué se juega en Diputados" ──
+   Miniatura con play y duración (índice y cabecera del capítulo), tarjeta
+   al lado del título y pop-up con el reproductor (hereda .esq-popup). */
+
+.dip-video-mini {
+  position: relative;
+  flex: 0 0 auto;
+  display: block;
+  width: 96px;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: #000;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.dip-video-mini img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.92;
+}
+
+.dip-video-mini:hover,
+.dip-video-mini:focus-visible {
+  transform: scale(1.04);
+  border-color: var(--acc, var(--ink));
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+
+.dip-video-mini:focus-visible {
+  outline: 2px solid var(--acc, var(--ink));
+  outline-offset: 2px;
+}
+
+.dip-video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.62);
+  color: #fff;
+  transform: translate(-50%, -50%);
+  transition: background 0.15s ease;
+}
+
+.dip-video-play svg {
+  margin-left: 2px;
+}
+
+.dip-video-mini:hover .dip-video-play {
+  background: var(--acc, #c00);
+}
+
+.dip-video-dur {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+/* Fila del índice: la miniatura va a la derecha, antes de la flecha */
+.dip-toc-fila {
+  position: relative;
+}
+
+/* La miniatura queda entre el texto y la flecha; la flecha sigue en el borde */
+.dip-toc-fila.con-video .dip-toc-cuerpo {
+  padding-right: 120px;
+}
+
+.dip-toc-video {
+  position: absolute;
+  top: 50%;
+  right: 56px;
+  transform: translateY(-50%);
+}
+
+.dip-toc-video:hover,
+.dip-toc-video:focus-visible {
+  transform: translateY(-50%) scale(1.05);
+}
+
+/* Cabecera del capítulo: el título a la izquierda, la tarjeta a la derecha */
+.dip-cap-cabecera {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 12px;
+}
+
+.articulo-reforma .dip-cap-cabecera h2 {
+  margin-bottom: 0;
+}
+
+.dip-video-card {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px 8px 8px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--bg-2, var(--bg));
+}
+
+.dip-video-card .dip-video-mini {
+  width: 128px;
+}
+
+.dip-video-card-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.dip-video-kicker {
+  color: var(--acc, var(--ink));
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.dip-video-meta {
+  color: var(--ink-muted);
+  font-size: 12.5px;
+}
+
+.dip-video-acciones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 3px;
+}
+
+.dip-video-ver {
+  padding: 0.26rem 0.7rem;
+  border: 1px solid var(--acc, var(--rule));
+  border-radius: 999px;
+  background: var(--acc, var(--ink));
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.dip-video-ver:hover {
+  background: transparent;
+  color: var(--acc, var(--ink));
+}
+
+/* Portada: la línea de la serie */
+.dip-video-nota {
+  margin: -6px 0 14px;
+  color: var(--ink-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* Pop-up del reproductor */
+.esq-popup-panel.dip-video-panel {
+  width: min(100%, 960px);
+  padding: 16px 20px 16px;
+  overflow: hidden;
+}
+
+.dip-video-marco {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  background: #000;
+  overflow: hidden;
+}
+
+.dip-video-marco iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Tema oscuro */
+[data-theme='dark'] .dip-video-card {
+  background: var(--bg-2);
+}
+
+[data-theme='dark'] .dip-video-kicker,
+[data-theme='dark'] .dip-video-ver:hover {
+  color: color-mix(in srgb, var(--acc, var(--ink)) 55%, white);
+}
+
+[data-theme='dark'] .dip-video-ver {
+  border-color: color-mix(in srgb, var(--acc, var(--ink)) 55%, white);
+  background: color-mix(in srgb, var(--acc, var(--ink)) 55%, white);
+  color: var(--bg);
+}
+
+[data-theme='dark'] .dip-video-ver:hover {
+  background: transparent;
+}
+
+/* Celular: miniatura más chica en el índice; la tarjeta baja debajo del título */
+@media (max-width: 720px) {
+  .dip-cap-cabecera {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .dip-video-card {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .dip-toc-fila.con-video .dip-toc-cuerpo {
+    padding-right: 78px;
+  }
+  .dip-toc-video {
+    width: 76px;
+    right: 8px;
+  }
+  .dip-video-play {
+    width: 24px;
+    height: 24px;
+  }
+  .dip-video-play svg {
+    width: 16px;
+    height: 16px;
+  }
+}

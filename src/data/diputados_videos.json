@@ -1,0 +1,14 @@
+{
+  "playlist": "PLeGmxZ8X_cyE",
+  "playlistTitulo": "Ley biocombustibles: ¿Qué pasa y qué se juega en Diputados?",
+  "videos": {
+    "mercado":  { "youtube": "gRtfWm86yeQ", "duracion": "4:34", "titulo": "El mercado en una página" },
+    "historia": { "youtube": "Ys00zQJWAAY", "duracion": "8:34", "titulo": "Cómo llegamos hasta acá" },
+    "numeros":  { "youtube": "L3SySIFkTC8", "duracion": "4:21", "titulo": "Los números de hoy" },
+    "ley":      { "youtube": "-jNY_i6K9f4", "duracion": "5:36", "titulo": "La media sanción: qué cambia" },
+    "falla-1":  { "youtube": "d0VmJ2Y5bjw", "duracion": "5:02", "titulo": "La ley manda 7,5%, la misma ley permite 6,0%" },
+    "falla-2":  { "youtube": "cB8Ndkd9vpA", "duracion": "5:48", "titulo": "Integrada es la que tiene el aceite" },
+    "falla-3":  { "youtube": "jDyVKwIDUmQ", "duracion": "6:37", "titulo": "Reparto en lugar de competencia" },
+    "corregir": { "youtube": "sIwI1BCjGQc", "duracion": "5:35", "titulo": "Qué debería corregir Diputados" }
+  }
+}

@@ -1,0 +1,129 @@
+{
+ "meta": {
+  "nota": "Copia congelada de corte.json (anual) al 12/10/2026 para el artículo 'Biodiésel en la Argentina: qué pasa y qué se juega en Diputados' (13/10/2026). No se regenera: el artículo está fechado y sus cifras no se mueven con los tableros.",
+  "fuente": "Secretaría de Energía, elaboración explorarg.com · años 2010 a 2026 (2026 hasta agosto)",
+  "origen_generado": "2026-10-12 08:42"
+ },
+ "acumulado_ton": 2582908,
+ "anual": [
+  {
+   "anio": 2010,
+   "obligatorio": 0.0585,
+   "real": 0.0431,
+   "deficit_ton": 188897.3,
+   "meses": 12
+  },
+  {
+   "anio": 2011,
+   "obligatorio": 0.07,
+   "real": 0.0614,
+   "deficit_ton": 103953.6,
+   "meses": 12
+  },
+  {
+   "anio": 2012,
+   "obligatorio": 0.07,
+   "real": 0.0721,
+   "deficit_ton": 47374.5,
+   "meses": 12
+  },
+  {
+   "anio": 2013,
+   "obligatorio": 0.0734,
+   "real": 0.0764,
+   "deficit_ton": 15010.5,
+   "meses": 12
+  },
+  {
+   "anio": 2014,
+   "obligatorio": 0.0992,
+   "real": 0.0865,
+   "deficit_ton": 150419.2,
+   "meses": 12
+  },
+  {
+   "anio": 2015,
+   "obligatorio": 0.1,
+   "real": 0.0887,
+   "deficit_ton": 140917.6,
+   "meses": 12
+  },
+  {
+   "anio": 2016,
+   "obligatorio": 0.1,
+   "real": 0.0922,
+   "deficit_ton": 102866.6,
+   "meses": 12
+  },
+  {
+   "anio": 2017,
+   "obligatorio": 0.1,
+   "real": 0.1001,
+   "deficit_ton": 31599.2,
+   "meses": 12
+  },
+  {
+   "anio": 2018,
+   "obligatorio": 0.1,
+   "real": 0.0955,
+   "deficit_ton": 69614.5,
+   "meses": 12
+  },
+  {
+   "anio": 2019,
+   "obligatorio": 0.1,
+   "real": 0.0938,
+   "deficit_ton": 77097.9,
+   "meses": 12
+  },
+  {
+   "anio": 2020,
+   "obligatorio": 0.1,
+   "real": 0.0489,
+   "deficit_ton": 509914.2,
+   "meses": 12
+  },
+  {
+   "anio": 2021,
+   "obligatorio": 0.0663,
+   "real": 0.0378,
+   "deficit_ton": 330330.5,
+   "meses": 12
+  },
+  {
+   "anio": 2022,
+   "obligatorio": 0.0627,
+   "real": 0.0563,
+   "deficit_ton": 100085.0,
+   "meses": 12
+  },
+  {
+   "anio": 2023,
+   "obligatorio": 0.075,
+   "real": 0.046,
+   "deficit_ton": 359751.4,
+   "meses": 12
+  },
+  {
+   "anio": 2024,
+   "obligatorio": 0.075,
+   "real": 0.0659,
+   "deficit_ton": 108521.4,
+   "meses": 12
+  },
+  {
+   "anio": 2025,
+   "obligatorio": 0.0741,
+   "real": 0.0579,
+   "deficit_ton": 194668.8,
+   "meses": 12
+  },
+  {
+   "anio": 2026,
+   "obligatorio": 0.075,
+   "real": 0.0687,
+   "deficit_ton": 51885.4,
+   "meses": 8
+  }
+ ]
+}

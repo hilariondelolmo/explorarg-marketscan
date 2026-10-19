@@ -22,6 +22,7 @@ const RUTAS_REFORMA = [
   '/mapa-recinto',
   '/mapa-firmas',
   '/cinco-minutos',
+  '/que-se-juega-en-diputados',
 ];
 
 const MQ_ANGOSTO = '(max-width: 560px)';

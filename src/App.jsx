@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Navigate, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './lib/theme.jsx';
 import Nav from './components/Nav.jsx';
 import Home from './pages/Home.jsx';
@@ -23,6 +23,7 @@ const ImpresoA3 = lazy(() => import('./pages/ImpresoA3.jsx'));
 const Infografia = lazy(() => import('./pages/Infografia.jsx'));
 const ExportGrafico = lazy(() => import('./pages/ExportGrafico.jsx'));
 const CincoMinutos = lazy(() => import('./pages/CincoMinutos.jsx'));
+const QueSeJuegaDiputados = lazy(() => import('./pages/QueSeJuegaDiputados.jsx'));
 const Tutoriales = lazy(() => import('./pages/Tutoriales.jsx'));
 const AcercaDe = lazy(() => import('./pages/AcercaDe.jsx'));
 
@@ -59,6 +60,10 @@ export default function App() {
           <Route path="/impreso-a3" element={<ImpresoA3 />} />
           <Route path="/infografia" element={<Infografia />} />
           <Route path="/cinco-minutos" element={<CincoMinutos />} />
+          <Route path="/que-se-juega-en-diputados" element={<QueSeJuegaDiputados esquemas />} />
+          {/* Respaldo: la versión de texto del artículo, fuera del menú (HDO, 19/10/2026) */}
+          <Route path="/que-se-juega-en-diputados-texto" element={<QueSeJuegaDiputados />} />
+          <Route path="/que-se-juega-en-diputados-esquemas" element={<Navigate to="/que-se-juega-en-diputados" replace />} />
           <Route path="/tutoriales" element={<Tutoriales />} />
           <Route path="/acerca-de" element={<AcercaDe />} />
           <Route path="/export-grafico/:id" element={<ExportGrafico />} />

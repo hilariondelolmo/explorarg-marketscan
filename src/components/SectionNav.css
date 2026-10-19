@@ -164,6 +164,13 @@ a.section-nav-menu-item.active {
   background: var(--bg-3);
 }
 
+/* Ítem anunciado, sin página todavía */
+.section-nav-menu-item.deshabilitado {
+  color: var(--ink-muted);
+  opacity: 0.65;
+  cursor: default;
+}
+
 @media (max-width: 560px) {
   .section-nav-inner { padding: 0 1rem; }
 }

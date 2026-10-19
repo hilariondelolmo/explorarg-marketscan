@@ -14,13 +14,14 @@ const ANCHO_MENU = 190; // ancho mínimo del menú, para que no se salga de la p
  *  - sin `basePath`: anclas dentro de la misma página, con scroll-spy.
  * Una sección con `menu` ([{ id, label }]) no navega: despliega un menú con
  * sus páginas. Un ítem del menú puede traer su propio `menu`: en lugar de
- * navegar, despliega sus páginas debajo.
+ * navegar, despliega sus páginas debajo. Un ítem con `deshabilitado` se
+ * muestra apagado y no navega (sección anunciada que todavía no tiene páginas).
  * `accion` ({ label, onClick }) dibuja un botón al final de la fila, a la
  * derecha (el "Cómo se usa" que abre el tutorial en video de la página).
  */
 export default function SectionNav({ sections, basePath, accion }) {
   const ids = useMemo(() => sections.map((s) => s.id), [sections]);
-  const rutas = basePath || sections.some((s) => s.to);
+  const rutas = basePath || sections.some((s) => s.to || s.menu);
   const active = useActiveSection(rutas ? [] : ids);
   const ruta = (s) => s.to || (s.root ? basePath : `${basePath}/${s.id}`);
 
@@ -58,8 +59,8 @@ export default function SectionNav({ sections, basePath, accion }) {
   );
 }
 
-// Páginas de un ítem: él mismo, o las de su menú
-const paginas = (m) => (m.menu ? m.menu.flatMap(paginas) : [m]);
+// Páginas de un ítem: él mismo, o las de su menú (las deshabilitadas no tienen ruta)
+const paginas = (m) => (m.menu ? m.menu.flatMap(paginas) : m.deshabilitado ? [] : [m]);
 
 /**
  * Pestaña que despliega un menú con sus páginas. El menú se monta en un portal
@@ -108,11 +109,16 @@ function PestanaMenu({ seccion, ruta }) {
     setGrupo(seccion.menu.find((m) => m.menu && contiene(m))?.id ?? null);
     setPos({ left: Math.max(8, Math.min(r.left, window.innerWidth - ANCHO_MENU - 8)), top: r.bottom });
   };
-  const enlace = (m) => (
-    <NavLink to={ruta(m)} end className={({ isActive }) => `section-nav-menu-item ${isActive ? 'active' : ''}`}>
-      {m.label}
-    </NavLink>
-  );
+  const enlace = (m) =>
+    m.deshabilitado ? (
+      <span className="section-nav-menu-item deshabilitado" aria-disabled="true">
+        {m.label}
+      </span>
+    ) : (
+      <NavLink to={ruta(m)} end className={({ isActive }) => `section-nav-menu-item ${isActive ? 'active' : ''}`}>
+        {m.label}
+      </NavLink>
+    );
 
   return (
     <>
