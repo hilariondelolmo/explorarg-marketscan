@@ -159,6 +159,14 @@
   margin-top: 14px;
 }
 
+/* Línea debajo del título del capítulo (quién habla) */
+.articulo-reforma .dip-subtitulo {
+  margin: -4px 0 16px;
+  color: var(--ink-2);
+  font-size: 15.5px;
+  font-weight: 600;
+}
+
 .dip-grupo .kicker {
   margin-bottom: 6px;
 }
@@ -1306,6 +1314,23 @@
 
 .dip-toc-grupo ol > li + li {
   margin-top: 8px;
+}
+
+/* Los anexos, en azul */
+.dip-toc-anexos {
+  border-color: #2B4F92;
+}
+
+.dip-toc-anexos .dip-toc-grupo-rotulo {
+  color: #1F3A6E;
+}
+
+[data-theme='dark'] .dip-toc-anexos {
+  border-color: color-mix(in srgb, #2B4F92 65%, var(--bg));
+}
+
+[data-theme='dark'] .dip-toc-anexos .dip-toc-grupo-rotulo {
+  color: #9FB4E6;
 }
 
 [data-theme='dark'] .dip-toc-item {

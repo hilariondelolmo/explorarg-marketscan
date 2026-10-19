@@ -145,6 +145,7 @@ function Portada({ capitulos, esquemas, ir }) {
  */
 function IndiceLista({ capitulos, ir }) {
   const contenido = capitulos.filter((c) => !c.notas);
+  const capitulosNum = contenido.filter((c) => !c.anexo); // los anexos van como A1, A2...
   const fila = (c) => (
     <li key={c.id} className={`dip-toc-fila ${videoDe(c.id) ? 'con-video' : ''}`}>
       <button
@@ -153,18 +154,19 @@ function IndiceLista({ capitulos, ir }) {
         style={{ '--acc': c.pal.acc, '--acc-borde': c.pal.borde, '--acc-bg': c.pal.bg }}
         onClick={() => ir(c.id)}
       >
-        <span className="dip-toc-n">{contenido.indexOf(c) + 1}</span>
+        <span className="dip-toc-n">{c.anexo ? `A${c.anexo}` : capitulosNum.indexOf(c) + 1}</span>
         <span className="dip-toc-cuerpo">
           <span className="dip-toc-titulo">{c.titulo.replace(/^\d+\.\s/, '')}</span>
           <span className="dip-toc-frase">{c.frase}</span>
         </span>
         <span className="dip-toc-flecha" aria-hidden="true">→</span>
       </button>
-      <MiniaturaVideo capId={c.id} numero={contenido.indexOf(c) + 1} titulo={c.titulo.replace(/^\d+\.\s/, '')} />
+      <MiniaturaVideo capId={c.id} numero={c.anexo ? null : capitulosNum.indexOf(c) + 1} titulo={c.titulo.replace(/^\d+\.\s/, '')} />
     </li>
   );
   const sueltos = (ids) => contenido.filter((c) => ids.includes(c.id)).map(fila);
-  const fallas = contenido.filter((c) => c.grupo);
+  const fallas = contenido.filter((c) => c.grupo && !c.anexo);
+  const anexos = contenido.filter((c) => c.anexo);
   return (
     <nav className="dip-toc" aria-label="Índice del artículo">
       <ol>
@@ -174,6 +176,12 @@ function IndiceLista({ capitulos, ir }) {
           <ol>{fallas.map(fila)}</ol>
         </li>
         {sueltos(['corregir'])}
+        {anexos.length > 0 && (
+          <li className="dip-toc-grupo dip-toc-anexos">
+            <span className="dip-toc-grupo-rotulo">Anexos</span>
+            <ol>{anexos.map(fila)}</ol>
+          </li>
+        )}
       </ol>
     </nav>
   );
@@ -201,7 +209,7 @@ function Conector() {
 function Capitulo({ cap, capitulos, ir }) {
   const i = capitulos.findIndex((c) => c.id === cap.id);
   const sig = i >= 0 && i < capitulos.length - 1 ? capitulos[i + 1] : null;
-  const contenido = capitulos.filter((c) => !c.notas);
+  const contenido = capitulos.filter((c) => !c.notas && !c.anexo);
   const pos = contenido.findIndex((c) => c.id === cap.id);
 
   return (
@@ -210,7 +218,9 @@ function Capitulo({ cap, capitulos, ir }) {
         <button type="button" className="ar-restaurar" onClick={() => ir(null)}>
           ← Volver al inicio
         </button>
-        {pos >= 0 && (
+        {cap.anexo ? (
+          <span className="dip-capitulo-pos">Anexo {cap.anexo}</span>
+        ) : pos >= 0 && (
           <span className="dip-capitulo-pos">
             Capítulo {pos + 1} de {contenido.length}
           </span>
@@ -225,8 +235,10 @@ function Capitulo({ cap, capitulos, ir }) {
         {cap.grupo && <div className="kicker">{cap.grupo}</div>}
         <div className="dip-cap-cabecera">
           <h2>{cap.titulo}</h2>
-          <VideoCapitulo capId={cap.id} numero={pos >= 0 ? pos + 1 : null} titulo={cap.titulo.replace(/^\d+\.\s/, '')} />
+          <VideoCapitulo capId={cap.id} numero={!cap.anexo && pos >= 0 ? pos + 1 : null} titulo={cap.titulo.replace(/^\d+\.\s/, '')} />
         </div>
+        {/* Línea debajo del título (el anexo de González: "Lic. Daniel González (ex CEO de YPF)", HDO 19/10/2026) */}
+        {cap.subtitulo && <div className="dip-subtitulo">{cap.subtitulo}</div>}
         {cap.cuerpo}
       </section>
 

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import DiagramaMercado from './DiagramaMercado.jsx';
 import GraficoCorte from './GraficoCorte.jsx';
 import * as E from './esquemas.jsx';
+import AnexoGonzalez from './AnexoGonzalez.jsx';
 import * as ED from './esquemasDatos.jsx';
 
 /**
@@ -39,6 +40,7 @@ const GRIS = { acc: '#444441', borde: '#5F5E5A', bg: '#F1EFE8' };
 const ROSA = { acc: '#72243E', borde: '#993556', bg: '#FBEAF0' };
 const CORAL = { acc: '#712B13', borde: '#993C1D', bg: '#FAECE7' };
 const VERDE = { acc: '#085041', borde: '#0F6E56', bg: '#E1F5EE' };
+const AZUL = { acc: '#1F3A6E', borde: '#2B4F92', bg: '#E8EEF9' }; // anexos
 
 function Tabla({ cab, filas, min }) {
   return (
@@ -429,6 +431,18 @@ export const armarCapitulos = (esq = false) => [
         {CORREGIR.p3}
       </>
     ),
+  },
+  // Anexos (HDO, 19/10/2026): después del capítulo 8. El primero, la serie
+  // "Lo que dijo González y lo que dicen los datos" (plenario del 3/6/2026).
+  {
+    id: 'anexo-gonzalez',
+    anexo: 1,
+    grupo: 'Anexos',
+    titulo: 'Lo que dijo el secretario de Coordinación de Energía y Minería, licenciado Daniel González, y lo que dicen los datos',
+    subtitulo: 'Lic. Daniel González (ex CEO de YPF)',
+    pal: AZUL,
+    frase: 'Lic. Daniel González (ex CEO de YPF). Ocho afirmaciones en el plenario del Senado del 3 de junio de 2026, contrastadas una por una con los datos. Ocho sellos: FALSO.',
+    cuerpo: <AnexoGonzalez />,
   },
   {
     id: 'fuentes',
