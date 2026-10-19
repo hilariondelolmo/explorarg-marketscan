@@ -1,12 +1,9 @@
 /* "Ley de biocombustibles - El proyecto medido contra su propia vara":
    introducción literal de HDO y el video embebido debajo. */
 
-.articulo-reforma .lbv-firma {
-  margin-bottom: 4px;
-}
-
-.articulo-reforma .lbv-texto {
-  margin-top: 26px;
+/* El contenido va en .ar-contenido, debajo del encabezado fijo */
+.articulo-reforma .ar-contenido .lbv-texto {
+  margin-top: 10px;
 }
 
 .articulo-reforma .lbv-texto p {

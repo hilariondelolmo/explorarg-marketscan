@@ -28,13 +28,24 @@ export default function LeyBiocombustiblesVara() {
     <>
       <SectionNav sections={SECCIONES_REFORMA} />
       <div className="articulo-reforma lbv">
-        <div className="marco lbv-marco">
-          <div className="kicker">Cámara de Diputados · Reforma Ley 27.640</div>
-          <h1>{TITULO}</h1>
-          <div className="firma lbv-firma">
-            por Hilarión Del Olmo - Presidente - Explora S.A. · Dra. Agustina Mendiburu Eliçabe - CAPBA
+        {/* Encabezado fijo del sitio (.ar-sticky): kicker, título y firma quedan
+            arriba y el contenido pasa por debajo al scrollear (HDO, 19/10/2026) */}
+        <div className="ar-sticky">
+          <div className="marco ar-encabezado">
+            <div className="ar-encabezado-fila">
+              <div>
+                <div className="kicker">Cámara de Diputados · Reforma Ley 27.640</div>
+                <h1>{TITULO}</h1>
+                <div className="firma">
+                  por Hilarión Del Olmo - Presidente - Explora S.A. · Dra. Agustina Mendiburu Eliçabe - CAPBA
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
 
+        <div className="ar-contenido">
+        <div className="marco lbv-marco">
           <div className="apertura lbv-texto">
             {PARRAFOS.map((p) => (
               <p key={p.slice(0, 24)}>{p}</p>
@@ -52,6 +63,7 @@ export default function LeyBiocombustiblesVara() {
             </div>
             <figcaption>El video completo · {VIDEO.duracion} · voz en off y láminas</figcaption>
           </figure>
+        </div>
         </div>
       </div>
     </>

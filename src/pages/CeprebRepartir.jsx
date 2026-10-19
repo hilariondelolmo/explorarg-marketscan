@@ -26,11 +26,25 @@ export default function CeprebRepartir() {
     <>
       <SectionNav sections={SECCIONES_REFORMA} />
       <div className="articulo-reforma lbv cpr">
+        {/* Encabezado fijo del sitio (.ar-sticky): kicker, título y firma quedan
+            arriba y el contenido pasa por debajo al scrollear (HDO, 19/10/2026) */}
+        <div className="ar-sticky">
+          <div className="marco ar-encabezado">
+            <div className="ar-encabezado-fila">
+              <div>
+                <div className="kicker">Respuesta al Documento CEPREB presentado a Diputados · Reforma Ley 27.640</div>
+                <h1>{TITULO}</h1>
+                <div className="firma">por Hilarión Del Olmo - Presidente - Explora S.A. · explorarg.com / CAPBA</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="ar-contenido">
         <div className="marco lbv-marco">
-          <div className="kicker">Respuesta al Documento CEPREB presentado a Diputados · Reforma Ley 27.640</div>
-          <h1>{TITULO}</h1>
-          <p className="bajada">{BAJADA}</p>
-          <div className="firma lbv-firma">por Hilarión Del Olmo - Presidente - Explora S.A. · explorarg.com / CAPBA</div>
+          <div className="apertura lbv-texto">
+            <p>{BAJADA}</p>
+          </div>
 
           <figure className="lbv-video">
             <div className="lbv-video-marco">
@@ -56,6 +70,7 @@ export default function CeprebRepartir() {
               Descargar PDF
             </a>
           </section>
+        </div>
         </div>
       </div>
     </>
