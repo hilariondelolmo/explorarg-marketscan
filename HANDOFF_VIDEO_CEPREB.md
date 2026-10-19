@@ -247,7 +247,7 @@ base Rosario = 100, enero de 2024 a agosto de 2026). Aprobó el cuadro y la locu
 - Sitio: `src/content/cinco-minutos.json` (duración 7:32, bloque 14 de la transcripción, fuente de la nota, bajada);
   copia web en `public/video/cinco-minutos/la-argentina-segun-cepreb.mp4` (ver 4.7). **Estado 18/10/2026:** HDO aprobó el cuadro;
   voz generada, v9 rendida y mezclada (`output/video/La Argentina segun CEPREB - v9 (Fernando).mp4`, 7:29; copias en
-  `output/entregas/` y en la carpeta Diputados final Cepreb de HDO), copia web reemplazada. Sin commitear: HDO decide (el push publica).
+  `output/entregas/` y en la carpeta Diputados final Cepreb de HDO), copia web reemplazada. Publicado en el commit 14fe8d0 (18/10/2026).
 
 ## 5. Pendientes y decisiones abiertas
 
