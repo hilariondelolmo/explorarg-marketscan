@@ -1,0 +1,62 @@
+/* "CEPREB quiere repartir": el bloque del documento completo, debajo del video */
+
+.cpr-doc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 26px;
+  padding: 16px 20px;
+  border: 1px solid var(--rule);
+  border-left: 5px solid var(--accent-exp);
+  border-radius: 8px;
+  background: var(--bg-2, var(--bg));
+}
+
+.cpr-doc-kicker {
+  color: var(--ink-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cpr-doc-titulo {
+  margin-top: 4px;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.cpr-doc-meta {
+  margin-top: 4px;
+  color: var(--ink-2);
+  font-size: 13.5px;
+}
+
+.articulo-reforma .cpr-doc-boton {
+  flex: 0 0 auto;
+  padding: 0.5rem 1.1rem;
+  border: 1.5px solid var(--accent-exp);
+  border-radius: 999px;
+  background: var(--accent-exp);
+  color: #fff;
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.articulo-reforma .cpr-doc-boton:hover {
+  background: transparent;
+  color: var(--accent-exp);
+}
+
+@media (max-width: 640px) {
+  .cpr-doc {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
