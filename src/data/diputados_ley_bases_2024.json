@@ -1,0 +1,3801 @@
+{
+ "fuente": "Cámara de Diputados de la Nación, Plataforma de Votaciones Abiertas, acta 5101 (Período 141, Reunión 14, Acta 1), https://votaciones.hcdn.gob.ar/votacion/5101 ; Diario de Sesiones del 2/2/2024, https://www4.hcdn.gob.ar/dependencias/dtaquigrafos/diarios/periodo-141/diario_2024020214.pdf",
+ "asunto": "Ley de Bases y Puntos de Partida para la Libertad de los Argentinos (expediente 25-PE-2023, Orden del Día 1/2024), votación en general",
+ "fecha": "02/02/2024",
+ "hora": "18:13",
+ "presidente": "Menem, Martín",
+ "resultado": {
+  "afirmativos": 144,
+  "negativos": 109,
+  "abstenciones": 0,
+  "ausentes": 3,
+  "presidente_sin_votar": 1,
+  "total": 257
+ },
+ "capitulo_biocombustibles": "Título VI Energía, Sección IV Ley 27.640 Biocombustibles, arts. 281 a 290 del dictamen de mayoría (OD 1/2024, págs. 61 a 64)",
+ "nomina_actual": "hcdn.gob.ar/diputados, bajada el 19/10/2026 (257 bancas: 130 con mandato 2023-2027, 127 con mandato 2025-2029, una banca de CABA por LLA pendiente de incorporación)",
+ "cruce": "sigue = figura en la nómina actual con mismo apellido y primer nombre (normalizados). bloque_actual y mandato_actual salen de esa nómina.",
+ "votos": [
+  {
+   "nombre": "Acevedo, Sergio Edgardo",
+   "bloque_2024": "Por Santa Cruz",
+   "provincia": "Santa Cruz",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Agost Carreño, Oscar",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Córdoba",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Aguirre, Hilda",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "La Rioja",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Aguirre, Hilda"
+  },
+  {
+   "nombre": "Aguirre, Manuel Ignacio",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Corrientes",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Ajmechet, Sabrina",
+   "bloque_2024": "Pro",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Ajmechet, Sabrina"
+  },
+  {
+   "nombre": "Ali, Ernesto \"pipi\"",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "San Luis",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "PRIMERO SAN LUIS",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Alí, Ernesto \"Pipi\""
+  },
+  {
+   "nombre": "Alianiello, Eugenia",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Chubut",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Allende, Walberto",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "San Juan",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Almiron, Lisandro",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Corrientes",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Almirón, Lisandro"
+  },
+  {
+   "nombre": "Alonso, Constanza Maria",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Ansaloni, Pablo",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Ansaloni, Pablo"
+  },
+  {
+   "nombre": "Antola, Marcela",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Entre Ríos",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Arabia, Damian",
+   "bloque_2024": "Pro",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Arabia, Damián"
+  },
+  {
+   "nombre": "Arancibia Rodriguez, Alberto Gustavo",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "San Luis",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Araujo, Maria Fernanda",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Araujo Hernandez, Jorge Neri",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Tierra del Fuego",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Araujo Hernández, Jorge Neri"
+  },
+  {
+   "nombre": "Ardohain, Martin",
+   "bloque_2024": "Pro",
+   "provincia": "La Pampa",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PRO",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Ardohain, Martín"
+  },
+  {
+   "nombre": "Arjol, Martin",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Misiones",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Arrieta, Lourdes Micaela",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Mendoza",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PROVINCIAS UNIDAS",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Arrieta, Lourdes Micaela"
+  },
+  {
+   "nombre": "Arroyo, Daniel",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Arrua, Alberto",
+   "bloque_2024": "Innovacion Federal",
+   "provincia": "Misiones",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "ARGENTINA FEDERAL",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Arrúa, Alberto"
+  },
+  {
+   "nombre": "Aubone, Ana Fabiola",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "San Juan",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Aveiro, Martin",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Mendoza",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Aveiro, Martín"
+  },
+  {
+   "nombre": "Avico, Belen",
+   "bloque_2024": "Pro",
+   "provincia": "Córdoba",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Avico, Belén"
+  },
+  {
+   "nombre": "Avila, Jorge Antonio",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Chubut",
+   "voto": "AUSENTE",
+   "sigue": true,
+   "bloque_actual": "PROVINCIAS UNIDAS",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Avila, Jorge Antonio"
+  },
+  {
+   "nombre": "Avila, Fernanda",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Catamarca",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "ELIJO CATAMARCA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Avila, Fernanda"
+  },
+  {
+   "nombre": "Bachey, Karina Ethel",
+   "bloque_2024": "Pro",
+   "provincia": "San Luis",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Baldassi, Hector W.",
+   "bloque_2024": "Pro",
+   "provincia": "Córdoba",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Banfi, Karina",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "ADELANTE BUENOS AIRES",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Banfi, Karina"
+  },
+  {
+   "nombre": "Barletta, Mario",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Santa Fe",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Basterra, Luis Eugenio",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Formosa",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Basterra, Luis Eugenio"
+  },
+  {
+   "nombre": "Benedetti, Atilio",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Entre Ríos",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Benedit, Beltran",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Entre Ríos",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Benedit, Beltrán"
+  },
+  {
+   "nombre": "Benegas Lynch, Bertie",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Benegas Lynch, Bertie"
+  },
+  {
+   "nombre": "Bermejo, Adolfo",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Mendoza",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Bertoldi, Tanya",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Neuquén",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Besana, Gabriela",
+   "bloque_2024": "Pro",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Bianchetti, Emmanuel",
+   "bloque_2024": "Pro",
+   "provincia": "Misiones",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PRO",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Bianchetti, Emmanuel"
+  },
+  {
+   "nombre": "Bonacci, Rocio",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Santa Fe",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Bonacci, Rocío"
+  },
+  {
+   "nombre": "Bongiovanni, Alejandro",
+   "bloque_2024": "Pro",
+   "provincia": "Santa Fe",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Bongiovanni, Alejandro"
+  },
+  {
+   "nombre": "Bordet, Gustavo",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Entre Ríos",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Bordet, Gustavo"
+  },
+  {
+   "nombre": "Bornoroni, Gabriel",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Córdoba",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Bornoroni, Gabriel"
+  },
+  {
+   "nombre": "Borrego, Victoria",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Brambilla, Sofia",
+   "bloque_2024": "Pro",
+   "provincia": "Corrientes",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Bregman, Myriam",
+   "bloque_2024": "Frente De Izquierda Y De Trabajadores Unidad",
+   "provincia": "C.A.B.A.",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "PTS-FRENTE DE IZQUIERDA Y DE TRABAJADORES UNIDAD",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Bregman, Myriam"
+  },
+  {
+   "nombre": "Brouwer de Koning, Gabriela",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Córdoba",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Brugge, Juan Fernando",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Córdoba",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PROVINCIAS UNIDAS",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Brügge, Juan Fernando"
+  },
+  {
+   "nombre": "Cafiero, Santiago",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Cafiero, Santiago"
+  },
+  {
+   "nombre": "Calletti, Pamela",
+   "bloque_2024": "Innovacion Federal",
+   "provincia": "Salta",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Campagnoli, Marcela",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Campero, Mariano",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Tucumán",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Campero, Mariano"
+  },
+  {
+   "nombre": "Campitelli, Celia",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Santiago del Estero",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Campitelli, Celia"
+  },
+  {
+   "nombre": "Capozzi, Sergio Eduardo",
+   "bloque_2024": "Pro",
+   "provincia": "Rio Negro",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PROVINCIAS UNIDAS",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Capozzi, Sergio Eduardo"
+  },
+  {
+   "nombre": "Carbajal, Fernando",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Formosa",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Carignano, Florencia",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Santa Fe",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Carignano, Florencia"
+  },
+  {
+   "nombre": "Carrizo, Ana Carla",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Carrizo, Soledad",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Córdoba",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Carro, Pablo",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Córdoba",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Casas, Sergio Guillermo",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "La Rioja",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Casas, Sergio Guillermo"
+  },
+  {
+   "nombre": "Castagneto, Carlos Daniel",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Castagneto, Carlos Daniel"
+  },
+  {
+   "nombre": "Castillo, Christian",
+   "bloque_2024": "Frente De Izquierda Y De Trabajadores Unidad",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Cervi, Pablo",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Neuquén",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Chaher, Leila",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Jujuy",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Chica, Jorge",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "San Juan",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Chica, Jorge"
+  },
+  {
+   "nombre": "Chomiak, Maria Luisa",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Chaco",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Chumpitaz, Gabriel Felipe",
+   "bloque_2024": "Pro",
+   "provincia": "Santa Fe",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Cipolini, Gerardo",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Chaco",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "UCR - UNIÓN CÍVICA RADICAL",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Cipolini, Gerardo"
+  },
+  {
+   "nombre": "Cisneros, Carlos",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Tucumán",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Cisneros, Carlos"
+  },
+  {
+   "nombre": "Cobos, Julio",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Mendoza",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Coletta, Mariela",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PROVINCIAS UNIDAS",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Coletta, Mariela"
+  },
+  {
+   "nombre": "Coli, Marcela",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "La Pampa",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Correa Llano, Facundo",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Mendoza",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Correa Llano, Facundo"
+  },
+  {
+   "nombre": "D'Alessandro, Carlos",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "San Luis",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Daives, Ricardo",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Santiago del Estero",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Daives, Ricardo"
+  },
+  {
+   "nombre": "De la Sota, Natalia",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Córdoba",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "DEFENDAMOS CÓRDOBA",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "de la Sota, Natalia"
+  },
+  {
+   "nombre": "De Loredo, Rodrigo",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Córdoba",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "De Sensi, Maria Florencia",
+   "bloque_2024": "Pro",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PRO",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "De Sensi, María Florencia"
+  },
+  {
+   "nombre": "Del Caño, Nicolas",
+   "bloque_2024": "Frente De Izquierda Y De Trabajadores Unidad",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "PTS-FRENTE DE IZQUIERDA Y DE TRABAJADORES UNIDAD",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "del Caño, Nicolás"
+  },
+  {
+   "nombre": "Del Pla, Romina",
+   "bloque_2024": "Frente De Izquierda Y De Trabajadores Unidad",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "PARTIDO OBRERO EN EL FRENTE DE IZQUIERDA Y DE TRABAJADORES-UNIDAD",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Del Plá, Romina"
+  },
+  {
+   "nombre": "Diez, Romina",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Santa Fe",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Diez, Romina"
+  },
+  {
+   "nombre": "Domingo, Agustin",
+   "bloque_2024": "Innovacion Federal",
+   "provincia": "Rio Negro",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Emma, Nicolas",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Emma, Nicolás"
+  },
+  {
+   "nombre": "Espert, Jose Luis",
+   "bloque_2024": "Avanza Libertad",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Estevez, Gabriela Beatriz",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Córdoba",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Estévez, Gabriela Beatriz"
+  },
+  {
+   "nombre": "Estrada, Emiliano",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Salta",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Falcone, Eduardo",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "MID - MOVIMIENTO DE INTEGRACIÓN Y DESARROLLO",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Falcone, Eduardo"
+  },
+  {
+   "nombre": "Fein, Monica",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Santa Fe",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Fernandez, Carlos Alberto",
+   "bloque_2024": "Innovacion Federal",
+   "provincia": "Misiones",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Fernandez, Elia Marina",
+   "bloque_2024": "Independencia",
+   "provincia": "Tucumán",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "INDEPENDENCIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Fernández, Elia Marina"
+  },
+  {
+   "nombre": "Fernandez, Agustin",
+   "bloque_2024": "Independencia",
+   "provincia": "Tucumán",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Fernandez Molero, Daiana",
+   "bloque_2024": "Pro",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PRO",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Fernández Molero, Daiana"
+  },
+  {
+   "nombre": "Fernandez Patri, Ramiro",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Formosa",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Ferraro, Maximiliano",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "COALICION CIVICA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Ferraro, Maximiliano"
+  },
+  {
+   "nombre": "Ferreyra, Alida",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Ferreyra, Alida"
+  },
+  {
+   "nombre": "Figueroa Casas, Germana",
+   "bloque_2024": "Pro",
+   "provincia": "Santa Fe",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Finocchiaro, Alejandro",
+   "bloque_2024": "Pro",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PRO",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Finocchiaro, Alejandro"
+  },
+  {
+   "nombre": "Frade, Monica",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "COALICION CIVICA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Frade, Mónica"
+  },
+  {
+   "nombre": "Freites, Andrea",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Tierra del Fuego",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Freites, Andrea"
+  },
+  {
+   "nombre": "Gaillard, Ana Carolina",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Entre Ríos",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Galimberti, Pedro Jorge",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Entre Ríos",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Garcia, Carlos",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Chaco",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "García, Carlos"
+  },
+  {
+   "nombre": "Garcia Aresca, Ignacio",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Córdoba",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PROVINCIAS UNIDAS",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "García Aresca, Ignacio"
+  },
+  {
+   "nombre": "Garrido, Jose Luis",
+   "bloque_2024": "Por Santa Cruz",
+   "provincia": "Santa Cruz",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "POR SANTA CRUZ",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Garrido, José Luis"
+  },
+  {
+   "nombre": "Ginocchio, Silvana Micaela",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Catamarca",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Giorgi, Melina",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Santa Fe",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Giudici, Silvana",
+   "bloque_2024": "Pro",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Giudici, Silvana"
+  },
+  {
+   "nombre": "Giuliano, Diego A.",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Santa Fe",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Giuliano, Diego A."
+  },
+  {
+   "nombre": "Glinski, Jose",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Chubut",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Glinski, José"
+  },
+  {
+   "nombre": "Gollan, Daniel",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Gomez, Jose",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Santiago del Estero",
+   "voto": "AUSENTE",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Gomez, José"
+  },
+  {
+   "nombre": "Gonzalez, Gerardo Gustavo",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Formosa",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "ARGENTINA FEDERAL",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "González, Gerardo Gustavo"
+  },
+  {
+   "nombre": "Gonzalez, Alvaro",
+   "bloque_2024": "Pro",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PRO",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "González, Álvaro"
+  },
+  {
+   "nombre": "Gonzalez, Gustavo Carlos Miguel",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Santa Cruz",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Gutierrez, Carlos",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Córdoba",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PROVINCIAS UNIDAS",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Gutiérrez, Carlos"
+  },
+  {
+   "nombre": "Gutierrez, Ramiro",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Gutiérrez, Ramiro"
+  },
+  {
+   "nombre": "Hagman, Itai",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "C.A.B.A.",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Hagman, Itai"
+  },
+  {
+   "nombre": "Heller, Carlos",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "C.A.B.A.",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Herrera, Ricardo",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "La Rioja",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Herrera, Bernardo Jose",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Santiago del Estero",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Huesen, Gerardo",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Tucumán",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Huesen, Gerardo"
+  },
+  {
+   "nombre": "Ianni, Ana Maria",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Santa Cruz",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Ianni, Ana María"
+  },
+  {
+   "nombre": "Ibañez, Maria Cecilia",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Córdoba",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Ibañez, María Cecilia"
+  },
+  {
+   "nombre": "Iglesias, Fernando Adolfo",
+   "bloque_2024": "Pro",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Iparraguirre, Rogelio",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Juliano, Pablo",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "PROVINCIAS UNIDAS",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Juliano, Pablo"
+  },
+  {
+   "nombre": "Kirchner, Maximo Carlos",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Kirchner, Máximo Carlos"
+  },
+  {
+   "nombre": "Klipauka Lewtak, Florencia",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Misiones",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Laspina, Luciano Andres",
+   "bloque_2024": "Pro",
+   "provincia": "Santa Fe",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Ledesma, Tomas",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Entre Ríos",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Leiva, Aldo",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Chaco",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Leiva, Aldo"
+  },
+  {
+   "nombre": "Lemoine, Lilia",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Lemoine, Lilia"
+  },
+  {
+   "nombre": "Litza, Monica",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Llancafilo, Osvaldo",
+   "bloque_2024": "Innovacion Federal",
+   "provincia": "Neuquén",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Llano, Mercedes",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Mendoza",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Llano, Mercedes"
+  },
+  {
+   "nombre": "Lombardi, Hernan",
+   "bloque_2024": "Pro",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Lopez, Juan Manuel",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Lopez Murphy, Ricardo Hipolito",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Lopez Rodriguez, Dante",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Catamarca",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Lospennato, Silvia",
+   "bloque_2024": "Pro",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Macha, Monica",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Macyszyn, Lorena",
+   "bloque_2024": "Buenos Aires Libre",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Macyszyn, Lorena"
+  },
+  {
+   "nombre": "Manes, Facundo",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Manrique, Mario",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Manrique, Mario"
+  },
+  {
+   "nombre": "Maquieyra, Martin",
+   "bloque_2024": "Pro",
+   "provincia": "La Pampa",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Marin, Varinia Lis",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "La Pampa",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Marín, Varinia Lis"
+  },
+  {
+   "nombre": "Marino, Juan",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Marino, Juan"
+  },
+  {
+   "nombre": "Marquez, Nadia",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Neuquén",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Martinez, Alvaro",
+   "bloque_2024": "La Union Mendocina",
+   "provincia": "Mendoza",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Martínez, Álvaro"
+  },
+  {
+   "nombre": "Martinez, German Pedro",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Santa Fe",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Martínez, Germán Pedro"
+  },
+  {
+   "nombre": "Marziotta, Gisela",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "C.A.B.A.",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Massot, Nicolas",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "ENCUENTRO FEDERAL",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Massot, Nicolás"
+  },
+  {
+   "nombre": "Mastaler, Magali",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Santa Fe",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Mayoraz, Nicolas",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Santa Fe",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Mayoraz, Nicolás"
+  },
+  {
+   "nombre": "Medina, Gladys",
+   "bloque_2024": "Independencia",
+   "provincia": "Tucumán",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "INDEPENDENCIA",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Medina, Gladys"
+  },
+  {
+   "nombre": "Menem, Martin",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "La Rioja",
+   "voto": "PRESIDENTE",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Menem, Martín"
+  },
+  {
+   "nombre": "Milman, Gerardo",
+   "bloque_2024": "Pro",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Mirabella, Roberto",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Santa Fe",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Molle, Matias",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Molle, Matías"
+  },
+  {
+   "nombre": "Montenegro, Guillermo",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Montenegro, Guillermo"
+  },
+  {
+   "nombre": "Monti, Francisco",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Catamarca",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Montoto, Maria Luisa",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Santiago del Estero",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Monzo, Emilio",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Monzon, Roxana",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Monzón, Roxana"
+  },
+  {
+   "nombre": "Moran, Micaela",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Morchio, Francisco",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Entre Ríos",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Morchio, Francisco"
+  },
+  {
+   "nombre": "Moreau, Leopoldo",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Moreau, Cecilia",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Moreau, Cecilia"
+  },
+  {
+   "nombre": "Moreno, Maria de los Angeles",
+   "bloque_2024": "Produccion Y Trabajo",
+   "provincia": "San Juan",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Moreno Ovalle, Julio",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Salta",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Moreno Ovalle, Julio"
+  },
+  {
+   "nombre": "Moyano, Nilda",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Santiago del Estero",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Neder, Estela Mary",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Santiago del Estero",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Neder, Estela Mary"
+  },
+  {
+   "nombre": "Nieri, Lisandro",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Mendoza",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "UCR - UNIÓN CÍVICA RADICAL",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Nieri, Lisandro"
+  },
+  {
+   "nombre": "Noblega, Sebastian",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Catamarca",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "ELIJO CATAMARCA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Nóblega, Sebastián"
+  },
+  {
+   "nombre": "Nuñez, Jose",
+   "bloque_2024": "Pro",
+   "provincia": "Santa Fe",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PROVINCIAS UNIDAS",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Nuñez, José"
+  },
+  {
+   "nombre": "Oliveto Lago, Paula",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Omodeo, Paula",
+   "bloque_2024": "Creo",
+   "provincia": "Tucumán",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Orozco, Emilia",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Salta",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Osuna, Blanca Ines",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Entre Ríos",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Osuna, Blanca Inés"
+  },
+  {
+   "nombre": "Outes, Pablo",
+   "bloque_2024": "Innovacion Federal",
+   "provincia": "Salta",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "ARGENTINA FEDERAL",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Outes, Pablo"
+  },
+  {
+   "nombre": "Pagano, Marcela Marina",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "COHERENCIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Pagano, Marcela Marina"
+  },
+  {
+   "nombre": "Palazzo, Sergio Omar",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Palazzo, Sergio Omar"
+  },
+  {
+   "nombre": "Paponet, Liliana",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Mendoza",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Parola, Maria Graciela",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Formosa",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Parola, María Graciela"
+  },
+  {
+   "nombre": "Passo, Marcela Fabiana",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Pauli, Santiago",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Tierra del Fuego",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Pauli, Santiago"
+  },
+  {
+   "nombre": "Paulon, Esteban",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Santa Fe",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "PROVINCIAS UNIDAS",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Paulón, Esteban"
+  },
+  {
+   "nombre": "Pedrali, Gabriela",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "La Rioja",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Pedrali, Gabriela"
+  },
+  {
+   "nombre": "Pedrini, Juan Manuel",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Chaco",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Peluc, Jose",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "San Juan",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Peluc, José"
+  },
+  {
+   "nombre": "Penacca, Paula Andrea",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "C.A.B.A.",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Penacca, Paula Andrea"
+  },
+  {
+   "nombre": "Pereyra, Julio",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Picat, Luis Albino",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Córdoba",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Picat, Luis Albino"
+  },
+  {
+   "nombre": "Pichetto, Miguel Angel",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "ENCUENTRO FEDERAL",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Pichetto, Miguel Ángel"
+  },
+  {
+   "nombre": "Picon Martinez, Nancy Viviana",
+   "bloque_2024": "Produccion Y Trabajo",
+   "provincia": "San Juan",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PRODUCCION Y TRABAJO",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Picón Martínez, Nancy Viviana"
+  },
+  {
+   "nombre": "Piparo, Carolina",
+   "bloque_2024": "Buenos Aires Libre",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Pokoik, Lorena",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "C.A.B.A.",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Pokoik, Lorena"
+  },
+  {
+   "nombre": "Polini, Juan Carlos",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Chaco",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Ponce, Maria Celeste",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Córdoba",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Ponce, María Celeste"
+  },
+  {
+   "nombre": "Potenza, Luciana",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Potenza, Luciana"
+  },
+  {
+   "nombre": "Propato, Agustina Lucrecia",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Propato, Agustina Lucrecia"
+  },
+  {
+   "nombre": "Quetglas, Fabio Jose",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Quintar, Manuel",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Jujuy",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Quintar, Manuel"
+  },
+  {
+   "nombre": "Quiroz, Marilu",
+   "bloque_2024": "Pro",
+   "provincia": "Chaco",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Randazzo, Florencio",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Rauschenberger, Ariel",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "La Pampa",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Rauschenberger, Ariel"
+  },
+  {
+   "nombre": "Razzini, Veronica",
+   "bloque_2024": "Pro",
+   "provincia": "Santa Fe",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Razzini, Verónica"
+  },
+  {
+   "nombre": "Reyes, Roxana",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Santa Cruz",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Ritondo, Cristian A.",
+   "bloque_2024": "Pro",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PRO",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Ritondo, Cristian A."
+  },
+  {
+   "nombre": "Rizzotti, Jorge",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Jujuy",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PROVINCIAS UNIDAS",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Rizzotti, Jorge"
+  },
+  {
+   "nombre": "Rodriguez Machado, Laura Elena",
+   "bloque_2024": "Pro",
+   "provincia": "Córdoba",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Rodríguez Machado, Laura Elena"
+  },
+  {
+   "nombre": "Romero, Ana Clara",
+   "bloque_2024": "Pro",
+   "provincia": "Chubut",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Romero, Jorge Antonio",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Corrientes",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Ruiz, Yamila",
+   "bloque_2024": "Innovacion Federal",
+   "provincia": "Misiones",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "ARGENTINA FEDERAL",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Ruíz, Yamila"
+  },
+  {
+   "nombre": "Sanchez, Roberto Antonio",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Tucumán",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Sand, Nancy",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Corrientes",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Sand, Nancy"
+  },
+  {
+   "nombre": "Santillan Juarez Brahim, Juliana",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Santillán Juárez Brahim, Juliana"
+  },
+  {
+   "nombre": "Santilli, Diego",
+   "bloque_2024": "Pro",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Santoro, Leandro",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "C.A.B.A.",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Santurio, Santiago",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Santurio, Santiago"
+  },
+  {
+   "nombre": "Sarapura, Natalia Silvina",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Jujuy",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Selva, Sabrina",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Selva, Sabrina"
+  },
+  {
+   "nombre": "Siley, Vanesa Raquel",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Siley, Vanesa Raquel"
+  },
+  {
+   "nombre": "Snopek, Guillermo",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Jujuy",
+   "voto": "AUSENTE",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Snopek, Guillermo"
+  },
+  {
+   "nombre": "Soria, Martin",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Rio Negro",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Sotolano, Maria",
+   "bloque_2024": "Pro",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Stefani, Hector Antonio",
+   "bloque_2024": "Pro",
+   "provincia": "Tierra del Fuego",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Stolbizer, Margarita",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Strada, Julia",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Strada, Julia"
+  },
+  {
+   "nombre": "Tailhade, Rodolfo",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Tailhade, Rodolfo"
+  },
+  {
+   "nombre": "Tavela, Danya",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Tetaz, Martin Alberto",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Todero, Pablo",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Neuquén",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Todero, Pablo"
+  },
+  {
+   "nombre": "Tolosa Paz, Victoria",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Tolosa Paz, Victoria"
+  },
+  {
+   "nombre": "Toniolli, Eduardo",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Santa Fe",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Torres, Alejandra",
+   "bloque_2024": "Hacemos Coalicion Federal",
+   "provincia": "Córdoba",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PROVINCIAS UNIDAS",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Torres, Alejandra"
+  },
+  {
+   "nombre": "Tortoriello, Anibal",
+   "bloque_2024": "Pro",
+   "provincia": "Rio Negro",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Tortoriello, Aníbal"
+  },
+  {
+   "nombre": "Treffinger, Cesar",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Chubut",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Treffinger, César"
+  },
+  {
+   "nombre": "Valdes, Eduardo Felix",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "C.A.B.A.",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Valdés, Eduardo Félix"
+  },
+  {
+   "nombre": "Vallejos, Alfredo",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Corrientes",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Vancsik, Daniel",
+   "bloque_2024": "Innovacion Federal",
+   "provincia": "Misiones",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "ARGENTINA FEDERAL",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Vancsik, Daniel"
+  },
+  {
+   "nombre": "Vargas Matyi, Brenda",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Vasquez, Patricia",
+   "bloque_2024": "Pro",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Vásquez, Patricia"
+  },
+  {
+   "nombre": "Vega, Yolanda",
+   "bloque_2024": "Innovacion Federal",
+   "provincia": "Salta",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "ARGENTINA FEDERAL",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Vega, Yolanda"
+  },
+  {
+   "nombre": "Verasay, Pamela Fernanda",
+   "bloque_2024": "Ucr - Union Civica Radical",
+   "provincia": "Mendoza",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "UCR - UNIÓN CÍVICA RADICAL",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Verasay, Pamela Fernanda"
+  },
+  {
+   "nombre": "Vidal, Maria Eugenia",
+   "bloque_2024": "Pro",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Vilca, Alejandro",
+   "bloque_2024": "Frente De Izquierda Y De Trabajadores Unidad",
+   "provincia": "Jujuy",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Villaverde, Lorena",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Rio Negro",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Villaverde, Lorena"
+  },
+  {
+   "nombre": "Volnovich, Luana",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Volnovich, Luana"
+  },
+  {
+   "nombre": "Yasky, Hugo",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Yasky, Hugo"
+  },
+  {
+   "nombre": "Yedlin, Pablo Raul",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Tucumán",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Yedlin, Pablo Raúl"
+  },
+  {
+   "nombre": "Yeza, Martin",
+   "bloque_2024": "Pro",
+   "provincia": "Buenos Aires",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "PRO",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Yeza, Martín"
+  },
+  {
+   "nombre": "Yutrovic, Carolina",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Tierra del Fuego",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Zabala Chacur, Natalia",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "San Luis",
+   "voto": "NEGATIVO",
+   "sigue": false
+  },
+  {
+   "nombre": "Zago, Oscar",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "C.A.B.A.",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "MID - MOVIMIENTO DE INTEGRACIÓN Y DESARROLLO",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Zago, Oscar"
+  },
+  {
+   "nombre": "Zapata, Carlos Raul",
+   "bloque_2024": "La Libertad Avanza",
+   "provincia": "Salta",
+   "voto": "AFIRMATIVO",
+   "sigue": true,
+   "bloque_actual": "LA LIBERTAD AVANZA",
+   "mandato_actual": "2025-2029",
+   "nombre_actual": "Zapata, Carlos Raúl"
+  },
+  {
+   "nombre": "Zaracho, Natalia",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Buenos Aires",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Zaracho, Natalia"
+  },
+  {
+   "nombre": "Zulli, Christian Alejandro",
+   "bloque_2024": "Union Por La Patria",
+   "provincia": "Corrientes",
+   "voto": "NEGATIVO",
+   "sigue": true,
+   "bloque_actual": "UNIÓN POR LA PATRIA",
+   "mandato_actual": "2023-2027",
+   "nombre_actual": "Zulli, Christian Alejandro"
+  }
+ ],
+ "nomina_actual_lista": [
+  {
+   "nombre": "Aguirre, Hilda",
+   "distrito": "LA RIOJA",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Agüero, Guillermo César",
+   "distrito": "CHACO",
+   "bloque": "UCR - UNIÓN CÍVICA RADICAL",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Ajmechet, Sabrina",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Alí, Ernesto \"Pipi\"",
+   "distrito": "SAN LUIS",
+   "bloque": "PRIMERO SAN LUIS",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Almena, Carlos Alberto",
+   "distrito": "SAN LUIS",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Almirón, Lisandro",
+   "distrito": "CORRIENTES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Álvarez, Claudio",
+   "distrito": "SAN LUIS",
+   "bloque": "ARGENTINA FEDERAL",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Andino, Cristian",
+   "distrito": "SAN JUAN",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Andrade, Javier",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Andreussi, Barbara",
+   "distrito": "JUJUY",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Ansaloni, Pablo",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Arabia, Damián",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Araujo Hernández, Jorge Neri",
+   "distrito": "TIERRA DEL FUEGO",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Ardohain, Martín",
+   "distrito": "LA PAMPA",
+   "bloque": "PRO",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Arrieta, Lourdes Micaela",
+   "distrito": "MENDOZA",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Arrúa, Alberto",
+   "distrito": "MISIONES",
+   "bloque": "ARGENTINA FEDERAL",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Aveiro, Martín",
+   "distrito": "MENDOZA",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Avico, Belén",
+   "distrito": "CORDOBA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Avila, Jorge Antonio",
+   "distrito": "CHUBUT",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Avila, Fernanda",
+   "distrito": "CATAMARCA",
+   "bloque": "ELIJO CATAMARCA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Banfi, Karina",
+   "distrito": "BUENOS AIRES",
+   "bloque": "ADELANTE BUENOS AIRES",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Barbur, Marcelo",
+   "distrito": "SANTIAGO DEL ESTERO",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Basterra, Luis Eugenio",
+   "distrito": "FORMOSA",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Basualdo, Atilio",
+   "distrito": "FORMOSA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Basualdo, Carolina",
+   "distrito": "CORDOBA",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Becerra, Mónica",
+   "distrito": "SAN LUIS",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Benedit, Beltrán",
+   "distrito": "ENTRE RIOS",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Benegas Lynch, Bertie",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Bianchetti, Emmanuel",
+   "distrito": "MISIONES",
+   "bloque": "PRO",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Biella, Bernardo",
+   "distrito": "SALTA",
+   "bloque": "ARGENTINA FEDERAL",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Bonacci, Rocío",
+   "distrito": "SANTA FE",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Bongiovanni, Alejandro",
+   "distrito": "SANTA FE",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Bordet, Gustavo",
+   "distrito": "ENTRE RIOS",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Borgatta, Alejandrina",
+   "distrito": "SANTA FE",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Bornoroni, Gabriel",
+   "distrito": "CORDOBA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Bregman, Myriam",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "PTS-FRENTE DE IZQUIERDA Y DE TRABAJADORES UNIDAD",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Brizuela, Adrián",
+   "distrito": "CATAMARCA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Bruno, Eliana",
+   "distrito": "SALTA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Brügge, Juan Fernando",
+   "distrito": "CORDOBA",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Cafiero, Santiago",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Campero, Mariano",
+   "distrito": "TUCUMAN",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Campitelli, Celia",
+   "distrito": "SANTIAGO DEL ESTERO",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Campo, Julieta Marisol",
+   "distrito": "CHACO",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Cámpora, Lucía",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Capozzi, Sergio Eduardo",
+   "distrito": "RIO NEGRO",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Carignano, Florencia",
+   "distrito": "SANTA FE",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Carrancio, Alejandro",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Casas, Sergio Guillermo",
+   "distrito": "LA RIOJA",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Castagneto, Carlos Daniel",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Castelnuovo, Giselle",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Chica, Jorge",
+   "distrito": "SAN JUAN",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Chiconi, Abel",
+   "distrito": "SAN JUAN",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Cipolini, Gerardo",
+   "distrito": "CHACO",
+   "bloque": "UCR - UNIÓN CÍVICA RADICAL",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Cisneros, Carlos",
+   "distrito": "TUCUMAN",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Coletta, Mariela",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Correa Llano, Facundo",
+   "distrito": "MENDOZA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Daives, Ricardo",
+   "distrito": "SANTIAGO DEL ESTERO",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "de Andreis, Fernando",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "PRO",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "de la Rosa, María Graciela",
+   "distrito": "FORMOSA",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "de la Sota, Natalia",
+   "distrito": "CORDOBA",
+   "bloque": "DEFENDAMOS CÓRDOBA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "De Sensi, María Florencia",
+   "distrito": "BUENOS AIRES",
+   "bloque": "PRO",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "del Caño, Nicolás",
+   "distrito": "BUENOS AIRES",
+   "bloque": "PTS-FRENTE DE IZQUIERDA Y DE TRABAJADORES UNIDAD",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Del Plá, Romina",
+   "distrito": "BUENOS AIRES",
+   "bloque": "PARTIDO OBRERO EN EL FRENTE DE IZQUIERDA Y DE TRABAJADORES-UNIDAD",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Díaz, Fernanda",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Diez, Romina",
+   "distrito": "SANTA FE",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Dolce, Sergio",
+   "distrito": "CHACO",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Emma, Nicolás",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Estévez, Gabriela Beatriz",
+   "distrito": "CORDOBA",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Falcone, Eduardo",
+   "distrito": "BUENOS AIRES",
+   "bloque": "MID - MOVIMIENTO DE INTEGRACIÓN Y DESARROLLO",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Fargosi, Alejandro",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Farías, Pablo",
+   "distrito": "SANTA FE",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Félix, Emir",
+   "distrito": "MENDOZA",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Fernández, Jorge",
+   "distrito": "SAN LUIS",
+   "bloque": "PRIMERO SAN LUIS",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Fernández, Elia Marina",
+   "distrito": "TUCUMAN",
+   "bloque": "INDEPENDENCIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Fernández Molero, Daiana",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "PRO",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Ferrán, Abelardo",
+   "distrito": "LA PAMPA",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Ferraro, Maximiliano",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "COALICION CIVICA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Ferreyra, Alida",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Figliuolo, Sergio",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Finocchiaro, Alejandro",
+   "distrito": "BUENOS AIRES",
+   "bloque": "PRO",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Flores, Maria Gabriela",
+   "distrito": "SALTA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Frade, Mónica",
+   "distrito": "BUENOS AIRES",
+   "bloque": "COALICION CIVICA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Fregonese, Alicia",
+   "distrito": "ENTRE RIOS",
+   "bloque": "PRO",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Freites, Andrea",
+   "distrito": "TIERRA DEL FUEGO",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Frias, Maira",
+   "distrito": "CHUBUT",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Gallardo, María Virginia",
+   "distrito": "CORRIENTES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Galmarini, Sebastián",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "García, María Teresa",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "García, Carlos",
+   "distrito": "CHACO",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "García, Álvaro",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "García Aresca, Ignacio",
+   "distrito": "CORDOBA",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Garrido, José Luis",
+   "distrito": "SANTA CRUZ",
+   "bloque": "POR SANTA CRUZ",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Giampieri, Antonela",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "PRO",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Giordano, Juan Carlos",
+   "distrito": "BUENOS AIRES",
+   "bloque": "IZQUIERDA SOCIALISTA - FRENTE DE IZQUIERDA UNIDAD",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Giudici, Silvana",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Giuliano, Diego A.",
+   "distrito": "SANTA FE",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Glinski, José",
+   "distrito": "CHUBUT",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Goitia, Rosario",
+   "distrito": "CHACO",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Gomez, José",
+   "distrito": "SANTIAGO DEL ESTERO",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Gonzales, Alfredo",
+   "distrito": "JUJUY",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "González, Gerardo Gustavo",
+   "distrito": "FORMOSA",
+   "bloque": "ARGENTINA FEDERAL",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "González, Álvaro",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "PRO",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "González, Diógenes Ignacio",
+   "distrito": "CORRIENTES",
+   "bloque": "UCR - UNIÓN CÍVICA RADICAL",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "González Estevarena, María Luisa",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Grabois, Juan",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Gruber, Maura",
+   "distrito": "MISIONES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Gutiérrez, Ramiro",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Gutiérrez, Carlos",
+   "distrito": "CORDOBA",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Guzmán, Jairo",
+   "distrito": "SANTA CRUZ",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Hadad, Raúl",
+   "distrito": "CORRIENTES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Hagman, Itai",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Hartfield, Diego",
+   "distrito": "MISIONES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Herrera Ahuad, Oscar A.",
+   "distrito": "MISIONES",
+   "bloque": "ARGENTINA FEDERAL",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Holzman, Patricia",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Huesen, Gerardo",
+   "distrito": "TUCUMAN",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Humenuk, Gladys",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Ianni, Ana María",
+   "distrito": "SANTA CRUZ",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Ibañez, María Cecilia",
+   "distrito": "CORDOBA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Jaime Quiroga, Carlos Gustavo",
+   "distrito": "SAN JUAN",
+   "bloque": "PRODUCCION Y TRABAJO",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Juliano, Pablo",
+   "distrito": "BUENOS AIRES",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Kirchner, Máximo Carlos",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Lanesan Sancho, Moira",
+   "distrito": "SANTA CRUZ",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Laumann, Andrés Ariel",
+   "distrito": "ENTRE RIOS",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Leiva, Aldo",
+   "distrito": "CHACO",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Lemoine, Lilia",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Leone, Andrés",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Llano, Mercedes",
+   "distrito": "MENDOZA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Lluch, Enrique",
+   "distrito": "CORDOBA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Longo, Johanna Sabrina",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "López, Jimena",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "López Pasquali, Cecilia",
+   "distrito": "SANTIAGO DEL ESTERO",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Lousteau, Martín",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Luque, Juan Pablo",
+   "distrito": "CHUBUT",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Macyszyn, Lorena",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Mango, Marcelo",
+   "distrito": "RIO NEGRO",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Manrique, Mario",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Marclay, Marianela",
+   "distrito": "ENTRE RIOS",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Marín, Varinia Lis",
+   "distrito": "LA PAMPA",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Marino, Juan",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Martínez, Germán Pedro",
+   "distrito": "SANTA FE",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Martínez, Álvaro",
+   "distrito": "MENDOZA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Massot, Nicolás",
+   "distrito": "BUENOS AIRES",
+   "bloque": "ENCUENTRO FEDERAL",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Matzkin, Martín",
+   "distrito": "LA PAMPA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Maureira, Karina",
+   "distrito": "NEUQUEN",
+   "bloque": "LA NEUQUINIDAD",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Mayoraz, Nicolás",
+   "distrito": "SANTA FE",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Medina, Gladys",
+   "distrito": "TUCUMAN",
+   "bloque": "INDEPENDENCIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Menem, Martín",
+   "distrito": "LA RIOJA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Metral Asensio, Julieta",
+   "distrito": "MENDOZA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Michel, Guillermo",
+   "distrito": "ENTRE RIOS",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Miño, Fernanda",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Molina, Juan Carlos",
+   "distrito": "SANTA CRUZ",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Molinuevo, Soledad",
+   "distrito": "TUCUMAN",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Molle, Matías",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Mondaca, Soledad",
+   "distrito": "NEUQUEN",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Monguillot, Fernando",
+   "distrito": "CATAMARCA",
+   "bloque": "ELIJO CATAMARCA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Montenegro, Juan Pablo",
+   "distrito": "SANTA FE",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Montenegro, Guillermo",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Monzón, Roxana",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Morchio, Francisco",
+   "distrito": "ENTRE RIOS",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Moreau, Cecilia",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Moreno Ovalle, Julio",
+   "distrito": "SALTA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Moyano, Hugo Antonio",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Mukdise, Jorge",
+   "distrito": "SANTIAGO DEL ESTERO",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Muñoz, Gabriela Luciana",
+   "distrito": "NEUQUEN",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Neder, Estela Mary",
+   "distrito": "SANTIAGO DEL ESTERO",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Nieri, Lisandro",
+   "distrito": "MENDOZA",
+   "bloque": "UCR - UNIÓN CÍVICA RADICAL",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Niveyro, Miriam",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Nóblega, Sebastián",
+   "distrito": "CATAMARCA",
+   "bloque": "ELIJO CATAMARCA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Noguera, Javier",
+   "distrito": "TUCUMAN",
+   "bloque": "INDEPENDENCIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Nuñez, José",
+   "distrito": "SANTA FE",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Ojeda, Joaquín",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Olmos, Kelly",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Osuna, Blanca Inés",
+   "distrito": "ENTRE RIOS",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Outes, Pablo",
+   "distrito": "SALTA",
+   "bloque": "ARGENTINA FEDERAL",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Pagano, Marcela Marina",
+   "distrito": "BUENOS AIRES",
+   "bloque": "COHERENCIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Palazzo, Sergio Omar",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Palladino, Claudia María",
+   "distrito": "CATAMARCA",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Pareja, Sebastián",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Parola, María Graciela",
+   "distrito": "FORMOSA",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Patiño Brizuela, Marcos",
+   "distrito": "CORDOBA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Pauli, Santiago",
+   "distrito": "TIERRA DEL FUEGO",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Paulón, Esteban",
+   "distrito": "SANTA FE",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Pedrali, Gabriela",
+   "distrito": "LA RIOJA",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Pellegrini, Agustín",
+   "distrito": "SANTA FE",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Pelli, Federico Agustín",
+   "distrito": "TUCUMAN",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Peluc, José",
+   "distrito": "SAN JUAN",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Penacca, Paula Andrea",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Petri, Luis",
+   "distrito": "MENDOZA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Petrovich, María Lorena",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Picat, Luis Albino",
+   "distrito": "CORDOBA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Pichetto, Miguel Ángel",
+   "distrito": "BUENOS AIRES",
+   "bloque": "ENCUENTRO FEDERAL",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Picón Martínez, Nancy Viviana",
+   "distrito": "SAN JUAN",
+   "bloque": "PRODUCCION Y TRABAJO",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Pietragalla Corti, Horacio",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Pokoik, Lorena",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Ponce, María Celeste",
+   "distrito": "CORDOBA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Potenza, Luciana",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Propato, Agustina Lucrecia",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Quintar, Manuel",
+   "distrito": "JUJUY",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Rauschenberger, Ariel",
+   "distrito": "LA PAMPA",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Ravera, Valentina",
+   "distrito": "SANTA FE",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Razzini, Verónica",
+   "distrito": "SANTA FE",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Reichardt, Karen",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Riesco, Gastón",
+   "distrito": "NEUQUEN",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Ritondo, Cristian A.",
+   "distrito": "BUENOS AIRES",
+   "bloque": "PRO",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Rizzotti, Jorge",
+   "distrito": "JUJUY",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Roberto, Santiago Luis",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Roca, Gonzalo",
+   "distrito": "CORDOBA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Rodríguez, Miguel",
+   "distrito": "TIERRA DEL FUEGO",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Rodríguez Machado, Laura Elena",
+   "distrito": "CORDOBA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Rossi, Agustín Oscar",
+   "distrito": "SANTA FE",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Ruíz, Yamila",
+   "distrito": "MISIONES",
+   "bloque": "ARGENTINA FEDERAL",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Salzmann, Marina Dorotea",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Sánchez Wrba, Javier",
+   "distrito": "BUENOS AIRES",
+   "bloque": "PRO",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Sand, Nancy",
+   "distrito": "CORRIENTES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Santillán Juárez Brahim, Juliana",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Santurio, Santiago",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Scaglia, Gisela",
+   "distrito": "SANTA FE",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Schiaretti, Juan",
+   "distrito": "CORDOBA",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Schneider, Darío",
+   "distrito": "ENTRE RIOS",
+   "bloque": "UCR - UNIÓN CÍVICA RADICAL",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Selva, Sabrina",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Serquis, Adriana Cristina",
+   "distrito": "RIO NEGRO",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Siley, Vanesa Raquel",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Snopek, Guillermo",
+   "distrito": "JUJUY",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Soldano, Laura",
+   "distrito": "CORDOBA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Strada, Julia",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Taiana, Jorge",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Tailhade, Rodolfo",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Tepp, Caren",
+   "distrito": "SANTA FE",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Tita, Paulo Agustín",
+   "distrito": "TIERRA DEL FUEGO",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Todero, Pablo",
+   "distrito": "NEUQUEN",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Tolosa Paz, Victoria",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Tomassoni, Yamile",
+   "distrito": "SANTA FE",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Torres, Rubén Darío",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Torres, Alejandra",
+   "distrito": "CORDOBA",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Tortoriello, Aníbal",
+   "distrito": "RIO NEGRO",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Tournier, José Federico",
+   "distrito": "CORRIENTES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Treffinger, César",
+   "distrito": "CHUBUT",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Trotta, Nicolás Alfredo",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Urien, Hernán",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Valdés, Eduardo Félix",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Vancsik, Daniel",
+   "distrito": "MISIONES",
+   "bloque": "ARGENTINA FEDERAL",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Vásquez, Patricia",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Vega, Yolanda",
+   "distrito": "SALTA",
+   "bloque": "ARGENTINA FEDERAL",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Velázquez, M. Elena",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Vera, Andrea Fernanda",
+   "distrito": "BUENOS AIRES",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Verasay, Pamela Fernanda",
+   "distrito": "MENDOZA",
+   "bloque": "UCR - UNIÓN CÍVICA RADICAL",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Villaverde, Lorena",
+   "distrito": "RIO NEGRO",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Visconti, Gino",
+   "distrito": "LA RIOJA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Volnovich, Luana",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Yasky, Hugo",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Yedlin, Pablo Raúl",
+   "distrito": "TUCUMAN",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Yeza, Martín",
+   "distrito": "BUENOS AIRES",
+   "bloque": "PRO",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Zago, Oscar",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "MID - MOVIMIENTO DE INTEGRACIÓN Y DESARROLLO",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Zapata, Carlos Raúl",
+   "distrito": "SALTA",
+   "bloque": "LA LIBERTAD AVANZA",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Zaracho, Natalia",
+   "distrito": "BUENOS AIRES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Zigarán, María Inés",
+   "distrito": "JUJUY",
+   "bloque": "PROVINCIAS UNIDAS",
+   "mandato": "2025-2029"
+  },
+  {
+   "nombre": "Zulli, Christian Alejandro",
+   "distrito": "CORRIENTES",
+   "bloque": "UNIÓN POR LA PATRIA",
+   "mandato": "2023-2027"
+  },
+  {
+   "nombre": "Diputada pendiente de incorporación",
+   "distrito": "CIUDAD DE BUENOS AIRES",
+   "bloque": "",
+   "mandato": ""
+  }
+ ]
+}

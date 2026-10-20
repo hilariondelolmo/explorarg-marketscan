@@ -22,6 +22,7 @@ const RUTAS_REFORMA = [
   '/propuesta-optimizada',
   '/analisis-dictamen',
   '/mapa-recinto',
+  '/mapa-diputados',
   '/mapa-firmas',
   '/cinco-minutos',
   '/que-se-juega-en-diputados',

@@ -22,6 +22,7 @@ const PropuestaOptimizada = lazy(() => import('./pages/PropuestaOptimizada.jsx')
 const AnalisisDictamen = lazy(() => import('./pages/AnalisisDictamen.jsx'));
 const MapaFirmas = lazy(() => import('./pages/MapaFirmas.jsx'));
 const MapaRecinto = lazy(() => import('./pages/MapaRecinto.jsx'));
+const MapaDiputados = lazy(() => import('./pages/MapaDiputados.jsx'));
 const ImpresoLey = lazy(() => import('./pages/ImpresoLey.jsx'));
 const ImpresoA3 = lazy(() => import('./pages/ImpresoA3.jsx'));
 const Infografia = lazy(() => import('./pages/Infografia.jsx'));
@@ -63,6 +64,7 @@ export default function App() {
           <Route path="/analisis-dictamen" element={<AnalisisDictamen />} />
           <Route path="/mapa-firmas" element={<MapaFirmas />} />
           <Route path="/mapa-recinto" element={<MapaRecinto />} />
+          <Route path="/mapa-diputados" element={<MapaDiputados />} />
           <Route path="/impreso-reforma-27640" element={<ImpresoLey />} />
           <Route path="/impreso-a3" element={<ImpresoA3 />} />
           <Route path="/infografia" element={<Infografia />} />

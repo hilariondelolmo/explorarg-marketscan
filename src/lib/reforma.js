@@ -20,6 +20,7 @@ export const PAGINAS_SENADORES = [
 export const PAGINAS_DIPUTADOS = [
   { id: 'que-se-juega', label: 'Qué pasa y qué se juega en Diputados', to: '/que-se-juega-en-diputados' },
   { id: 'propia-vara', label: 'Ley de biocombustibles - El proyecto medido contra su propia vara', to: '/ley-biocombustibles-propia-vara' },
+  { id: 'mapa-diputados', label: 'Mapa de Diputados', to: '/mapa-diputados' },
 ];
 
 // Diputados primero, a la izquierda (al lado irán más títulos); Senadores al
