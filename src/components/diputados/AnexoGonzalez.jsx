@@ -5,15 +5,19 @@ import './anexoGonzalez.css';
 /**
  * Anexo 1 de "Qué pasa y qué se juega en Diputados": "Lo que dijo González y
  * lo que dicen los datos" (plenario de Minería y Presupuesto del Senado,
- * 3/6/2026). Las ocho afirmaciones de Daniel González, secretario de
- * Coordinación de Energía y Minería, con la cita literal, el veredicto y la
- * lámina completa de la serie (public/evidencia/gonzalez/, las mismas del
- * video) en un pop-up. Textos de las láminas del 13/10/2026 (borrador,
- * HDO los revisa en la página). Pedido de HDO, 19/10/2026.
+ * 3/6/2026). Las nueve afirmaciones de Daniel González, secretario de
+ * Coordinación de Energía y Minería (la 0 se sumó el 20/10/2026: el porqué
+ * del corte según los fundamentos del S-809), con la cita literal, el
+ * veredicto y la lámina completa de la serie (public/evidencia/gonzalez/, las
+ * mismas del video) en un pop-up. Textos de las láminas del 13 y el 20/10/2026
+ * (borrador, HDO los revisa en la página). Pedido de HDO, 19/10/2026.
  */
 const IMG = (n) => `/evidencia/gonzalez/gonzalez_afirmacion_0${n}.png`;
 
 export const AFIRMACIONES = [
+  { n: 0, tema: 'El porqué del corte', minuto: '0:34',
+    cita: 'Ese proyecto implica un aumento del corte de dos puntos y medio en el biodiésel y de tres puntos en el etanol. Como todo proyecto que implica un aumento de corte de biocombustibles, tiene ganadores, perdedores, afectados. El sector que más nos importa a nosotros, del Ejecutivo, es el consumidor.',
+    veredicto: 'No dice por qué se sube el corte; los fundamentos del S-809 sí: menos emisiones y precio protegido de la volatilidad. El ganador es la sociedad, es decir el consumidor. Y una ley no tiene que elegir perdedores.' },
   { n: 1, tema: 'El precio del biodiésel', minuto: '1:12',
     cita: 'El biodiésel tiene un costo muchísimo más alto que el fósil con el cual se mezcla. Antes de esta suba del precio del petróleo estábamos hablando de una diferencia de 80% por arriba del fósil. Ahora estamos en un número menor, pero todavía sustancialmente más alto.',
     veredicto: 'Contra el gas oil fósil que se mezcla era 50%, no 80%. Y el día que habló, 1%.' },
@@ -32,8 +36,8 @@ export const AFIRMACIONES = [
   { n: 6, tema: 'Cupos y competencia', minuto: '4:18',
     cita: 'El otro problema que tiene la ley actual es que funciona con cupos. Nosotros no creemos en cupos, creemos en la competencia. En el biodiésel, que esa competencia se vaya dando en el tiempo con una reducción gradual de los cupos en cinco años.',
     veredicto: 'El texto que apoya asigna cupos con topes por ley hasta 2036. Y la competencia la abre de un solo lado: el de los que venden, no el de los cuatro que compran.' },
-  { n: 7, tema: 'Ganadores y perdedores', minuto: '0:43 y 5:02',
-    cita: 'Como todo proyecto que implique un aumento de corte de biocombustibles, tiene ganadores, perdedores, afectados. [...] Se me hace difícil imaginar un proyecto de mayor consenso que este. Los productores del biodiésel, algunos más y otros menos, pero no están totalmente alineados.',
+  { n: 7, tema: 'Ganadores y perdedores', minuto: '5:02',
+    cita: 'Entendemos que esto es sumamente difícil, que hay ganadores y perdedores. Se me hace difícil imaginar un proyecto de mayor consenso que este, entendiendo que el consenso absoluto no va a existir. Los productores del biodiésel, algunos más y otros menos, pero no están totalmente alineados.',
     veredicto: 'Los perdedores no los hace el corte: los eligen los topes y las definiciones (arts. 36 y 39). Y el "mayor consenso" salió 41 a 25.' },
   { n: 8, tema: 'Mezcla estable', minuto: '5:43',
     cita: 'Las compañías automotrices tienen que calibrar motores para una mezcla que tiene que ser predecible y estable. Por eso, lo que se propone en este proyecto de ley, de que estas mezclas mínimas permanezcan por 15 años, también nos parece una buena idea.',
@@ -124,9 +128,9 @@ export default function AnexoGonzalez() {
       </div>
 
       <div className="agz-marcador" role="note">
-        <span className="agz-marcador-n">8</span>
+        <span className="agz-marcador-n">9</span>
         <span className="agz-marcador-texto">afirmaciones, contrastadas una por una con los datos</span>
-        <span className="agz-marcador-n agz-marcador-rojo">8</span>
+        <span className="agz-marcador-n agz-marcador-rojo">9</span>
         <span className="agz-marcador-texto">sellos: <b>FALSO</b></span>
       </div>
 

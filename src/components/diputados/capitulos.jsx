@@ -441,7 +441,7 @@ export const armarCapitulos = (esq = false) => [
     titulo: 'Lo que dijo el secretario de Coordinación de Energía y Minería, licenciado Daniel González, y lo que dicen los datos',
     subtitulo: 'Lic. Daniel González (ex CEO de YPF)',
     pal: AZUL,
-    frase: 'Lic. Daniel González (ex CEO de YPF). Ocho afirmaciones en el plenario del Senado del 3 de junio de 2026, contrastadas una por una con los datos. Ocho sellos: FALSO.',
+    frase: 'Lic. Daniel González (ex CEO de YPF). Nueve afirmaciones en el plenario del Senado del 3 de junio de 2026, contrastadas una por una con los datos. Nueve sellos: FALSO.',
     cuerpo: <AnexoGonzalez />,
   },
   {
