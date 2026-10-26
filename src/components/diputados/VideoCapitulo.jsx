@@ -4,7 +4,7 @@ import DATOS from '../../data/diputados_videos.json';
 import './VideoCapitulo.css';
 
 /**
- * Los ocho capítulos del artículo "Biodiésel en la Argentina: qué pasa y qué
+ * Los ocho capítulos del artículo "Biodiésel en la Argentina: qué se discute y qué
  * se juega en Diputados" tienen su video en YouTube (canal Explora Biodiesel,
  * lista PLeGmxZ8X_cyE, subidos el 19/10/2026). Acá viven las tres piezas que
  * los integran a la página sin cambiarle la cara (pedido de HDO, 19/10/2026):

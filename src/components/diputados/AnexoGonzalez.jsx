@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import './anexoGonzalez.css';
 
 /**
- * Anexo 1 de "Qué pasa y qué se juega en Diputados": "Lo que dijo González y
+ * Anexo 1 de "Qué se discute y qué se juega en Diputados": "Lo que dijo González y
  * lo que dicen los datos" (plenario de Minería y Presupuesto del Senado,
  * 3/6/2026). Las nueve afirmaciones de Daniel González, secretario de
  * Coordinación de Energía y Minería (la 0 se sumó el 20/10/2026: el porqué

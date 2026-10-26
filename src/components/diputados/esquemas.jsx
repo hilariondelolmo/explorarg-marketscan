@@ -6,7 +6,7 @@ import DiagramaMercado from './DiagramaMercado.jsx';
 
 /**
  * Esquemas, bloques y flujos de la versión "con esquemas" del artículo
- * "Biodiésel en la Argentina: qué pasa y qué se juega en Diputados".
+ * "Biodiésel en la Argentina: qué se discute y qué se juega en Diputados".
  * Cada esquema usa solo cifras y frases del artículo (su título es, cuando
  * se puede, una oración literal). Son HTML y CSS (QueSeJuegaDiputados.css,
  * sección "Esquemas"): toman el color del capítulo (--acc / --acc-bg) y

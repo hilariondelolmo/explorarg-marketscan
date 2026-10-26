@@ -8,7 +8,7 @@ import './ReformaLey.css';
 import './QueSeJuegaDiputados.css';
 
 /**
- * "Biodiésel en la Argentina: qué pasa y qué se juega en Diputados"
+ * "Biodiésel en la Argentina: qué se discute y qué se juega en Diputados"
  * (Hilarión Del Olmo, 13/10/2026): apertura de la pestaña Cámara de
  * Diputados de la sección Reforma Ley 27.640.
  *
@@ -55,7 +55,7 @@ export default function QueSeJuegaDiputados({ esquemas = false }) {
             <div className={`ar-encabezado-fila ${esquemas ? 'dip-sin-linea' : ''}`}>
               <div>
                 <div className="kicker">Cámara de Diputados · Reforma Ley 27.640{!esquemas && ' · versión de texto (respaldo)'}</div>
-                <h1>Biodiésel en la Argentina: qué pasa y qué se juega en Diputados</h1>
+                <h1>Biodiésel en la Argentina: qué se discute y qué se juega en Diputados</h1>
                 {/* La firma va debajo del título general, a la derecha, y queda fija al scrollear
                     también en la portada (HDO, 19/10/2026); en la portada lleva la fecha */}
                 {esquemas && (

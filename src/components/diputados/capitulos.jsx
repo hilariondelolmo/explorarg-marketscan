@@ -6,7 +6,7 @@ import AnexoGonzalez from './AnexoGonzalez.jsx';
 import * as ED from './esquemasDatos.jsx';
 
 /**
- * Texto del artículo "Biodiésel en la Argentina: qué pasa y qué se juega en
+ * Texto del artículo "Biodiésel en la Argentina: qué se discute y qué se juega en
  * Diputados" (Hilarión Del Olmo, 13/10/2026), literal del Word de HDO,
  * repartido en capítulos. Cada capítulo lleva su color (paleta del artículo
  * de Reforma), la frase del propio artículo que lo presenta en el índice y

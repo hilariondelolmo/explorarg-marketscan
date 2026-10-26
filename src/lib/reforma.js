@@ -18,7 +18,7 @@ export const PAGINAS_SENADORES = [
 // La versión de texto del artículo sigue en /que-se-juega-en-diputados-texto
 // como respaldo, fuera del menú (HDO, 19/10/2026)
 export const PAGINAS_DIPUTADOS = [
-  { id: 'que-se-juega', label: 'Qué pasa y qué se juega en Diputados', to: '/que-se-juega-en-diputados' },
+  { id: 'que-se-juega', label: 'Qué se discute y qué se juega en Diputados', to: '/que-se-juega-en-diputados' },
   { id: 'propia-vara', label: 'Ley de biocombustibles - El proyecto medido contra su propia vara', to: '/ley-biocombustibles-propia-vara' },
   { id: 'mapa-diputados', label: 'Mapa de Diputados', to: '/mapa-diputados' },
 ];
