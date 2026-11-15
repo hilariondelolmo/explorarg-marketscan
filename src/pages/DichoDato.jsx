@@ -91,7 +91,7 @@ function Indice() {
   return (
     <>
       <p className="dd-bajada">{SERIE.texto}</p>
-      <p className="dd-bajada">{SERIE.cuenta} Tocá un episodio para ver el video, el detalle con sus fuentes y, en algunos, los datos para explorar.</p>
+      <p className="dd-bajada">{SERIE.cuenta} Tocá un episodio para ver el video y el detalle con sus fuentes. {Object.keys(CONTROLES).length} episodios suman una herramienta interactiva para profundizar el análisis.</p>
 
       <div className="dd-filtros">
         <Filtro
@@ -133,7 +133,18 @@ function Indice() {
                   <span className="dd-tarjeta-tema">{mayuscula(e.tema)}</span>
                   <span className="dd-tarjeta-pie">
                     <span className="dd-sello">{e.sello_corto}</span>
-                    {CONTROLES[e.n] && <span className="dd-marca">Con datos para explorar</span>}
+                    {/* La marca nombra lo que solo estos episodios tienen (la herramienta),
+                        no los datos: todos los episodios están hechos con datos. */}
+                    {CONTROLES[e.n] && (
+                      <span className="dd-marca">
+                        <svg viewBox="0 0 12 12" aria-hidden="true">
+                          <path d="M1 3.5h10M1 8.5h10" />
+                          <circle cx="4" cy="3.5" r="1.6" />
+                          <circle cx="8" cy="8.5" r="1.6" />
+                        </svg>
+                        Interactivo para profundizar
+                      </span>
+                    )}
                   </span>
                 </span>
               </Link>
