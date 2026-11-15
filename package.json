@@ -6,7 +6,7 @@
   "description": "Tablero interactivo del mercado argentino de biodiesel",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/og_html.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
