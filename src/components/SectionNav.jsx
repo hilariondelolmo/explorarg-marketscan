@@ -20,6 +20,8 @@ const ANCHO_MENU = 190; // ancho mínimo del menú, para que no se salga de la p
  * derecha (el "Cómo se usa" que abre el tutorial en video de la página).
  * Una sección con `derecha` se empuja al extremo derecho de la fila (Cámara de
  * Senadores en Reforma, HDO 19/10/2026); las demás quedan a la izquierda.
+ * Una sección con `subrutas` sigue marcada como activa en las páginas que
+ * cuelgan de su ruta (Del dicho al dato: /del-dicho-al-dato/N).
  * En dispositivos con puntero, la pestaña con menú se despliega al pasar el
  * mouse y se cierra al salir del botón y del menú (HDO, 19/10/2026); el clic
  * sigue alternándola, y en táctil solo funciona el toque.
@@ -41,7 +43,7 @@ export default function SectionNav({ sections, basePath, accion }) {
               ) : rutas ? (
                 <NavLink
                   to={ruta(s)}
-                  end
+                  end={!s.subrutas}
                   className={({ isActive }) => (isActive ? 'active' : '')}
                 >
                   {s.label}

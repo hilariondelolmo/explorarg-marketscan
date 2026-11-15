@@ -29,6 +29,7 @@ const RUTAS_REFORMA = [
   '/ley-biocombustibles-propia-vara',
   '/cepreb-quiere-repartir',
   '/respuesta-documento-cepreb',
+  '/del-dicho-al-dato',
 ];
 
 const MQ_ANGOSTO = '(max-width: 560px)';

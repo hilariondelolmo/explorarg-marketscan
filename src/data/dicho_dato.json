@@ -1,0 +1,1509 @@
+{
+ "meta": {
+  "generado": "2026-11-15 04:31",
+  "nota": "Generado por scripts/dicho_dato_json.py desde output/video-dicho-dato - no editar a mano",
+  "total": 29,
+  "playlist": "PLAZvJgHCG9cI"
+ },
+ "serie": {
+  "titulo": "Del dicho al dato",
+  "texto": "Del dicho al dato es una serie de 29 videos cortos sobre la ley de biocombustibles que tiene media sanción del Senado (CD-76/26, hoy en la Cámara de Diputados): catorce frases de la senadora Patricia Bullrich en el recinto, el 17/9/2026; nueve del Lic. Daniel González, entonces secretario de Coordinación de Energía y Minería, en el plenario de comisiones del 3/6/2026; y seis de Gustavo Idígoras, presidente de la cámara aceitera CIARA, en el programa UpRiver del 4/11/2026. Cada video abre con la declaración y sigue con lo que dicen el texto aprobado y los datos de la Secretaría de Energía.",
+  "cuenta": "De las veintinueve frases, veinte son falsas, dos aplican doble vara, dos son arbitrariedades regulatorias, una no tiene explicación, una es una descalificación, una es una verdad a medias y dos callan lo que importa.",
+  "firma": "Hilarión Del Olmo - Presidente de Explora S.A."
+ },
+ "pedido": {
+  "texto": "Diputados debe eliminar el máximo de 50.000 t del artículo 39 a) i. Si se fija un límite, debe ser el mismo para la empresa no integrada independiente y para el grupo económico.",
+  "fuente": "Media sanción del Senado (CD-76/26), artículo 39, inciso a): apartado i, por empresa elaboradora, 10% con un tope máximo de 50.000 t; apartado ii, por grupo económico, 10%."
+ },
+ "oradores": {
+  "B": {
+   "nombre": "Bullrich",
+   "quien": "Senadora Patricia Bullrich",
+   "de": "La senadora Bullrich, cierre del debate en el Senado, 17/9/2026"
+  },
+  "G": {
+   "nombre": "González",
+   "quien": "Lic. Daniel González",
+   "de": "Daniel González, plenario de comisiones del Senado, 3/6/2026"
+  },
+  "I": {
+   "nombre": "Idígoras",
+   "quien": "Gustavo Idígoras",
+   "de": "Gustavo Idígoras, presidente de CIARA, en el programa UpRiver (conduce Nicolás Carugatti), 4/11/2026"
+  }
+ },
+ "episodios": [
+  {
+   "n": 1,
+   "orador": "B",
+   "tema": "de los cupos al mercado",
+   "cita": "A un mercado con reglas",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«(...) pasar de un sistema basado en cupos, de precios administrados y decisiones discrecionales, a un mercado con reglas. Reglas conocidas, competencia, transparencia y previsibilidad».",
+   "dicho_despues": [],
+   "quien": "Senadora Patricia Bullrich, cierre del debate de la ley de biocombustibles en el Senado, 17/9/2026, 21:46 (hora de Senado TV).",
+   "resumen": "El artículo 38 de la media sanción se titula «Mezclas obligatorias, cupos y precios» y establece un «modelo para la asignación de cupos»: los fija por ley, período por período, hasta 2036. El artículo 39 suma topes: 10% por empresa con un máximo de 50.000 t, 10% por grupo económico y 20% reservado a regiones. Y quedan a criterio de la autoridad cuánto es el corte (art. 12), cómo se negocia (art. 14), qué regiones se llevan el 20% y cuándo se importa (art. 24). El cupo sigue, los topes son por ley y lo decisivo queda a criterio de la autoridad.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "c3",
+     "pregunta": "¿Terminar con los cupos?",
+     "html": "<div class=\"ddv-sello ddv-h\">Artículo 38 · el título</div><div class=\"ddv-tit ddv-md\">«Mezclas obligatorias, <span class=\"ddv-r\">cupos</span> y precios»</div><div class=\"ddv-cita\">«...corresponderá el siguiente <mark>modelo para la asignación de cupos</mark> y definición de precios:»</div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 38: «Mezclas obligatorias, cupos y precios. Biodiesel.» Textual."
+    },
+    {
+     "id": "c4",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Artículo 38 · la tabla</div><div class=\"ddv-sub\">Puntos del corte para las <b>empresas no integradas</b>, fijados por ley:</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">Mientras rija el 7,5%</div><div class=\"ddv-tn ddv-ch\">7,5 de 7,5</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Hasta 2028</div><div class=\"ddv-tn ddv-ch\">6,5 de 10</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">2029</div><div class=\"ddv-tn ddv-ch\">5,5 de 10</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">2030</div><div class=\"ddv-tn ddv-ch\">5 de 10</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">2031 a 2035</div><div class=\"ddv-tn ddv-ch\">4 de 10</div></div></div><div class=\"ddv-sub ddv-ch\">Período por período, hasta el 1° de enero de 2036.</div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 38, tabla: fila «Empresas No Integradas» sobre el corte obligatorio total de cada período."
+    },
+    {
+     "id": "t4",
+     "pregunta": "¿Competencia?",
+     "html": "<div class=\"ddv-sello ddv-h\">Artículo 39 · hasta 2036</div><div class=\"ddv-tit ddv-lg\">Topes escritos en la ley.</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">Por empresa<small>Con un tope máximo de 50.000 t</small></div><div class=\"ddv-tn\">10%</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Por grupo económico<small>Sin máximo en toneladas</small></div><div class=\"ddv-tn\">10%</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Para regiones geográficas<small>Del biodiésel de cada año</small></div><div class=\"ddv-tn\">20%</div></div></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartados i, ii y iv. Rigen durante el período de transición del artículo 38."
+    },
+    {
+     "id": "d5",
+     "pregunta": "¿Sin decisiones discrecionales?",
+     "html": "<div class=\"ddv-sello\">A criterio de la autoridad</div><div class=\"ddv-it\"><b>Cuánto es el corte</b><small>Puede cambiarlo <i>«cuando lo considere conveniente»</i> · art. 12</small></div><div class=\"ddv-it\"><b>Cómo se negocia</b><small><i>«Determinará (...) la modalidad»</i>, con una consulta no vinculante · art. 14</small></div><div class=\"ddv-it\"><b>Qué regiones se llevan el 20%</b><small>Art. 39</small></div><div class=\"ddv-it\"><b>Cuándo se importa</b><small><i>«Podrá autorizar la importación»</i> · art. 24</small></div>",
+     "fuente": "Media sanción del Senado (CD-76/26): artículos 12 (tercer párrafo), 14 (último párrafo), 39 a) iv y 24. Textual; el resaltado es nuestro."
+    },
+    {
+     "id": "r3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">El cupo sigue.</div><div class=\"ddv-tit ddv-lg\">Los topes son por ley.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Y lo decisivo</span> <span class=\"ddv-r\">queda a criterio</span> <span class=\"ddv-r\">de la autoridad.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Media sanción del Senado (CD-76/26), artículo 38: «Mezclas obligatorias, cupos y precios. Biodiesel.» Textual.",
+    "Media sanción del Senado (CD-76/26), artículo 38, tabla: fila «Empresas No Integradas» sobre el corte obligatorio total de cada período.",
+    "Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartados i, ii y iv. Rigen durante el período de transición del artículo 38.",
+    "Media sanción del Senado (CD-76/26): artículos 12 (tercer párrafo), 14 (último párrafo), 39 a) iv y 24. Textual; el resaltado es nuestro."
+   ],
+   "youtube": "mXwc65sMFhY",
+   "duracion": "1:00",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 2,
+   "orador": "B",
+   "tema": "ganadores y ganadores",
+   "cita": "Hay ganadores y ganadores",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«No hay ganadores y perdedores. Hay ganadores y ganadores. Esto es win-win, no es perdedores».",
+   "dicho_despues": [],
+   "quien": "Senadora Patricia Bullrich, cierre del debate de la ley de biocombustibles en el Senado, 17/9/2026, 22:05 (hora de Senado TV).",
+   "resumen": "El texto reparte. Suben por reglamento las seis integradas (la negociación libre pasa de 0 a 6 puntos del corte: 735.000 t por año desde 2031, sin tope), los cuatro mezcladores (gas oil coprocesado exento: USD 148 millones por año) y los grupos económicos (10% sin máximo en toneladas). Bajan por reglamento Unitec Bio, Explora y Diaser (el máximo de 50.000 t les saca 42.000 t a cada una el primer año), las 24 no integradas (de 746.000 t hoy a 490.000 t por año de 2031 a 2035) y el fisco. Lo que una columna gana, otra lo pierde: un reglamento que elige al campeón no es win-win.",
+   "pedido": true,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-xl\">El texto reparte.</div><div class=\"ddv-par\"><div><div class=\"ddv-k\">Suben</div><div class=\"ddv-e\">Por reglamento</div></div><div class=\"ddv-r\"><div class=\"ddv-k\">Bajan</div><div class=\"ddv-e\">Por reglamento</div></div></div>",
+     "fuente": ""
+    },
+    {
+     "id": "s3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Suben por reglamento</div><div class=\"ddv-it\"><b>Las 6 integradas</b><small>Negociación libre: de 0 a 6 puntos del corte. <i>735.000 t por año</i> desde 2031, sin tope.</small></div><div class=\"ddv-it\"><b>Los 4 mezcladores</b><small>Su gas oil coprocesado, exento de impuestos: <i>USD 148 millones</i> por año.</small></div><div class=\"ddv-it\"><b>Los grupos económicos</b><small>10% por grupo, <i>sin máximo en toneladas</i>.</small></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículos 18, 34, 38 y 39. 6% de 13.850.000 m³ de gas oil por año: 735.000 t. Exención de ICL e ICO2 sobre el 5% del gas oil (692.000 m³): USD 148 millones por año si se coprocesa el máximo."
+    },
+    {
+     "id": "b3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Bajan por reglamento</div><div class=\"ddv-it\"><b>Unitec Bio, Explora y Diaser</b><small>El máximo de 50.000 t les saca <i>42.000 t a cada una</i> el primer año.</small></div><div class=\"ddv-it\"><b>Las 24 no integradas</b><small>De 746.000 t hoy a <i>490.000 t</i> por año, de 2031 a 2035.</small></div><div class=\"ddv-it\"><b>El fisco</b><small><i>USD 148 millones</i> por año que deja de cobrar.</small></div>",
+     "fuente": "Artículo 39 a) i: 10% de 919.294 t = 91.929 t, con un máximo de 50.000 t. Ventas al corte de las no integradas, octubre de 2025 a septiembre de 2026: 746.207 t (Secretaría de Energía). 4% de 13.850.000 m³ de gas oil: 490.000 t."
+    },
+    {
+     "id": "r3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-md\">Lo que una columna gana, otra lo pierde.</div><div class=\"ddv-tit ddv-md\">Nadie sube ni baja por haber jugado mejor.</div><div class=\"ddv-tit ddv-md\"><span class=\"ddv-r\">Un reglamento</span> <span class=\"ddv-r\">que elige</span> <span class=\"ddv-r\">al campeón</span> <span class=\"ddv-r\">no es win-win.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Media sanción del Senado (CD-76/26), artículos 18, 34, 38 y 39. 6% de 13.850.000 m³ de gas oil por año: 735.000 t. Exención de ICL e ICO2 sobre el 5% del gas oil (692.000 m³): USD 148 millones por año si se coprocesa el máximo.",
+    "Artículo 39 a) i: 10% de 919.294 t = 91.929 t, con un máximo de 50.000 t. Ventas al corte de las no integradas, octubre de 2025 a septiembre de 2026: 746.207 t (Secretaría de Energía). 4% de 13.850.000 m³ de gas oil: 490.000 t.",
+    "Media sanción del Senado (CD-76/26), artículo 39, inciso a): apartado i, por empresa elaboradora, 10% con un tope máximo de 50.000 t; apartado ii, por grupo económico, 10%."
+   ],
+   "youtube": "q2h6YdtrDS8",
+   "duracion": "1:13",
+   "borrador": 3,
+   "miniatura": true
+  },
+  {
+   "n": 3,
+   "orador": "B",
+   "tema": "el coprocesamiento",
+   "cita": "Esto es el 10 más el 5 de este coprocesamiento",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«Esto lleva el corte al 15 que están planteando. Esto es el 10 más el 5 de este coprocesamiento. Es decir, que de alguna manera podrían votar el proyecto porque estamos llegando a ese 15».",
+   "dicho_despues": [],
+   "quien": "Senadora Patricia Bullrich, cierre del debate de la ley de biocombustibles en el Senado, 17/9/2026, 22:03 (hora de Senado TV).",
+   "resumen": "El artículo 18 de la media sanción dice lo contrario: los mezcladores «no podrán considerar su volumen a los efectos del cómputo de la mezcla del corte obligatorio». Diez más cinco es diez. El 5% es una exención de impuestos (art. 34): hasta USD 148 millones por año que el Estado deja de cobrar, para los mezcladores que además son refinadores. Nadie tiene que mezclar un litro más de biodiésel para cobrarla.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "c2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Artículo 18 · co-procesamiento</div><div class=\"ddv-tit ddv-md\">Su propia ley dice lo contrario.</div><div class=\"ddv-cita\">«(...) los mezcladores <mark>no podrán considerar su volumen a los efectos del cómputo de la mezcla del corte obligatorio</mark> de biodiesel.»</div><div class=\"ddv-tit ddv-md\"><span class=\"ddv-r\">No computa</span> <span class=\"ddv-r\">para el corte.</span></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 18, textual. El resaltado es nuestro."
+    },
+    {
+     "id": "m3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-num ddv-m\">10 + 5</div><div class=\"ddv-num ddv-m\">= <span class=\"ddv-tacha\">15</span></div><div class=\"ddv-num ddv-m ddv-r\">= 10</div>",
+     "fuente": ""
+    },
+    {
+     "id": "e3",
+     "pregunta": "¿Y el 5%?",
+     "html": "<div class=\"ddv-sello\">El 5%</div><div class=\"ddv-tit ddv-lg\">Una exención de impuestos.</div><div class=\"ddv-fila\"><div class=\"ddv-et\">Lo que el Estado deja de cobrar</div><div class=\"ddv-v ddv-r\">USD 148 millones</div><div class=\"ddv-n\">por año, si se coprocesa el máximo.</div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Para quién</div><div class=\"ddv-v\">Los que refinan</div><div class=\"ddv-n\">«Los mezcladores que a su vez sean refinadores».</div></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículos 18 y 34: ICL e ICO2 que no se cobran sobre el 5% del gas oil (692.000 m³ de 13.850.000). Impuestos de agosto de 2026 (DNIAF), dólar BNA del 17/9/2026."
+    },
+    {
+     "id": "e4",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">Nadie tiene que mezclar un litro más de biodiésel <span class=\"ddv-r\">para cobrarla.</span></div>",
+     "fuente": ""
+    },
+    {
+     "id": "r2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">El coprocesado no computa para el corte.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">El 5% es</span> <span class=\"ddv-r\">una exención</span> <span class=\"ddv-r\">de impuestos.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Media sanción del Senado (CD-76/26), artículo 18, textual. El resaltado es nuestro.",
+    "Media sanción del Senado (CD-76/26), artículos 18 y 34: ICL e ICO2 que no se cobran sobre el 5% del gas oil (692.000 m³ de 13.850.000). Impuestos de agosto de 2026 (DNIAF), dólar BNA del 17/9/2026."
+   ],
+   "youtube": "qqh0eB6OTPU",
+   "duracion": "0:50",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 4,
+   "orador": "B",
+   "tema": "el sendero del corte",
+   "cita": "Un sendero específico y previsible",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«Ahora está en un 7,5 y a los 12 meses va a aumentar al 10. Es decir que le estamos dando un margen importante». «Y se prevé un sendero específico y previsible».",
+   "dicho_despues": [],
+   "quien": "Senadora Patricia Bullrich, cierre del debate de la ley de biocombustibles en el Senado, 17/9/2026, 21:53 (hora de Senado TV).",
+   "resumen": "El 10% ya rigió de 2014 a 2020; en 2021 la ley lo bajó a 5%: volver al 10% no es un margen, es volver. El 7,5% del primer año es 6,0%: la ley manda 919.000 t y sus propios topes dejan vender 731.000; las 188.000 t que faltan, el artículo 39 b) se las abre a las integradas. Y previsible no es: el artículo 12 deja cambiar el corte «cuando lo considere conveniente»; desde 2010 cambió 12 veces y se cumplió 3 años de 16.",
+   "pedido": true,
+   "pantallas": [
+    {
+     "id": "h3",
+     "pregunta": "¿Un margen importante?",
+     "html": "<div class=\"ddv-sello ddv-h\">El corte obligatorio de biodiésel</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">2014 a 2020<small>Ley 26.093 · siete años</small></div><div class=\"ddv-tn\">10%</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">2021<small>Ley 27.640</small></div><div class=\"ddv-tn\">5%</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Desde julio de 2022</div><div class=\"ddv-tn\">7,5%</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Media sanción · primer año</div><div class=\"ddv-tn\">7,5%</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">A los doce meses<small>El corte que ya rigió</small></div><div class=\"ddv-tn\">10%</div></div></div><div class=\"ddv-tit ddv-md\">No es un margen: <span class=\"ddv-r\">es volver.</span></div>",
+     "fuente": "Secretaría de Energía, serie del corte obligatorio de biodiésel, 2010 a 2026. Media sanción del Senado (CD-76/26), artículo 12."
+    },
+    {
+     "id": "s3",
+     "pregunta": "¿7,5% el primer año?",
+     "html": "<div class=\"ddv-sello ddv-h\">El primer año</div><div class=\"ddv-fila\"><div class=\"ddv-et\">Lo que la ley manda · art. 38</div><div class=\"ddv-v\">919.000 <span class=\"ddv-min\">t</span></div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Lo que sus topes dejan vender · art. 39</div><div class=\"ddv-v\">731.000 <span class=\"ddv-min\">t</span></div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">El corte que da esa cuenta</div><div class=\"ddv-v ddv-r\">6,0%</div><div class=\"ddv-n\">No 7,5%.</div></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículos 38 y 39 a). 7,5% de 13.850.000 m³ de gas oil: 919.294 t; con los topes del artículo 39: 730.988 t (planilla de Explora «Art. 39», revisión 1). 730.988 / 0,885 / 13.850.000 = 5,96%."
+    },
+    {
+     "id": "s4",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Faltan</div><div class=\"ddv-tit\"><span class=\"ddv-r\">188.000 <span class=\"ddv-min\">t</span></span></div><div class=\"ddv-sub\">Artículo 39, inciso b): se negocian libremente «entre elaboradores y mezcladores».</div><div class=\"ddv-tit ddv-md\">La ley se las abre a las integradas.</div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 39, inciso b). 919.294 - 730.988 = 188.306 t."
+    },
+    {
+     "id": "p3",
+     "pregunta": "¿Previsible?",
+     "html": "<div class=\"ddv-sello ddv-h\">Artículo 12</div><div class=\"ddv-cita\">«La Autoridad de Aplicación podrá modificar excepcionalmente el referido porcentaje obligatorio <mark>cuando lo considere conveniente</mark> (...)»</div><div class=\"ddv-par\"><div><div class=\"ddv-k\">12 veces</div><div class=\"ddv-e\">cambió el corte desde 2010</div></div><div class=\"ddv-r\"><div class=\"ddv-k\">3 de 16</div><div class=\"ddv-e\">años en que se cumplió</div></div></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 12, tercer párrafo, textual. Secretaría de Energía, corte obligatorio y corte real por año, 2010 a 2025."
+    },
+    {
+     "id": "r3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">El 10% es volver a 2014.</div><div class=\"ddv-tit ddv-lg\">El 7,5% es 6.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Y la autoridad</span> <span class=\"ddv-r\">puede cambiarlo</span> <span class=\"ddv-r\">cuando quiera.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Secretaría de Energía, serie del corte obligatorio de biodiésel, 2010 a 2026. Media sanción del Senado (CD-76/26), artículo 12.",
+    "Media sanción del Senado (CD-76/26), artículos 38 y 39 a). 7,5% de 13.850.000 m³ de gas oil: 919.294 t; con los topes del artículo 39: 730.988 t (planilla de Explora «Art. 39», revisión 1). 730.988 / 0,885 / 13.850.000 = 5,96%.",
+    "Media sanción del Senado (CD-76/26), artículo 39, inciso b). 919.294 - 730.988 = 188.306 t.",
+    "Media sanción del Senado (CD-76/26), artículo 12, tercer párrafo, textual. Secretaría de Energía, corte obligatorio y corte real por año, 2010 a 2025.",
+    "Media sanción del Senado (CD-76/26), artículo 39, inciso a): apartado i, por empresa elaboradora, 10% con un tope máximo de 50.000 t; apartado ii, por grupo económico, 10%."
+   ],
+   "youtube": "DCe3FQ8snvQ",
+   "duracion": "1:04",
+   "borrador": 2,
+   "miniatura": true
+  },
+  {
+   "n": 5,
+   "orador": "B",
+   "tema": "la exportación a Europa",
+   "cita": "Los países europeos nos han cerrado el mercado",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«Si hemos firmado el acuerdo con la Unión Europea y los países europeos nos han cerrado el mercado a nuestros biocombustibles, la verdad es que tenemos que lograr volverlos a abrir».",
+   "dicho_despues": [],
+   "quien": "Senadora Patricia Bullrich, cierre del debate de la ley de biocombustibles en el Senado, 17/9/2026, 21:48 (hora de Senado TV).",
+   "resumen": "Europa sancionó un subsidio, las retenciones diferenciales: derechos antidumping en 2013 y compensatorios en 2019. Ese mismo año las integradas firmaron un acuerdo: 1,2 millones de t por año sin arancel, con precio mínimo, que Europa mantuvo en 2025. En las cuatro semanas previas al discurso salieron cinco buques a Europa con 126.200 t. Para quien está cerrado es para las no integradas: 0 t exportadas desde 2008; para entrar pagarían 25 a 33,4%.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": "¿Europa cerró el mercado?",
+     "html": "<div class=\"ddv-sello ddv-h\">Lo que hizo Europa</div><div class=\"ddv-tit ddv-lg\">Sancionó un subsidio.</div><div class=\"ddv-sub\">Las <b>retenciones diferenciales</b> de la Argentina al biodiésel.</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">2013 · Unión Europea<small>Derechos antidumping</small></div><div class=\"ddv-tn ddv-ch\">22 a 25,7%</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">2019 · Unión Europea<small>Derechos compensatorios</small></div><div class=\"ddv-tn ddv-ch\">25 a 33,4%</div></div></div>",
+     "fuente": "Comisión Europea: derechos antidumping de 2013 y Reglamento (UE) 2019/244, derechos compensatorios."
+    },
+    {
+     "id": "b2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Acuerdo de 2019</div><div class=\"ddv-fila\"><div class=\"ddv-et\">Las integradas y la Unión Europea</div><div class=\"ddv-v ddv-r\">1,2 millones de <span class=\"ddv-min\">t</span></div><div class=\"ddv-n\">por año, sin arancel, con precio mínimo.</div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">2025</div><div class=\"ddv-v\">Sigue vigente.</div><div class=\"ddv-n\">Europa lo mantuvo.</div></div>",
+     "fuente": "Comisión Europea: Decisión (UE) 2019/245 y Reglamento (UE) 2025/835. El volumen de 1,2 millones de t es el informado al firmarse el acuerdo."
+    },
+    {
+     "id": "c2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Las cuatro semanas previas al discurso</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">Ionian Star<small>15 de agosto · Bélgica</small></div><div class=\"ddv-tn ddv-ch\">40.000 t</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Precious Adelaide<small>19 de agosto · Países Bajos</small></div><div class=\"ddv-tn ddv-ch\">30.200 t</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Hafnia Ane<small>28 de agosto · Bélgica</small></div><div class=\"ddv-tn ddv-ch\">30.000 t</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Atlantic Infinity<small>6 de septiembre · Países Bajos</small></div><div class=\"ddv-tn ddv-ch\">13.000 t</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Atlantic Rosa<small>12 de septiembre · Países Bajos</small></div><div class=\"ddv-tn ddv-ch\">13.000 t</div></div><div class=\"ddv-fl ddv-tot ddv-r\"><div class=\"ddv-nm\">Cinco buques a Europa</div><div class=\"ddv-tn\">126.200 t</div></div></div>",
+     "fuente": "Line-up de buques de San Lorenzo y Rosario, 15/8 al 12/9/2026. Vendieron: Molinos Agro, COFCO, Cargill, Bunge, LDC y AGD."
+    },
+    {
+     "id": "d3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-md\">¿Para quién está cerrado? <span class=\"ddv-r\">Para las</span> <span class=\"ddv-r\">no integradas.</span></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Exportaron desde 2008</div><div class=\"ddv-v ddv-r\">0 <span class=\"ddv-min\">t</span></div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Para entrar a Europa pagarían</div><div class=\"ddv-v\">25 a 33,4%</div><div class=\"ddv-n\">No son parte del acuerdo.</div></div>",
+     "fuente": "Secretaría de Energía, exportación de biodiésel por empresa, 2008 a 2026. Reglamento (UE) 2019/244."
+    },
+    {
+     "id": "r3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">Europa no cerró el mercado.</div><div class=\"ddv-tit ddv-lg\">Sancionó un subsidio.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Y las integradas</span> <span class=\"ddv-r\">siguen</span> <span class=\"ddv-r\">exportando.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Comisión Europea: derechos antidumping de 2013 y Reglamento (UE) 2019/244, derechos compensatorios.",
+    "Comisión Europea: Decisión (UE) 2019/245 y Reglamento (UE) 2025/835. El volumen de 1,2 millones de t es el informado al firmarse el acuerdo.",
+    "Line-up de buques de San Lorenzo y Rosario, 15/8 al 12/9/2026. Vendieron: Molinos Agro, COFCO, Cargill, Bunge, LDC y AGD.",
+    "Secretaría de Energía, exportación de biodiésel por empresa, 2008 a 2026. Reglamento (UE) 2019/244."
+   ],
+   "youtube": "GNX3i8POR9c",
+   "duracion": "0:59",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 6,
+   "orador": "B",
+   "tema": "las reglas paraarancelarias",
+   "cita": "Que no haya reglas paraarancelarias",
+   "sello": "DOBLE VARA",
+   "sello_corto": "DOBLE VARA",
+   "veredicto": "Doble vara",
+   "dicho": "«Entonces es importante que no haya reglas paraarancelarias para nuestros productos, porque en definitiva es lo que nos ha pasado».",
+   "dicho_despues": [],
+   "quien": "Senadora Patricia Bullrich, cierre del debate de la ley de biocombustibles en el Senado, 17/9/2026, 21:48 (hora de Senado TV).",
+   "resumen": "La regla paraarancelaria está en su propia ley: el artículo 24 exige que el biodiésel del corte se elabore en plantas instaladas en la Argentina y con materias primas de origen nacional. Dos candados: ni biodiésel importado para el corte, ni aceite importado para elaborarlo. En 2012 España reservó su corte al biodiésel europeo; la Argentina la llevó a la OMC y España dio marcha atrás. Y esa materia prima tiene dueño: el aceite, 76% del costo de una no integrada, se lo venden sus competidoras.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit\">La regla paraarancelaria <span class=\"ddv-r\">está en su</span> <span class=\"ddv-r\">propia ley.</span></div><div class=\"ddv-sello ddv-h\">Artículo 24</div><div class=\"ddv-cita\">«Los biocombustibles destinados al cumplimiento del porcentaje de mezcla obligatoria (...) deberán haber sido elaborados en <mark>plantas habilitadas instaladas en la República Argentina</mark> y a partir de <mark>materias primas de origen nacional</mark>.»</div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 24, primer párrafo, textual. El resaltado es nuestro."
+    },
+    {
+     "id": "b3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-num ddv-m\">2</div><div class=\"ddv-tit ddv-xl\">candados.</div><div class=\"ddv-it\"><b>Ni biodiésel importado</b><small>para cumplir el corte.</small></div><div class=\"ddv-it\"><b>Ni aceite importado</b><small>para elaborarlo.</small></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 24, primer párrafo, textual. El resaltado es nuestro."
+    },
+    {
+     "id": "c3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-md\">Exigir origen nacional es <span class=\"ddv-r\">una barrera</span> <span class=\"ddv-r\">paraarancelaria.</span></div><div class=\"ddv-fila\"><div class=\"ddv-et\">2012 · España</div><div class=\"ddv-v\">Reservó su corte al biodiésel europeo</div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">La Argentina</div><div class=\"ddv-v ddv-r\">La llevó a la OMC</div><div class=\"ddv-n\">España dio marcha atrás.</div></div>",
+     "fuente": "OMC: GATT 1994, artículo III:4 (trato nacional); diferencia DS443 (2012) y comunicado 417/12 de la Cancillería argentina."
+    },
+    {
+     "id": "d2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">La materia prima nacional <span class=\"ddv-r\">tiene dueño.</span></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Aceite, en el costo de una no integrada</div><div class=\"ddv-v ddv-r\">76%</div><div class=\"ddv-n\">Por ley, solo de sus competidoras.</div></div>",
+     "fuente": "Aceite: 76,1% del costo del biodiésel (cálculo de Explora S.A., agosto de 2025)."
+    },
+    {
+     "id": "r2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Doble vara</div><div class=\"ddv-tit ddv-lg\">Pide mercados abiertos afuera</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">y cierra</span> <span class=\"ddv-r\">el suyo</span> <span class=\"ddv-r\">por ley.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Media sanción del Senado (CD-76/26), artículo 24, primer párrafo, textual. El resaltado es nuestro.",
+    "OMC: GATT 1994, artículo III:4 (trato nacional); diferencia DS443 (2012) y comunicado 417/12 de la Cancillería argentina.",
+    "Aceite: 76,1% del costo del biodiésel (cálculo de Explora S.A., agosto de 2025)."
+   ],
+   "youtube": "wAfBtUcru4s",
+   "duracion": "0:53",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 7,
+   "orador": "B",
+   "tema": "caña y maíz, reserva permanente",
+   "cita": "Mucha previsibilidad a las economías regionales",
+   "sello": "DOBLE VARA",
+   "sello_corto": "DOBLE VARA",
+   "veredicto": "Doble vara",
+   "dicho": "«Durante toda la vigencia de esta ley se mantienen 6 puntos porcentuales (...) [para el bioetanol de caña de azúcar y 6 para el de maíz]». «Esto le da mucha previsibilidad a las economías regionales y para las inversiones que ya existen».",
+   "dicho_despues": [
+    "«(...) y ahora, en vez de prorrogarlo otra vez, lo que se plantea es un sendero de salida». Ocho minutos después, sobre el biodiésel no integrado."
+   ],
+   "quien": "Senadora Patricia Bullrich, cierre del debate de la ley de biocombustibles en el Senado, 17/9/2026, 21:47 (hora de Senado TV).",
+   "resumen": "Una misma ley, dos relojes: el bioetanol de caña y de maíz tiene 6% + 6% reservados los 15 años de la ley; el biodiésel no integrado baja de 7,5 a 4 puntos y a cero desde el 1/1/2036. También son economías regionales e inversiones que ya existen 24 plantas de biodiésel no integradas, en cinco provincias; para ellas, la misma senadora dijo: «lo que se plantea es un sendero de salida». La ley protege 15 años una diferencia de costos y a la diferencia de poder le pone fecha de vencimiento.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit\">Una misma ley, dos relojes.</div><div class=\"ddv-fila\"><div class=\"ddv-et\">Bioetanol de caña y de maíz · arts. 1 y 13</div><div class=\"ddv-v\">6% + 6%</div><div class=\"ddv-n\">Reservados los 15 años de la ley.</div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Biodiésel no integrado · arts. 35 y 38</div><div class=\"ddv-v ddv-r\">7,5 → 4 → 0</div><div class=\"ddv-n\">4 de 10 puntos hasta 2035. Cero desde el 1° de enero de 2036.</div></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículos 1, 13, 35 y 38."
+    },
+    {
+     "id": "c2",
+     "pregunta": "¿Economías regionales? ¿Inversiones que ya existen?",
+     "html": "<div class=\"ddv-num ddv-m\">24</div><div class=\"ddv-sub\"><b>plantas de biodiésel no integradas</b>, en cinco provincias.</div><div class=\"ddv-sub ddv-ch\">Santa Fe, Buenos Aires, La Pampa, Entre Ríos y San Luis · 1.327.000 t de capacidad instalada.</div><div class=\"ddv-tit ddv-md\">Para ellas, <span class=\"ddv-r\">la misma</span> <span class=\"ddv-r\">senadora:</span></div>",
+     "fuente": "Secretaría de Energía, plantas no integradas en operación. Capacidad registrada: planilla de Explora «Art. 39», revisión 1."
+    },
+    {
+     "id": "d2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-fila\"><div class=\"ddv-et\">Caña y maíz</div><div class=\"ddv-v\">Diferencia de costos</div><div class=\"ddv-n\">Ninguno le compra el insumo al otro. <b>Protegida 15 años.</b></div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Integradas y no integradas</div><div class=\"ddv-v ddv-r\">Diferencia de poder</div><div class=\"ddv-n\">La no integrada le compra el aceite, 76% de su costo, a sus competidoras. <b>Con fecha de vencimiento.</b></div></div>",
+     "fuente": "Ley 27.442 de Defensa de la Competencia, artículo 5. Aceite: 76,1% del costo del biodiésel (cálculo de Explora S.A., agosto de 2025)."
+    },
+    {
+     "id": "r2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Doble vara</div><div class=\"ddv-tit ddv-lg\">La misma razón vale para el biodiésel no integrado.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Ahí, la ley</span> <span class=\"ddv-r\">hace lo</span> <span class=\"ddv-r\">contrario.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Media sanción del Senado (CD-76/26), artículos 1, 13, 35 y 38.",
+    "Secretaría de Energía, plantas no integradas en operación. Capacidad registrada: planilla de Explora «Art. 39», revisión 1.",
+    "Ley 27.442 de Defensa de la Competencia, artículo 5. Aceite: 76,1% del costo del biodiésel (cálculo de Explora S.A., agosto de 2025)."
+   ],
+   "youtube": "7UP0PT1D_G8",
+   "duracion": "1:04",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 8,
+   "orador": "B",
+   "tema": "la transición hasta 2036",
+   "cita": "Una transición mucho más larga",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«(Estamos) planteando una transición mucho más larga. Estamos hablando del año 2036».",
+   "dicho_despues": [],
+   "quien": "Senadora Patricia Bullrich, cierre del debate de la ley de biocombustibles en el Senado, 17/9/2026, 21:54 (hora de Senado TV).",
+   "resumen": "La ley vigente (27.640, art. 1) rige hasta el 31/12/2030 y es prorrogable cinco años por decreto: hasta el 31/12/2035. La transición nueva termina el 1/1/2036: un día más. En ese camino el segmento no integrado se achica de 7,5 puntos a 4 de 10, y a cero en 2036. Desde 2031, 6 de cada 10 puntos pasan a negociación libre, donde las seis integradas venden sin tope: 735.000 t por año; las 24 no integradas se reparten 490.000.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a3",
+     "pregunta": "¿Mucho más larga?",
+     "html": "<div class=\"ddv-fila\"><div class=\"ddv-et\">Ley vigente · 27.640, artículo 1</div><div class=\"ddv-v\">31/12/2035</div><div class=\"ddv-n\">Rige hasta el 31/12/2030 y es prorrogable cinco años por decreto.</div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Media sanción · artículo 35</div><div class=\"ddv-v\">1/1/2036</div><div class=\"ddv-n\">Fin del período de transición.</div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">La diferencia</div><div class=\"ddv-v ddv-r\">1 día</div></div>",
+     "fuente": "Ley 27.640, artículo 1. Media sanción del Senado (CD-76/26), artículo 35."
+    },
+    {
+     "id": "b1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Artículo 38 · la tabla</div><div class=\"ddv-sub\">Puntos del corte para las <b>empresas no integradas</b>:</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">Mientras rija el 7,5%</div><div class=\"ddv-tn ddv-ch\">7,5 de 7,5</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Hasta 2028</div><div class=\"ddv-tn ddv-ch\">6,5 de 10</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">2029</div><div class=\"ddv-tn ddv-ch\">5,5 de 10</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">2030</div><div class=\"ddv-tn ddv-ch\">5 de 10</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">2031 a 2035</div><div class=\"ddv-tn ddv-ch\">4 de 10</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">Desde 2036</div><div class=\"ddv-tn ddv-ch\">0 de 10</div></div></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 38, tabla: fila «Empresas No Integradas» sobre el corte obligatorio total de cada período."
+    },
+    {
+     "id": "c2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">2031 a 2035 · por año</div><div class=\"ddv-tit ddv-md\">Seis de cada diez puntos, a negociación libre.</div><div class=\"ddv-par\"><div class=\"ddv-r\"><div class=\"ddv-k\">735.000 t</div><div class=\"ddv-e\">Las 6 integradas, sin tope</div></div><div><div class=\"ddv-k\">490.000 t</div><div class=\"ddv-e\">Las 24 no integradas</div></div></div>",
+     "fuente": "6% y 4% de 13.850.000 m³ de gas oil por año, a 0,885 t por m³: 735.000 y 490.000 t."
+    },
+    {
+     "id": "r3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">La ley vigente ya llegaba a 2035.</div><div class=\"ddv-tit ddv-lg\">Lo que se abre es el 60% del corte,</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">para las</span> <span class=\"ddv-r\">integradas.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Ley 27.640, artículo 1. Media sanción del Senado (CD-76/26), artículo 35.",
+    "Media sanción del Senado (CD-76/26), artículo 38, tabla: fila «Empresas No Integradas» sobre el corte obligatorio total de cada período.",
+    "6% y 4% de 13.850.000 m³ de gas oil por año, a 0,885 t por m³: 735.000 y 490.000 t."
+   ],
+   "youtube": "L55sB5AmvoM",
+   "duracion": "0:50",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 9,
+   "orador": "B",
+   "tema": "los límites y la concentración",
+   "cita": "Límites para evitar que (...) terminen concentrándose",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«Y también estamos poniendo límites para evitar que el segmento de las empresas no integradas terminen concentrándose».",
+   "dicho_despues": [],
+   "quien": "Senadora Patricia Bullrich, cierre del debate de la ley de biocombustibles en el Senado, 17/9/2026, 21:56 (hora de Senado TV).",
+   "resumen": "Los límites caen sobre el lado más atomizado del mercado: 24 empresas no integradas; la mayor vende el 6%. Y la ley calla donde está la concentración: seis integradas con 2,6 millones de t de capacidad, sin tope; y cuatro mezcladores que compran el 99% (YPF sola, el 60%), sin tope. Dentro del propio segmento, al grupo económico le deja 10% sin máximo y a la empresa sola, 10% con un máximo de 50.000 t.",
+   "pedido": true,
+   "pantallas": [
+    {
+     "id": "a1",
+     "pregunta": "¿Evitar la concentración?",
+     "html": "<div class=\"ddv-sello ddv-h\">Con topes</div><div class=\"ddv-fila\"><div class=\"ddv-et\">Biodiésel no integrado</div><div class=\"ddv-v\">24 empresas</div><div class=\"ddv-n\">La mayor vende el 6% del segmento.</div></div>",
+     "fuente": "Secretaría de Energía, ventas al corte por empresa, octubre de 2025 a septiembre de 2026: 24 empresas no integradas; la mayor, 6,0%."
+    },
+    {
+     "id": "b3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">Y calla donde está <span class=\"ddv-r\">la concentración.</span></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Biodiésel integrado · sin tope</div><div class=\"ddv-v\">6 empresas</div><div class=\"ddv-n\">2,6 millones de t de capacidad.</div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Mezcladores: los que compran · sin tope</div><div class=\"ddv-v ddv-r\">4 compran el 99%</div><div class=\"ddv-n\">YPF sola, el 60%.</div></div>",
+     "fuente": "Capacidad registrada de las seis integradas (Secretaría de Energía). Compras de biodiésel para el corte, octubre de 2025 a septiembre de 2026: YPF 59,9%; YPF, Raízen, Axion y Trafigura, 99,3%."
+    },
+    {
+     "id": "c2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Dentro del propio segmento</div><div class=\"ddv-fila\"><div class=\"ddv-et\">Grupo económico</div><div class=\"ddv-v\">10%, sin máximo</div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Empresa elaboradora</div><div class=\"ddv-v ddv-r\">10%, con un máximo de 50.000 <span class=\"ddv-min\">t</span></div></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartados i y ii."
+    },
+    {
+     "id": "r2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">Límites para el lado atomizado.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Ninguno</span> <span class=\"ddv-r\">para el</span> <span class=\"ddv-r\">concentrado.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Secretaría de Energía, ventas al corte por empresa, octubre de 2025 a septiembre de 2026: 24 empresas no integradas; la mayor, 6,0%.",
+    "Capacidad registrada de las seis integradas (Secretaría de Energía). Compras de biodiésel para el corte, octubre de 2025 a septiembre de 2026: YPF 59,9%; YPF, Raízen, Axion y Trafigura, 99,3%.",
+    "Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartados i y ii.",
+    "Media sanción del Senado (CD-76/26), artículo 39, inciso a): apartado i, por empresa elaboradora, 10% con un tope máximo de 50.000 t; apartado ii, por grupo económico, 10%."
+   ],
+   "youtube": "OQR226mhJoQ",
+   "duracion": "0:56",
+   "borrador": 2,
+   "miniatura": true
+  },
+  {
+   "n": 10,
+   "orador": "B",
+   "tema": "el miedo al puerto y las regiones",
+   "cita": "Se van a concentrar todas cerca del puerto",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«Porque uno de los miedos era que se van a concentrar todas cerca del puerto». «(...) un sistema de comercialización que tiene que establecer regiones geográficas de negociación».",
+   "dicho_despues": [],
+   "quien": "Senadora Patricia Bullrich, cierre del debate de la ley de biocombustibles en el Senado, 17/9/2026, 21:57 (hora de Senado TV).",
+   "resumen": "El kilómetro cero no existe. Lo midió la Secretaría de Energía (nota del 14/10/2026) con el precio del aceite que informan las propias plantas, durante 32 meses: 27 de 32 meses, la zona que compró el aceite más barato estuvo a más de 100 km del puerto; las del puerto fueron las más baratas 5 meses y las más caras 17. Lo que importa es la distancia a la aceitera que le vende a cada planta, no al puerto. Sobre ese miedo, el artículo 39 a) iv reserva a regiones el 20% del biodiésel: Diputados debe eliminarlo.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-xl\">El kilómetro cero <span class=\"ddv-r\">no existe.</span></div><div class=\"ddv-sello ddv-h\">Secretaría de Energía · 14 de octubre de 2026</div><div class=\"ddv-sub\">El precio del aceite que informan <b>las propias plantas</b>, según su distancia a Rosario, durante <b>32 meses</b>.</div>",
+     "fuente": "Secretaría de Energía, nota NO-2026-100181180-APN-SSH#MEC del 14/10/2026: precios de compra de aceite informados por las elaboradoras, base Rosario = 100, enero de 2024 a agosto de 2026. explorarg.com/relacion-precio-aceite"
+    },
+    {
+     "id": "b2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-num ddv-m ddv-r\">27 de 32</div><div class=\"ddv-sub\">meses, la zona que compró el aceite <b>más barato</b> estuvo a <b>más de 100 km</b> del puerto.</div><div class=\"ddv-par\"><div><div class=\"ddv-k\">5 de 32</div><div class=\"ddv-e\">Las del puerto, las más baratas</div></div><div class=\"ddv-r\"><div class=\"ddv-k\">17 de 32</div><div class=\"ddv-e\">Las del puerto, las más caras</div></div></div>",
+     "fuente": "Secretaría de Energía, nota NO-2026-100181180-APN-SSH#MEC del 14/10/2026: precios de compra de aceite informados por las elaboradoras, base Rosario = 100, enero de 2024 a agosto de 2026. explorarg.com/relacion-precio-aceite"
+    },
+    {
+     "id": "c1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Distancia a Rosario</div><div class=\"ddv-sub\">Meses en que cada zona compró el aceite <b>más barato</b>, de 32:</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">Hasta 50 km</div><div class=\"ddv-tn ddv-ch\">1</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">De 50 a 100 km</div><div class=\"ddv-tn ddv-ch\">4</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">De 101 a 200 km</div><div class=\"ddv-tn ddv-ch\">9</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">De 201 a 600 km</div><div class=\"ddv-tn ddv-ch\">16</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Más de 600 km</div><div class=\"ddv-tn ddv-ch\">2</div></div></div>",
+     "fuente": "Secretaría de Energía, nota NO-2026-100181180-APN-SSH#MEC del 14/10/2026: precios de compra de aceite informados por las elaboradoras, base Rosario = 100, enero de 2024 a agosto de 2026. explorarg.com/relacion-precio-aceite"
+    },
+    {
+     "id": "d1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-md\">Lo que importa es la distancia a la aceitera que le vende a cada planta, <span class=\"ddv-r\">no al puerto.</span></div>",
+     "fuente": ""
+    },
+    {
+     "id": "e1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Artículo 39, inciso a), apartado iv</div><div class=\"ddv-num ddv-m\">20%</div><div class=\"ddv-sub\">del biodiésel de cada año, destinado a <b>regiones geográficas</b>.</div><div class=\"ddv-tit ddv-md\"><span class=\"ddv-r\">Sobre un miedo</span> <span class=\"ddv-r\">sin datos.</span></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartado iv."
+    },
+    {
+     "id": "r3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">El kilómetro cero no existe.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Las regiones</span> <span class=\"ddv-r\">nacen de</span> <span class=\"ddv-r\">una mentira.</span></div><div class=\"ddv-tit ddv-md\">Diputados debe eliminar el art. 39 a) iv.</div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Secretaría de Energía, nota NO-2026-100181180-APN-SSH#MEC del 14/10/2026: precios de compra de aceite informados por las elaboradoras, base Rosario = 100, enero de 2024 a agosto de 2026. explorarg.com/relacion-precio-aceite",
+    "Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartado iv."
+   ],
+   "youtube": "yKjv3dxyU2k",
+   "duracion": "0:54",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 11,
+   "orador": "B",
+   "tema": "la regla antimonopólica",
+   "cita": "Una regla antimonopólica",
+   "sello": "SIN EFECTO y ARBITRARIEDAD REGULATORIA",
+   "sello_corto": "SIN EFECTO",
+   "veredicto": "Arbitrariedad regulatoria",
+   "dicho": "«(...) una regla antimonopólica: que ninguna empresa puede superar el 20% del bioetanol comercializado para el corte obligatorio».",
+   "dicho_despues": [],
+   "quien": "Senadora Patricia Bullrich, cierre del debate de la ley de biocombustibles en el Senado, 17/9/2026, 21:49 (hora de Senado TV).",
+   "resumen": "El tope del artículo 9 es 20% por empresa y la mayor empresa de bioetanol vende el 15%: son 17 y ninguna llega. No obliga a nadie a vender menos ni le abre lugar a nadie. Donde sí hay concentración, ningún tope: cuatro mezcladores compran el 98,7% del bioetanol (YPF, 56,4%). El mismo deber, medido con cuatro varas: 20% para el bioetanol; 10% con un máximo de 50.000 t para la empresa de biodiésel no integrada; ninguna para las integradas ni para los mezcladores.",
+   "pedido": true,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Ventas de bioetanol al corte · 2025</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">Promaíz<small>La mayor</small></div><div class=\"ddv-tn ddv-ch\">15,0%</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">ACA Bio</div><div class=\"ddv-tn ddv-ch\">14,7%</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Bioetanol Río Cuarto</div><div class=\"ddv-tn ddv-ch\">11,8%</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Los Balcanes</div><div class=\"ddv-tn ddv-ch\">11,2%</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Seaboard</div><div class=\"ddv-tn ddv-ch\">9,0%</div></div><div class=\"ddv-fl ddv-tot ddv-r\"><div class=\"ddv-nm\">Tope de la ley<small>Artículo 9</small></div><div class=\"ddv-tn\">20%</div></div></div><div class=\"ddv-tit ddv-md\">17 empresas. <span class=\"ddv-r\">Ninguna llega.</span></div>",
+     "fuente": "Secretaría de Energía, ventas de bioetanol al mercado interno por empresa y por comprador, año 2025. Media sanción del Senado (CD-76/26), artículo 9."
+    },
+    {
+     "id": "b1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">No obliga a nadie a vender menos. Ni le abre lugar a nadie.</div>",
+     "fuente": ""
+    },
+    {
+     "id": "d2",
+     "pregunta": "¿Y donde sí hay concentración?",
+     "html": "<div class=\"ddv-sello\">Los que compran el bioetanol</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">YPF</div><div class=\"ddv-tn ddv-ch\">56,4%</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Raízen (Shell)</div><div class=\"ddv-tn ddv-ch\">23,6%</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Axion (PAE)</div><div class=\"ddv-tn ddv-ch\">13,3%</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Trafigura</div><div class=\"ddv-tn ddv-ch\">5,4%</div></div><div class=\"ddv-fl ddv-tot ddv-r\"><div class=\"ddv-nm\">Cuatro mezcladores</div><div class=\"ddv-tn\">98,7%</div></div></div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Ningún tope.</span></div>",
+     "fuente": "Secretaría de Energía, ventas de bioetanol al mercado interno por empresa y por comprador, año 2025. Media sanción del Senado (CD-76/26), artículo 9."
+    },
+    {
+     "id": "e3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">El mismo deber, cuatro varas</div><div class=\"ddv-it\"><b>Bioetanol</b><small><i>20%</i> por empresa.</small></div><div class=\"ddv-it\"><b>Biodiésel no integrado</b><small><i>10%</i> por empresa, con un máximo de <i>50.000 t</i>.</small></div><div class=\"ddv-it\"><b>Biodiésel integrado</b><small><i>Ningún tope.</i></small></div><div class=\"ddv-it\"><b>Mezcladores</b><small><i>Ningún tope.</i></small></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículos 9, 14, 15 y 39 a)."
+    },
+    {
+     "id": "r2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">La regla existe, pero no le pone límite a nadie.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Arbitrariedad</span> <span class=\"ddv-r\">regulatoria.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Secretaría de Energía, ventas de bioetanol al mercado interno por empresa y por comprador, año 2025. Media sanción del Senado (CD-76/26), artículo 9.",
+    "Media sanción del Senado (CD-76/26), artículos 9, 14, 15 y 39 a).",
+    "Media sanción del Senado (CD-76/26), artículo 39, inciso a): apartado i, por empresa elaboradora, 10% con un tope máximo de 50.000 t; apartado ii, por grupo económico, 10%."
+   ],
+   "youtube": "fldZ7xF7Jb8",
+   "duracion": "1:02",
+   "borrador": 2,
+   "miniatura": true
+  },
+  {
+   "n": 12,
+   "orador": "B",
+   "tema": "ninguna provincia desvestida",
+   "cita": "No queda desvestida ni La Pampa, ni San Luis",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«El biodiésel tiene una transición, no tiene un salto al vacío. No queda desvestida ni La Pampa, ni San Luis, ni la provincia de Buenos Aires».",
+   "dicho_despues": [],
+   "quien": "Senadora Patricia Bullrich, cierre del debate de la ley de biocombustibles en el Senado, 17/9/2026, 21:50 (hora de Senado TV).",
+   "resumen": "San Luis tiene una sola planta no integrada, Diaser: 96.000 t de capacidad, y la ley le deja vender 50.000 (52% de su planta). No nombró a Santa Fe: nueve plantas, casi la mitad de la capacidad no integrada; ahí están Unitec Bio y Explora, que pueden usar el 21% y el 42% de sus plantas. Y el salto está en el calendario: el segmento de todas baja de 746.000 t hoy a 490.000 desde 2031, y en 2036 la reserva desaparece.",
+   "pedido": true,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">San Luis</div><div class=\"ddv-tit ddv-lg\">Una sola planta: <span class=\"ddv-r\">Diaser.</span></div><div class=\"ddv-par\"><div><div class=\"ddv-k\">96.000 t</div><div class=\"ddv-e\">Su capacidad</div></div><div class=\"ddv-r\"><div class=\"ddv-k\">50.000 t</div><div class=\"ddv-e\">Lo que la ley le deja vender: 52% de su planta</div></div></div>",
+     "fuente": "Capacidad registrada (Secretaría de Energía). Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartado i: tope máximo de 50.000 t por empresa. 50.000 / 96.000 = 52%; 50.000 / 240.000 = 21%; 50.000 / 120.000 = 42%."
+    },
+    {
+     "id": "b2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">La que no nombró</div><div class=\"ddv-tit ddv-xl\">Santa Fe.</div><div class=\"ddv-sub\"><b>9 plantas:</b> casi la mitad de la capacidad no integrada del país.</div><div class=\"ddv-sub ddv-ch\">Lo que la ley les deja usar de su planta:</div><div class=\"ddv-lst\"><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">Unitec Bio<small>San Lorenzo · 240.000 t de capacidad, máximo de 50.000</small></div><div class=\"ddv-tn\">21%</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">Explora<small>San Lorenzo · 120.000 t de capacidad, máximo de 50.000</small></div><div class=\"ddv-tn\">42%</div></div></div>",
+     "fuente": "Capacidad registrada (Secretaría de Energía). Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartado i: tope máximo de 50.000 t por empresa. 50.000 / 96.000 = 52%; 50.000 / 240.000 = 21%; 50.000 / 120.000 = 42%."
+    },
+    {
+     "id": "c2",
+     "pregunta": "¿Sin salto al vacío?",
+     "html": "<div class=\"ddv-tit ddv-lg\">El salto está en el calendario.</div><div class=\"ddv-par\"><div><div class=\"ddv-k\">746.000 t</div><div class=\"ddv-e\">Venden hoy las no integradas</div></div><div class=\"ddv-r\"><div class=\"ddv-k\">490.000 t</div><div class=\"ddv-e\">Desde 2031</div></div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Reserva para las no integradas desde 2036</div><div class=\"ddv-v ddv-r\">0</div></div>",
+     "fuente": "Ventas al corte de las no integradas, octubre de 2025 a septiembre de 2026: 746.207 t (Secretaría de Energía). Media sanción del Senado (CD-76/26), artículo 38: 4% del gas oil de 2031 a 2035 (490.000 t) y fin de la transición el 1/1/2036."
+    },
+    {
+     "id": "r2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">Tres plantas recortadas por ley.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Y un segmento</span> <span class=\"ddv-r\">que se achica</span> <span class=\"ddv-r\">hasta</span> <span class=\"ddv-r\">desaparecer.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Capacidad registrada (Secretaría de Energía). Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartado i: tope máximo de 50.000 t por empresa. 50.000 / 96.000 = 52%; 50.000 / 240.000 = 21%; 50.000 / 120.000 = 42%.",
+    "Ventas al corte de las no integradas, octubre de 2025 a septiembre de 2026: 746.207 t (Secretaría de Energía). Media sanción del Senado (CD-76/26), artículo 38: 4% del gas oil de 2031 a 2035 (490.000 t) y fin de la transición el 1/1/2036.",
+    "Media sanción del Senado (CD-76/26), artículo 39, inciso a): apartado i, por empresa elaboradora, 10% con un tope máximo de 50.000 t; apartado ii, por grupo económico, 10%."
+   ],
+   "youtube": "6vY9PRhxmNE",
+   "duracion": "1:04",
+   "borrador": 2,
+   "miniatura": true
+  },
+  {
+   "n": 13,
+   "orador": "B",
+   "tema": "las materias primas nuevas",
+   "cita": "Hay nuevas materias (...) en la reglamentación",
+   "sello": "SIN EXPLICACIÓN",
+   "sello_corto": "SIN EXPLICACIÓN",
+   "veredicto": "Otros veredictos",
+   "dicho": "«(...) hay nuevas materias [primas] que se van a tener que contemplar en la reglamentación, que realmente es importante».",
+   "dicho_despues": [],
+   "quien": "Senadora Patricia Bullrich, cierre del debate de la ley de biocombustibles en el Senado, 17/9/2026, 21:49 (hora de Senado TV).",
+   "resumen": "La ley abre la puerta a materias primas nuevas solo para el bioetanol (art. 13). Para el biodiésel, «segunda generación» no figura en el texto, y ya existe: biodiésel hecho con residuos, que ahorra 84% de emisiones contra 50% del de soja. La propuesta era que compute doble para el corte, como en Europa: la mezcla cuesta lo mismo, ni un dólar más para el consumidor. Lo propusieron CAPBA, CASFER y la provincia de Santa Fe. Todos de acuerdo, y quedó afuera: nadie dijo por qué.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-fila\"><div class=\"ddv-et\">Bioetanol · artículo 13</div><div class=\"ddv-v\">«Toda otra materia prima»</div><div class=\"ddv-n\">Biomasa forestal, lignocelulósica: una posibilidad, para más adelante.</div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Biodiésel · artículo 12</div><div class=\"ddv-v ddv-r\">No figura</div><div class=\"ddv-n\">«Segunda generación» no está en el texto.</div></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículos 12 y 13."
+    },
+    {
+     "id": "b2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">Y ya existe: biodiésel hecho con <span class=\"ddv-r\">residuos.</span></div><div class=\"ddv-par\"><div class=\"ddv-r\"><div class=\"ddv-k\">84%</div><div class=\"ddv-e\">Emisiones que ahorra el de segunda generación</div></div><div><div class=\"ddv-k\">50%</div><div class=\"ddv-e\">El de soja</div></div></div>",
+     "fuente": "Valores por defecto del Anexo V de la Directiva (UE) 2018/2001, que también prevé el cómputo doble."
+    },
+    {
+     "id": "c2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">La propuesta</div><div class=\"ddv-tit ddv-md\">Que compute doble para el corte, como en Europa.</div><div class=\"ddv-sub\">1 m³ de segunda generación reemplaza a 2 m³ de primera.</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">Hoy · 2 m³ de biodiésel de primera<small>USD 1.178 + USD 1.178</small></div><div class=\"ddv-tn ddv-ch\">USD 2.356</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">1 m³ de segunda + 1 m³ de gas oil<small>Hasta USD 1.582 + USD 774</small></div><div class=\"ddv-tn ddv-ch\">USD 2.356</div></div></div><div class=\"ddv-sub ddv-ch\">La mezcla cuesta lo mismo: ni un dólar más para el consumidor.</div>",
+     "fuente": "Precio del biodiésel: Res. SE 963/2023, septiembre de 2026 ($ 2.012.598 por tonelada; dólar a $ 1.512; densidad 0,885). Gas oil: costo promedio de importación de 2026."
+    },
+    {
+     "id": "r2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">CAPBA, CASFER y la provincia de Santa Fe lo propusieron</div><div class=\"ddv-tit ddv-lg\">Todos de acuerdo, y quedó afuera.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Nadie dijo</span> <span class=\"ddv-r\">por qué.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Media sanción del Senado (CD-76/26), artículos 12 y 13.",
+    "Valores por defecto del Anexo V de la Directiva (UE) 2018/2001, que también prevé el cómputo doble.",
+    "Precio del biodiésel: Res. SE 963/2023, septiembre de 2026 ($ 2.012.598 por tonelada; dólar a $ 1.512; densidad 0,885). Gas oil: costo promedio de importación de 2026."
+   ],
+   "youtube": "KE9fTOtVeWk",
+   "duracion": "0:43",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 14,
+   "orador": "B",
+   "tema": "el fraude",
+   "cita": "Ese fraude no va",
+   "sello": "ARBITRARIEDAD REGULATORIA",
+   "sello_corto": "ARBITRARIEDAD REGULATORIA",
+   "veredicto": "Arbitrariedad regulatoria",
+   "dicho": "«Por eso hay límites por empresa y por grupo económico, porque (...) si no, las empresas se separan y después se llevan todo el cupo». «(...) decir: yo me separo y entonces quiero cinco cupos; decimos no, esto es un grupo económico. No, no, no, ese fraude no va».",
+   "dicho_despues": [],
+   "quien": "Senadora Patricia Bullrich, cierre del debate de la ley de biocombustibles en el Senado, 17/9/2026, 22:07 (hora de Senado TV).",
+   "resumen": "Lo que describe existe, y hoy es legal: ocho sociedades de hasta 50.000 t, ocho cupos; así vende el Grupo Bahía Energía el 29% del corte. ¿Qué hace la media sanción con el grupo? Le deja el 10%, sin máximo en toneladas: 92.000 t el primer año. El máximo de 50.000 t se lo pone a la que no se separó, una sola empresa con una sola planta: Unitec Bio, Explora y Diaser. Misma capacidad, trato distinto por la forma jurídica.",
+   "pedido": true,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">Lo que describe existe. <span class=\"ddv-r\">Y hoy es legal.</span></div><div class=\"ddv-sello ddv-h\">Grupo Bahía Energía</div><div class=\"ddv-par\"><div><div class=\"ddv-k\">8</div><div class=\"ddv-e\">Sociedades de hasta 50.000 t: ocho cupos</div></div><div class=\"ddv-r\"><div class=\"ddv-k\">29%</div><div class=\"ddv-e\">Del corte: 230.000 t en doce meses</div></div></div>",
+     "fuente": "Secretaría de Energía, ventas al corte por empresa y por grupo económico, octubre de 2025 a septiembre de 2026: 230.429 t de 788.749 t. Ley 27.640, artículo 11: cupo a prorrata de cada empresa. Grupos económicos: elaboración de Explora."
+    },
+    {
+     "id": "c3",
+     "pregunta": "¿Y qué hace su ley con el grupo?",
+     "html": "<div class=\"ddv-fila\"><div class=\"ddv-et\">Grupo económico · art. 39 a) ii</div><div class=\"ddv-v\">10%, sin máximo</div><div class=\"ddv-n\">92.000 t el primer año.</div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Empresa sola · art. 39 a) i</div><div class=\"ddv-v ddv-r\">10%, con un máximo de 50.000 <span class=\"ddv-min\">t</span></div><div class=\"ddv-n\">Aunque su planta sea de 96.000, 120.000 o 240.000 t.</div></div><div class=\"ddv-tit ddv-md\">Unitec Bio, Explora y Diaser.</div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartados i y ii. 10% de 919.294 t: 91.929 t."
+    },
+    {
+     "id": "r3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Arbitrariedad regulatoria</div><div class=\"ddv-tit ddv-md\">Misma capacidad, trato distinto por la forma jurídica.</div><div class=\"ddv-tit ddv-md\">Castiga a la que invirtió en una sola empresa</div><div class=\"ddv-tit ddv-md\"><span class=\"ddv-r\">y premia a la</span> <span class=\"ddv-r\">que se fragmentó.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Secretaría de Energía, ventas al corte por empresa y por grupo económico, octubre de 2025 a septiembre de 2026: 230.429 t de 788.749 t. Ley 27.640, artículo 11: cupo a prorrata de cada empresa. Grupos económicos: elaboración de Explora.",
+    "Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartados i y ii. 10% de 919.294 t: 91.929 t.",
+    "Media sanción del Senado (CD-76/26), artículo 39, inciso a): apartado i, por empresa elaboradora, 10% con un tope máximo de 50.000 t; apartado ii, por grupo económico, 10%."
+   ],
+   "youtube": "Zc_9vFMJvKg",
+   "duracion": "1:05",
+   "borrador": 2,
+   "miniatura": true
+  },
+  {
+   "n": 15,
+   "orador": "G",
+   "tema": "el porqué del corte",
+   "cita": "Tiene ganadores, perdedores, afectados",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«Como todo proyecto que implica un aumento de corte de biocombustibles, tiene ganadores, perdedores, afectados. El sector que más nos importa a nosotros, del Ejecutivo, es el consumidor».",
+   "dicho_despues": [],
+   "quien": "Lic. Daniel González, entonces secretario de Coordinación de Energía y Minería, plenario de comisiones del Senado, 3/6/2026, minuto 0:48.",
+   "resumen": "No dijo por qué se sube el corte. Lo dicen los fundamentos del proyecto que él apoyaba (S-809/26): un «doble efecto positivo», menos emisiones y un beneficio económico para la población. Medido: de febrero a mayo de 2026 el gas oil fósil subió 46% y el biodiésel bajó 2%; en mayo el corte abarató el surtidor $ 17 por litro. Subir el corte tiene un ganador, la sociedad: el consumidor que él dice priorizar. Y una ley no tiene por qué elegir perdedores.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">No dijo por qué se sube el corte.</div><div class=\"ddv-sello ddv-h\">Fundamentos del proyecto que apoya · S-809/26</div><div class=\"ddv-cita\">«(...) tiene un <mark>doble efecto positivo</mark>: por un lado, disminuye las emisiones de gases de efecto invernadero y por otro se genera un <mark>beneficio económico a la población</mark> (...)»</div>",
+     "fuente": "Fundamentos del proyecto S-809/26 (Bullrich y otros), textual. El resaltado es nuestro."
+    },
+    {
+     "id": "b2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Febrero a mayo de 2026</div><div class=\"ddv-par\"><div class=\"ddv-r\"><div class=\"ddv-k\">+46%</div><div class=\"ddv-e\">El gas oil fósil</div></div><div><div class=\"ddv-k\">-2%</div><div class=\"ddv-e\">El biodiésel</div></div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">El surtidor en mayo, por el corte</div><div class=\"ddv-v ddv-r\">-$ 17 por litro</div><div class=\"ddv-n\">Biodiésel a la par del fósil, y sin impuesto.</div></div>",
+     "fuente": "Secretaría de Energía: relevamiento Res. 1104 (gas oil grado 2 mayorista sin impuestos, fósil neto del biodiésel; surtidor al público) y precio del biodiésel, Res. 963."
+    },
+    {
+     "id": "r3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">Subir el corte tiene un ganador: <span class=\"ddv-r\">la sociedad.</span></div><div class=\"ddv-sub\">El consumidor que él dice priorizar.</div><div class=\"ddv-tit ddv-md\"><span class=\"ddv-r\">Y una ley no</span> <span class=\"ddv-r\">tiene por qué</span> <span class=\"ddv-r\">elegir perdedores.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Fundamentos del proyecto S-809/26 (Bullrich y otros), textual. El resaltado es nuestro.",
+    "Secretaría de Energía: relevamiento Res. 1104 (gas oil grado 2 mayorista sin impuestos, fósil neto del biodiésel; surtidor al público) y precio del biodiésel, Res. 963."
+   ],
+   "youtube": "uycZw_ZkOZw",
+   "duracion": "0:45",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 16,
+   "orador": "G",
+   "tema": "el precio del biodiésel",
+   "cita": "Una diferencia de 80% el biodiésel por arriba del fósil",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«Antes de esta suba de precios de petróleo estábamos hablando de una diferencia de 80% el biodiésel por arriba del fósil».",
+   "dicho_despues": [],
+   "quien": "Lic. Daniel González, entonces secretario de Coordinación de Energía y Minería, plenario de comisiones del Senado, 3/6/2026, minuto 1:40.",
+   "resumen": "El 80% es contra el gas oil importado puesto en puerto ($ 842 por litro en febrero de 2026), un precio al que nadie compra. Comparado con el gas oil fósil con el que se mezcla ($ 1.084 contra $ 1.631 del biodiésel), en febrero era 50%. Y en mayo, cuando habló ($ 1.587 contra $ 1.600): 1%.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a1",
+     "pregunta": "¿80% contra qué?",
+     "html": "<div class=\"ddv-fila\"><div class=\"ddv-et\">Gas oil importado, puesto en puerto · febrero de 2026</div><div class=\"ddv-v\">$ 842 por litro</div></div><div class=\"ddv-tit ddv-md\">Un precio al que <span class=\"ddv-r\">nadie compra.</span></div><div class=\"ddv-sub ddv-ch\">Las petroleras vendían el gas oil fósil 29% arriba de esa paridad.</div>",
+     "fuente": "Secretaría de Energía: precio del biodiésel (Res. 963/2023, mediana), relevamiento Res. 1104/2004 (gas oil grado 2 mayorista sin impuestos, neto del biodiésel) e importaciones de gas oil (CIF, sin CAMMESA). Pesos por litro."
+    },
+    {
+     "id": "b2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Febrero de 2026 · antes de la suba</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">Gas oil grado 2 fósil<small>Mayorista, sin impuestos</small></div><div class=\"ddv-tn\">$ 1.084</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Biodiésel<small>Res. SE 963/2023</small></div><div class=\"ddv-tn\">$ 1.631</div></div></div><div class=\"ddv-num ddv-m ddv-r\">+50%</div><div class=\"ddv-sub\">sobre el gas oil con el que se mezcla. <b>No 80%.</b></div>",
+     "fuente": "Secretaría de Energía: precio del biodiésel (Res. 963/2023, mediana), relevamiento Res. 1104/2004 (gas oil grado 2 mayorista sin impuestos, neto del biodiésel) e importaciones de gas oil (CIF, sin CAMMESA). Pesos por litro."
+    },
+    {
+     "id": "c2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Mayo de 2026 · cuando habló</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">Gas oil grado 2 fósil<small>Mayorista, sin impuestos</small></div><div class=\"ddv-tn\">$ 1.587</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Biodiésel<small>Res. SE 963/2023</small></div><div class=\"ddv-tn\">$ 1.600</div></div></div><div class=\"ddv-num ddv-m ddv-r\">+1%</div>",
+     "fuente": "Secretaría de Energía: precio del biodiésel (Res. 963/2023, mediana), relevamiento Res. 1104/2004 (gas oil grado 2 mayorista sin impuestos, neto del biodiésel) e importaciones de gas oil (CIF, sin CAMMESA). Pesos por litro."
+    },
+    {
+     "id": "r2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-xl\">Era 50%, no 80%.</div><div class=\"ddv-tit ddv-xl\"><span class=\"ddv-r\">Y el día</span> <span class=\"ddv-r\">que habló,</span> <span class=\"ddv-r\">1%.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Secretaría de Energía: precio del biodiésel (Res. 963/2023, mediana), relevamiento Res. 1104/2004 (gas oil grado 2 mayorista sin impuestos, neto del biodiésel) e importaciones de gas oil (CIF, sin CAMMESA). Pesos por litro."
+   ],
+   "youtube": "KPTS7dQHlxo",
+   "duracion": "0:31",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 17,
+   "orador": "G",
+   "tema": "duplicar el corte",
+   "cita": "No vemos lógica en duplicar el corte de biodiésel",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«No vemos lógica en duplicar el corte de biodiésel, como proponen algunos proyectos, porque eso implica un aumento en términos reales, estructural y permanente, del gasoil que se consume en todo el país».",
+   "dicho_despues": [],
+   "quien": "Lic. Daniel González, entonces secretario de Coordinación de Energía y Minería, plenario de comisiones del Senado, 3/6/2026, minuto 1:53.",
+   "resumen": "El biodiésel no paga el impuesto a los combustibles ni el del dióxido de carbono; el gas oil fósil, sí. Con el corte en 15% en lugar de 7,5%, en febrero de 2026 (antes de la suba del petróleo) el surtidor subía 1,6%: $ 29 por litro. En mayo, cuando habló, bajaba 0,9%: $ 21 por litro. Ni estructural ni permanente: cambia de signo con el precio del petróleo.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Impuesto a los combustibles y al dióxido de carbono</div><div class=\"ddv-fila\"><div class=\"ddv-et\">Biodiésel</div><div class=\"ddv-v\">No los paga</div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Gas oil fósil</div><div class=\"ddv-v ddv-r\">Los paga</div></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 34: los biocombustibles no están gravados por el ICL ni por el ICO2."
+    },
+    {
+     "id": "b2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">El surtidor, con el corte en 15%</div><div class=\"ddv-fila\"><div class=\"ddv-et\">Febrero de 2026 · antes de la suba</div><div class=\"ddv-v\">+1,6%</div><div class=\"ddv-n\">$ 29 más por litro.</div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Mayo de 2026 · cuando habló</div><div class=\"ddv-v ddv-r\">-0,9%</div><div class=\"ddv-n\">$ 21 menos por litro.</div></div>",
+     "fuente": "Secretaría de Energía (precio del biodiésel, Res. 963; gas oil grado 2 mayorista y surtidor al público, Res. 1104) y DNIAF (ICL e ICO2). Cuenta: 7,5 puntos × (biodiésel - fósil) × 1,21 de IVA, menos 7,5 puntos × (ICL + ICO2)."
+    },
+    {
+     "id": "r2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">Ni estructural ni permanente.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Cambia de signo</span> <span class=\"ddv-r\">con el precio</span> <span class=\"ddv-r\">del petróleo.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Media sanción del Senado (CD-76/26), artículo 34: los biocombustibles no están gravados por el ICL ni por el ICO2.",
+    "Secretaría de Energía (precio del biodiésel, Res. 963; gas oil grado 2 mayorista y surtidor al público, Res. 1104) y DNIAF (ICL e ICO2). Cuenta: 7,5 puntos × (biodiésel - fósil) × 1,21 de IVA, menos 7,5 puntos × (ICL + ICO2)."
+   ],
+   "youtube": "bJj1Fs5dhXk",
+   "duracion": "0:46",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 18,
+   "orador": "G",
+   "tema": "el fisco",
+   "cita": "Un impacto inmediato negativo en los ingresos del Estado",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«Recuerden que los biocombustibles están exentos. Entonces cualquier aumento de corte tiene un impacto inmediato negativo en los ingresos del Estado nacional».",
+   "dicho_despues": [],
+   "quien": "Lic. Daniel González, entonces secretario de Coordinación de Energía y Minería, plenario de comisiones del Senado, 3/6/2026, minuto 2:43.",
+   "resumen": "Lo que el fisco deja de cobrar es lo que el consumidor deja de pagar. En mayo de 2026, con 7,5 puntos más de corte, el Estado cobraba $ 22 menos por litro y el surtidor bajaba $ 21: es el mismo peso, visto del otro lado. Y hay un agujero fiscal que no mencionó: el artículo 34 le da la misma exención al gas oil coprocesado de las refinerías, hasta USD 148 millones por año. Si el consumidor pagara más, como dijo, el fisco no perdería; si el fisco pierde, el consumidor no paga más. Eligió las dos.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">Lo que el fisco deja de cobrar <span class=\"ddv-r\">es lo que</span> <span class=\"ddv-r\">el consumidor</span> <span class=\"ddv-r\">deja de pagar.</span></div>",
+     "fuente": ""
+    },
+    {
+     "id": "b2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Mayo de 2026 · 7,5 puntos más de corte</div><div class=\"ddv-par\"><div><div class=\"ddv-k\">-$ 22</div><div class=\"ddv-e\">por litro: lo que deja de cobrar el fisco</div></div><div class=\"ddv-r\"><div class=\"ddv-k\">-$ 21</div><div class=\"ddv-e\">por litro: el surtidor</div></div></div><div class=\"ddv-tit ddv-md\">Es el mismo peso, <span class=\"ddv-r\">visto del</span> <span class=\"ddv-r\">otro lado.</span></div>",
+     "fuente": "Secretaría de Energía (precios Res. 963 y Res. 1104) y DNIAF (ICL e ICO2), mayo de 2026: biodiésel $ 1 por litro sobre el fósil; impuestos que el fósil paga y el biodiésel no, $ 22."
+    },
+    {
+     "id": "c2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">El agujero fiscal que <span class=\"ddv-r\">no mencionó.</span></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Artículo 34 · gas oil coprocesado de las refinerías, exento</div><div class=\"ddv-v ddv-r\">USD 148 millones</div><div class=\"ddv-n\">por año, hasta el 5% que declare la propia refinería. Fuera del corte.</div></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículos 18 y 34. ICL e ICO2 sobre el 5% del gas oil (692.000 m³), agosto de 2026 (DNIAF)."
+    },
+    {
+     "id": "r3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-md\">Si el consumidor pagara más, el fisco no perdería.</div><div class=\"ddv-tit ddv-md\">Si el fisco pierde, el consumidor no paga más.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Eligió las dos.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Secretaría de Energía (precios Res. 963 y Res. 1104) y DNIAF (ICL e ICO2), mayo de 2026: biodiésel $ 1 por litro sobre el fósil; impuestos que el fósil paga y el biodiésel no, $ 22.",
+    "Media sanción del Senado (CD-76/26), artículos 18 y 34. ICL e ICO2 sobre el 5% del gas oil (692.000 m³), agosto de 2026 (DNIAF)."
+   ],
+   "youtube": "XNRU9BxCx3g",
+   "duracion": "0:44",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 19,
+   "orador": "G",
+   "tema": "el bioetanol",
+   "cita": "Es equivalente al costo del fósil",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«Volviendo al etanol, su costo, a diferencia del biodiésel, es equivalente al costo del fósil con el cual se mezcla».",
+   "dicho_despues": [],
+   "quien": "Lic. Daniel González, entonces secretario de Coordinación de Energía y Minería, plenario de comisiones del Senado, 3/6/2026, minuto 2:57.",
+   "resumen": "Hablaba del bioetanol. Un litro de etanol rinde un tercio menos que un litro de nafta (21,1 contra 32 MJ). Por litro vale 23% menos ($ 1.028 contra $ 1.342), y para empatar tendría que valer 34% menos ($ 885): por energía, el etanol sale 16% más caro. Los 3 puntos que agrega la ley los paga alguien: el fisco, USD 75 millones por año, o el consumidor, USD 160 millones.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Energía por litro</div><div class=\"ddv-par\"><div><div class=\"ddv-k\">32 MJ</div><div class=\"ddv-e\">Nafta</div></div><div class=\"ddv-r\"><div class=\"ddv-k\">21,1 MJ</div><div class=\"ddv-e\">Bioetanol: un tercio menos</div></div></div>",
+     "fuente": "Poder calorífico: nafta 32 MJ por litro, etanol 21,1 MJ por litro."
+    },
+    {
+     "id": "b2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Pesos por litro</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">Nafta en refinería</div><div class=\"ddv-tn\">$ 1.342</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Bioetanol<small>Promedio de caña y maíz · 23% menos</small></div><div class=\"ddv-tn\">$ 1.028</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">Para empatar por energía<small>34% menos</small></div><div class=\"ddv-tn\">$ 885</div></div></div><div class=\"ddv-num ddv-m ddv-r\">+16%</div><div class=\"ddv-sub\">más cara la <b>energía</b> del etanol que la de la nafta.</div>",
+     "fuente": "Secretaría de Energía, relevamiento Res. 1104 (nafta, julio de 2026) y precios del bioetanol (caña $ 1.072,49 y maíz $ 982,97 por litro). Nafta en refinería estimada con el precio mayorista sin impuestos."
+    },
+    {
+     "id": "c2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Los 3 puntos que agrega la ley</div><div class=\"ddv-fila\"><div class=\"ddv-et\">Los paga el fisco</div><div class=\"ddv-v\">USD 75 millones</div><div class=\"ddv-n\">por año: el etanol no paga ICL ni ICO2.</div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">O el consumidor</div><div class=\"ddv-v ddv-r\">USD 160 millones</div><div class=\"ddv-n\">por año, si el precio por litro no baja.</div></div>",
+     "fuente": "DNIAF (ICL e ICO2); 10,2 millones de m³ de naftas por año; dólar de julio de 2026."
+    },
+    {
+     "id": "r2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-xl\">No es equivalente.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Por energía,</span> <span class=\"ddv-r\">16% más caro.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Poder calorífico: nafta 32 MJ por litro, etanol 21,1 MJ por litro.",
+    "Secretaría de Energía, relevamiento Res. 1104 (nafta, julio de 2026) y precios del bioetanol (caña $ 1.072,49 y maíz $ 982,97 por litro). Nafta en refinería estimada con el precio mayorista sin impuestos.",
+    "DNIAF (ICL e ICO2); 10,2 millones de m³ de naftas por año; dólar de julio de 2026."
+   ],
+   "youtube": "h_5wT-wwScc",
+   "duracion": "0:39",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 20,
+   "orador": "G",
+   "tema": "el 10%",
+   "cita": "Es un perfecto equilibrio",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«(...) lo que se propone en este proyecto, y que nosotros apoyamos, que es un corte del 10%». «Es un perfecto equilibrio, o un gran equilibrio».",
+   "dicho_despues": [],
+   "quien": "Lic. Daniel González, entonces secretario de Coordinación de Energía y Minería, plenario de comisiones del Senado, 3/6/2026, minuto 3:48.",
+   "resumen": "Entre un corte de 10% y uno de 15%, el surtidor se mueve 1,1% en el peor mes (febrero de 2026); en mayo, cuando habló, con 15% era más barato. El «beneficio a los productores»: las no integradas pasan de 746.000 t hoy a 490.000 desde 2031, y 735.000 t, el 60% del corte, quedan para las integradas, sin tope. Y el 10% no está asegurado: la Secretaría puede bajarlo por resolución (art. 12). El equilibrio es una transferencia: de las no integradas a las integradas.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": "¿Equilibrio para quién?",
+     "html": "<div class=\"ddv-sello ddv-h\">Corte de 10% o de 15%: el surtidor</div><div class=\"ddv-fila\"><div class=\"ddv-et\">Febrero de 2026 · el peor mes</div><div class=\"ddv-v\">1,1%</div><div class=\"ddv-n\">$ 19 por litro de diferencia.</div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Mayo de 2026 · cuando habló</div><div class=\"ddv-v ddv-r\">Más barato con 15%</div></div>",
+     "fuente": "Secretaría de Energía (precios Res. 963 y Res. 1104, surtidor al público) y DNIAF (ICL e ICO2). Diferencia en el surtidor entre un corte de 10% y uno de 15%: febrero, $ 19 por litro; mayo, $ 14 a favor del 15%."
+    },
+    {
+     "id": "b2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">El «beneficio a los productores»</div><div class=\"ddv-par\"><div><div class=\"ddv-k\">746.000 t</div><div class=\"ddv-e\">Las no integradas, hoy</div></div><div class=\"ddv-r\"><div class=\"ddv-k\">490.000 t</div><div class=\"ddv-e\">Desde 2031</div></div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Para las integradas, sin tope, desde 2031</div><div class=\"ddv-v ddv-r\">735.000 <span class=\"ddv-min\">t</span></div><div class=\"ddv-n\">El 60% del corte.</div></div>",
+     "fuente": "Ventas al corte de las no integradas, octubre de 2025 a septiembre de 2026: 746.207 t (Secretaría de Energía). Media sanción del Senado (CD-76/26), artículo 38: 4% y 6% de 13.850.000 m³ de gas oil por año."
+    },
+    {
+     "id": "c1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">Y el 10% no está asegurado.</div><div class=\"ddv-sub\">La Secretaría puede bajarlo por resolución, <b>«cuando lo considere conveniente»</b>.</div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 12, tercer párrafo."
+    },
+    {
+     "id": "r2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">El equilibrio es una <span class=\"ddv-r\">transferencia:</span></div><div class=\"ddv-tit ddv-lg\">de las no integradas <span class=\"ddv-r\">a las</span> <span class=\"ddv-r\">integradas.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Secretaría de Energía (precios Res. 963 y Res. 1104, surtidor al público) y DNIAF (ICL e ICO2). Diferencia en el surtidor entre un corte de 10% y uno de 15%: febrero, $ 19 por litro; mayo, $ 14 a favor del 15%.",
+    "Ventas al corte de las no integradas, octubre de 2025 a septiembre de 2026: 746.207 t (Secretaría de Energía). Media sanción del Senado (CD-76/26), artículo 38: 4% y 6% de 13.850.000 m³ de gas oil por año.",
+    "Media sanción del Senado (CD-76/26), artículo 12, tercer párrafo."
+   ],
+   "youtube": "r-SoZ9jMxtU",
+   "duracion": "0:46",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 21,
+   "orador": "G",
+   "tema": "cupos y competencia",
+   "cita": "Nosotros no creemos en cupos",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«Nosotros no creemos en cupos, creemos en la competencia». «(...) en el biodiésel, que esa competencia se vaya dando en el tiempo, con una reducción gradual de los cupos en 5 años».",
+   "dicho_despues": [],
+   "quien": "Lic. Daniel González, entonces secretario de Coordinación de Energía y Minería, plenario de comisiones del Senado, 3/6/2026, minuto 4:25.",
+   "resumen": "El texto que apoyaba asigna cupos por artículo: el 38 se titula «Mezclas obligatorias, cupos y precios». Y no por cinco años: por diez, hasta el 1/1/2036. La competencia es de un solo lado: los que venden, 24 empresas (la mayor, 6%), con topes por ley; los que compran, cuatro mezcladores que se llevan el 99% (YPF sola, el 60%), sin topes.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">El texto que apoya · artículo 38</div><div class=\"ddv-tit ddv-md\">«Mezclas obligatorias, <span class=\"ddv-r\">cupos</span> y precios»</div><div class=\"ddv-cita\">«...corresponderá el siguiente <mark>modelo para la asignación de cupos</mark> y definición de precios:»</div><div class=\"ddv-par\"><div><div class=\"ddv-k\"><span class=\"ddv-tacha\">5 años</span></div><div class=\"ddv-e\">Lo que dijo</div></div><div class=\"ddv-r\"><div class=\"ddv-k\">10 años</div><div class=\"ddv-e\">Hasta el 1° de enero de 2036</div></div></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículos 35 y 38: «Mezclas obligatorias, cupos y precios»; período de transición hasta el 1/1/2036."
+    },
+    {
+     "id": "b3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">Competencia <span class=\"ddv-r\">de un solo</span> <span class=\"ddv-r\">lado.</span></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Los que venden · con topes por ley</div><div class=\"ddv-v\">24 empresas</div><div class=\"ddv-n\">La mayor vende el 6%.</div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Los que compran · sin topes</div><div class=\"ddv-v ddv-r\">4 compran el 99%</div><div class=\"ddv-n\">YPF sola, el 60%.</div></div>",
+     "fuente": "Secretaría de Energía, octubre de 2025 a septiembre de 2026: 24 empresas no integradas con ventas al corte, la mayor 6,0%; compras por mezclador: YPF 59,9%; YPF, Raízen, Axion y Trafigura, 99,3%. Media sanción del Senado (CD-76/26), artículos 14 y 39."
+    },
+    {
+     "id": "r2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">Cupos con topes, por ley, hasta 2036.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Y competencia</span> <span class=\"ddv-r\">de un solo</span> <span class=\"ddv-r\">lado.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Media sanción del Senado (CD-76/26), artículos 35 y 38: «Mezclas obligatorias, cupos y precios»; período de transición hasta el 1/1/2036.",
+    "Secretaría de Energía, octubre de 2025 a septiembre de 2026: 24 empresas no integradas con ventas al corte, la mayor 6,0%; compras por mezclador: YPF 59,9%; YPF, Raízen, Axion y Trafigura, 99,3%. Media sanción del Senado (CD-76/26), artículos 14 y 39."
+   ],
+   "youtube": "SrcrO0mZPFg",
+   "duracion": "0:42",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 22,
+   "orador": "G",
+   "tema": "ganadores y perdedores",
+   "cita": "Un proyecto de mayor consenso que este",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«Entendemos que esto es sumamente difícil, que hay ganadores y perdedores. Se me hace difícil imaginar un proyecto de mayor consenso que este».",
+   "dicho_despues": [],
+   "quien": "Lic. Daniel González, entonces secretario de Coordinación de Energía y Minería, plenario de comisiones del Senado, 3/6/2026, minuto 5:04.",
+   "resumen": "Subir el corte no crea perdedores: los crea el reglamento. Las no integradas venden hoy 746.000 t; con el corte en 10% y la regla de hoy venderían 1.225.000; con la media sanción, 490.000 desde 2031. El «mayor consenso» salió 41 a 25 en el Senado. Y en el plenario del 26/8/2026 el senador Salino (San Luis) lo dijo así: «Nos están poniendo entre los perdedores». Los perdedores no los hace el corte: los eligen los topes y las definiciones.",
+   "pedido": true,
+   "pantallas": [
+    {
+     "id": "a1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">Subir el corte no crea perdedores. <span class=\"ddv-r\">Los crea</span> <span class=\"ddv-r\">el reglamento.</span></div>",
+     "fuente": ""
+    },
+    {
+     "id": "b3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Lo que venden las no integradas, por año</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">Hoy · corte de 7,5%<small>Ley 27.640</small></div><div class=\"ddv-tn\">746.000 t</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Corte de 10%, con la regla de hoy</div><div class=\"ddv-tn\">1.225.000 t</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">Corte de 10%, con la media sanción<small>Desde 2031</small></div><div class=\"ddv-tn\">490.000 t</div></div></div>",
+     "fuente": "Ventas al corte de las no integradas, octubre de 2025 a septiembre de 2026: 746.207 t (Secretaría de Energía). 10% y 4% de 13.850.000 m³ de gas oil por año, a 0,885 t por m³. La ley 27.640 reserva el corte a las no integradas."
+    },
+    {
+     "id": "c2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sub\">El «mayor consenso»:</div><div class=\"ddv-num ddv-m\">41 a 25</div><div class=\"ddv-sub ddv-ch\">Senado, votación en general, 17 de septiembre de 2026.</div><div class=\"ddv-cita\">«Nos están poniendo entre los perdedores.»</div><div class=\"ddv-sub ddv-ch\">Senador Fernando Salino (San Luis), plenario de comisiones del 26 de agosto de 2026.</div>",
+     "fuente": "Senado: acta de votación en general del 17/9/2026 y plenario de Minería y Presupuesto del 26/8/2026."
+    },
+    {
+     "id": "r2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">Los perdedores no los hace el corte.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Los eligen</span> <span class=\"ddv-r\">los topes y las</span> <span class=\"ddv-r\">definiciones.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Ventas al corte de las no integradas, octubre de 2025 a septiembre de 2026: 746.207 t (Secretaría de Energía). 10% y 4% de 13.850.000 m³ de gas oil por año, a 0,885 t por m³. La ley 27.640 reserva el corte a las no integradas.",
+    "Senado: acta de votación en general del 17/9/2026 y plenario de Minería y Presupuesto del 26/8/2026.",
+    "Media sanción del Senado (CD-76/26), artículo 39, inciso a): apartado i, por empresa elaboradora, 10% con un tope máximo de 50.000 t; apartado ii, por grupo económico, 10%."
+   ],
+   "youtube": "8oCfXBzLCoM",
+   "duracion": "0:53",
+   "borrador": 2,
+   "miniatura": true
+  },
+  {
+   "n": 23,
+   "orador": "G",
+   "tema": "mezcla estable por 15 años",
+   "cita": "Una mezcla que tiene que ser predecible y estable",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«Recordemos que ellos tienen que calibrar motores para una mezcla que tiene que ser predecible y estable. Por eso lo que se propone (en) este proyecto de ley, de que estas mezclas mínimas permanezcan por 15 años, también nos parece una buena idea».",
+   "dicho_despues": [],
+   "quien": "Lic. Daniel González, entonces secretario de Coordinación de Energía y Minería, plenario de comisiones del Senado, 3/6/2026, minuto 5:51.",
+   "resumen": "El mismo texto deja cambiar la mezcla «cuando lo considere conveniente» (art. 12): un motor no se calibra para eso. El corte obligatorio cambió 12 veces desde 2010 (cinco en siete meses de 2021) y se cumplió 3 años de 16. Los motores no son el problema: la Argentina tuvo B10 de 2014 a 2020 y Brasil está en B15 desde agosto de 2025. Estable por ley, cambiable por resolución.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">El mismo texto · artículo 12</div><div class=\"ddv-cita\">«La Autoridad de Aplicación podrá modificar excepcionalmente el referido porcentaje obligatorio <mark>cuando lo considere conveniente</mark> (...)»</div><div class=\"ddv-tit ddv-md\">Un motor no se calibra para <span class=\"ddv-r\">«cuando lo</span> <span class=\"ddv-r\">considere</span> <span class=\"ddv-r\">conveniente».</span></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 12, tercer párrafo, textual. El resaltado es nuestro."
+    },
+    {
+     "id": "b2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">El corte obligatorio desde 2010</div><div class=\"ddv-par\"><div><div class=\"ddv-k\">12 veces</div><div class=\"ddv-e\">Cambió</div></div><div><div class=\"ddv-k\">5 veces</div><div class=\"ddv-e\">En siete meses de 2021</div></div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Años en que se cumplió</div><div class=\"ddv-v ddv-r\">3 de 16</div></div>",
+     "fuente": "Secretaría de Energía, corte obligatorio y corte real de biodiésel por año, 2010 a 2025: cumplido en 2012, 2013 y 2017."
+    },
+    {
+     "id": "c1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-md\">Los motores no son el problema.</div><div class=\"ddv-par\"><div><div class=\"ddv-k\">B10</div><div class=\"ddv-e\">Argentina, de 2014 a 2020</div></div><div><div class=\"ddv-k\">B15</div><div class=\"ddv-e\">Brasil, desde agosto de 2025</div></div></div>",
+     "fuente": "Corte obligatorio de 10% en la Argentina de 2014 a 2020 (Ley 26.093). Brasil: B15 desde agosto de 2025, por decisión del CNPE."
+    },
+    {
+     "id": "r2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-xl\">Estable por ley.</div><div class=\"ddv-tit ddv-xl\"><span class=\"ddv-r\">Cambiable</span> <span class=\"ddv-r\">por</span> <span class=\"ddv-r\">resolución.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Media sanción del Senado (CD-76/26), artículo 12, tercer párrafo, textual. El resaltado es nuestro.",
+    "Secretaría de Energía, corte obligatorio y corte real de biodiésel por año, 2010 a 2025: cumplido en 2012, 2013 y 2017.",
+    "Corte obligatorio de 10% en la Argentina de 2014 a 2020 (Ley 26.093). Brasil: B15 desde agosto de 2025, por decisión del CNPE."
+   ],
+   "youtube": "RCN-kVFj544",
+   "duracion": "0:42",
+   "borrador": 1,
+   "miniatura": true
+  },
+  {
+   "n": 24,
+   "orador": "I",
+   "tema": "el proyecto original del Ejecutivo",
+   "cita": "Un proyecto que iba a libre mercado",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«En el Senado se dio un enorme debate, desde el proyecto original del Poder Ejecutivo, que era un proyecto que iba a libre mercado, oferta y demanda rápidamente, en un par de años».",
+   "dicho_despues": [],
+   "quien": "Gustavo Idígoras, presidente de CIARA (Cámara de la Industria Aceitera de la República Argentina), en el programa UpRiver, con Nicolás Carugatti, 4/11/2026, minuto 0:00 de la entrevista.",
+   "resumen": "El proyecto del que habla es el S-809/26, de la senadora Bullrich, y no fue el primero del Ejecutivo. El primero estaba en la Ley de Bases y Diputados lo aprobó el 2/2/2024, 144 a 109. Ese sí era libre mercado desde el primer día: precio por oferta y demanda y no por fórmula, licitaciones únicas y públicas, las mismas condiciones para integradas y no integradas y un límite de 14% igual para todos. Entonces se opusieron las integradas. La media sanción que hoy defiende hace lo contrario: el segmento no integrado se achica de 7,5 a 4 puntos del corte y a cero desde 2036, no hay límite de participación para las integradas y los acuerdos entre privados quedan por encima de las licitaciones. No defiende el libre mercado: defiende el proyecto que los elige ganadores antes de competir.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">S-809/26 · Bullrich y otros</div><div class=\"ddv-tit ddv-lg\">No fue el primer proyecto del <span class=\"ddv-r\">Ejecutivo.</span></div>",
+     "fuente": ""
+    },
+    {
+     "id": "b2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Ley de Bases · 2 de febrero de 2024</div><div class=\"ddv-num ddv-m\">144 a 109</div><div class=\"ddv-sub\">Diputados aprobó el <b>primer proyecto del Ejecutivo</b> para los biocombustibles.</div><div class=\"ddv-tit ddv-md\"><span class=\"ddv-r\">Ese sí era</span> <span class=\"ddv-r\">libre mercado</span> <span class=\"ddv-r\">desde el</span> <span class=\"ddv-r\">primer día.</span></div>",
+     "fuente": "Dictamen de mayoría de la Ley de Bases (O.D. 1/2024), Título VI, Sección IV, artículos 281 a 289. Diputados, acta de votación 5101 del 2/2/2024: 144 a 109."
+    },
+    {
+     "id": "c4",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Ley de Bases · el capítulo de biocombustibles</div><div class=\"ddv-it\"><b>Precio por oferta y demanda</b><small>No por fórmula.</small></div><div class=\"ddv-it\"><b>Licitaciones únicas y públicas</b><small>Sin acuerdos entre privados que bloqueen la participación.</small></div><div class=\"ddv-it\"><b>Las mismas condiciones para todos</b><small>Integradas y no integradas, según capacidad instalada y utilización.</small></div><div class=\"ddv-it\"><b>Un límite de 14%</b><small>El mismo para empresas independientes, grupos económicos e integradas.</small></div>",
+     "fuente": "Dictamen de mayoría de la Ley de Bases (O.D. 1/2024), Título VI, Sección IV, artículos 281 a 289. Diputados, acta de votación 5101 del 2/2/2024: 144 a 109."
+    },
+    {
+     "id": "d1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">¿Quién se opuso? <span class=\"ddv-r\">Las integradas.</span></div><div class=\"ddv-sub ddv-ch\">Las empresas de CARBIO.</div>",
+     "fuente": ""
+    },
+    {
+     "id": "e3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">La media sanción que hoy defiende</div><div class=\"ddv-it\"><b>El segmento no integrado desaparece</b><small>De 7,5 a 4 puntos del corte, y cero desde 2036.</small></div><div class=\"ddv-it\"><b>Sin límite para las integradas</b><small>El tope de participación quedó solo para las no integradas.</small></div><div class=\"ddv-it\"><b>Acuerdos entre privados</b><small>Por encima de las licitaciones únicas y públicas.</small></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículos 14, 15, 35, 38 y 39."
+    },
+    {
+     "id": "r2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">No defiende el libre mercado.</div><div class=\"ddv-tit ddv-md\"><span class=\"ddv-r\">Defiende el proyecto</span> <span class=\"ddv-r\">que los elige</span> <span class=\"ddv-r\">ganadores antes</span> <span class=\"ddv-r\">de competir.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Dictamen de mayoría de la Ley de Bases (O.D. 1/2024), Título VI, Sección IV, artículos 281 a 289. Diputados, acta de votación 5101 del 2/2/2024: 144 a 109.",
+    "Media sanción del Senado (CD-76/26), artículos 14, 15, 35, 38 y 39."
+   ],
+   "youtube": "TPKIkGlSExs",
+   "duracion": "0:59",
+   "borrador": 3,
+   "miniatura": true
+  },
+  {
+   "n": 25,
+   "orador": "I",
+   "tema": "muchísimos ajustes",
+   "cita": "Se hicieron muchísimos ajustes",
+   "sello": "¿AJUSTES PARA QUIÉN?",
+   "sello_corto": "¿AJUSTES PARA QUIÉN?",
+   "veredicto": "Otros veredictos",
+   "dicho": "«(...) se hicieron muchísimos ajustes a ese proyecto de ley».",
+   "dicho_despues": [],
+   "quien": "Gustavo Idígoras, presidente de CIARA (Cámara de la Industria Aceitera de la República Argentina), en el programa UpRiver, con Nicolás Carugatti, 4/11/2026, minuto 0:11 de la entrevista.",
+   "resumen": "Fueron 12 modificaciones en 11 artículos; seis se hicieron en el recinto, el mismo día de la votación (artículos 15, 35, 36 c), 38, 39 a) i y 39 a) iv). Ganaron las integradas (el segmento libre y el faltante que generan los topes), las aceiteras (una planta de hasta 50.000 t pasa a ser «no integrada»), los grupos económicos (el máximo de 50.000 t no se les aplica), las refinerías (exención de impuestos hasta 5%, sin obligación de volumen) y la Secretaría de Energía (más discrecionalidad). Perdieron los de siempre: Unitec Bio, Diaser y Explora, que pasan del 14% sin tope al 10% con un máximo de 50.000 t (42.000 t menos cada una); el fisco, que resigna impuestos sobre el gas oil coprocesado; y el consumidor: menos oferta que demanda es más precio.",
+   "pedido": true,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-num ddv-m\">12</div><div class=\"ddv-sub\"><b>modificaciones</b>, en 11 artículos.</div><div class=\"ddv-fila\"><div class=\"ddv-et\">En el recinto, el mismo día de la votación</div><div class=\"ddv-v ddv-r\">6</div><div class=\"ddv-n\">Artículos 15, 35, 36 c), 38, 39 a) i y 39 a) iv.</div></div>",
+     "fuente": "Comparación del proyecto S-809/26 con el texto aprobado por el Senado el 17/9/2026 (CD-76/26). Elaboración de Explora S.A."
+    },
+    {
+     "id": "g5",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Ganan con los ajustes</div><div class=\"ddv-it\"><b>Las integradas</b><small>El segmento libre, y el faltante que generan los topes.</small></div><div class=\"ddv-it\"><b>Las aceiteras</b><small>Una planta de hasta 50.000 t pasa a ser «no integrada».</small></div><div class=\"ddv-it\"><b>Los grupos económicos</b><small>El máximo de 50.000 t no se les aplica.</small></div><div class=\"ddv-it\"><b>Las refinerías</b><small>Exención de impuestos hasta 5%, sin obligación de volumen.</small></div><div class=\"ddv-it\"><b>La Secretaría de Energía</b><small>Más discrecionalidad.</small></div>",
+     "fuente": "Comparación del proyecto S-809/26 con el texto aprobado por el Senado el 17/9/2026 (CD-76/26). Elaboración de Explora S.A."
+    },
+    {
+     "id": "p3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Pierden, los de siempre</div><div class=\"ddv-it\"><b>Unitec Bio, Diaser y Explora</b><small>Del 14% sin tope al 10% con un máximo de 50.000 t: <i>42.000 t menos cada una</i>.</small></div><div class=\"ddv-it\"><b>El fisco</b><small>Resigna impuestos sobre el gas oil coprocesado.</small></div><div class=\"ddv-it\"><b>El consumidor</b><small>Menos oferta que demanda: más precio.</small></div>",
+     "fuente": "Comparación del proyecto S-809/26 con el texto aprobado por el Senado el 17/9/2026 (CD-76/26). Elaboración de Explora S.A."
+    }
+   ],
+   "fuentes": [
+    "Comparación del proyecto S-809/26 con el texto aprobado por el Senado el 17/9/2026 (CD-76/26). Elaboración de Explora S.A.",
+    "Media sanción del Senado (CD-76/26), artículo 39, inciso a): apartado i, por empresa elaboradora, 10% con un tope máximo de 50.000 t; apartado ii, por grupo económico, 10%."
+   ],
+   "youtube": "c7lA3oNY-tc",
+   "duracion": "0:55",
+   "borrador": 3,
+   "miniatura": true
+  },
+  {
+   "n": 26,
+   "orador": "I",
+   "tema": "salvo un par de provincias",
+   "cita": "Salvo un par de provincias",
+   "sello": "FALSO",
+   "sello_corto": "FALSO",
+   "veredicto": "Falso",
+   "dicho": "«(...) se hicieron muchísimos ajustes a ese proyecto de ley, consensuados por los senadores de muchas provincias, salvo un par de provincias».",
+   "dicho_despues": [],
+   "quien": "Gustavo Idígoras, presidente de CIARA (Cámara de la Industria Aceitera de la República Argentina), en el programa UpRiver, con Nicolás Carugatti, 4/11/2026, minuto 0:11 de la entrevista.",
+   "resumen": "No fue un par. En la votación en general del 17/9/2026 (41 a 25), siete provincias votaron en contra: Buenos Aires, La Rioja, Santa Cruz y Santiago del Estero, con todos sus senadores presentes, y Formosa, Río Negro y San Juan, por 2 a 1. Dos empataron: la Ciudad de Buenos Aires y La Pampa. Y quince votaron a favor, seis de ellas divididas 2 a 1. Nueve de las 24 no acompañaron. En 2026, la imprecisión como método de manipulación no hace más que exponer el ridículo.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-xl\">No fue <span class=\"ddv-r\">un par.</span></div>",
+     "fuente": ""
+    },
+    {
+     "id": "m3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-mapa\"><div class=\"ddv-col\"><div class=\"ddv-mc\"><div class=\"ddv-k\">7</div><div class=\"ddv-e\">en contra</div><small>Buenos Aires, La Rioja, Santa Cruz y Santiago del Estero: todos los presentes. Formosa, Río Negro y San Juan: 2 a 1.</small></div><div class=\"ddv-mc\"><div class=\"ddv-k\">2</div><div class=\"ddv-e\">empates</div><small>CABA y La Pampa: 1 a favor y 1 en contra.</small></div><div class=\"ddv-mc\"><div class=\"ddv-k\">15</div><div class=\"ddv-e\">a favor</div><small>9 con todos los presentes. 6, por 2 a 1.</small></div></div></div>",
+     "fuente": "Senado de la Nación, acta de votación 15 del 17/9/2026 (en general): 41 a favor, 25 en contra y 6 ausentes. Detalle en explorarg.com/mapa-recinto"
+    },
+    {
+     "id": "n2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-num ddv-m ddv-r\">9 de 24</div><div class=\"ddv-sub\">provincias <b>no acompañaron</b>: siete en contra y dos empatadas.</div><div class=\"ddv-fila\"><div class=\"ddv-et\">La votación en general</div><div class=\"ddv-v\">41 a 25</div></div>",
+     "fuente": "Senado de la Nación, acta de votación 15 del 17/9/2026 (en general): 41 a favor, 25 en contra y 6 ausentes. Detalle en explorarg.com/mapa-recinto"
+    },
+    {
+     "id": "r1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-md\">La imprecisión como método de manipulación <span class=\"ddv-r\">no hace más</span> <span class=\"ddv-r\">que exponer</span> <span class=\"ddv-r\">el ridículo.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Senado de la Nación, acta de votación 15 del 17/9/2026 (en general): 41 a favor, 25 en contra y 6 ausentes. Detalle en explorarg.com/mapa-recinto"
+   ],
+   "youtube": "JTt_byr6sdY",
+   "duracion": "0:33",
+   "borrador": 3,
+   "miniatura": true
+  },
+  {
+   "n": 27,
+   "orador": "I",
+   "tema": "nunca invirtieron en una fábrica de aceite",
+   "cita": "Nunca invirtieron en (...) fábrica de aceite",
+   "sello": "DESCALIFICACIÓN",
+   "sello_corto": "DESCALIFICACIÓN",
+   "veredicto": "Otros veredictos",
+   "dicho": "«(...) y se pasó a una ley que no era [la] mejor del mundo, claramente, porque mantiene el mercado regulado hasta el 2036, un 4% para todas las empresas que nunca invirtieron en tener una fábrica de aceite».",
+   "dicho_despues": [],
+   "quien": "Gustavo Idígoras, presidente de CIARA (Cámara de la Industria Aceitera de la República Argentina), en el programa UpRiver, con Nicolás Carugatti, 4/11/2026, minuto 0:21 de la entrevista.",
+   "resumen": "Las que elaboran biodiésel sin producir su materia prima se llaman empresas no integradas. Con su vara, las que él representa serían «empresas que nunca invirtieron en tener una fábrica de metanol». ¿Y quién pagó las plantas de las integradas? El diferencial de retenciones: el aceite de soja pagaba entre 27 y 32% para exportarse y el biodiésel hecho con ese mismo aceite, entre 0 y 5%. Les transfirió USD 2.040 millones; sus plantas costaron USD 590 millones: las pagó 3,4 veces. Las no integradas invirtieron USD 312 millones de capital de riesgo, propio: sin diferencial (tienen prohibido exportar), con el precio fijado por la Secretaría de Energía y con un límite de 50.000 t por año impuesto en 2011, que la media sanción perpetúa. Las integradas no invirtieron: fue el diferencial de retenciones. Entonces, los verdaderos dueños de esas plantas son los productores de soja argentinos.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">El nombre que corresponde</div><div class=\"ddv-tit ddv-lg\">Empresas no integradas.</div><div class=\"ddv-sub\">Elaboran biodiésel sin producir su materia prima.</div><div class=\"ddv-sello\">Con la vara de Idígoras, las suyas serían</div><div class=\"ddv-tit ddv-md\"><span class=\"ddv-r\">«Empresas que</span> <span class=\"ddv-r\">nunca invirtieron</span> <span class=\"ddv-r\">en tener una</span> <span class=\"ddv-r\">fábrica de metanol»</span></div>",
+     "fuente": ""
+    },
+    {
+     "id": "d3",
+     "pregunta": "¿Quién pagó las plantas de las integradas?",
+     "html": "<div class=\"ddv-sello ddv-h\">El diferencial de retenciones</div><div class=\"ddv-par\"><div><div class=\"ddv-k\">27 a 32%</div><div class=\"ddv-e\">Pagaba el aceite de soja para exportarse</div></div><div class=\"ddv-r\"><div class=\"ddv-k\">0 a 5%</div><div class=\"ddv-e\">El biodiésel hecho con ese aceite</div></div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Lo que les transfirió, desde 2008</div><div class=\"ddv-v ddv-r\">USD 2.040 millones</div><div class=\"ddv-barra\"><i class=\"ddv-r\" style=\"width:100%\"></i></div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Lo que costaron sus plantas</div><div class=\"ddv-v\">USD 590 millones</div><div class=\"ddv-barra\"><i style=\"width:28.9%\"></i></div><div class=\"ddv-n\">El diferencial las pagó 3,4 veces.</div></div>",
+     "fuente": "Estimación de Explora S.A. con datos de la Secretaría de Energía: diferencial de retenciones cobrado por las integradas de 2008 a 2025 e inversión en plantas de 2007 a 2013. explorarg.com/que-se-juega-en-diputados"
+    },
+    {
+     "id": "n4",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Las no integradas</div><div class=\"ddv-fila\"><div class=\"ddv-et\">Invirtieron</div><div class=\"ddv-v\">USD 312 millones</div><div class=\"ddv-n\">Capital de riesgo, propio. USD 0 del diferencial.</div></div><div class=\"ddv-it\"><b>Sin diferencial</b><small>Tienen prohibido exportar.</small></div><div class=\"ddv-it\"><b>Con precio político</b><small>Lo fija la Secretaría de Energía, en pesos.</small></div><div class=\"ddv-it\"><b>Con un límite de 50.000 t por año</b><small>Impuesto en 2011, hacia atrás. La media sanción lo perpetúa.</small></div>",
+     "fuente": "Inversión de las no integradas: estimación de Explora S.A. Resolución SE 1674/2010. Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartado i."
+    },
+    {
+     "id": "r3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">Las integradas <span class=\"ddv-r\">no invirtieron.</span></div><div class=\"ddv-tit ddv-md\">Fue el diferencial de retenciones.</div><div class=\"ddv-sub ddv-ch\">Las retenciones se le descuentan al productor.</div><div class=\"ddv-tit ddv-md\">Los verdaderos dueños de esas plantas: <span class=\"ddv-r\">los productores</span> <span class=\"ddv-r\">de soja</span> <span class=\"ddv-r\">argentinos.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Estimación de Explora S.A. con datos de la Secretaría de Energía: diferencial de retenciones cobrado por las integradas de 2008 a 2025 e inversión en plantas de 2007 a 2013. explorarg.com/que-se-juega-en-diputados",
+    "Inversión de las no integradas: estimación de Explora S.A. Resolución SE 1674/2010. Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartado i."
+   ],
+   "youtube": "vrZ7hlEOnv4",
+   "duracion": "1:10",
+   "borrador": 4,
+   "miniatura": true
+  },
+  {
+   "n": 28,
+   "orador": "I",
+   "tema": "la capacidad ociosa",
+   "cita": "Esa capacidad industrial solo usa el 15%",
+   "sello": "VERDAD A MEDIAS",
+   "sello_corto": "VERDAD A MEDIAS",
+   "veredicto": "Otros veredictos",
+   "dicho": "«(...) el primer punto que tenemos hoy es una capacidad ociosa enorme. Santa Fe tiene instalado en su provincia la mayor capacidad industrial de biodiésel del mundo, en términos de concentración y territorialmente. Esa capacidad industrial solo usa el 15%».",
+   "dicho_despues": [],
+   "quien": "Gustavo Idígoras, presidente de CIARA (Cámara de la Industria Aceitera de la República Argentina), en el programa UpRiver, con Nicolás Carugatti, 4/11/2026, minuto 2:15 de la entrevista.",
+   "resumen": "Es cierto: las integradas usan el 14% de su capacidad instalada (enero a septiembre de 2026). En 2011 usaban el 81%. ¿Qué pasó en el medio? Estados Unidos y la Unión Europea les cerraron el mercado por el diferencial de retenciones, con derechos de más de 120% y de alrededor de 25%. No fue proteccionismo: el mundo no aceptó una competencia que no era limpia. Y Europa no está cerrada: desde 2019 tienen un acuerdo por 1,2 millones de t por año, sin arancel y con precio mínimo. En 2021 y 2022 exportaron 1.286.000 y 1.192.000 t; desde 2023, entre 247.000 y 391.000 t por año. Si son grandes y eficientes, como dice, ¿cómo es que otros les ganaron ese mercado? No son víctimas del contexto: son responsables del colapso.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Las integradas · uso de su capacidad instalada</div><div class=\"ddv-par\"><div><div class=\"ddv-k\">81%</div><div class=\"ddv-e\">En 2011</div></div><div class=\"ddv-r\"><div class=\"ddv-k\">14%</div><div class=\"ddv-e\">Enero a septiembre de 2026</div></div></div>",
+     "fuente": "Secretaría de Energía, estadísticas de biocombustibles a septiembre de 2026: total vendido por las integradas sobre su capacidad instalada. Exportación: producción menos ventas al mercado interno."
+    },
+    {
+     "id": "b2",
+     "pregunta": "¿Qué pasó en el medio?",
+     "html": "<div class=\"ddv-sello\">Por el diferencial de retenciones</div><div class=\"ddv-tit ddv-md\">Estados Unidos y la Unión Europea <span class=\"ddv-r\">les cerraron</span> <span class=\"ddv-r\">el mercado.</span></div><div class=\"ddv-par\"><div><div class=\"ddv-k\">+120%</div><div class=\"ddv-e\">Derechos de Estados Unidos</div></div><div><div class=\"ddv-k\">25%</div><div class=\"ddv-e\">Derechos de la Unión Europea</div></div></div>",
+     "fuente": "Estados Unidos: derechos antidumping y compensatorios de 2017 y 2018. Comisión Europea: derechos de 2013 y Reglamento (UE) 2019/244; acuerdo de precios mínimos, Decisión (UE) 2019/245."
+    },
+    {
+     "id": "c1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">No fue proteccionismo.</div><div class=\"ddv-tit ddv-md\"><span class=\"ddv-r\">El mundo no aceptó</span> <span class=\"ddv-r\">una competencia</span> <span class=\"ddv-r\">que no era limpia.</span></div>",
+     "fuente": ""
+    },
+    {
+     "id": "e2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Europa no está cerrada</div><div class=\"ddv-fila\"><div class=\"ddv-et\">Acuerdo con la Unión Europea, desde 2019</div><div class=\"ddv-v\">1,2 millones de <span class=\"ddv-min\">t</span></div><div class=\"ddv-n\">por año, sin arancel, con precio mínimo.</div></div><div class=\"ddv-sub ddv-ch\">Exportación total de las integradas:</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">2021</div><div class=\"ddv-tn ddv-ch\">1.286.000 t</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">2022</div><div class=\"ddv-tn ddv-ch\">1.192.000 t</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">2023</div><div class=\"ddv-tn ddv-ch\">247.000 t</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">2024</div><div class=\"ddv-tn ddv-ch\">391.000 t</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">2025</div><div class=\"ddv-tn ddv-ch\">274.000 t</div></div></div>",
+     "fuente": "Secretaría de Energía, estadísticas de biocombustibles a septiembre de 2026: total vendido por las integradas sobre su capacidad instalada. Exportación: producción menos ventas al mercado interno."
+    },
+    {
+     "id": "r2",
+     "pregunta": "Si son grandes y eficientes, ¿cómo es que otros les ganaron ese mercado?",
+     "html": "<div class=\"ddv-tit ddv-lg\">No son víctimas del contexto.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Son responsables</span> <span class=\"ddv-r\">del colapso.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Secretaría de Energía, estadísticas de biocombustibles a septiembre de 2026: total vendido por las integradas sobre su capacidad instalada. Exportación: producción menos ventas al mercado interno.",
+    "Estados Unidos: derechos antidumping y compensatorios de 2017 y 2018. Comisión Europea: derechos de 2013 y Reglamento (UE) 2019/244; acuerdo de precios mínimos, Decisión (UE) 2019/245."
+   ],
+   "youtube": "eRzluRjZoxo",
+   "duracion": "1:04",
+   "borrador": 3,
+   "miniatura": true
+  },
+  {
+   "n": 29,
+   "orador": "I",
+   "tema": "el otro 85 no puede vender en el mercado interno",
+   "cita": "No puede comercializar [en] el mercado interno",
+   "sello": "LO ABANDONARON",
+   "sello_corto": "LO ABANDONARON",
+   "veredicto": "Otros veredictos",
+   "dicho": "«Esa capacidad industrial solo usa el 15%. (...) El otro 85 no puede comercializar [en] el mercado interno».",
+   "dicho_despues": [],
+   "quien": "Gustavo Idígoras, presidente de CIARA (Cámara de la Industria Aceitera de la República Argentina), en el programa UpRiver, con Nicolás Carugatti, 4/11/2026, minuto 2:31 de la entrevista.",
+   "resumen": "Lo que Idígoras no dice: al mercado interno lo abandonaron ellas. La ley 26.093, de 2006, nunca les prohibió vender acá: su artículo 13 admitía a las empresas que integran «todas o algunas de las etapas industriales necesarias para la obtención de las materias primas». Desde 2010 tuvieron cupo y hasta 2013 lo vendieron: 772.000 t, más que las 618.000 asignadas. En febrero de 2014 dejaron de entregar: hasta enero de 2016 les asignaron 202.133 t y entregaron 13.621, el 6,7%. En 2015, T6 Industrial, Renova, Vicentín, LDC y Noble no entregaron ni una tonelada. Mientras tanto exportaron 2,3 millones de t, 169 por cada una entregada acá, y afuera cobraban el diferencial de retenciones. Al gas oil argentino le faltó biodiésel: la ley mandaba 10% y tuvo 8,7% en 2014 y 8,9% en 2015. Hoy se quejan de que no pueden vender acá. Cuando pudieron, eligieron exportar.",
+   "pedido": false,
+   "pantallas": [
+    {
+     "id": "a2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Ley 26.093, de 2006 · artículo 13</div><div class=\"ddv-tit ddv-lg\">Nunca les prohibió <span class=\"ddv-r\">vender acá.</span></div><div class=\"ddv-cita\">«...pudiendo <mark>integrar todas o algunas de las etapas industriales</mark> necesarias para la obtención de las materias primas renovables correspondientes».</div>",
+     "fuente": "Ley 26.093 (2006), artículo 13, inciso b): requisitos para acceder al régimen. Textual; el resaltado es nuestro."
+    },
+    {
+     "id": "b2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">2010 a 2013 · mercado interno</div><div class=\"ddv-tit ddv-lg\">Tuvieron cupo.</div><div class=\"ddv-sub ddv-ch\">Renova, T6 Industrial, LDC, Cargill, Vicentín, Molinos y Noble.</div><div class=\"ddv-fila\"><div class=\"ddv-et\">Les asignaron</div><div class=\"ddv-v\">618.000 <span class=\"ddv-min\">t</span></div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Vendieron</div><div class=\"ddv-v\">772.000 <span class=\"ddv-min\">t</span></div><div class=\"ddv-n\">Más de lo asignado.</div></div>",
+     "fuente": "Secretaría de Energía, cupos asignados y ventas al corte por empresa, procesados en explorarg.com. Renova, T6 Industrial, LDC, Cargill, Vicentín, Molinos y Noble. Patagonia Bioenergía entregó su cupo y no está contada."
+    },
+    {
+     "id": "c1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Febrero de 2014</div><div class=\"ddv-tit ddv-xl\">Dejaron de <span class=\"ddv-r\">entregar.</span></div>",
+     "fuente": "Secretaría de Energía, cupos asignados y ventas al corte por empresa, procesados en explorarg.com. Renova, T6 Industrial, LDC, Cargill, Vicentín, Molinos y Noble. Patagonia Bioenergía entregó su cupo y no está contada."
+    },
+    {
+     "id": "c3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Febrero de 2014 a enero de 2016</div><div class=\"ddv-fila\"><div class=\"ddv-et\">Les asignaron</div><div class=\"ddv-v\">202.133 <span class=\"ddv-min\">t</span></div><div class=\"ddv-barra\"><i style=\"width:100%\"></i></div></div><div class=\"ddv-fila\"><div class=\"ddv-et\">Entregaron</div><div class=\"ddv-v ddv-r\">13.621 <span class=\"ddv-min\">t</span></div><div class=\"ddv-barra\"><i class=\"ddv-r\" style=\"width:6.7%\"></i></div><div class=\"ddv-n\">El 6,7%.</div></div>",
+     "fuente": "Secretaría de Energía, cupos asignados y ventas al corte por empresa, procesados en explorarg.com. Renova, T6 Industrial, LDC, Cargill, Vicentín, Molinos y Noble. Patagonia Bioenergía entregó su cupo y no está contada."
+    },
+    {
+     "id": "d2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">2015 · lo que entregaron</div><div class=\"ddv-lst\"><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">T6 Industrial<small>Cupo de 2015: 18.995 t</small></div><div class=\"ddv-tn\">0 t</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">Renova<small>Cupo de 2015: 12.163 t</small></div><div class=\"ddv-tn\">0 t</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">Vicentín<small>Cupo de 2015: 11.649 t</small></div><div class=\"ddv-tn\">0 t</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">LDC<small>Cupo de 2015: 10.610 t</small></div><div class=\"ddv-tn\">0 t</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">Noble<small>Cupo de 2015: 9.864 t</small></div><div class=\"ddv-tn\">0 t</div></div></div><div class=\"ddv-sub\"><b>2016:</b> <b class=\"ddv-r\">Entregaron 0.</b></div>",
+     "fuente": "Secretaría de Energía, cupos asignados y ventas al corte de 2015 y de 2016, procesados en explorarg.com. Cargill entregó 2.713 de 9.864 t. Patagonia Bioenergía entregó su cupo."
+    },
+    {
+     "id": "e3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Mientras tanto</div><div class=\"ddv-tit ddv-md\">Exportaron</div><div class=\"ddv-num ddv-s ddv-r\">2,3</div><div class=\"ddv-sub\">millones de toneladas, en esos dos años.</div><div class=\"ddv-fila\"><div class=\"ddv-et\">Por cada tonelada entregada acá</div><div class=\"ddv-v\">169 exportadas</div></div><div class=\"ddv-sub\">Afuera cobraban el <b class=\"ddv-r\">diferencial de retenciones.</b></div>",
+     "fuente": "Exportación: producción menos ventas al mercado interno, febrero de 2014 a enero de 2016. Secretaría de Energía, procesado en explorarg.com. Renova, T6 Industrial, LDC, Cargill, Vicentín, Molinos y Noble. Patagonia Bioenergía entregó su cupo y no está contada."
+    },
+    {
+     "id": "f1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">El gas oil argentino</div><div class=\"ddv-par\"><div><div class=\"ddv-k\">10%</div><div class=\"ddv-e\">El biodiésel que mandaba la ley</div></div><div class=\"ddv-r\"><div class=\"ddv-k\">8,7%</div><div class=\"ddv-e\">El que tuvo en 2014</div></div></div><div class=\"ddv-sub ddv-ch\">En 2015: 8,9%.</div>",
+     "fuente": "Biodiésel sobre gas oil vendido: 8,65% en 2014 y 8,87% en 2015; obligatorio, 10% desde febrero de 2014. Secretaría de Energía, elaboración de explorarg.com."
+    },
+    {
+     "id": "r3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-md\">Hoy se quejan de que no pueden vender acá.</div><div class=\"ddv-tit ddv-md\">Cuando pudieron, <span class=\"ddv-r\">eligieron</span> <span class=\"ddv-r\">exportar.</span></div><div class=\"ddv-tit ddv-md\">Al consumidor argentino <span class=\"ddv-r\">lo abandonaron</span> <span class=\"ddv-r\">ellas.</span></div>",
+     "fuente": ""
+    }
+   ],
+   "fuentes": [
+    "Ley 26.093 (2006), artículo 13, inciso b). Secretaría de Energía: cupos asignados, ventas al corte y producción por empresa, y biodiésel sobre gas oil vendido (8,65% en 2014 y 8,87% en 2015; obligatorio, 10% desde febrero de 2014), procesados en explorarg.com. Las cifras son de Renova, T6 Industrial, LDC, Cargill, Vicentín, Molinos y Noble; Patagonia Bioenergía entregó su cupo y no está contada; Cargill entregó 2.713 de 9.864 t en 2015. Exportación: producción menos ventas al mercado interno, febrero de 2014 a enero de 2016."
+   ],
+   "youtube": "7AnIrQIwAHk",
+   "duracion": "1:13",
+   "borrador": 3,
+   "miniatura": true
+  }
+ ]
+}

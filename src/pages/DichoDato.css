@@ -1,0 +1,1057 @@
+/* "Del dicho al dato" (pestaña de Reforma): índice de los 29 episodios y página
+   de cada uno. Vive dentro del marco .articulo-reforma (encabezado fijo con
+   kicker, título y firma), así que cada regla lleva .dd adelante para ganarle
+   al reset `.articulo-reforma *` y a sus reglas de p, h1, blockquote y tablas.
+   Las clases .ddv-* son las de las pantallas del video (el script les antepone
+   el prefijo), vestidas con los tokens del sitio para los dos temas. */
+
+.dd .dd-encabezado .kicker,
+.dd .dd-encabezado h1 {
+  padding-right: 0;
+}
+
+/* ── Piezas comunes ── */
+
+/* global.css le pone borde superior y relleno a todo <section>; acá las
+   secciones son solo estructura, salvo .dd-seccion, que lleva su línea */
+.dd section {
+  border-top: none;
+}
+
+.dd .dd-bajada {
+  margin: 0 0 12px;
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.55;
+  max-width: 92ch;
+  text-align: left;
+}
+
+.dd .dd-sello {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--accent-alert);
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.dd .dd-fuente {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: left;
+}
+.dd .dd-fuente a {
+  color: var(--accent-exp);
+}
+
+.dd .dd-vacio {
+  margin: 24px 0;
+  color: var(--ink-muted);
+  font-size: 14px;
+  text-align: left;
+}
+
+/* Botones en fila: el elegido, relleno con el turquesa de la marca (como el
+   selector de rango de los tableros) */
+.dd .dd-seg {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--bg-3);
+}
+.dd .dd-seg button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 0.8rem;
+  line-height: 1.3;
+  cursor: pointer;
+}
+.dd .dd-seg button:hover {
+  color: var(--ink);
+}
+.dd .dd-seg button.activo {
+  background: var(--accent-brand);
+  color: #fff;
+  font-weight: 600;
+}
+[data-theme='dark'] .dd .dd-seg button.activo {
+  color: var(--bg);
+}
+.dd .dd-seg-n {
+  opacity: 0.7;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Botón de play sobre una miniatura */
+.dd .dd-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.62);
+  transform: translate(-50%, -50%);
+}
+.dd .dd-play::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 8px;
+  border-style: solid;
+  border-width: 7px 0 7px 11px;
+  border-color: transparent transparent transparent #fff;
+}
+.dd .dd-play-grande {
+  width: 64px;
+  height: 64px;
+  background: rgba(220, 38, 38, 0.92);
+}
+.dd .dd-play-grande::after {
+  left: 25px;
+  top: 18px;
+  border-width: 14px 0 14px 22px;
+}
+
+/* ── Índice ── */
+
+.dd .dd-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  margin: 18px 0 6px;
+}
+.dd .dd-filtro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+.dd .dd-filtro-rotulo {
+  color: var(--ink-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dd .dd-grupo {
+  margin-top: 30px;
+}
+.dd .dd-grupo h2 {
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.dd .dd-grupo h2 span {
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.dd .dd-grupo-de {
+  margin: 2px 0 12px;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  text-align: left;
+}
+
+.dd .dd-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 12px;
+}
+.dd .dd-tarjeta {
+  display: flex;
+  gap: 12px;
+  padding: 10px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--bg-2);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.dd .dd-tarjeta:hover,
+.dd .dd-tarjeta:focus-visible {
+  border-color: var(--accent-brand);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+.dd .dd-tarjeta-img {
+  position: relative;
+  flex: 0 0 90px;
+  width: 90px;
+  height: 160px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #000;
+}
+.dd .dd-tarjeta-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.dd .dd-tarjeta-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+.dd .dd-tarjeta-n {
+  color: var(--ink-muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+.dd .dd-tarjeta-cita {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.dd .dd-tarjeta-tema {
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.35;
+}
+.dd .dd-tarjeta-pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+}
+.dd .dd-marca {
+  padding: 2px 7px;
+  border: 1px solid var(--accent-brand);
+  border-radius: 999px;
+  color: var(--accent-brand);
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* ── Episodio ── */
+
+.dd .dd-pasos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 18px;
+}
+.dd .dd-pasos-pie {
+  margin: 34px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+.dd .dd-pasos-lado {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.dd .dd-paso {
+  padding: 0.38rem 0.9rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--bg-2);
+  color: var(--ink-2);
+  font-size: 0.82rem;
+  line-height: 1.3;
+  text-decoration: none;
+}
+.dd .dd-paso:hover {
+  border-color: var(--accent-brand);
+  color: var(--ink);
+}
+
+.dd .dd-arriba {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  gap: 32px;
+  align-items: start;
+}
+.dd .dd-arriba-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
+}
+.dd .dd-rotulo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.dd .dd-cita {
+  margin: 0;
+  padding: 2px 0 2px 16px;
+  border-left: 4px solid var(--accent-alert);
+  color: var(--ink);
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+.dd .dd-cita-despues {
+  margin-top: 12px;
+  border-left-color: var(--ink-muted);
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+.dd .dd-enlaces {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  text-align: left;
+}
+.dd .dd-tabla tbody th small {
+  display: block;
+  color: var(--ink-muted);
+  font-size: 11.5px;
+  font-weight: 500;
+  white-space: normal;
+}
+.dd .dd-quien {
+  margin: 8px 0 0;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  text-align: left;
+}
+.dd .dd-resumen {
+  margin: 0;
+  color: var(--ink);
+  font-size: 15.5px;
+  line-height: 1.6;
+  max-width: 78ch;
+  text-align: left;
+}
+.dd .dd-pedido {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border: 1px solid var(--accent-alert);
+  border-left-width: 5px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent-alert) 7%, var(--bg-2));
+  max-width: 78ch;
+}
+.dd .dd-pedido-rotulo {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--accent-alert);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.dd .dd-pedido p {
+  color: var(--ink);
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.dd .dd-video-marco {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+.dd .dd-video-marco iframe,
+.dd .dd-video-poster,
+.dd .dd-video-poster img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.dd .dd-video-poster {
+  background: #000;
+  cursor: pointer;
+}
+.dd .dd-video-poster img {
+  object-fit: cover;
+}
+.dd .dd-video-pie {
+  margin-top: 8px;
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  text-align: center;
+}
+
+.dd .dd-seccion {
+  margin-top: 34px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+}
+.dd .dd-seccion > h2 {
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.dd .dd-seccion-sub {
+  margin: 4px 0 14px;
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 96ch;
+  text-align: left;
+}
+
+.dd .dd-fuentes {
+  margin: 10px 0 0 18px;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.dd .dd-fuentes li {
+  margin-bottom: 6px;
+}
+
+/* ── Las pantallas del video, como tarjetas ── */
+
+.dd .dd-pantallas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+  gap: 14px;
+  align-items: start; /* cada tarjeta con su alto: una pregunta sola no queda como un recuadro vacío */
+  counter-reset: pantalla;
+}
+/* El número de orden, arriba a la derecha: las pantallas se leen en el orden del video */
+.dd .dd-pantalla::before {
+  counter-increment: pantalla;
+  content: counter(pantalla);
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  color: var(--ink-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.dd .dd-pantalla {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--bg-2);
+  min-width: 0;
+}
+.dd .dd-pregunta {
+  margin: 0 14px -4px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--accent-exp);
+  font-size: 1.12rem;
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  text-align: left;
+}
+.dd .ddv {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-right: 14px; /* lugar para el número de orden */
+  color: var(--ink);
+}
+.dd .ddv-r {
+  color: var(--accent-alert);
+}
+.dd .ddv-min {
+  text-transform: none;
+}
+.dd .ddv-tit {
+  font-size: 1.12rem;
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+.dd .ddv-tit.ddv-xl {
+  font-size: 1.3rem;
+}
+.dd .ddv-tit.ddv-lg {
+  font-size: 1.2rem;
+}
+.dd .ddv-sello {
+  align-self: flex-start;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--accent-alert);
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+/* `.sello.h` del video: el sello hueco, para los rótulos que no son veredicto */
+.dd .ddv-sello.ddv-h {
+  border: 1px solid var(--ink-muted);
+  background: none;
+  color: var(--ink-2);
+}
+.dd .ddv-sub {
+  color: var(--ink-2);
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.dd .ddv-sub b {
+  color: var(--ink);
+  font-weight: 750;
+}
+.dd .ddv-sub b.ddv-r {
+  color: var(--accent-alert);
+}
+.dd .ddv-sub.ddv-ch {
+  color: var(--ink-muted);
+  font-size: 13px;
+}
+.dd .ddv-fila {
+  padding-top: 8px;
+  border-top: 1px solid var(--rule);
+}
+.dd .ddv-et {
+  color: var(--ink-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+.dd .ddv-v {
+  margin-top: 2px;
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.dd .ddv-n {
+  margin-top: 3px;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.dd .ddv-barra {
+  position: relative;
+  height: 10px;
+  margin-top: 6px;
+  border-radius: 3px;
+  background: var(--bg-4);
+  overflow: hidden;
+}
+.dd .ddv-barra i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 3px;
+  background: var(--ink-2);
+}
+.dd .ddv-barra i.ddv-r {
+  background: var(--accent-alert);
+}
+.dd .ddv-lst {
+  display: flex;
+  flex-direction: column;
+}
+.dd .ddv-fl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 7px 0;
+  border-top: 1px solid var(--rule);
+}
+.dd .ddv-nm {
+  font-size: 14.5px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+.dd .ddv-nm small {
+  display: block;
+  margin-top: 2px;
+  color: var(--ink-muted);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+.dd .ddv-tn {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.dd .ddv-tn.ddv-ch {
+  font-size: 0.95rem;
+}
+.dd .ddv-fl.ddv-r .ddv-nm,
+.dd .ddv-fl.ddv-r .ddv-tn {
+  color: var(--accent-alert);
+}
+.dd .ddv-fl.ddv-tot {
+  border-top: 2px solid var(--ink);
+}
+.dd .ddv-it {
+  padding-top: 8px;
+  border-top: 1px solid var(--rule);
+}
+.dd .ddv-it b {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 750;
+  line-height: 1.25;
+}
+.dd .ddv-it small {
+  display: block;
+  margin-top: 3px;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  line-height: 1.4;
+}
+.dd .ddv-it small i {
+  color: var(--accent-alert);
+  font-style: normal;
+  font-weight: 750;
+}
+.dd .ddv-par {
+  display: flex;
+  gap: 14px;
+}
+.dd .ddv-par > div {
+  flex: 1;
+  padding-top: 8px;
+  border-top: 3px solid var(--ink);
+  min-width: 0;
+}
+.dd .ddv-k {
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.dd .ddv-e {
+  margin-top: 4px;
+  color: var(--ink-2);
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.dd .ddv-par > div.ddv-r {
+  border-top-color: var(--accent-alert);
+}
+.dd .ddv-par > div.ddv-r .ddv-k,
+.dd .ddv-par > div.ddv-r .ddv-e {
+  color: var(--accent-alert);
+}
+.dd .ddv-num {
+  font-size: 2.6rem;
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.dd .ddv-num.ddv-m,
+.dd .ddv-num.ddv-s {
+  font-size: 2.2rem;
+}
+.dd .ddv-cita {
+  padding-left: 12px;
+  border-left: 3px solid var(--accent-alert);
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.dd .ddv-cita mark {
+  padding: 0 3px;
+  background: color-mix(in srgb, var(--accent-alert) 18%, transparent);
+  color: var(--ink);
+  font-weight: 700;
+}
+.dd .ddv-tacha {
+  text-decoration: line-through;
+  text-decoration-color: var(--accent-alert);
+}
+.dd .ddv-mapa,
+.dd .ddv-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dd .ddv-mc small {
+  display: block;
+  margin-top: 3px;
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+
+/* ── Para profundizar: los controles ── */
+
+.dd .dd-control {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--bg-2);
+}
+.dd .dd-perillas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 28px;
+}
+.dd .dd-perilla {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.dd .dd-perilla-ancha {
+  grid-column: 1 / -1;
+}
+.dd .dd-perilla > .dd-seg {
+  align-self: flex-start;
+}
+.dd .dd-perilla-rotulo {
+  color: var(--ink-2);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.dd .dd-perilla-rotulo b {
+  color: var(--ink);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.dd .dd-perilla-rotulo span {
+  color: var(--ink-muted);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.dd .dd-perilla-fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+.dd .dd-perilla input[type='range'] {
+  flex: 1 1 160px;
+  min-width: 120px;
+  accent-color: var(--accent-brand);
+}
+.dd .dd-boton {
+  padding: 5px 12px;
+  border: 1px solid var(--accent-exp);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--accent-exp);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.dd .dd-boton:disabled {
+  border-color: var(--rule);
+  color: var(--ink-muted);
+  cursor: default;
+}
+.dd .dd-select,
+.dd .dd-mes select {
+  padding: 5px 8px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--bg-3);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.85rem;
+}
+.dd .dd-select {
+  max-width: 100%;
+}
+.dd .dd-mes {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.dd .dd-mes label {
+  color: var(--ink-muted);
+  font-size: 0.8rem;
+}
+
+.dd .dd-cifras {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.dd .dd-cifra {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 8px;
+  border-top: 3px solid var(--ink);
+  min-width: 0;
+}
+.dd .dd-cifra-rotulo {
+  color: var(--ink-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.dd .dd-cifra-valor {
+  font-size: 1.7rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+}
+.dd .dd-cifra-nota {
+  color: var(--ink-2);
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+.dd .dd-cifra-alerta {
+  border-top-color: var(--accent-alert);
+}
+.dd .dd-cifra-alerta .dd-cifra-valor,
+.dd .dd-cifra-alerta .dd-cifra-rotulo {
+  color: var(--accent-alert);
+}
+
+.dd .dd-lectura {
+  margin: 0;
+  color: var(--ink);
+  font-size: 14.5px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.dd .dd-barras {
+  display: grid;
+  grid-template-columns: minmax(150px, 25%) minmax(0, 1fr) minmax(0, 31%);
+  gap: 9px 14px;
+  align-items: center;
+}
+.dd .dd-barra-fila {
+  display: contents;
+}
+.dd .dd-barra-nombre {
+  font-size: 13.5px;
+  font-weight: 650;
+  line-height: 1.25;
+}
+.dd .dd-barra-nombre small,
+.dd .dd-barra-valor small {
+  display: block;
+  color: var(--ink-muted);
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+.dd .dd-barra-pista {
+  position: relative;
+  display: block;
+  height: 16px;
+}
+.dd .dd-barra-cap,
+.dd .dd-barra-saca,
+.dd .dd-barra-puede {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 3px;
+}
+.dd .dd-barra-cap,
+.dd .dd-muestra-cap {
+  background: color-mix(in srgb, var(--ink-muted) 32%, transparent);
+}
+.dd .dd-barra-saca,
+.dd .dd-muestra-saca {
+  background: var(--accent-alert);
+}
+.dd .dd-barra-puede,
+.dd .dd-muestra-puede {
+  background: var(--accent-exp);
+}
+.dd .dd-barra-valor {
+  font-size: 13.5px;
+  line-height: 1.25;
+  font-variant-numeric: tabular-nums;
+}
+.dd .dd-barra-valor b {
+  font-weight: 800;
+}
+.dd .dd-barra-valor small i {
+  color: var(--accent-alert);
+  font-style: normal;
+  font-weight: 700;
+}
+.dd .dd-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  color: var(--ink-2);
+  font-size: 12.5px;
+}
+.dd .dd-muestra {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
+  border-radius: 2px;
+  vertical-align: -1px;
+}
+
+.dd .dd-tablas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+  gap: 16px 24px;
+  align-items: start;
+}
+.dd .dd-tabla-caja {
+  overflow-x: auto;
+}
+.dd .dd-tabla {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  font-variant-numeric: tabular-nums;
+}
+.dd .dd-tabla th,
+.dd .dd-tabla td {
+  padding: 6px 8px;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  text-align: right;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+.dd .dd-tabla thead th {
+  background: none;
+  color: var(--ink-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: normal;
+}
+.dd .dd-tabla th:first-child {
+  text-align: left;
+}
+.dd .dd-tabla tbody th {
+  background: none;
+  color: var(--ink);
+  font-weight: 650;
+}
+/* Tabla por año de las integradas: una barrita con la exportación de cada año */
+.dd .dd-tabla .dd-col-barra {
+  text-align: left;
+  width: 38%;
+}
+.dd .dd-tabla td.dd-col-barra {
+  white-space: nowrap;
+}
+.dd .dd-barrita {
+  display: inline-block;
+  width: 52%;
+  height: 10px;
+  margin-right: 10px;
+  border-radius: 3px;
+  background: var(--bg-4);
+  vertical-align: middle;
+  overflow: hidden;
+}
+.dd .dd-barrita i {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent-exp);
+}
+.dd .dd-tabla .dd-rojo {
+  color: var(--accent-alert);
+  font-weight: 750;
+}
+
+/* ── Angosto ── */
+
+@media (max-width: 860px) {
+  .dd .dd-arriba {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .dd .dd-video {
+    width: min(270px, 100%);
+    margin: 0 auto;
+  }
+  .dd .dd-perillas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .dd .dd-cifras {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .dd .dd-barras {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px 0;
+  }
+  .dd .dd-barra-valor {
+    margin-bottom: 10px;
+  }
+  .dd .dd-cita {
+    font-size: 1.12rem;
+  }
+  .dd .dd-tarjetas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

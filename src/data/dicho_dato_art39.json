@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "fuente_publica": "planilla de Explora «Art. 39», revisión 1",
+    "copiado": "2026-11-15",
+    "nota": "Capacidad de las 24 no integradas que venden al corte, por empresa y por grupo económico, según la planilla de Explora «Art. 39», revisión 1. Archivo cargado a mano: no lo regenera regenerate_data.py."
+  },
+  "gasoil_m3": 13850000,
+  "densidad_bio": 0.885,
+  "media_sancion": { "maximo": 50000, "pct": 10 },
+  "periodos": [
+    { "id": "anio1", "label": "Primer año", "corte": 7.5, "ni": 7.5 },
+    { "id": "2028", "label": "Hasta 2028", "corte": 10, "ni": 6.5 },
+    { "id": "2029", "label": "2029", "corte": 10, "ni": 5.5 },
+    { "id": "2030", "label": "2030", "corte": 10, "ni": 5 },
+    { "id": "2031", "label": "2031 a 2035", "corte": 10, "ni": 4 }
+  ],
+  "entidades": [
+    {
+      "nombre": "Grupo Bahía Energía",
+      "tipo": "grupo",
+      "detalle": "ocho sociedades",
+      "sociedades": [
+        { "nombre": "Biobal Energy", "capacidad": 50000 },
+        { "nombre": "Biocorba", "capacidad": 50000 },
+        { "nombre": "Refinar Bio", "capacidad": 50000 },
+        { "nombre": "Bio Ramallo", "capacidad": 50000 },
+        { "nombre": "Biobin", "capacidad": 50000 },
+        { "nombre": "Biobahía", "capacidad": 50000 },
+        { "nombre": "Colalao", "capacidad": 18000 },
+        { "nombre": "Diferoil", "capacidad": 48000 }
+      ]
+    },
+    { "nombre": "Unitec Bio", "tipo": "empresa", "detalle": "una empresa, una planta", "sociedades": [{ "nombre": "Unitec Bio", "capacidad": 240000 }] },
+    { "nombre": "Explora", "tipo": "empresa", "detalle": "una empresa, una planta", "sociedades": [{ "nombre": "Explora", "capacidad": 120000 }] },
+    {
+      "nombre": "Grupo Rosario Bio",
+      "tipo": "grupo",
+      "detalle": "dos sociedades",
+      "sociedades": [
+        { "nombre": "El Albardón", "capacidad": 50000 },
+        { "nombre": "Rosario Bioenergy", "capacidad": 50000 }
+      ]
+    },
+    {
+      "nombre": "Grupo Cremer",
+      "tipo": "grupo",
+      "detalle": "dos sociedades",
+      "sociedades": [
+        { "nombre": "Latinbio", "capacidad": 50000 },
+        { "nombre": "Cremer y Asociados", "capacidad": 50000 }
+      ]
+    },
+    { "nombre": "Diaser", "tipo": "empresa", "detalle": "una empresa, una planta", "sociedades": [{ "nombre": "Diaser", "capacidad": 96000 }] },
+    {
+      "nombre": "Grupo Bolzan",
+      "tipo": "grupo",
+      "detalle": "dos sociedades",
+      "sociedades": [
+        { "nombre": "Bio Nogoyá", "capacidad": 50000 },
+        { "nombre": "Héctor A. Bolzan y Cía.", "capacidad": 14400 }
+      ]
+    },
+    { "nombre": "Enresa", "tipo": "empresa", "detalle": "una empresa, una planta", "sociedades": [{ "nombre": "Enresa", "capacidad": 50000 }] },
+    { "nombre": "Pampa Bio", "tipo": "empresa", "detalle": "una empresa, una planta", "sociedades": [{ "nombre": "Pampa Bio", "capacidad": 50000 }] },
+    { "nombre": "Aripar", "tipo": "empresa", "detalle": "una empresa, una planta", "sociedades": [{ "nombre": "Aripar", "capacidad": 50000 }] },
+    { "nombre": "AOM", "tipo": "empresa", "detalle": "una empresa, una planta", "sociedades": [{ "nombre": "AOM", "capacidad": 48000 }] },
+    { "nombre": "ERA", "tipo": "empresa", "detalle": "una empresa, una planta", "sociedades": [{ "nombre": "ERA", "capacidad": 24000 }] },
+    { "nombre": "Doble L", "tipo": "empresa", "detalle": "una empresa, una planta", "sociedades": [{ "nombre": "Doble L", "capacidad": 10800 }] },
+    { "nombre": "Agro M y G", "tipo": "empresa", "detalle": "una empresa, una planta", "sociedades": [{ "nombre": "Agro M y G", "capacidad": 8000 }] }
+  ]
+}
