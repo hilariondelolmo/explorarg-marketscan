@@ -18,13 +18,13 @@
   border-top: none;
 }
 
+/* Texto de entrada del índice: justificado y a todo el ancho de la página (HDO, 15/11/2026) */
 .dd .dd-bajada {
   margin: 0 0 12px;
   color: var(--ink-2);
   font-size: 15px;
   line-height: 1.55;
-  max-width: 92ch;
-  text-align: left;
+  text-align: justify;
 }
 
 .dd .dd-sello {

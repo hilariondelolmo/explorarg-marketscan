@@ -27,15 +27,15 @@ export const PAGINAS_DIPUTADOS = [
 // extremo derecho de la barra (HDO, 19/10/2026)
 export const SECCIONES_REFORMA = [
   { id: 'diputados', label: 'Cámara de Diputados', menu: PAGINAS_DIPUTADOS },
+  // Pestaña propia, sin menú: el área de la serie de 29 videos cortos "Del dicho al dato" (índice y una
+  // página por episodio en /del-dicho-al-dato/N; `subrutas` la deja marcada también dentro de un episodio).
+  // Va segunda, después de Cámara de Diputados (HDO, 15/11/2026)
+  { id: 'dicho-dato', label: 'Del dicho al dato', to: '/del-dicho-al-dato', subrutas: true },
   // Pestaña propia, sin menú: el video y el documento de la respuesta al Documento CEPREB
   // (HDO, 19/10/2026; el rótulo tiene que decir de frente que es una respuesta)
   { id: 'cepreb', label: 'Respuesta al Documento CEPREB en Diputados', to: '/respuesta-documento-cepreb' },
   // Pestaña propia, sin menú: la nota de la Secretaría de Energía del 14/10/2026 sobre el
   // precio del aceite por distancia a Rosario, en tablero interactivo (HDO, 19/10/2026)
   { id: 'aceite', label: 'Relación del precio del aceite', to: '/relacion-precio-aceite' },
-  // Pestaña propia, sin menú: el área de la serie de 29 videos cortos "Del dicho al dato" (índice y una
-  // página por episodio en /del-dicho-al-dato/N; `subrutas` la deja marcada también dentro de un episodio).
-  // HDO, 15/11/2026
-  { id: 'dicho-dato', label: 'Del dicho al dato', to: '/del-dicho-al-dato', subrutas: true },
   { id: 'senadores', label: 'Cámara de Senadores', menu: PAGINAS_SENADORES, derecha: true },
 ];
