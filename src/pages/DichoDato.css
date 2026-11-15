@@ -439,6 +439,40 @@
   letter-spacing: -0.01em;
   color: var(--ink);
 }
+/* Texto propio de un episodio (NOTAS en dichoDato.js): el 22, por qué la vara no es el consenso */
+.dd .dd-nota-p {
+  margin: 8px 0 0;
+  color: var(--ink);
+  font-size: 15.5px;
+  line-height: 1.6;
+  max-width: 78ch;
+  text-align: left;
+}
+.dd .dd-nota-bloque {
+  margin-top: 20px;
+  max-width: 78ch;
+}
+.dd .dd-nota-bloque h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+}
+.dd .dd-nota-bloque ul,
+.dd .dd-nota-bloque ol {
+  margin: 8px 0 0;
+  padding-left: 22px;
+}
+.dd .dd-nota-bloque li {
+  margin-top: 6px;
+  color: var(--ink);
+  font-size: 15.5px;
+  line-height: 1.55;
+  text-align: left;
+}
+.dd .dd-nota-bloque ol li {
+  font-weight: 600;
+}
 .dd .dd-seccion-sub {
   margin: 4px 0 14px;
   color: var(--ink-2);
@@ -712,6 +746,16 @@
 .dd .ddv-num.ddv-m,
 .dd .ddv-num.ddv-s {
   font-size: 2.2rem;
+}
+/* El "No." de las preguntas del episodio 22 */
+.dd .ddv-vd {
+  margin: 4px 0 8px;
+  color: var(--accent-alert);
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 .dd .ddv-cita {
   padding-left: 12px;

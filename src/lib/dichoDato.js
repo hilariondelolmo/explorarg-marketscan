@@ -126,13 +126,53 @@ export const RELACIONADOS = {
   18: [T.precios],
   20: [T.precios],
   21: [T.compras, T.ventas],
-  22: [T.queSeJuega],
+  22: [T.queSeJuega, T.recinto, T.diputados],
   23: [T.corteGO, T.cumplimiento],
   24: [T.diputados],
   25: [T.queSeJuega],
   26: [T.recinto],
   28: [T.capacidad, T.categorias],
   29: [T.matriz],
+};
+
+// Texto propio de un episodio, además del video: va después de las pantallas.
+// Cada bloque es un subtítulo con una lista (`items`, o `preguntas` si va
+// numerada) y, si hace falta, un párrafo antes (`entrada`) o después (`cierre`).
+export const NOTAS = {
+  22: {
+    titulo: 'Por qué la vara no es el consenso',
+    entrada:
+      'El consenso de quienes participan de un mercado no puede ser el valor rector de la ley que lo regula. Sirve como medio, no como fin.',
+    bloques: [
+      {
+        titulo: 'Por qué no puede ser el fin',
+        items: [
+          ['Los que están en la mesa no son todos los afectados.', 'El que paga el gas oil, el fisco, el que querría entrar al mercado y el que querría crecer no firman el consenso. En un mercado con cupo y precio regulado, el acuerdo entre los que ya están tiende a ser un acuerdo sobre cómo repartir, no sobre cómo funcionar mejor.'],
+          ['El consenso es conservador por construcción.', 'Si cada participante tiene poder de veto, sobrevive lo que a nadie le quita nada, que suele ser justamente lo que causó el problema. Y pesa más la voz del que tiene más poder y hace más lobby.'],
+          ['La ley tiene un mandato propio.', 'Si el corte obligatorio no se cumple, la ley falla en sus propios términos, por más que todos los regulados estén conformes.'],
+        ],
+      },
+      {
+        titulo: 'Qué parte del consenso sí vale',
+        items: [
+          ['Información.', 'Los participantes saben cosas que el legislador no sabe. Escucharlos es obligatorio; darles la lapicera, no.'],
+          ['Durabilidad.', 'Una ley que una parte relevante del sector vive como ilegítima se judicializa, se incumple o se revierte con el próximo gobierno. Un mínimo de aceptación es condición de estabilidad.'],
+        ],
+      },
+      {
+        titulo: 'La vara: tres preguntas que cualquiera puede comprobar',
+        entrada:
+          '«Justa y equilibrada» lo dicen todos de su propia propuesta. Por eso conviene bajarlo a preguntas que se respondan con el texto de la ley y con los datos.',
+        preguntas: [
+          '¿Se cumple el mandato de corte con este diseño, o la propia ley habilita el incumplimiento?',
+          '¿Las reglas son generales, o tienen umbrales y topes que se explican por a quién benefician?',
+          '¿Una empresa eficiente puede crecer, o su techo lo fija la norma y no su desempeño?',
+        ],
+        cierre:
+          'Si una regla pasa esas preguntas, es defendible aunque algún participante no la consienta. Si no las pasa, el consenso no la arregla. El video las responde, una por una, para la media sanción.',
+      },
+    ],
+  },
 };
 
 /* ── El artículo 39 a): cuánto puede vender cada uno ── */

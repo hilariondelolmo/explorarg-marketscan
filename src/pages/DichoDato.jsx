@@ -2,7 +2,7 @@ import { Suspense, lazy, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import SectionNav from '../components/SectionNav.jsx';
 import { SECCIONES_REFORMA } from '../lib/reforma.js';
-import { CONTROLES, EPISODIOS, ORADORES, PEDIDO, RELACIONADOS, RUTA, SERIE, TOTAL, episodio, miniatura } from '../lib/dichoDato.js';
+import { CONTROLES, EPISODIOS, NOTAS, ORADORES, PEDIDO, RELACIONADOS, RUTA, SERIE, TOTAL, episodio, miniatura } from '../lib/dichoDato.js';
 import ControlTope from '../components/dichodato/ControlTope.jsx';
 import './DichoDato.css';
 
@@ -210,6 +210,7 @@ function Video({ ep }) {
 function Episodio({ ep }) {
   const control = CONTROLES[ep.n];
   const enlaces = RELACIONADOS[ep.n] || [];
+  const nota = NOTAS[ep.n];
   return (
     <>
       <Pasos ep={ep} />
@@ -255,6 +256,34 @@ function Episodio({ ep }) {
           ))}
         </div>
       </section>
+
+      {nota && (
+        <section className="dd-seccion dd-nota" aria-labelledby="dd-nota">
+          <h2 id="dd-nota">{nota.titulo}</h2>
+          <p className="dd-nota-p">{nota.entrada}</p>
+          {nota.bloques.map((b) => (
+            <div className="dd-nota-bloque" key={b.titulo}>
+              <h3>{b.titulo}</h3>
+              {b.entrada && <p className="dd-nota-p">{b.entrada}</p>}
+              {b.items && (
+                <ul>
+                  {b.items.map(([fuerte, resto]) => (
+                    <li key={fuerte}><strong>{fuerte}</strong> {resto}</li>
+                  ))}
+                </ul>
+              )}
+              {b.preguntas && (
+                <ol>
+                  {b.preguntas.map((x) => (
+                    <li key={x}>{x}</li>
+                  ))}
+                </ol>
+              )}
+              {b.cierre && <p className="dd-nota-p">{b.cierre}</p>}
+            </div>
+          ))}
+        </section>
+      )}
 
       {(control || enlaces.length > 0) && (
         <section className="dd-seccion dd-profundizar" aria-labelledby="dd-profundizar">

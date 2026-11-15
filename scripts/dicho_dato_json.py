@@ -108,6 +108,12 @@ def pantallas(E) -> list[dict]:
             pid, cuerpo, fuente = fr[1], fr[2], fr[4]
             if pid in SALTEAR:
                 continue
+            # Un clip de otro orador que entra después de esta pantalla (episodio 22: dos frases de Bullrich): la pantalla lo anuncia, así que la cita va en la tarjeta
+            for c in getattr(E, "CLIPS_TRAS", {}).get(pid, []):
+                if c.get("orador"):
+                    o = K.ORADORES[c["orador"]]
+                    cuerpo += (f'<div class="cita">{re.search("«[^»]+»", c["dicho"]).group(0)}</div>'
+                               f'<div class="sub ch">{o["quien"]}. {o["donde"]}.</div>')
             firma = texto(cuerpo)
             nueva = dict(id=pid, _firma=firma, cuerpo=cuerpo, fuente=texto(fuente))
             if out and firma and (firma == out[-1]["_firma"] or firma.startswith(out[-1]["_firma"])):

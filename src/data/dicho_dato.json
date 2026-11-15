@@ -1,6 +1,6 @@
 {
  "meta": {
-  "generado": "2026-11-15 04:31",
+  "generado": "2026-11-15 19:53",
   "nota": "Generado por scripts/dicho_dato_json.py desde output/video-dicho-dato - no editar a mano",
   "total": 29,
   "playlist": "PLAZvJgHCG9cI"
@@ -1094,15 +1094,42 @@
    "sello_corto": "FALSO",
    "veredicto": "Falso",
    "dicho": "«Entendemos que esto es sumamente difícil, que hay ganadores y perdedores. Se me hace difícil imaginar un proyecto de mayor consenso que este».",
-   "dicho_despues": [],
+   "dicho_despues": [
+    "«No hay ganadores y perdedores. Hay ganadores y ganadores». Senadora Patricia Bullrich, cierre del debate en el Senado, 17/9/2026, 22:05.",
+    "«(...) y ahora, en vez de prorrogarlo otra vez, lo que se plantea es un sendero de salida». Senadora Patricia Bullrich, cierre del debate en el Senado, 17/9/2026, 21:55, sobre el biodiésel no integrado."
+   ],
    "quien": "Lic. Daniel González, entonces secretario de Coordinación de Energía y Minería, plenario de comisiones del Senado, 3/6/2026, minuto 5:04.",
-   "resumen": "Subir el corte no crea perdedores: los crea el reglamento. Las no integradas venden hoy 746.000 t; con el corte en 10% y la regla de hoy venderían 1.225.000; con la media sanción, 490.000 desde 2031. El «mayor consenso» salió 41 a 25 en el Senado. Y en el plenario del 26/8/2026 el senador Salino (San Luis) lo dijo así: «Nos están poniendo entre los perdedores». Los perdedores no los hace el corte: los eligen los topes y las definiciones.",
+   "resumen": "Subir el corte no crea perdedores: los crea el reglamento. González dijo «ganadores y perdedores»; tres meses después, en el recinto, la senadora Bullrich dijo «ganadores y ganadores» y, diez minutos antes, había anunciado para las no integradas «un sendero de salida». Ninguno de los dos habla de cómo compite cada empresa, sino de qué es. Las no integradas venden hoy 746.000 t; con el corte en 10% y la regla de hoy venderían 1.225.000; con la media sanción, 490.000 desde 2031. El «mayor consenso» salió 41 a 25 en el Senado, y el senador Salino (San Luis) lo dijo así: «Nos están poniendo entre los perdedores». La vara no es el consenso, que termina siendo el del que tiene más poder y hace más lobby: es una ley objetiva y equitativa, como la que Diputados votó con la Ley de Bases el 2/2/2024 (144 a 109). Medida con esa vara, la media sanción no pasa tres preguntas: el corte no se cumple (manda 919.000 t y sus propios topes dejan vender 731.000), las reglas no son iguales para todos (el máximo de 50.000 t rige para la empresa sola y no para el grupo económico) y la empresa eficiente no puede crecer (Unitec Bio, Explora y Diaser pueden usar el 21%, el 42% y el 52% de sus plantas). Los perdedores no los hace el corte: los elige el reglamento.",
    "pedido": true,
    "pantallas": [
     {
      "id": "a1",
      "pregunta": null,
      "html": "<div class=\"ddv-tit ddv-lg\">Subir el corte no crea perdedores. <span class=\"ddv-r\">Los crea</span> <span class=\"ddv-r\">el reglamento.</span></div>",
+     "fuente": ""
+    },
+    {
+     "id": "s1",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">Tres meses después · el recinto</div><div class=\"ddv-tit ddv-lg\">La senadora Bullrich dijo <span class=\"ddv-r\">lo contrario.</span></div><div class=\"ddv-cita\">«No hay ganadores y perdedores. Hay ganadores y ganadores»</div><div class=\"ddv-sub ddv-ch\">Senadora Patricia Bullrich. Senado, 17 de septiembre de 2026.</div>",
+     "fuente": ""
+    },
+    {
+     "id": "s2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">La misma noche</div><div class=\"ddv-tit ddv-lg\">Y diez minutos antes, para las <span class=\"ddv-r\">no integradas:</span></div><div class=\"ddv-cita\">«(...) y ahora, en vez de prorrogarlo otra vez, lo que se plantea es un sendero de salida»</div><div class=\"ddv-sub ddv-ch\">Senadora Patricia Bullrich. Senado, 17 de septiembre de 2026.</div>",
+     "fuente": ""
+    },
+    {
+     "id": "n2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-tit ddv-lg\">¿Ganadores y ganadores, <span class=\"ddv-r\">con un sendero</span> <span class=\"ddv-r\">de salida?</span></div><div class=\"ddv-tit ddv-md\">No hablan de cómo juega cada uno. <span class=\"ddv-r\">Hablan de</span> <span class=\"ddv-r\">qué es.</span></div>",
+     "fuente": "Senadora Bullrich, cierre del debate en el Senado, 17/9/2026 (21:55 y 22:05 de la transmisión). Daniel González, plenario de comisiones del Senado, 3/6/2026."
+    },
+    {
+     "id": "o4",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">La media sanción decide</div><div class=\"ddv-it\"><b>Quién entra directo a octavos</b></div><div class=\"ddv-it\"><b>Quién arranca 2 a 0</b></div><div class=\"ddv-it\"><b>A quién se expulsa con una sola amarilla</b></div><div class=\"ddv-tit ddv-md\"><span class=\"ddv-r\">Antes</span> <span class=\"ddv-r\">de jugar.</span></div>",
      "fuente": ""
     },
     {
@@ -1118,20 +1145,55 @@
      "fuente": "Senado: acta de votación en general del 17/9/2026 y plenario de Minería y Presupuesto del 26/8/2026."
     },
     {
-     "id": "r2",
+     "id": "d2",
      "pregunta": null,
-     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">Los perdedores no los hace el corte.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Los eligen</span> <span class=\"ddv-r\">los topes y las</span> <span class=\"ddv-r\">definiciones.</span></div>",
+     "html": "<div class=\"ddv-tit ddv-lg\">La vara no es el <span class=\"ddv-r\">consenso.</span></div><div class=\"ddv-sub\">El consenso es el del que tiene <b>más poder.</b> El del que hace <b>más lobby.</b></div>",
+     "fuente": ""
+    },
+    {
+     "id": "e2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello ddv-h\">La vara</div><div class=\"ddv-tit ddv-md\">Una ley objetiva y equitativa.</div><div class=\"ddv-sub ddv-ch\">Ya está escrita: Ley de Bases, Diputados, 2 de febrero de 2024, <b>144 a 109.</b></div><div class=\"ddv-it\"><b>Precio por oferta y demanda</b></div><div class=\"ddv-it\"><b>Licitaciones únicas y públicas</b></div><div class=\"ddv-it\"><b>Las mismas condiciones para integradas y no integradas</b></div><div class=\"ddv-it\"><b>Un límite de 14%, igual para todos</b></div>",
+     "fuente": "Dictamen de mayoría de la Ley de Bases (O.D. 1/2024), Título VI, Sección IV, artículos 281 a 289. Diputados, acta de votación 5101 del 2/2/2024: 144 a 109."
+    },
+    {
+     "id": "f2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">La media sanción, medida con esa vara</div><div class=\"ddv-sub ddv-ch\">Pregunta 1 de 3</div><div class=\"ddv-tit ddv-lg\">¿El corte se cumple?</div><div class=\"ddv-vd\">No.</div><div class=\"ddv-lst\"><div class=\"ddv-fl\"><div class=\"ddv-nm\">Lo que la ley manda<small>Primer año · art. 38</small></div><div class=\"ddv-tn\">919.000 t</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">Lo que sus topes dejan vender<small>Art. 39 a)</small></div><div class=\"ddv-tn\">731.000 t</div></div></div><div class=\"ddv-sub ddv-ch\">El 7,5% es 6,0%. Las 188.000 t que faltan, el artículo 39 b) se las abre a las integradas.</div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículos 38 y 39. 7,5% de 13.850.000 m³ de gas oil: 919.294 t; con los topes del artículo 39 a): 730.988 t (planilla de Explora «Art. 39», revisión 1). 730.988 / 0,885 / 13.850.000 = 5,96%. 919.294 - 730.988 = 188.306 t."
+    },
+    {
+     "id": "g2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">La media sanción, medida con esa vara</div><div class=\"ddv-sub ddv-ch\">Pregunta 2 de 3</div><div class=\"ddv-tit ddv-lg\">¿Las reglas son iguales para todos?</div><div class=\"ddv-vd\">No.</div><div class=\"ddv-lst\"><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">Empresa sola<small>10% del segmento</small></div><div class=\"ddv-tn\">Máx. 50.000 t</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Grupo económico<small>10% del segmento</small></div><div class=\"ddv-tn\">Sin máximo</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Integradas<small>Seis empresas</small></div><div class=\"ddv-tn\">Sin tope</div></div><div class=\"ddv-fl\"><div class=\"ddv-nm\">Mezcladores<small>Cuatro compran el 99%</small></div><div class=\"ddv-tn\">Sin tope</div></div></div>",
+     "fuente": "Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartados i y ii. Seis empresas integradas, sin tope en el segmento de negociación libre. Compras de biodiésel al corte, octubre de 2025 a septiembre de 2026: los cuatro primeros mezcladores, 99,3% (Secretaría de Energía)."
+    },
+    {
+     "id": "h2",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">La media sanción, medida con esa vara</div><div class=\"ddv-sub ddv-ch\">Pregunta 3 de 3</div><div class=\"ddv-tit ddv-lg\">¿La eficiente puede crecer?</div><div class=\"ddv-vd\">No.</div><div class=\"ddv-sub ddv-ch\">Lo que la ley les deja usar de su planta:</div><div class=\"ddv-lst\"><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">Unitec Bio<small>240.000 t de capacidad</small></div><div class=\"ddv-tn\">21%</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">Explora<small>120.000 t de capacidad</small></div><div class=\"ddv-tn\">42%</div></div><div class=\"ddv-fl ddv-r\"><div class=\"ddv-nm\">Diaser<small>96.000 t de capacidad</small></div><div class=\"ddv-tn\">52%</div></div></div>",
+     "fuente": "Capacidad registrada (Secretaría de Energía). Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartado i: tope máximo de 50.000 t por empresa. 50.000 / 240.000 = 21%; 50.000 / 120.000 = 42%; 50.000 / 96.000 = 52%."
+    },
+    {
+     "id": "r3",
+     "pregunta": null,
+     "html": "<div class=\"ddv-sello\">Falso</div><div class=\"ddv-tit ddv-lg\">Los perdedores no los hace el corte.</div><div class=\"ddv-tit ddv-lg\"><span class=\"ddv-r\">Los elige</span> <span class=\"ddv-r\">el reglamento.</span></div><div class=\"ddv-sub\"><b>Con ese reglamento, el campeón ya está elegido.</b></div>",
      "fuente": ""
     }
    ],
    "fuentes": [
+    "Senadora Bullrich, cierre del debate en el Senado, 17/9/2026 (21:55 y 22:05 de la transmisión). Daniel González, plenario de comisiones del Senado, 3/6/2026.",
     "Ventas al corte de las no integradas, octubre de 2025 a septiembre de 2026: 746.207 t (Secretaría de Energía). 10% y 4% de 13.850.000 m³ de gas oil por año, a 0,885 t por m³. La ley 27.640 reserva el corte a las no integradas.",
     "Senado: acta de votación en general del 17/9/2026 y plenario de Minería y Presupuesto del 26/8/2026.",
+    "Dictamen de mayoría de la Ley de Bases (O.D. 1/2024), Título VI, Sección IV, artículos 281 a 289. Diputados, acta de votación 5101 del 2/2/2024: 144 a 109.",
+    "Media sanción del Senado (CD-76/26), artículos 38 y 39. 7,5% de 13.850.000 m³ de gas oil: 919.294 t; con los topes del artículo 39 a): 730.988 t (planilla de Explora «Art. 39», revisión 1). 730.988 / 0,885 / 13.850.000 = 5,96%. 919.294 - 730.988 = 188.306 t.",
+    "Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartados i y ii. Seis empresas integradas, sin tope en el segmento de negociación libre. Compras de biodiésel al corte, octubre de 2025 a septiembre de 2026: los cuatro primeros mezcladores, 99,3% (Secretaría de Energía).",
+    "Capacidad registrada (Secretaría de Energía). Media sanción del Senado (CD-76/26), artículo 39, inciso a), apartado i: tope máximo de 50.000 t por empresa. 50.000 / 240.000 = 21%; 50.000 / 120.000 = 42%; 50.000 / 96.000 = 52%.",
     "Media sanción del Senado (CD-76/26), artículo 39, inciso a): apartado i, por empresa elaboradora, 10% con un tope máximo de 50.000 t; apartado ii, por grupo económico, 10%."
    ],
-   "youtube": "8oCfXBzLCoM",
-   "duracion": "0:53",
-   "borrador": 2,
+   "youtube": "pZUlmH-spds",
+   "duracion": "2:36",
+   "borrador": 5,
    "miniatura": true
   },
   {
