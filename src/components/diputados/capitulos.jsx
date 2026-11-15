@@ -105,7 +105,11 @@ const LEY = {
 // Párrafos de la falla 1
 const FALLA1 = {
   p1: <p>El artículo 38 manda a las no integradas abastecer el 7,5% del gas oil el primer año, el 6,5% hasta 2028 y el 5,5% en 2029. El artículo 39 les pone dos topes: 10% por empresa con un máximo de 50.000 toneladas, y 10% por grupo. Con la estructura actual del mercado, los topes suman menos que el mandato.</p>,
-  p2: <p>El tope de 50.000 toneladas saca de juego 306.000 toneladas de capacidad de Unitec Bio, Explora y Diaser. El tope por grupo saca otras 290.000, casi todas del Grupo Bahía Energía. La capacidad no integrada es de 1.327.200 toneladas, 408.000 más que lo que exige el segmento el primer año: la capacidad sobra, lo que falta es permiso para usarla. La ley manda 7,5% y la misma ley permite 6,0%.</p>,
+  // Las dos primeras oraciones, corregidas el 15/11/2026 con el visto bueno de HDO (su corrección
+  // del 11/11: el máximo de 50.000 t saca 42.000 t por empresa, no 306.000). El original del 13/10
+  // decía: "El tope de 50.000 toneladas saca de juego 306.000 toneladas de capacidad de Unitec Bio,
+  // Explora y Diaser. El tope por grupo saca otras 290.000, casi todas del Grupo Bahía Energía."
+  p2: <p>El 10% por empresa y por grupo deja afuera 470.000 toneladas de capacidad: 290.000 de los grupos, casi todas del Grupo Bahía Energía, y 180.000 de Unitec Bio, Explora y Diaser. El máximo de 50.000 toneladas, que rige solo para la empresa, les saca otras 42.000 a cada una: 126.000 toneladas. La capacidad no integrada es de 1.327.200 toneladas, 408.000 más que lo que exige el segmento el primer año: la capacidad sobra, lo que falta es permiso para usarla. La ley manda 7,5% y la misma ley permite 6,0%.</p>,
   p3: <p>¿Adónde va el faltante? El artículo 39 b) dice que "podrá" pasar al total del mercado: a las integradas, que hoy usan el 14% de su capacidad, o a la importación. Y cuando la demanda es obligatoria y la oferta tiene techo, el precio sube hasta el techo que la propia ley fija: la paridad de importación. Puesta en La Plata en septiembre de 2026, contra 1.328 dólares por tonelada del precio local, la paridad de Brasil es 1.431 (7,8% más), la del Golfo de Estados Unidos 1.539 (16% más) y la de Europa 2.066 (56% más). Cuál de las tres rige no lo dice la ley: lo define una metodología que el artículo 16 deja abierta. La diferencia la paga el consumidor y la cobra el dueño del aceite.</p>,
 };
 

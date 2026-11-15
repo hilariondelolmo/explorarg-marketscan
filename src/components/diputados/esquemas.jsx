@@ -206,7 +206,7 @@ export function CapacidadPorGrupo({ texto }) {
     <Esq
       titulo="Entre las no integradas hay cuatro grupos económicos con más de una planta."
       texto={texto}
-      nota="Capacidad registrada de las 24 no integradas que vendieron al corte entre septiembre de 2025 y agosto de 2026: 1.306.000 t en total. El tope de 50.000 toneladas saca de juego 306.000 toneladas de capacidad de Unitec Bio, Explora y Diaser. Fuente: Secretaría de Energía, elaboración explorarg.com."
+      nota="Capacidad registrada de las 24 no integradas que vendieron al corte entre septiembre de 2025 y agosto de 2026: 1.306.000 t en total. El máximo de 50.000 toneladas les saca 42.000 toneladas a cada una de Unitec Bio, Explora y Diaser el primer año. Fuente: Secretaría de Energía, elaboración explorarg.com."
     >
       <Barras
         max={348000}
@@ -617,13 +617,19 @@ export function MandaPermite({ texto }) {
 
 export function CascadaCapacidad({ texto }) {
   return (
-    <Esq texto={texto} titulo="La capacidad sobra, lo que falta es permiso para usarla." nota="Cifras del primer año. 1.327.200 t de capacidad son 408.000 más que lo que exige el segmento.">
+    <Esq texto={texto} titulo="La capacidad sobra, lo que falta es permiso para usarla." nota="Cifras del primer año. El 10% deja afuera 290.212 t de los grupos, casi todas del Grupo Bahía Energía, y 180.212 t de Unitec Bio, Explora y Diaser; el máximo de 50.000 t les saca otras 42.000 t a cada una de las tres. 1.327.200 t de capacidad son 408.000 más que lo que exige el segmento.">
       <Barras
         max={1327200}
         filas={[
           { label: 'Capacidad no integrada', valor: 1327200, texto: '1.327.200 t', tono: 'suave' },
-          { label: 'Tope de 50.000 t por empresa', valor: 1327200, desde: 1021200, texto: '−306.000 t · Unitec Bio, Explora y Diaser', tono: 'alerta' },
-          { label: 'Tope por grupo', valor: 1021200, desde: 731200, texto: '−290.000 t · casi todas del Grupo Bahía Energía', tono: 'alerta' },
+          // Corrección de HDO del 11/11/2026 (aplicada el 15/11): primero el 10% por empresa y por
+          // grupo, que no es el problema y por eso no va en rojo; después el máximo de 50.000 t, que
+          // rige solo para la empresa: 91.929 - 50.000 = 41.929 t a cada una de las tres. Nunca
+          // atribuirle 306.000 t al máximo. 1.327.200 - 470.424 - 125.788 = 730.988.
+          // Los textos de la derecha van cortos y el desglose en la nota: la columna del valor crece
+          // con el texto más largo y se come la pista de las barras.
+          { label: '10% por empresa y por grupo', valor: 1327200, desde: 856776, texto: '−470.424 t', tono: 'suave' },
+          { label: 'Máximo de 50.000 t, solo a la empresa', valor: 856776, desde: 730988, texto: '−125.788 t · 42.000 t a cada una', tono: 'alerta' },
           { label: 'Lo que los topes permiten', valor: 730988, texto: '730.988 t' },
           { label: 'Lo que exige el segmento', valor: 919294, texto: '919.294 t', tono: 'suave' },
         ]}
