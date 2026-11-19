@@ -1,0 +1,262 @@
+{
+ "_": "Generado por scripts/situacion_json.py desde output/articulo-tres-empresas/hechos.json. No editar a mano.",
+ "corte_datos": "septiembre de 2026",
+ "segmento": 922721,
+ "diez": 92272,
+ "tope": 50000,
+ "pierde_cada_una": 42272,
+ "pct_tope": 0.05418754470650325,
+ "faltante_con_tope": 193905,
+ "faltante_sin_tope": 67089,
+ "corte_posible": 5.923915531100921,
+ "crece_mercado": 176516,
+ "ventas12_ni": 746205,
+ "oferentes": [
+  {
+   "id": "GRUPO BOJANICH",
+   "nombre": "Grupo Bahía Energía (Bojanich)",
+   "grupo": true,
+   "sociedades": 8,
+   "tres": false,
+   "capacidad": 348000,
+   "ventas12": 230430,
+   "con_tope": 92272,
+   "sin_tope": 92272,
+   "adecuacion": 348000
+  },
+  {
+   "id": "GRUPO ROSARIO BIO",
+   "nombre": "Grupo Rosario Bio",
+   "grupo": true,
+   "sociedades": 2,
+   "tres": false,
+   "capacidad": 100000,
+   "ventas12": 85799,
+   "con_tope": 92272,
+   "sin_tope": 92272,
+   "adecuacion": 100000
+  },
+  {
+   "id": "GRUPO CREMER",
+   "nombre": "Grupo Cremer",
+   "grupo": true,
+   "sociedades": 2,
+   "tres": false,
+   "capacidad": 100000,
+   "ventas12": 70905,
+   "con_tope": 92272,
+   "sin_tope": 92272,
+   "adecuacion": 100000
+  },
+  {
+   "id": "GRUPO BOLZAN",
+   "nombre": "Grupo Bolzan",
+   "grupo": true,
+   "sociedades": 2,
+   "tres": false,
+   "capacidad": 60800,
+   "ventas12": 51995,
+   "con_tope": 60800,
+   "sin_tope": 60800,
+   "adecuacion": 60800
+  },
+  {
+   "id": "EXPLORA S.A.",
+   "nombre": "Explora",
+   "grupo": false,
+   "sociedades": 1,
+   "tres": true,
+   "capacidad": 120000,
+   "ventas12": 45062,
+   "con_tope": 50000,
+   "sin_tope": 92272,
+   "adecuacion": 50000
+  },
+  {
+   "id": "UNITEC BIO S.A.",
+   "nombre": "Unitec Bio",
+   "grupo": false,
+   "sociedades": 1,
+   "tres": true,
+   "capacidad": 240000,
+   "ventas12": 43433,
+   "con_tope": 50000,
+   "sin_tope": 92272,
+   "adecuacion": 50000
+  },
+  {
+   "id": "PAMPA BIO S.A.",
+   "nombre": "Pampa Bio",
+   "grupo": false,
+   "sociedades": 1,
+   "tres": false,
+   "capacidad": 50000,
+   "ventas12": 41308,
+   "con_tope": 50000,
+   "sin_tope": 50000,
+   "adecuacion": 50000
+  },
+  {
+   "id": "ENRESA",
+   "nombre": "Enresa",
+   "grupo": false,
+   "sociedades": 1,
+   "tres": false,
+   "capacidad": 50000,
+   "ventas12": 40252,
+   "con_tope": 50000,
+   "sin_tope": 50000,
+   "adecuacion": 50000
+  },
+  {
+   "id": "DIASER S.A.",
+   "nombre": "Diaser",
+   "grupo": false,
+   "sociedades": 1,
+   "tres": true,
+   "capacidad": 96000,
+   "ventas12": 38011,
+   "con_tope": 50000,
+   "sin_tope": 92272,
+   "adecuacion": 50000
+  },
+  {
+   "id": "AOM S.A.",
+   "nombre": "AOM",
+   "grupo": false,
+   "sociedades": 1,
+   "tres": false,
+   "capacidad": 48000,
+   "ventas12": 33595,
+   "con_tope": 48000,
+   "sin_tope": 48000,
+   "adecuacion": 48000
+  },
+  {
+   "id": "ARIPAR S.A.",
+   "nombre": "Aripar",
+   "grupo": false,
+   "sociedades": 1,
+   "tres": false,
+   "capacidad": 50000,
+   "ventas12": 32420,
+   "con_tope": 50000,
+   "sin_tope": 50000,
+   "adecuacion": 50000
+  },
+  {
+   "id": "ERA S.A.",
+   "nombre": "ERA",
+   "grupo": false,
+   "sociedades": 1,
+   "tres": false,
+   "capacidad": 21600,
+   "ventas12": 17057,
+   "con_tope": 21600,
+   "sin_tope": 21600,
+   "adecuacion": 21600
+  },
+  {
+   "id": "DOBLE L S.A.",
+   "nombre": "Doble L",
+   "grupo": false,
+   "sociedades": 1,
+   "tres": false,
+   "capacidad": 10800,
+   "ventas12": 10232,
+   "con_tope": 10800,
+   "sin_tope": 10800,
+   "adecuacion": 10800
+  },
+  {
+   "id": "AGRO M Y G S.A.",
+   "nombre": "Agro M y G",
+   "grupo": false,
+   "sociedades": 1,
+   "tres": false,
+   "capacidad": 10800,
+   "ventas12": 5706,
+   "con_tope": 10800,
+   "sin_tope": 10800,
+   "adecuacion": 10800
+  }
+ ],
+ "escenarios": [
+  {
+   "id": "bahia",
+   "nombre": "Grupo Bahía Energía (Bojanich)",
+   "hoy": 230430,
+   "mejor": 270721,
+   "probable": 348000
+  },
+  {
+   "id": "tres",
+   "nombre": "Unitec Bio, Explora y Diaser",
+   "hoy": 126506,
+   "mejor": 150000,
+   "probable": 141603
+  },
+  {
+   "id": "chicas",
+   "nombre": "ERA, Doble L y Agro M y G",
+   "hoy": 32995,
+   "mejor": 43200,
+   "probable": 0
+  },
+  {
+   "id": "demas",
+   "nombre": "Las demás no integradas",
+   "hoy": 356274,
+   "mejor": 458800,
+   "probable": 433118
+  }
+ ],
+ "tres": [
+  {
+   "id": "UNITEC BIO S.A.",
+   "nombre": "Unitec Bio",
+   "capacidad": 240000,
+   "abril_2010": 9424,
+   "perdio": 917364,
+   "ventas_2011": 96952,
+   "ventas_2025": 42392
+  },
+  {
+   "id": "EXPLORA S.A.",
+   "nombre": "Explora",
+   "capacidad": 120000,
+   "abril_2010": 7424,
+   "perdio": 540820,
+   "ventas_2011": 68222,
+   "ventas_2025": 51071
+  },
+  {
+   "id": "DIASER S.A.",
+   "nombre": "Diaser",
+   "capacidad": 96000,
+   "abril_2010": 6622,
+   "perdio": 462938,
+   "ventas_2011": 58148,
+   "ventas_2025": 33182
+  }
+ ],
+ "tres_perdio": 1921122,
+ "bloques": {
+  "2011": {
+   "tres": 223322,
+   "bahia": 0,
+   "otras": 266709,
+   "integradas": 248904
+  },
+  "2025": {
+   "tres": 126646,
+   "bahia": 214123,
+   "otras": 317616,
+   "integradas": 37846
+  }
+ },
+ "totales": {
+  "2011": 738935,
+  "2025": 696230
+ }
+}

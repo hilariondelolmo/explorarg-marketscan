@@ -30,6 +30,7 @@ const RUTAS_REFORMA = [
   '/cepreb-quiere-repartir',
   '/respuesta-documento-cepreb',
   '/del-dicho-al-dato',
+  '/situacion',
 ];
 
 const MQ_ANGOSTO = '(max-width: 560px)';

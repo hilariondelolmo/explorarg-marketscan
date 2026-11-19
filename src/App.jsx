@@ -33,6 +33,7 @@ const LeyBiocombustiblesVara = lazy(() => import('./pages/LeyBiocombustiblesVara
 const CeprebRepartir = lazy(() => import('./pages/CeprebRepartir.jsx'));
 const RelacionPrecioAceite = lazy(() => import('./pages/RelacionPrecioAceite.jsx'));
 const DichoDato = lazy(() => import('./pages/DichoDato.jsx'));
+const Situacion = lazy(() => import('./pages/Situacion.jsx'));
 const Tutoriales = lazy(() => import('./pages/Tutoriales.jsx'));
 const AcercaDe = lazy(() => import('./pages/AcercaDe.jsx'));
 
@@ -78,6 +79,7 @@ export default function App() {
           <Route path="/respuesta-documento-cepreb" element={<CeprebRepartir />} />
           <Route path="/relacion-precio-aceite" element={<RelacionPrecioAceite />} />
           <Route path="/del-dicho-al-dato/:n?" element={<DichoDato />} />
+          <Route path="/situacion/:fecha?" element={<Situacion />} />
           <Route path="/cepreb-quiere-repartir" element={<Navigate to="/respuesta-documento-cepreb" replace />} />
           <Route path="/tutoriales" element={<Tutoriales />} />
           <Route path="/acerca-de" element={<AcercaDe />} />

@@ -1,0 +1,1037 @@
+/* "Situación al <fecha>" (/situacion). Todo cuelga de .sit: el reset de ReformaLey.css
+   (.articulo-reforma * { margin: 0; padding: 0 }) pesa menos que ".sit .algo", así que el orden
+   en que Vite sirva las hojas no cambia nada. */
+
+.sit {
+  --sit-rojo: var(--accent-alert);
+  --sit-azul: var(--accent-exp);
+  --sit-suave: color-mix(in srgb, var(--accent-exp) 9%, var(--bg));
+  --sit-rojo-suave: color-mix(in srgb, var(--accent-alert) 9%, var(--bg));
+}
+
+.sit button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* ── Encabezado y pestañas de profundidad ── */
+.sit .sit-encabezado {
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 12px;
+}
+.sit .sit-vistas {
+  display: flex;
+  gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+  overflow-x: auto;
+}
+.sit .sit-vistas button {
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  border: 1.5px solid var(--rule);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--ink-2);
+  font-size: 14.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.sit .sit-vistas button small {
+  margin-left: 6px;
+  font-size: 12.5px;
+  font-weight: 400;
+  opacity: 0.8;
+}
+.sit .sit-vistas button:hover {
+  border-color: var(--sit-azul);
+  color: var(--ink);
+}
+.sit .sit-vistas button.activo {
+  border-color: var(--sit-azul);
+  background: var(--sit-azul);
+  color: #fff;
+}
+
+.sit .sit-ediciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+.sit .sit-ediciones a {
+  padding: 2px 10px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--ink-2);
+  text-decoration: none;
+}
+.sit .sit-ediciones a.activa {
+  border-color: var(--sit-azul);
+  color: var(--sit-azul);
+  font-weight: 600;
+}
+
+.sit .sit-bajada {
+  max-width: 900px;
+  margin-bottom: 22px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink);
+  text-align: left;
+}
+.sit .sit-ayuda,
+.sit .sit-entrada {
+  margin-bottom: 14px;
+  color: var(--ink-muted);
+  font-size: 14px;
+  text-align: left;
+}
+.sit .sit-entrada {
+  max-width: 760px;
+  color: var(--ink-2);
+  font-size: 15.5px;
+}
+
+/* ── Botones ── */
+.sit .sit-boton {
+  padding: 9px 18px;
+  border: 1.5px solid var(--sit-azul);
+  border-radius: 999px;
+  background: var(--sit-azul);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 600;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.sit .sit-boton small {
+  font-weight: 400;
+  opacity: 0.85;
+}
+.sit .sit-boton:hover,
+.sit .sit-boton.secundario {
+  background: transparent;
+  color: var(--sit-azul);
+}
+.sit .sit-boton.secundario:hover {
+  background: var(--sit-suave);
+}
+.sit .sit-boton-linea {
+  padding: 5px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--ink-2);
+  font-size: 13px;
+}
+.sit .sit-boton-linea:hover:not(:disabled) {
+  border-color: var(--sit-azul);
+  color: var(--sit-azul);
+}
+.sit .sit-boton-linea:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ── La carilla: ocho puntos ── */
+.sit .sit-carilla-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.sit h2 {
+  font-size: 1.2rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.sit .sit-puntos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+.sit .sit-punto {
+  border: 1px solid var(--rule);
+  border-left: 5px solid var(--sit-azul);
+  border-radius: 8px;
+  background: var(--bg-2);
+  transition: box-shadow 0.15s ease;
+}
+.sit .sit-punto.alerta {
+  border-left-color: var(--sit-rojo);
+}
+.sit .sit-punto.pedido {
+  border-left-color: var(--accent-bio);
+}
+.sit .sit-punto.abierto,
+.sit .sit-punto:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+.sit .sit-punto-cabeza {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: 'n rotulo mas' 'n cifra mas' 'n sub mas';
+  column-gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+.sit .sit-punto-n {
+  grid-area: n;
+  align-self: start;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--bg-4);
+  color: var(--ink-2);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 26px;
+  text-align: center;
+}
+.sit .sit-punto-rotulo {
+  grid-area: rotulo;
+  color: var(--ink-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.sit .sit-punto-cifra {
+  grid-area: cifra;
+  margin-top: 2px;
+  color: var(--sit-azul);
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+}
+.sit .sit-punto.alerta .sit-punto-cifra {
+  color: var(--sit-rojo);
+}
+.sit .sit-punto.pedido .sit-punto-cifra {
+  color: var(--accent-bio);
+}
+.sit .sit-punto-sub {
+  grid-area: sub;
+  color: var(--ink-2);
+  font-size: 13.5px;
+}
+.sit .sit-punto-mas {
+  grid-area: mas;
+  align-self: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  color: var(--ink-2);
+  font-size: 18px;
+  line-height: 25px;
+  text-align: center;
+}
+.sit .sit-punto-texto {
+  padding: 12px 16px 16px 54px;
+  border-top: 1px solid var(--rule-soft);
+  font-size: 15px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* ── El artículo de dos carillas ── */
+.sit .sit-nota > h2 {
+  margin: 34px 0 10px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+.sit .sit-nota > p,
+.sit .sit-pedido p {
+  max-width: 900px;
+  margin-bottom: 12px;
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.sit .sit-resumen-nota {
+  padding: 12px 16px;
+  border-left: 4px solid var(--sit-azul);
+  background: var(--sit-suave);
+  border-radius: 0 8px 8px 0;
+}
+.sit .sit-lista {
+  max-width: 900px;
+  margin: 0 0 12px 20px;
+  font-size: 15.5px;
+}
+.sit .sit-lista li {
+  margin-bottom: 8px;
+}
+.sit .sit-pedido {
+  padding: 16px 20px 6px;
+  border: 1px solid var(--rule);
+  border-left: 5px solid var(--accent-bio);
+  border-radius: 8px;
+  background: var(--bg-2);
+}
+
+/* ── Cajas interactivas ── */
+.sit .sit-caja {
+  margin: 18px 0 8px;
+  padding: 16px 18px 14px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--bg-3);
+}
+.sit .sit-caja-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.sit .sit-caja-rotulo {
+  margin-bottom: 12px;
+  color: var(--sit-azul);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.sit .sit-caja-cabecera .sit-caja-rotulo {
+  margin-bottom: 0;
+}
+.sit .sit-mini-rotulo {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.sit .sit-fuente {
+  margin-top: 12px;
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.sit .sit-chips,
+.sit .sit-seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.sit .sit-chips button,
+.sit .sit-seg button {
+  padding: 6px 14px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--ink-2);
+  font-size: 14px;
+  font-weight: 550;
+}
+.sit .sit-seg button {
+  padding: 4px 12px;
+  font-size: 13px;
+}
+.sit .sit-chips button:hover,
+.sit .sit-seg button:hover {
+  border-color: var(--sit-azul);
+}
+.sit .sit-chips button.activo,
+.sit .sit-seg button.activo {
+  border-color: var(--sit-azul);
+  background: var(--sit-azul);
+  color: #fff;
+}
+
+/* Artículo 39 y las nueve palabras */
+.sit .sit-articulo39 {
+  padding: 14px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--bg);
+}
+.sit .sit-articulo39-titulo {
+  margin-bottom: 8px;
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.sit .sit-articulo39 p {
+  margin-bottom: 6px;
+  font-size: 16.5px;
+  line-height: 1.6;
+  text-align: left;
+}
+.sit .sit-nueve {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--sit-rojo-suave);
+  color: var(--sit-rojo);
+  font-weight: 650;
+  transition: opacity 0.25s ease;
+}
+.sit .sit-nueve.tachado {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  opacity: 0.45;
+}
+.sit .sit-articulo39-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 12px;
+}
+.sit .sit-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-2);
+  font-size: 14px;
+  cursor: pointer;
+}
+.sit .sit-check input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--sit-azul);
+}
+
+.sit .sit-resumen {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+.sit .sit-dato {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--sit-azul);
+  border-radius: 8px;
+  background: var(--bg);
+}
+.sit .sit-dato.alerta {
+  border-top-color: var(--sit-rojo);
+}
+.sit .sit-dato-rotulo {
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.35;
+}
+.sit .sit-dato-valor {
+  color: var(--sit-azul);
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.sit .sit-dato.alerta .sit-dato-valor {
+  color: var(--sit-rojo);
+}
+.sit .sit-dato-nota {
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* Barras horizontales */
+.sit .sit-barras {
+  display: grid;
+  gap: 5px;
+}
+.sit .sit-barra-fila {
+  display: grid;
+  grid-template-columns: 250px 1fr 170px;
+  align-items: center;
+  gap: 12px;
+  padding: 3px 6px;
+  border-radius: 6px;
+}
+.sit .sit-barra-fila.tres {
+  background: var(--sit-rojo-suave);
+}
+.sit .sit-barra-nombre {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.sit .sit-barra-nombre small,
+.sit .sit-barra-valor small {
+  display: block;
+  color: var(--ink-muted);
+  font-size: 11.5px;
+  font-weight: 400;
+}
+.sit .sit-barra-pista {
+  position: relative;
+  height: 20px;
+}
+.sit .sit-barra-pista i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.35s ease;
+}
+.sit .sit-barra-cap {
+  background: var(--bg-4);
+}
+.sit .sit-barra-saca {
+  background: repeating-linear-gradient(135deg, var(--sit-rojo) 0 4px, color-mix(in srgb, var(--sit-rojo) 45%, var(--bg)) 4px 8px);
+}
+.sit .sit-barra-puede {
+  background: var(--sit-azul);
+}
+.sit .sit-barra-pista .sit-barra-diez,
+.sit .sit-barra-pista .sit-barra-hoy {
+  top: -3px;
+  width: 0;
+  height: calc(100% + 6px);
+  border-left: 2px dashed var(--ink);
+  border-radius: 0;
+  opacity: 0.55;
+}
+.sit .sit-barra-pista .sit-barra-hoy {
+  border-left-style: solid;
+  opacity: 0.8;
+  z-index: 1;
+  transition: none;
+}
+.sit .sit-barra-valor {
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.sit .sit-barra-valor small {
+  color: var(--sit-rojo);
+}
+.sit .sit-barras-esc .sit-barra-valor small {
+  color: var(--accent-bio);
+}
+.sit .sit-barras-esc .sit-barra-valor small.baja {
+  color: var(--sit-rojo);
+}
+.sit .sit-barras-esc .sit-barra-pista {
+  height: 26px;
+}
+.sit .sit-barras-esc .sit-barra-fila {
+  padding: 6px;
+}
+.sit .sit-barras-esc .sit-barra-puede {
+  background: var(--accent-exp-dim);
+}
+.sit .sit-barras-esc .bahia .sit-barra-puede {
+  background: var(--sit-azul);
+}
+.sit .sit-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-top: 12px;
+  color: var(--ink-2);
+  font-size: 12.5px;
+  text-align: left;
+}
+.sit .sit-leyenda i {
+  display: inline-block;
+  width: 14px;
+  height: 10px;
+  margin-right: 5px;
+  border-radius: 2px;
+  vertical-align: baseline;
+}
+.sit .sit-ley-puede { background: var(--sit-azul); }
+.sit .sit-ley-saca { background: var(--sit-rojo); }
+.sit .sit-ley-cap { background: var(--bg-4); border: 1px solid var(--rule); }
+.sit .sit-leyenda .sit-ley-diez {
+  width: 0;
+  height: 13px;
+  border-left: 2px dashed var(--ink);
+  border-radius: 0;
+  vertical-align: middle;
+}
+
+/* Lo que dice y lo que obtiene */
+.sit .sit-dicho-dato {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) auto minmax(0, 3fr);
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 14px;
+}
+.sit .sit-dicho,
+.sit .sit-obtiene {
+  padding: 14px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--bg);
+}
+.sit .sit-dicho p {
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.45;
+  text-align: left;
+}
+.sit .sit-obtiene {
+  border-left: 5px solid var(--sit-rojo);
+}
+.sit .sit-obtiene p {
+  font-size: 15.5px;
+  line-height: 1.6;
+  text-align: left;
+}
+.sit .sit-flecha {
+  align-self: center;
+  color: var(--ink-muted);
+  font-size: 26px;
+}
+
+/* Línea de tiempo */
+.sit .sit-linea {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 8px 14px;
+}
+.sit .sit-linea::before {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: var(--rule);
+}
+.sit .sit-linea button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 0 2px;
+  border: 0;
+  background: transparent;
+}
+.sit .sit-linea-punto {
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--sit-azul);
+  border-radius: 50%;
+  background: var(--bg);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.sit .sit-linea button.baja .sit-linea-punto {
+  border-color: var(--sit-rojo);
+}
+.sit .sit-linea button.activo .sit-linea-punto {
+  background: var(--sit-azul);
+  transform: scale(1.25);
+}
+.sit .sit-linea button.baja.activo .sit-linea-punto {
+  background: var(--sit-rojo);
+}
+.sit .sit-linea-anio {
+  color: var(--ink-2);
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.sit .sit-linea button.activo .sit-linea-anio {
+  color: var(--ink);
+}
+.sit .sit-hito {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  min-height: 96px;
+  padding: 14px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--bg);
+}
+.sit .sit-hito-anio {
+  color: var(--sit-azul);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.sit .sit-hito h3 {
+  font-size: 1.02rem;
+  font-weight: 650;
+}
+.sit .sit-hito p {
+  margin-top: 2px;
+  font-size: 15px;
+  line-height: 1.55;
+  text-align: left;
+}
+.sit .sit-hito-pasos {
+  display: flex;
+  gap: 6px;
+}
+.sit .sit-saldo {
+  margin-top: 14px;
+}
+.sit .sit-saldo-fila {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.sit .sit-saldo-fila span {
+  padding: 6px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--bg);
+  font-size: 13.5px;
+  color: var(--ink-2);
+}
+.sit .sit-saldo-fila b {
+  color: var(--sit-rojo);
+  font-variant-numeric: tabular-nums;
+}
+.sit .sit-saldo-fila .total {
+  border-color: var(--sit-rojo);
+}
+
+/* 2011 y 2025 */
+.sit .sit-pares {
+  display: grid;
+  gap: 6px;
+}
+.sit .sit-par {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  text-align: left;
+}
+.sit .sit-par:hover {
+  background: var(--bg);
+}
+.sit .sit-par.activo {
+  border-color: var(--rule);
+  background: var(--bg);
+}
+.sit .sit-par-nombre {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.sit .sit-par-nombre em {
+  display: block;
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  font-style: normal;
+  font-weight: 600;
+}
+.sit .sit-par-tres .sit-par-nombre em {
+  color: var(--sit-rojo);
+}
+.sit .sit-par-barras {
+  display: grid;
+  gap: 3px;
+}
+.sit .sit-par-fila {
+  display: grid;
+  grid-template-columns: 36px 1fr 96px;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.sit .sit-par-fila small {
+  color: var(--ink-muted);
+  font-size: 12px;
+}
+.sit .sit-par-fila b {
+  text-align: right;
+  font-weight: 600;
+}
+.sit .sit-par-pista {
+  height: 14px;
+}
+.sit .sit-par-pista i {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.35s ease;
+}
+.sit .sit-par-pista .a2011 { background: var(--accent-exp-dim); }
+.sit .sit-par-pista .a2025 { background: var(--sit-azul); }
+.sit .sit-par-tres .sit-par-pista .a2025 { background: var(--sit-rojo); }
+.sit .sit-detalle {
+  margin-top: 10px;
+  padding: 12px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--bg);
+  font-size: 15px;
+}
+.sit .sit-detalle p {
+  text-align: left;
+}
+.sit .sit-detalle ul {
+  margin: 6px 0 0 20px;
+}
+
+.sit .sit-escenario-nota {
+  margin: 10px 0 12px;
+  color: var(--ink-2);
+  font-size: 14.5px;
+  text-align: left;
+}
+.sit .sit-veredicto {
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-left: 5px solid var(--sit-rojo);
+  border-radius: 0 8px 8px 0;
+  background: var(--bg);
+  font-size: 15.5px;
+  text-align: left;
+}
+
+/* ── Videos ── */
+.sit .sit-videos-fila {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+.sit .sit-corto {
+  width: 290px;
+  max-width: 100%;
+}
+.sit .sit-corto-marco {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+.sit .sit-corto-marco iframe,
+.sit .sit-corto-poster,
+.sit .sit-corto-poster img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.sit .sit-corto-poster {
+  padding: 0;
+  background: #000;
+}
+.sit .sit-corto-poster img {
+  object-fit: cover;
+}
+.sit .sit-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.62);
+  transform: translate(-50%, -50%);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.sit .sit-play::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  border-style: solid;
+  border-width: 12px 0 12px 20px;
+  border-color: transparent transparent transparent #fff;
+  transform: translate(-50%, -50%);
+}
+.sit .sit-corto-poster:hover .sit-play {
+  background: var(--sit-rojo);
+  transform: translate(-50%, -50%) scale(1.08);
+}
+.sit .sit-corto figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.sit .sit-corto figcaption span {
+  color: var(--ink-muted);
+  font-size: 13px;
+}
+.sit .sit-videos-pie {
+  margin-top: 18px;
+  font-size: 14px;
+  text-align: left;
+}
+.sit a {
+  color: var(--sit-azul);
+}
+
+/* ── Cierre ── */
+.sit .sit-sigue {
+  margin-top: 30px;
+}
+.sit .sit-firma {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  font-size: 15px;
+}
+.sit .sit-firma span {
+  color: var(--ink-2);
+}
+.sit .sit-docs {
+  margin-top: 26px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+.sit .sit-docs-fila {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+.sit .sit-doc {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 'titulo boton' 'meta boton';
+  align-items: center;
+  gap: 2px 16px;
+  padding: 14px 18px;
+  border: 1px solid var(--rule);
+  border-left: 5px solid var(--sit-azul);
+  border-radius: 8px;
+  background: var(--bg-2);
+  color: var(--ink);
+  text-decoration: none;
+}
+.sit .sit-doc-titulo {
+  grid-area: titulo;
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.35;
+}
+.sit .sit-doc-meta {
+  grid-area: meta;
+  color: var(--ink-2);
+  font-size: 13px;
+}
+.sit .sit-doc-boton {
+  grid-area: boton;
+  padding: 7px 16px;
+  border: 1.5px solid var(--sit-azul);
+  border-radius: 999px;
+  background: var(--sit-azul);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.sit .sit-doc:hover .sit-doc-boton {
+  background: transparent;
+  color: var(--sit-azul);
+}
+.sit .sit-pie {
+  margin-top: 22px;
+  color: var(--ink-muted);
+  font-size: 13px;
+  text-align: left;
+}
+
+/* ── Pantallas angostas ── */
+@media (max-width: 900px) {
+  .sit .sit-puntos,
+  .sit .sit-docs-fila,
+  .sit .sit-resumen {
+    grid-template-columns: 1fr;
+  }
+  .sit .sit-dicho-dato {
+    grid-template-columns: 1fr;
+  }
+  .sit .sit-flecha {
+    display: none;
+  }
+}
+@media (max-width: 720px) {
+  .sit .sit-barra-fila {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 'nombre valor' 'pista pista';
+    gap: 4px 10px;
+    padding: 6px;
+  }
+  .sit .sit-barra-nombre { grid-area: nombre; }
+  .sit .sit-barra-valor { grid-area: valor; }
+  .sit .sit-barra-pista { grid-area: pista; height: 14px; }
+  .sit .sit-par {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .sit .sit-par-nombre em {
+    display: inline;
+    margin-left: 6px;
+  }
+  .sit .sit-hito {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .sit .sit-linea {
+    margin: 6px 0 14px;
+    overflow-x: auto;
+    gap: 14px;
+    padding-bottom: 4px;
+  }
+  .sit .sit-linea::before {
+    display: none;
+  }
+  .sit .sit-videos-fila {
+    gap: 18px;
+  }
+  .sit .sit-corto {
+    width: calc(50% - 9px);
+  }
+  .sit .sit-punto-texto {
+    padding-left: 16px;
+  }
+  .sit .sit-vistas button small {
+    display: none;
+  }
+  .sit .sit-doc {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'titulo' 'meta' 'boton';
+    gap: 6px;
+  }
+  .sit .sit-doc-boton {
+    justify-self: start;
+  }
+}
