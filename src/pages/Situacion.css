@@ -78,12 +78,11 @@
 }
 
 .sit .sit-bajada {
-  max-width: 900px;
   margin-bottom: 22px;
   font-size: 17px;
   line-height: 1.6;
   color: var(--ink);
-  text-align: left;
+  text-align: justify;
 }
 .sit .sit-ayuda,
 .sit .sit-entrada {
@@ -93,7 +92,6 @@
   text-align: left;
 }
 .sit .sit-entrada {
-  max-width: 760px;
   color: var(--ink-2);
   font-size: 15.5px;
 }
@@ -257,7 +255,6 @@
 }
 .sit .sit-nota > p,
 .sit .sit-pedido p {
-  max-width: 900px;
   margin-bottom: 12px;
   font-size: 15.5px;
   line-height: 1.65;
@@ -269,7 +266,6 @@
   border-radius: 0 8px 8px 0;
 }
 .sit .sit-lista {
-  max-width: 900px;
   margin: 0 0 12px 20px;
   font-size: 15.5px;
 }
