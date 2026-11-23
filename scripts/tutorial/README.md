@@ -31,6 +31,17 @@ python3 scripts/tutorial/armar.py gasoil                              # mp4 1080
 
 `--desde p14 --hasta p16` graba un tramo (arranca en la página de `paginas` del guion). `--mudo` estima las duraciones por el largo del texto (borrador sin voz). `--ventana` abre Chrome con ventana para mirar. `--debug` imprime cuánto tardó cada acción: sirve para encontrar las lentas (en páginas con gráficos grandes, cada scroll o resaltado que scrollea tarda 2 a 3 s porque el navegador repinta en cada paso; el tope por acción es de 14 s).
 
+## Páginas que piden ingresar (el Agente, 23/11/2026)
+
+El Polígrafo y el Analista se usan con sesión, cada consulta gasta tokens y la respuesta tarda. Para eso el grabador tiene cuatro cosas más:
+
+- **Cuenta de demostración**: el guion lleva `"cuenta": { "mail": "..." }`. Es la cuenta que se ve en pantalla ("Ingresaste como ..."); no usar la de HDO, que además muestra la pestaña Administrador. La acción `entrar` consigue el enlace de ingreso de esa cuenta sin casilla y sin contraseñas: contra el sitio publicado lo genera `enlace_ingreso.mjs` con la llave del servidor de esta Mac (`~/.cache/explorarg/firebase-servicio.json`; no se muestra ni sale de acá), y contra la copia local lo saca del emulador de Firebase. En cámara se ve escribir el mail y el clic en "Mandame el enlace para entrar"; contra el sitio publicado ese pedido se contesta en el grabador y **no sale ningún mail** (Firebase manda cinco por día en el plan gratuito).
+- **Consulta de verdad**: las acciones con `"real": true` son las que consultan a la IA (o dependen de esa respuesta). En la grabación corren siempre; con `--rapido` se saltean, salvo `--con-consulta`. `esperar_a {sel, max}` espera a que aparezca la respuesta y `click_cada {sel, dentro}` contesta todas las preguntas que traiga, sean las que sean.
+- **Copia local para ensayar gratis**: `--url http://localhost:5274/` con los servidores `cuentas-emulador` y `marketscan-con-cuentas` de `.claude/launch.json`. Ahí la cuenta es de mentira, la base vive en memoria y la consulta la hace el Claude Code de la Mac, sin gastar tokens ni crédito. Los selectores se prueban ahí, también los del paso pago (`--rapido --con-consulta --desde p12 --hasta p14`).
+- **Zoom**: `"zoom": 1.35` en el guion agranda la página (no la capa del tutorial). Las páginas del Agente son una columna angosta de texto y a 1920 de ancho la letra queda chica en el video.
+
+Cada grabación completa del Polígrafo contra el sitio publicado hace una consulta de verdad: descuenta tokens de la cuenta de demostración y gasta crédito de Anthropic. Pedirle el visto bueno a HDO antes de cada toma.
+
 ## Decisiones y límites
 
 - **Se graba contra el sitio publicado**, `https://www.explorarg.com` (campo `url` de cada guion). Los tres primeros tutoriales se grabaron contra la dirección de Vercel (`biodiesel-argentina-dashboard.vercel.app`, el proyecto conserva el nombre viejo) porque hasta principios de octubre de 2026 el dominio apuntaba al Wix; desde el 12/10/2026 explorarg.com sirve este sitio y los guiones ya apuntan ahí.

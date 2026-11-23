@@ -1,0 +1,296 @@
+{
+  "id": "poligrafo",
+  "titulo": "Polígrafo Explorarg",
+  "pagina": "/agente",
+  "youtube": "",
+  "descripcion": "Cómo se usa el Polígrafo del Agente Explorarg: cómo registrarse e ingresar, cómo se escribe una frase para verificarla, qué significan las preguntas previas, la forma lógica y el resultado afirmación por afirmación, con los datos y el texto de la ley a la vista, y cómo se siguen los tokens y las consultas guardadas en Mi panel.",
+  "url": "https://www.explorarg.com/",
+  "viewport": [1920, 1080],
+  "zoom": 1.35,
+  "cuenta": { "mail": "explorarg.demo@explorarg.com" },
+  "cartel": {
+    "kicker": "Tutorial",
+    "titulo": "Polígrafo Explorarg",
+    "sub": "Cómo se verifica una frase con los datos oficiales y el texto de la ley",
+    "marca": "EXPLORARG · MARKETSCAN"
+  },
+  "paginas": { "p00": "/", "p03": "/agente", "p14": "/agente/panel" },
+  "pasos": [
+    {
+      "id": "p00",
+      "titulo": "Apertura",
+      "texto": "Este es el tutorial del Polígrafo, una de las dos herramientas del Agente Explorarg. Le escribís una frase sobre el mercado del biodiésel o sobre la ley, y te dice si es verdadera, falsa o si no se puede comprobar. Va afirmación por afirmación, con los datos oficiales y el texto de las normas a la vista.",
+      "acciones": [
+        { "tipo": "esperar", "s": 0.3 }
+      ]
+    },
+    {
+      "id": "p01",
+      "titulo": "Cómo se llega: menú Agente",
+      "texto": "Se entra por el menú principal, en Agente. La primera vez te recibe esta página, que cuenta qué hace cada herramienta y qué te llevás al registrarte. El registro es gratuito y viene con tokens de bienvenida, que son lo que se gasta en cada consulta.",
+      "acciones": [
+        { "tipo": "ocultar_cartel" },
+        { "tipo": "esperar", "s": 0.5 },
+        { "tipo": "hover", "sel": { "sel": ".top-nav-links a", "texto": "Agente", "exacto": true }, "espera": 0.6 },
+        { "tipo": "click", "sel": { "sel": ".top-nav-links a", "texto": "Agente", "exacto": true } },
+        { "tipo": "cargar", "extra": 700 },
+        { "tipo": "esperar_a", "sel": ".ag-ingreso", "max": 30 },
+        { "tipo": "resaltar", "sel": ".ag-fijo", "margen": 4 },
+        { "tipo": "esperar", "s": 3.5 },
+        { "tipo": "resaltar", "sel": ".ag-beneficios", "margen": 6 },
+        { "tipo": "hover", "sel": { "sel": ".ag-beneficios li", "nth": 0 }, "espera": 1.1 },
+        { "tipo": "hover", "sel": { "sel": ".ag-beneficios li", "nth": 1 }, "espera": 1.1 },
+        { "tipo": "hover", "sel": { "sel": ".ag-beneficios li", "nth": 3 }, "espera": 1.1 }
+      ]
+    },
+    {
+      "id": "p02",
+      "titulo": "Registrarse e ingresar",
+      "texto": "Registrarse e ingresar son el mismo paso, y no hay contraseñas. Podés continuar con tu cuenta de Google, o escribir tu mail y pedir un enlace. El enlace te llega al correo: lo abrís en este mismo navegador y ya estás adentro. Y si antes querés mirar sin registrarte, abajo están los ejemplos ya analizados.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": ".ag-ingreso", "margen": 6 },
+        { "tipo": "esperar", "s": 2.2 },
+        { "tipo": "hover", "sel": ".ag-google", "espera": 1.8 },
+        { "tipo": "limpiar" },
+        { "tipo": "escribir", "sel": "#ag-mail", "texto": "{mail}", "ritmo": 70, "espera": 0.8 },
+        { "tipo": "click", "sel": ".ag-ingreso button[type=submit]", "espera": 0.6 },
+        { "tipo": "esperar_a", "sel": { "sel": ".ag-ingreso h3", "texto": "Revisá tu mail" }, "max": 30 },
+        { "tipo": "resaltar", "sel": ".ag-ingreso", "margen": 6 },
+        { "tipo": "esperar", "s": 3.0 },
+        { "tipo": "resaltar", "sel": ".ag-muestra", "margen": 6 },
+        { "tipo": "hover", "sel": ".ag-muestra a", "espera": 1.5 }
+      ]
+    },
+    {
+      "id": "p03",
+      "titulo": "Ya adentro: las pestañas",
+      "texto": "Con la sesión iniciada aparecen las pestañas: Polígrafo, Analista y, a la derecha, Mi panel, donde están tus tokens y tus consultas guardadas. Debajo figura con qué cuenta ingresaste, y el enlace para salir.",
+      "acciones": [
+        { "tipo": "limpiar" },
+        { "tipo": "entrar" },
+        { "tipo": "rotulo", "texto": "Polígrafo" },
+        { "tipo": "resaltar", "sel": ".section-nav", "margen": 0 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Polígrafo", "exacto": true }, "espera": 1.0 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Analista", "exacto": true }, "espera": 1.0 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Mi panel", "exacto": true }, "espera": 1.8 },
+        { "tipo": "resaltar", "sel": ".ag-barra-sesion span", "margen": 6 },
+        { "tipo": "esperar", "s": 1.5 }
+      ]
+    },
+    {
+      "id": "p04",
+      "titulo": "El enunciado, el contexto y el costo",
+      "texto": "El Polígrafo empieza con una frase. En el recuadro grande va el enunciado, tal como lo dijeron o como lo leíste: puede ser una oración o un párrafo entero. El contexto es opcional: quién lo dijo, cuándo y sobre qué. No se evalúa, pero ayuda a leer bien la frase. Y antes de consultar, el botón te muestra cuántos tokens va a costar, aproximadamente. Debajo está el detalle.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": "#pg-enunciado", "margen": 6 },
+        { "tipo": "hover", "sel": "#pg-enunciado", "espera": 6.0 },
+        { "tipo": "resaltar", "sel": "#pg-contexto", "margen": 6 },
+        { "tipo": "hover", "sel": "#pg-contexto", "espera": 6.0 },
+        { "tipo": "resaltar", "sel": ".pg-form .pg-boton", "margen": 6 },
+        { "tipo": "hover", "sel": ".pg-form .pg-boton", "espera": 4.0 },
+        { "tipo": "resaltar", "sel": ".pg-costo", "margen": 6 },
+        { "tipo": "esperar", "s": 2.0 }
+      ]
+    },
+    {
+      "id": "p05",
+      "titulo": "Los ejemplos ya analizados",
+      "texto": "Para aprender a leer un resultado sin gastar nada, están los ejemplos ya analizados: frases sobre el mercado y sobre la ley, con su lectura guardada. Elegís uno de la lista y se carga la frase con su análisis, que viene en puntos numerados. Cada punto se abre y se cierra con su flechita.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": ".pg-ejemplos", "margen": 6 },
+        { "tipo": "esperar", "s": 1.7 },
+        { "tipo": "select", "sel": "#pg-ejemplo", "etiqueta": "Las 25 elaboradoras no integradas y el 65% del corte", "espera": 1.2 },
+        { "tipo": "resaltar", "sel": "#pg-enunciado", "margen": 6 },
+        { "tipo": "esperar", "s": 1.7 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": ".pg-ejemplos", "margen": 16 },
+        { "tipo": "resaltar", "sel": ".pg-caso > details.pg-panel:nth-of-type(1) > summary", "margen": 4 },
+        { "tipo": "hover", "sel": ".pg-caso > details.pg-panel:nth-of-type(1) > summary .pg-flecha", "espera": 2.0 }
+      ]
+    },
+    {
+      "id": "p06",
+      "titulo": "1 · Antes de medir: ¿qué quiso decir?",
+      "texto": "El primer punto va antes de medir. Una misma frase se puede leer de más de una manera: qué empresas cuentan, a qué período se refiere, sobre qué total se calcula un porcentaje. El Polígrafo no elige por vos: te lo pregunta, y al lado de cada pregunta te avisa a qué afirmaciones afecta. Recién cuando contestaste todas aparece el resultado.",
+      "acciones": [
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": ".pg-caso", "margen": 12 },
+        { "tipo": "resaltar", "sel": "fieldset.pg-pregunta:nth-of-type(1)", "margen": 6 },
+        { "tipo": "esperar", "s": 3.0 },
+        { "tipo": "click", "sel": "fieldset.pg-pregunta:nth-of-type(1) label.pg-opcion:nth-of-type(1)", "espera": 1.0 },
+        { "tipo": "resaltar", "sel": "fieldset.pg-pregunta:nth-of-type(2)", "margen": 6 },
+        { "tipo": "esperar", "s": 1.5 },
+        { "tipo": "click", "sel": "fieldset.pg-pregunta:nth-of-type(2) label.pg-opcion:nth-of-type(2)", "espera": 1.0 },
+        { "tipo": "resaltar", "sel": "fieldset.pg-pregunta:nth-of-type(2) .pg-aplica", "margen": 5 },
+        { "tipo": "esperar", "s": 2.5 },
+        { "tipo": "resaltar", "sel": "fieldset.pg-pregunta:nth-of-type(3)", "margen": 6 },
+        { "tipo": "esperar", "s": 1.5 },
+        { "tipo": "click", "sel": "fieldset.pg-pregunta:nth-of-type(3) label.pg-opcion:nth-of-type(1)", "espera": 1.2 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p07",
+      "titulo": "2 · La forma lógica que se evalúa",
+      "texto": "El segundo punto muestra cómo quedó armada la frase para poder medirla: partida en afirmaciones, cada una con su letra y su número. Abajo está la fórmula que las une. Si van unidas por una «y», alcanza con que una sea falsa para que caiga todo el enunciado. Lo que es opinión queda afuera de la cuenta, y se dice por qué.",
+      "acciones": [
+        { "tipo": "click", "sel": ".pg-caso > details.pg-panel:nth-of-type(1) > summary", "espera": 0.6 },
+        { "tipo": "click", "sel": ".pg-caso > details.pg-panel:nth-of-type(2) > summary", "espera": 0.8 },
+        { "tipo": "scroll", "sel": ".pg-caso > details.pg-panel:nth-of-type(2)", "margen": 16 },
+        { "tipo": "resaltar", "sel": ".pg-forma-lista", "margen": 6 },
+        { "tipo": "esperar", "s": 4.5 },
+        { "tipo": "resaltar", "sel": ".pg-formula", "margen": 6 },
+        { "tipo": "esperar", "s": 4.5 },
+        { "tipo": "resaltar", "sel": ".pg-fuera", "margen": 6 },
+        { "tipo": "esperar", "s": 3.0 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p08",
+      "titulo": "3 · Resultado",
+      "texto": "El tercer punto es el resultado. Arriba va el veredicto del enunciado completo: verdadero, falso, doble vara o indeterminado. Lo acompañan el recuento de cuántas afirmaciones dieron cada cosa y la regla con la que se llegó. Indeterminado no es una falla: quiere decir que con los datos publicados eso no se puede comprobar.",
+      "acciones": [
+        { "tipo": "click", "sel": ".pg-caso > details.pg-panel:nth-of-type(2) > summary", "espera": 0.6 },
+        { "tipo": "scroll", "sel": ".pg-caso > details.pg-panel:nth-of-type(3)", "margen": 16 },
+        { "tipo": "resaltar", "sel": ".pg-general", "margen": 6 },
+        { "tipo": "hover", "sel": ".pg-sello-grande", "espera": 5.0 },
+        { "tipo": "hover", "sel": ".pg-resumen", "espera": 4.0 },
+        { "tipo": "hover", "sel": ".pg-regla", "espera": 3.0 }
+      ]
+    },
+    {
+      "id": "p09",
+      "titulo": "Cada afirmación, con su prueba",
+      "texto": "Debajo, cada afirmación tiene su propio veredicto y se despliega con la flechita. Adentro está la prueba: qué se midió, lo que dijo la frase, lo que dicen los datos y la diferencia. Con «Ver los datos» se abre la tabla completa con la que se hizo la cuenta, renglón por renglón. Así cualquiera puede rehacerla.",
+      "acciones": [
+        { "tipo": "limpiar" },
+        { "tipo": "resaltar", "sel": { "sel": "details.pg-afirmacion", "nth": 1 }, "margen": 4 },
+        { "tipo": "esperar", "s": 1.5 },
+        { "tipo": "click", "sel": { "sel": "details.pg-afirmacion > summary", "nth": 1 }, "espera": 1.0 },
+        { "tipo": "scroll", "sel": { "sel": "details.pg-afirmacion", "nth": 1 }, "margen": 16 },
+        { "tipo": "resaltar", "sel": "details.pg-afirmacion[open] .pg-cotejo", "margen": 6 },
+        { "tipo": "esperar", "s": 4.0 },
+        { "tipo": "click", "sel": "details.pg-afirmacion[open] details.pg-detalle > summary", "espera": 1.0 },
+        { "tipo": "resaltar", "sel": "details.pg-afirmacion[open] .pg-tabla thead", "margen": 4 },
+        { "tipo": "scroll", "dy": 420, "espera": 1.5 },
+        { "tipo": "scroll", "dy": 420, "espera": 1.5 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p10",
+      "titulo": "Cambiar una respuesta",
+      "texto": "Las respuestas del primer punto se pueden cambiar cuando quieras. Elegís otra lectura y la cuenta se rehace en el momento, con los mismos datos: no se vuelve a consultar y no se gastan tokens. Si dejás abierta la afirmación que te interesa, al volver vas a ver cómo se movieron el dato y la diferencia. Es la manera de saber si la frase se sostiene con alguna lectura, o con ninguna.",
+      "acciones": [
+        { "tipo": "click", "sel": "details.pg-afirmacion[open] > summary", "espera": 0.5 },
+        { "tipo": "click", "sel": { "sel": "details.pg-afirmacion > summary", "nth": 5 }, "espera": 0.5 },
+        { "tipo": "resaltar", "sel": "details.pg-afirmacion[open] .pg-cotejo", "margen": 6 },
+        { "tipo": "esperar", "s": 1.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": ".pg-caso", "margen": 12 },
+        { "tipo": "click", "sel": ".pg-caso > details.pg-panel:nth-of-type(1) > summary", "espera": 0.5 },
+        { "tipo": "resaltar", "sel": "fieldset.pg-pregunta:nth-of-type(3)", "margen": 6 },
+        { "tipo": "esperar", "s": 0.6 },
+        { "tipo": "click", "sel": "fieldset.pg-pregunta:nth-of-type(3) label.pg-opcion:nth-of-type(2)", "espera": 0.8 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": ".pg-caso > details.pg-panel:nth-of-type(1) > summary", "espera": 0.6 },
+        { "tipo": "scroll", "sel": "details.pg-afirmacion[open]", "margen": 16 },
+        { "tipo": "resaltar", "sel": "details.pg-afirmacion[open] .pg-cotejo", "margen": 6 },
+        { "tipo": "esperar", "s": 1.0 }
+      ]
+    },
+    {
+      "id": "p11",
+      "titulo": "Cuando la frase habla de la ley",
+      "texto": "No todo son números. Cuando la frase habla de lo que dice una ley o un proyecto, el Polígrafo la contrasta con el texto de la norma. En la afirmación figura con qué texto se comparó y la cita textual del artículo, y podés abrir el artículo completo para leerlo vos.",
+      "acciones": [
+        { "tipo": "limpiar" },
+        { "tipo": "select", "sel": "#pg-ejemplo", "etiqueta": "La media sanción y el 7,5% de las no integradas", "espera": 1.2 },
+        { "tipo": "scroll", "sel": ".pg-ejemplos", "margen": 16 },
+        { "tipo": "click", "sel": { "sel": "details.pg-afirmacion > summary", "nth": 0 }, "espera": 1.0 },
+        { "tipo": "scroll", "sel": { "sel": "details.pg-afirmacion", "nth": 0 }, "margen": 16 },
+        { "tipo": "resaltar", "sel": { "sel": "details.pg-afirmacion[open] .pg-linea", "nth": 0 }, "margen": 6 },
+        { "tipo": "esperar", "s": 1.2 },
+        { "tipo": "resaltar", "sel": { "sel": "details.pg-afirmacion[open] figure.pg-cita-legal", "nth": 0 }, "margen": 6 },
+        { "tipo": "esperar", "s": 1.5 },
+        { "tipo": "hover", "sel": { "sel": "details.pg-afirmacion[open] details.pg-detalle > summary", "nth": 0 }, "espera": 0.6 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p12",
+      "titulo": "Tu propia frase",
+      "texto": "Ahora, una frase propia. La escribís, mirás el costo en el botón y evaluás. Este es el único paso que consulta a la inteligencia artificial, y por eso es el único que cuesta tokens. La inteligencia artificial solo lee la frase y la traduce a afirmaciones que se pueden medir. La cuenta la hace después el programa, con los mismos datos que usan los tableros del sitio. La respuesta tarda entre unos segundos y un minuto.",
+      "acciones": [
+        { "tipo": "scroll", "arriba": true },
+        { "tipo": "scroll", "sel": ".pg-form", "margen": 16 },
+        { "tipo": "click", "sel": "#pg-enunciado", "espera": 0.3 },
+        { "tipo": "tecla", "tecla": "Meta+A", "espera": 0.3 },
+        { "tipo": "tecla", "tecla": "Backspace", "espera": 0.5 },
+        { "tipo": "escribir", "sel": "#pg-enunciado", "texto": "En 2025 las integradas vendieron menos del 10% del cupo.", "ritmo": 55, "espera": 1.0 },
+        { "tipo": "resaltar", "sel": ".pg-form .pg-boton", "margen": 6 },
+        { "tipo": "hover", "sel": ".pg-form .pg-boton", "espera": 1.5 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": ".pg-form .pg-boton", "espera": 1.0, "real": true },
+        { "tipo": "esperar_a", "sel": { "sel": ".pg-form .pg-boton", "texto": "Evaluar" }, "max": 150, "real": true },
+        { "tipo": "esperar_a", "sel": ".pg-caso", "max": 20, "real": true }
+      ]
+    },
+    {
+      "id": "p13",
+      "titulo": "Llega el resultado",
+      "texto": "Cuando vuelve, el resultado tiene la misma forma que el del ejemplo: las preguntas, si hace falta alguna, la forma lógica y el veredicto con cada afirmación. Al pie figura cuántos tokens costó la consulta. Si en el texto no hay nada que se pueda medir, no se descuenta nada. Y las consultas que hagas en los minutos siguientes salen más baratas.",
+      "acciones": [
+        { "tipo": "scroll", "sel": ".pg-ejemplos", "margen": 16, "real": true },
+        { "tipo": "resaltar", "sel": ".pg-caso", "margen": 6, "real": true },
+        { "tipo": "esperar", "s": 2.0, "real": true },
+        { "tipo": "limpiar" },
+        { "tipo": "click_cada", "sel": "fieldset.pg-pregunta", "dentro": "label.pg-opcion:nth-of-type(1)", "espera": 1.2, "real": true },
+        { "tipo": "esperar_a", "sel": ".pg-general", "max": 15, "real": true },
+        { "tipo": "resaltar", "sel": ".pg-general", "margen": 6, "real": true },
+        { "tipo": "esperar", "s": 2.0, "real": true },
+        { "tipo": "click", "sel": { "sel": "details.pg-afirmacion > summary", "nth": 0 }, "espera": 1.5, "real": true },
+        { "tipo": "resaltar", "sel": ".pg-cobrado", "margen": 6, "real": true },
+        { "tipo": "esperar", "s": 2.5, "real": true },
+        { "tipo": "resaltar", "sel": ".pg-costo", "margen": 6, "real": true },
+        { "tipo": "esperar", "s": 2.0, "real": true },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p14",
+      "titulo": "Mi panel: tokens y consultas guardadas",
+      "texto": "Todo queda guardado en Mi panel. Arriba, los tokens que te quedan, los que usaste y los que recibiste. Abajo, tus consultas: cada una se puede volver a abrir cuando quieras, y reabrirla no gasta tokens, porque ya está analizada. También están lo que llevás usado con cada herramienta y los movimientos de tu cuenta.",
+      "acciones": [
+        { "tipo": "scroll", "arriba": true },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Mi panel", "exacto": true } },
+        { "tipo": "cargar", "extra": 600 },
+        { "tipo": "esperar_a", "sel": ".pn-tarjetas", "max": 30 },
+        { "tipo": "rotulo", "texto": "Mi panel" },
+        { "tipo": "resaltar", "sel": ".pn-tarjetas", "margen": 6 },
+        { "tipo": "esperar", "s": 3.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": { "sel": ".pn details.pg-panel", "nth": 0 }, "margen": 16 },
+        { "tipo": "resaltar", "sel": ".pn-consultas", "margen": 6, "real": true },
+        { "tipo": "hover", "sel": ".pn-abrir", "espera": 1.5, "real": true },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": { "sel": ".pn details.pg-panel > summary", "nth": 1 }, "espera": 1.0 },
+        { "tipo": "click", "sel": { "sel": ".pn details.pg-panel > summary", "nth": 2 }, "espera": 1.0 }
+      ]
+    },
+    {
+      "id": "p15",
+      "titulo": "Cierre",
+      "texto": "Eso es todo. El Polígrafo no opina ni adivina: parte la frase, te pregunta lo que no está claro y mide cada afirmación contra los datos de la Secretaría de Energía y el texto de las normas. La otra herramienta del Agente, el Analista, tiene su propio tutorial.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "" },
+        { "tipo": "scroll", "arriba": true },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Polígrafo", "exacto": true } },
+        { "tipo": "cargar", "extra": 400 },
+        { "tipo": "esperar", "s": 2.0 },
+        { "tipo": "cartel", "kicker": "Tutorial", "titulo": "Polígrafo Explorarg", "sub": "explorarg.com · Agente · Polígrafo", "marca": "EXPLORARG · MARKETSCAN" }
+      ]
+    }
+  ]
+}

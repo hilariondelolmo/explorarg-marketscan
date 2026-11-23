@@ -20,6 +20,8 @@
  *   node scripts/tutorial/grabar.mjs guiones/gasoil.json --rapido    # no espera la locución (probar selectores)
  *   node scripts/tutorial/grabar.mjs guiones/gasoil.json --desde p12 --hasta p14   # solo esos pasos
  *   --out carpeta   (default output/tutorial/<id>)   --ventana (Chrome con ventana)   --sin-capturas
+ *   --url http://localhost:5274/     graba contra otra dirección que la del guion (la copia local con cuentas de prueba)
+ *   --con-consulta                   con --rapido, corre igual las acciones marcadas "real" (las que consultan y gastan tokens)
  *
  * Acciones de un paso ("tipo" y sus campos; "sel" es CSS, o { sel, texto, exacto, nth }):
  *   ir {url}                      navega y espera la carga
@@ -28,14 +30,30 @@
  *   rotulo {texto}                pastilla abajo a la izquierda (vacío la saca)
  *   mover | hover {sel}           lleva el cursor al centro del elemento
  *   click {sel, espera}           mover + clic (con destello)
+ *   click_cada {sel, dentro}      un clic por cada elemento que haya (en su hijo `dentro`, si se dice); ninguno, nada
  *   select {sel, valor | etiqueta}   elige una opción de un <select> nativo
- *   escribir {sel, texto, ritmo}  clic en el campo y tipea
+ *   escribir {sel, texto, ritmo}  clic en el campo y tipea ("{mail}" es el mail de la cuenta del guion)
  *   tecla {tecla}                 p. ej. Escape
  *   resaltar {sel, solo, margen}  recuadro ámbar alrededor del elemento (sigue al scroll)
  *   limpiar                       saca los recuadros
  *   scroll {sel, margen} | {dy} | {arriba: true}
  *   esperar {s}
+ *   esperar_a {sel, max}          espera a que aparezca el elemento (hasta `max` segundos, 150 si no se dice)
+ *   entrar                        ingresa con la cuenta de demostración del guion (ver "Páginas con ingreso")
  *   js {codigo}                   expresión a evaluar en la página (escape)
+ *
+ * Cualquier acción puede llevar "real": true: es de las que consultan a la IA y gastan tokens (o dependen
+ * de esa respuesta). En la grabación corren siempre; con --rapido se saltean, salvo que se pase --con-consulta.
+ *
+ * Páginas con ingreso (el Agente, 23/11/2026). El guion lleva "cuenta": { "mail": "..." }, la cuenta de
+ * demostración que se ve en pantalla. La acción `entrar` consigue el enlace de ingreso de esa cuenta sin
+ * casilla de mail y sin contraseñas, y abre la página con él:
+ *   - contra el sitio publicado, lo genera scripts/tutorial/enlace_ingreso.mjs con la llave del servidor
+ *     de esta Mac (no se muestra ni sale de acá). El pedido del enlace que hace la página en cámara
+ *     ("Mandame el enlace para entrar") se contesta acá mismo: no se manda ningún mail de verdad, así no
+ *     se gasta el cupo diario de mails de Firebase;
+ *   - contra la copia local (--url http://localhost:5274/, con los servidores "cuentas-emulador" y
+ *     "marketscan-con-cuentas" de .claude/launch.json), lo saca del emulador de Firebase.
  */
 
 import fs from 'node:fs';
@@ -65,6 +83,8 @@ for (let i = 0; i < argv.length; i++) {
   else if (a === '--desde') opt.desde = argv[++i];
   else if (a === '--hasta') opt.hasta = argv[++i];
   else if (a === '--out') opt.out = argv[++i];
+  else if (a === '--url') opt.url = argv[++i];
+  else if (a === '--con-consulta') opt.conConsulta = true;
   else if (!a.startsWith('--')) guionArg = a;
 }
 if (!guionArg) {
@@ -73,7 +93,12 @@ if (!guionArg) {
 }
 const guionPath = path.isAbsolute(guionArg) ? guionArg : fs.existsSync(path.resolve(guionArg)) ? path.resolve(guionArg) : path.join(AQUI, guionArg);
 const G = JSON.parse(fs.readFileSync(guionPath, 'utf8'));
-const OUT = opt.out ? path.resolve(opt.out) : path.join(RAIZ, 'output', 'tutorial', G.id);
+if (opt.url) G.url = opt.url;
+// ¿la página es la copia local? (cambia de dónde sale el enlace de ingreso)
+const LOCAL = /^(localhost|127\.0\.0\.1)$/.test(new URL(G.url).hostname);
+// las acciones "real" consultan a la IA y gastan tokens: en la prueba rápida no corren, salvo pedido
+const CON_CONSULTA = !opt.rapido || !!opt.conConsulta;
+const OUT =opt.out ? path.resolve(opt.out) : path.join(RAIZ, 'output', 'tutorial', G.id);
 fs.mkdirSync(OUT, { recursive: true });
 if (opt.capturas) fs.mkdirSync(path.join(OUT, 'capturas'), { recursive: true });
 
@@ -165,7 +190,24 @@ const ctx = await browser.newContext({
   recordVideo: { dir: OUT, size: vp },
 });
 await ctx.addInitScript(INIT);
+// "zoom" del guion (p. ej. 1.35): agranda la página, no la capa del tutorial. Para páginas de una columna
+// angosta de texto (el Agente), que a 1920 de ancho quedan con la letra chica en el video. El video sale
+// nítido porque el navegador dibuja más grande, no se estira la imagen (23/11/2026).
+if (G.zoom && Number(G.zoom) !== 1) {
+  await ctx.addInitScript(`(() => { const f = () => { const s = document.createElement('style'); s.textContent = '#root { zoom: ${Number(G.zoom)} }'; document.head.appendChild(s); }; document.head ? f() : document.addEventListener('DOMContentLoaded', f); })()`);
+}
 const page = await ctx.newPage();
+// Páginas con ingreso, contra el sitio publicado: el pedido del enlace que hace la página en cámara se
+// contesta acá y no llega a Firebase (no sale ningún mail). El enlace de verdad lo consigue `entrar`.
+if (G.cuenta?.mail && !LOCAL) {
+  await page.route((url) => url.href.includes('accounts:sendOobCode'), (ruta) =>
+    ruta.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      headers: { 'access-control-allow-origin': '*' },
+      body: JSON.stringify({ kind: 'identitytoolkit#GetOobConfirmationCodeResponse', email: G.cuenta.mail }),
+    }));
+}
 const tPage = Date.now();
 const M = { x: Math.round(vp.width * 0.55), y: Math.round(vp.height * 0.6) }; // dónde está el cursor
 
@@ -188,7 +230,7 @@ function loc(t) {
 
 // Bloques que quedan pegados arriba al scrollear (uno por tablero) y paneles fijos:
 // lo que está adentro siempre se ve, y lo demás hay que scrollearlo por debajo de ellos
-const PEGADOS = '.go-sticky, .mz-controles-sticky, .mapa-cabecera, .pi-sticky';
+const PEGADOS = '.go-sticky, .mz-controles-sticky, .mapa-cabecera, .pi-sticky, .ag-fijo';
 const FIJOS = `${PEGADOS}, .section-nav, .top-nav, .section-nav-menu, .mh-dropdown-panel, .nav-dropdown-menu, .mapa-detalle, .mz-header-flotante`;
 
 // Borde inferior de lo que queda fijo arriba (sub-nav o bloque pegado)
@@ -276,6 +318,7 @@ async function ejecutar(a) {
 
 // --debug: imprime cuánto tardó cada acción (para encontrar las lentas)
 async function ejecutarSinDebug(a) {
+  if (a.real && !CON_CONSULTA) return; // consulta a la IA: en la prueba rápida no corre
   if (['mover', 'hover', 'resaltar', 'scroll'].includes(a.tipo)) {
     try {
       await Promise.race([
@@ -302,13 +345,27 @@ async function ejecutarAccion(a) {
     case 'rotulo': await page.evaluate((x) => window.__tut.rotulo(x), a.texto || ''); break;
     case 'mover': case 'hover': { const c = await centro(loc(a.sel)); await moverA(c.x + (a.dx ?? 0), c.y + (a.dy ?? 0)); await sleep(t(a.espera ?? 0.3) * 1000); break; }
     case 'click': await clickEn(loc(a.sel), t(a.espera ?? 0.35)); break;
+    case 'click_cada': {
+      // un clic por cada elemento que haya, sean los que sean (las preguntas que trae una consulta de verdad
+      // no se conocen de antemano); con "dentro", el clic va a ese hijo de cada uno. Si no hay ninguno, no hace nada
+      const n = await page.locator(a.sel).count();
+      for (let i = 0; i < n; i++) {
+        const cada = page.locator(a.sel).nth(i);
+        await clickEn(a.dentro ? cada.locator(a.dentro).first() : cada, t(a.espera ?? 0.6));
+      }
+      break;
+    }
     case 'select': {
       const l = loc(a.sel); const c = await centro(l); await moverA(c.x, c.y); await sleep(150);
       await page.evaluate(([x, y]) => window.__tut.ripple(x, y), [c.x, c.y]);
       await l.selectOption(a.valor != null ? String(a.valor) : { label: a.etiqueta });
       await sleep(t(a.espera ?? 0.4) * 1000); break;
     }
-    case 'escribir': { const l = loc(a.sel); await clickEn(l, 0.15); await page.keyboard.type(a.texto, { delay: opt.rapido ? 5 : (a.ritmo ?? 45) }); await sleep(t(a.espera ?? 0.4) * 1000); break; }
+    case 'escribir': {
+      // "{mail}" es el mail de la cuenta de demostración del guion
+      const texto = a.texto === '{mail}' ? G.cuenta?.mail ?? '' : a.texto;
+      const l = loc(a.sel); await clickEn(l, 0.15); await page.keyboard.type(texto, { delay: opt.rapido ? 5 : (a.ritmo ?? 45) }); await sleep(t(a.espera ?? 0.4) * 1000); break;
+    }
     case 'tecla': await page.keyboard.press(a.tecla); await sleep(t(a.espera ?? 0.3) * 1000); break;
     case 'resaltar': { const l = loc(a.sel); await centro(l, a.alinear !== false); await l.evaluate((el, o) => window.__tut.resaltar(el, o), { solo: a.solo !== false, margen: a.margen ?? 6 }); await sleep(t(a.espera ?? 0.3) * 1000); break; }
     case 'limpiar': await page.evaluate(() => window.__tut.limpiar()); break;
@@ -319,9 +376,50 @@ async function ejecutarAccion(a) {
       await sleep(t(a.espera ?? 0.2) * 1000); break;
     }
     case 'esperar': await sleep(t(a.s ?? 1) * 1000); break;
+    case 'esperar_a': await loc(a.sel).waitFor({ state: 'visible', timeout: (a.max ?? 150) * 1000 }); await sleep(t(a.espera ?? 0.4) * 1000); break;
+    case 'entrar': await entrar(); break;
     case 'js': await page.evaluate(a.codigo); break;
     default: throw new Error(`acción desconocida: ${a.tipo}`);
   }
+}
+
+// ---------- ingreso con la cuenta de demostración (páginas que piden registrarse) ----------
+const EMULADOR = 'http://127.0.0.1:9099/emulator/v1/projects/demo-explorarg/oobCodes'; // src/lib/cuenta/config.js
+const CLAVE_MAIL = 'explorarg:mail-de-ingreso'; // donde la página guarda para qué mail pidió el enlace (Cuenta.jsx)
+
+async function enlaceDelEmulador(mail) {
+  const { oobCodes = [] } = await (await fetch(EMULADOR)).json();
+  return oobCodes.filter((c) => c.email === mail && c.requestType === 'EMAIL_SIGNIN').at(-1)?.oobLink ?? null;
+}
+
+async function entrar() {
+  const mail = G.cuenta?.mail;
+  if (!mail) throw new Error('entrar: el guion no trae "cuenta": { "mail": "..." }');
+  const destino = new URL('/agente', G.url);
+  let enlace;
+  if (LOCAL) {
+    enlace = await enlaceDelEmulador(mail);
+    if (!enlace) {
+      // no se pidió en cámara (tramo grabado con --desde): se pide acá, por el mismo formulario
+      await page.goto(destino.toString(), { waitUntil: 'domcontentloaded' });
+      await page.locator('#ag-mail').fill(mail);
+      await page.locator('.ag-ingreso button[type=submit]').click();
+      await page.locator('.ag-ingreso', { hasText: 'Revisá tu mail' }).waitFor({ timeout: 20000 });
+      enlace = await enlaceDelEmulador(mail);
+    }
+    if (!enlace) throw new Error('entrar: el emulador de Firebase no tiene un enlace para esa cuenta (¿está levantado "cuentas-emulador"?)');
+  } else {
+    // el enlace sale por la salida del programa y no se imprime: sirve para entrar a la cuenta
+    enlace = execFileSync('node', [path.join(AQUI, 'enlace_ingreso.mjs'), mail, destino.toString()], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] }).trim();
+  }
+  // El enlace del mail pasa por una página de Firebase que redirige al sitio: acá se va directo, con los mismos datos
+  const datos = new URL(enlace).searchParams;
+  for (const k of ['apiKey', 'oobCode', 'mode', 'lang']) if (datos.get(k)) destino.searchParams.set(k, datos.get(k));
+  await page.evaluate(([k, v]) => { try { if (!window.localStorage.getItem(k)) window.localStorage.setItem(k, v); } catch { /* sin almacenamiento */ } }, [CLAVE_MAIL, mail]);
+  await page.goto(destino.toString(), { waitUntil: 'domcontentloaded' });
+  await page.locator('.ag-barra-sesion').waitFor({ state: 'visible', timeout: 30000 });
+  await esperarCarga(400);
+  await page.mouse.move(M.x + 2, M.y); await page.mouse.move(M.x, M.y); // la página se cargó de nuevo: que el cursor dibujado vuelva a verse
 }
 
 // ---------- grabación ----------
@@ -334,6 +432,12 @@ function paginaDe(id) {
 }
 const inicioUrl = opt.desde ? paginaDe(opt.desde) : G.url;
 console.log(`guion ${G.id}: ${pasos.length} pasos, ${conVoz ? 'con duraciones de la voz' : opt.rapido ? 'modo rápido' : 'duraciones estimadas'} -> ${OUT}`);
+// Un tramo (--desde) que arranca después del ingreso necesita la sesión: se entra antes de empezar
+const pasoDeIngreso = G.pasos.findIndex((p) => (p.acciones || []).some((a) => a.tipo === 'entrar'));
+if (opt.desde && pasoDeIngreso >= 0 && G.pasos.findIndex((p) => p.id === opt.desde) > pasoDeIngreso) {
+  await page.goto(new URL('/agente', G.url).toString(), { waitUntil: 'domcontentloaded' });
+  await entrar();
+}
 await page.goto(inicioUrl, { waitUntil: 'domcontentloaded' });
 await esperarCarga(600);
 await page.mouse.move(M.x, M.y);

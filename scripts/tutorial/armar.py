@@ -141,10 +141,13 @@ def main() -> int:
     ap.add_argument("--sin-voz", action="store_true")
     ap.add_argument("--solo-guion", action="store_true")
     ap.add_argument("--crf", type=int, default=20)
+    ap.add_argument("--carpeta", help="otra carpeta de output/tutorial (un borrador grabado con grabar.mjs --out, p. ej. contra la copia local)")
     a = ap.parse_args()
 
     G = json.loads((AQUI / "guiones" / f"{a.id}.json").read_text())
-    out = RAIZ / "output" / "tutorial" / a.id
+    out = RAIZ / "output" / "tutorial" / (a.carpeta or a.id)
+    if a.carpeta:
+        G = {**G, "youtube": ""}  # un borrador no toca el catálogo del sitio
     tiempos_path = out / "tiempos.json"
     tiempos = json.loads(tiempos_path.read_text()) if tiempos_path.exists() else None
     guion_md(G, tiempos, out / "guion.md")
