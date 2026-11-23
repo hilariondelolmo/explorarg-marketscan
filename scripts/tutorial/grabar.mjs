@@ -32,28 +32,29 @@
  *   click {sel, espera}           mover + clic (con destello)
  *   click_cada {sel, dentro}      un clic por cada elemento que haya (en su hijo `dentro`, si se dice); ninguno, nada
  *   select {sel, valor | etiqueta}   elige una opción de un <select> nativo
- *   escribir {sel, texto, ritmo}  clic en el campo y tipea ("{mail}" es el mail de la cuenta del guion)
+ *   escribir {sel, texto, ritmo}  clic en el campo y tipea ("{mail}" es el mail de la cuenta del guion y
+ *                                 "{clave}" su contraseña de esta grabación; en el campo se ve como puntos)
  *   tecla {tecla}                 p. ej. Escape
  *   resaltar {sel, solo, margen}  recuadro ámbar alrededor del elemento (sigue al scroll)
  *   limpiar                       saca los recuadros
  *   scroll {sel, margen} | {dy} | {arriba: true}
  *   esperar {s}
  *   esperar_a {sel, max}          espera a que aparezca el elemento (hasta `max` segundos, 150 si no se dice)
- *   entrar                        ingresa con la cuenta de demostración del guion (ver "Páginas con ingreso")
+ *   entrar                        clic en "Ingresar" con la cuenta de demostración del guion, y espera a estar
+ *                                 adentro (ver "Páginas con ingreso"); lo que el guion no escribió, lo completa
  *   js {codigo}                   expresión a evaluar en la página (escape)
  *
  * Cualquier acción puede llevar "real": true: es de las que consultan a la IA y gastan tokens (o dependen
  * de esa respuesta). En la grabación corren siempre; con --rapido se saltean, salvo que se pase --con-consulta.
  *
  * Páginas con ingreso (el Agente, 23/11/2026). El guion lleva "cuenta": { "mail": "..." }, la cuenta de
- * demostración que se ve en pantalla. La acción `entrar` consigue el enlace de ingreso de esa cuenta sin
- * casilla de mail y sin contraseñas, y abre la página con él:
- *   - contra el sitio publicado, lo genera scripts/tutorial/enlace_ingreso.mjs con la llave del servidor
- *     de esta Mac (no se muestra ni sale de acá). El pedido del enlace que hace la página en cámara
- *     ("Mandame el enlace para entrar") se contesta acá mismo: no se manda ningún mail de verdad, así no
- *     se gasta el cupo diario de mails de Firebase;
+ * demostración que se ve en pantalla. Se entra como cualquier persona, con mail y contraseña (HDO,
+ * 23/11/2026; antes era un enlace al mail). La contraseña la pone scripts/tutorial/cuenta_demo.mjs: una
+ * nueva y al azar en cada grabación, que no se imprime ni se guarda; en el video se ve como puntos.
+ *   - contra el sitio publicado, con la llave del servidor de esta Mac (no se muestra ni sale de acá);
  *   - contra la copia local (--url http://localhost:5274/, con los servidores "cuentas-emulador" y
- *     "marketscan-con-cuentas" de .claude/launch.json), lo saca del emulador de Firebase.
+ *     "marketscan-con-cuentas" de .claude/launch.json), en el emulador de Firebase.
+ * No sale ningún mail: la cuenta de demostración ya tiene el mail confirmado.
  */
 
 import fs from 'node:fs';
@@ -94,7 +95,7 @@ if (!guionArg) {
 const guionPath = path.isAbsolute(guionArg) ? guionArg : fs.existsSync(path.resolve(guionArg)) ? path.resolve(guionArg) : path.join(AQUI, guionArg);
 const G = JSON.parse(fs.readFileSync(guionPath, 'utf8'));
 if (opt.url) G.url = opt.url;
-// ¿la página es la copia local? (cambia de dónde sale el enlace de ingreso)
+// ¿la página es la copia local? (la cuenta de demostración vive en el emulador de Firebase y no en el proyecto real)
 const LOCAL = /^(localhost|127\.0\.0\.1)$/.test(new URL(G.url).hostname);
 // las acciones "real" consultan a la IA y gastan tokens: en la prueba rápida no corren, salvo pedido
 const CON_CONSULTA = !opt.rapido || !!opt.conConsulta;
@@ -197,17 +198,6 @@ if (G.zoom && Number(G.zoom) !== 1) {
   await ctx.addInitScript(`(() => { const f = () => { const s = document.createElement('style'); s.textContent = '#root { zoom: ${Number(G.zoom)} }'; document.head.appendChild(s); }; document.head ? f() : document.addEventListener('DOMContentLoaded', f); })()`);
 }
 const page = await ctx.newPage();
-// Páginas con ingreso, contra el sitio publicado: el pedido del enlace que hace la página en cámara se
-// contesta acá y no llega a Firebase (no sale ningún mail). El enlace de verdad lo consigue `entrar`.
-if (G.cuenta?.mail && !LOCAL) {
-  await page.route((url) => url.href.includes('accounts:sendOobCode'), (ruta) =>
-    ruta.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      headers: { 'access-control-allow-origin': '*' },
-      body: JSON.stringify({ kind: 'identitytoolkit#GetOobConfirmationCodeResponse', email: G.cuenta.mail }),
-    }));
-}
 const tPage = Date.now();
 const M = { x: Math.round(vp.width * 0.55), y: Math.round(vp.height * 0.6) }; // dónde está el cursor
 
@@ -362,8 +352,8 @@ async function ejecutarAccion(a) {
       await sleep(t(a.espera ?? 0.4) * 1000); break;
     }
     case 'escribir': {
-      // "{mail}" es el mail de la cuenta de demostración del guion
-      const texto = a.texto === '{mail}' ? G.cuenta?.mail ?? '' : a.texto;
+      // "{mail}" es el mail de la cuenta de demostración del guion; "{clave}", su contraseña de esta grabación
+      const texto = a.texto === '{mail}' ? G.cuenta?.mail ?? '' : a.texto === '{clave}' ? claveDemo() : a.texto;
       const l = loc(a.sel); await clickEn(l, 0.15); await page.keyboard.type(texto, { delay: opt.rapido ? 5 : (a.ritmo ?? 45) }); await sleep(t(a.espera ?? 0.4) * 1000); break;
     }
     case 'tecla': await page.keyboard.press(a.tecla); await sleep(t(a.espera ?? 0.3) * 1000); break;
@@ -384,42 +374,36 @@ async function ejecutarAccion(a) {
 }
 
 // ---------- ingreso con la cuenta de demostración (páginas que piden registrarse) ----------
-const EMULADOR = 'http://127.0.0.1:9099/emulator/v1/projects/demo-explorarg/oobCodes'; // src/lib/cuenta/config.js
-const CLAVE_MAIL = 'explorarg:mail-de-ingreso'; // donde la página guarda para qué mail pidió el enlace (Cuenta.jsx)
-
-async function enlaceDelEmulador(mail) {
-  const { oobCodes = [] } = await (await fetch(EMULADOR)).json();
-  return oobCodes.filter((c) => c.email === mail && c.requestType === 'EMAIL_SIGNIN').at(-1)?.oobLink ?? null;
+// La contraseña de esta grabación: se pide una sola vez, vive en la memoria y no se imprime
+let claveDeEstaGrabacion = null;
+function claveDemo() {
+  const mail = G.cuenta?.mail;
+  if (!mail) throw new Error('el guion no trae "cuenta": { "mail": "..." }');
+  if (!claveDeEstaGrabacion) {
+    claveDeEstaGrabacion = execFileSync('node', [path.join(AQUI, 'cuenta_demo.mjs'), mail, ...(LOCAL ? ['--emulador'] : [])], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] }).trim();
+    if (!claveDeEstaGrabacion) throw new Error('cuenta_demo.mjs no devolvió la contraseña de la cuenta de demostración');
+  }
+  return claveDeEstaGrabacion;
 }
 
 async function entrar() {
   const mail = G.cuenta?.mail;
-  if (!mail) throw new Error('entrar: el guion no trae "cuenta": { "mail": "..." }');
-  const destino = new URL('/agente', G.url);
-  let enlace;
-  if (LOCAL) {
-    enlace = await enlaceDelEmulador(mail);
-    if (!enlace) {
-      // no se pidió en cámara (tramo grabado con --desde): se pide acá, por el mismo formulario
-      await page.goto(destino.toString(), { waitUntil: 'domcontentloaded' });
-      await page.locator('#ag-mail').fill(mail);
-      await page.locator('.ag-ingreso button[type=submit]').click();
-      await page.locator('.ag-ingreso', { hasText: 'Revisá tu mail' }).waitFor({ timeout: 20000 });
-      enlace = await enlaceDelEmulador(mail);
-    }
-    if (!enlace) throw new Error('entrar: el emulador de Firebase no tiene un enlace para esa cuenta (¿está levantado "cuentas-emulador"?)');
-  } else {
-    // el enlace sale por la salida del programa y no se imprime: sirve para entrar a la cuenta
-    enlace = execFileSync('node', [path.join(AQUI, 'enlace_ingreso.mjs'), mail, destino.toString()], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] }).trim();
+  const clave = claveDemo();
+  // sin la caja a la vista (tramo grabado con --desde): se va a buscarla
+  if (!(await page.locator('#ag-clave').count())) {
+    await page.goto(new URL('/agente', G.url).toString(), { waitUntil: 'domcontentloaded' });
+    await page.locator('.ag-ingreso').waitFor({ state: 'visible', timeout: 30000 });
+    await page.mouse.move(M.x + 2, M.y); await page.mouse.move(M.x, M.y); // la página se cargó de nuevo: que el cursor dibujado vuelva a verse
   }
-  // El enlace del mail pasa por una página de Firebase que redirige al sitio: acá se va directo, con los mismos datos
-  const datos = new URL(enlace).searchParams;
-  for (const k of ['apiKey', 'oobCode', 'mode', 'lang']) if (datos.get(k)) destino.searchParams.set(k, datos.get(k));
-  await page.evaluate(([k, v]) => { try { if (!window.localStorage.getItem(k)) window.localStorage.setItem(k, v); } catch { /* sin almacenamiento */ } }, [CLAVE_MAIL, mail]);
-  await page.goto(destino.toString(), { waitUntil: 'domcontentloaded' });
+  // se entra por "Ya tengo cuenta": si el guion mostró "Crear cuenta", se vuelve
+  const yaTengo = page.locator('.ag-modos button').first();
+  if ((await yaTengo.getAttribute('aria-pressed')) !== 'true') await yaTengo.click();
+  // lo que el guion no escribió en cámara se completa acá, sin tipeo
+  if ((await page.locator('#ag-mail').inputValue()) !== mail) await page.locator('#ag-mail').fill(mail);
+  if ((await page.locator('#ag-clave').inputValue()) !== clave) await page.locator('#ag-clave').fill(clave);
+  await clickEn(page.locator('.ag-ingreso button[type=submit]'), 0.3);
   await page.locator('.ag-barra-sesion').waitFor({ state: 'visible', timeout: 30000 });
   await esperarCarga(400);
-  await page.mouse.move(M.x + 2, M.y); await page.mouse.move(M.x, M.y); // la página se cargó de nuevo: que el cursor dibujado vuelva a verse
 }
 
 // ---------- grabación ----------
@@ -438,6 +422,9 @@ if (opt.desde && pasoDeIngreso >= 0 && G.pasos.findIndex((p) => p.id === opt.des
   await page.goto(new URL('/agente', G.url).toString(), { waitUntil: 'domcontentloaded' });
   await entrar();
 }
+// La contraseña de la cuenta de demostración se pide antes de empezar: pedirla en medio de la grabación
+// deja el cursor quieto un segundo, justo cuando va a escribirla
+if (G.cuenta?.mail && pasos.some((p) => (p.acciones || []).some((a) => a.tipo === 'entrar' || a.texto === '{clave}'))) claveDemo();
 await page.goto(inicioUrl, { waitUntil: 'domcontentloaded' });
 await esperarCarga(600);
 await page.mouse.move(M.x, M.y);

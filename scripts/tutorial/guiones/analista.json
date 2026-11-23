@@ -1,0 +1,284 @@
+{
+  "id": "analista",
+  "titulo": "Analista Explorarg",
+  "pagina": "/agente/analista",
+  "youtube": "",
+  "descripcion": "Cómo se usa el Analista del Agente Explorarg: cómo se le pide un análisis con tus palabras (un ranking, una evolución, un total o una comparación entre dos períodos), cómo muestra lo que entendió y cómo se corrige con los menús sin volver a consultar, cómo se lee el resultado con su gráfico y su tabla, y cómo se descarga.",
+  "youtube_titulo": "Tutorial · Analista Explorarg: cómo pedirle un análisis a los datos del biodiésel",
+  "etiquetas": ["Analista", "Agente Explorarg", "análisis de datos", "inteligencia artificial", "ranking de empresas", "precios del biodiésel", "ley de biocombustibles", "corte obligatorio"],
+  "url": "https://www.explorarg.com/",
+  "viewport": [1920, 1080],
+  "zoom": 1.35,
+  "cuenta": { "mail": "explorarg.demo@explorarg.com" },
+  "cartel": {
+    "kicker": "Tutorial",
+    "titulo": "Analista Explorarg",
+    "sub": "Las buenas decisiones comienzan con buenas preguntas",
+    "marca": "EXPLORARG · MARKETSCAN"
+  },
+  "paginas": { "p00": "/", "p03": "/agente/analista", "p14": "/agente/panel" },
+  "pasos": [
+    {
+      "id": "p00",
+      "titulo": "Apertura",
+      "texto": "Las buenas decisiones comienzan con buenas preguntas. Imaginá tener al lado a un analista que conoce, mes por mes, los datos oficiales del mercado de biodiésel. Que no se cansa nunca y que te contesta en segundos, con su gráfico y su tabla. Eso es el Analista Explorarg. Vos ponés la pregunta. Él hace la cuenta.",
+      "acciones": [
+        { "tipo": "esperar", "s": 0.3 }
+      ]
+    },
+    {
+      "id": "p01",
+      "titulo": "Cómo se llega: menú Agente",
+      "texto": "Se entra por el menú principal, en Agente. Esta página presenta las dos herramientas: el Polígrafo, que verifica frases, y el Analista, que responde pedidos de análisis.",
+      "acciones": [
+        { "tipo": "ocultar_cartel" },
+        { "tipo": "esperar", "s": 0.5 },
+        { "tipo": "hover", "sel": { "sel": ".top-nav-links a", "texto": "Agente", "exacto": true }, "espera": 0.6 },
+        { "tipo": "click", "sel": { "sel": ".top-nav-links a", "texto": "Agente", "exacto": true } },
+        { "tipo": "cargar", "extra": 700 },
+        { "tipo": "esperar_a", "sel": ".ag-ingreso", "max": 30 },
+        { "tipo": "resaltar", "sel": { "sel": ".ag-beneficios li", "nth": 0 }, "margen": 4 },
+        { "tipo": "esperar", "s": 2.2 },
+        { "tipo": "resaltar", "sel": { "sel": ".ag-beneficios li", "nth": 1 }, "margen": 4 },
+        { "tipo": "hover", "sel": { "sel": ".ag-beneficios li", "nth": 1 }, "espera": 2.5 }
+      ]
+    },
+    {
+      "id": "p02",
+      "titulo": "Ingresar y abrir el Analista",
+      "texto": "Para usarlo hay que registrarse, que es gratis. Con tu cuenta de Google entrás en el momento. Con tu mail y una contraseña, el registro se autoriza y te llega un mail para confirmarlo. Ya adentro, el Analista es la segunda pestaña.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": ".ag-ingreso", "margen": 6 },
+        { "tipo": "esperar", "s": 1.6 },
+        { "tipo": "limpiar" },
+        { "tipo": "hover", "sel": ".ag-google", "espera": 1.2 },
+        { "tipo": "escribir", "sel": "#ag-mail", "texto": "{mail}", "ritmo": 35, "espera": 0.1 },
+        { "tipo": "escribir", "sel": "#ag-clave", "texto": "{clave}", "ritmo": 30, "espera": 0.15 },
+        { "tipo": "entrar" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Analista", "exacto": true } },
+        { "tipo": "cargar", "extra": 300 },
+        { "tipo": "rotulo", "texto": "Analista" }
+      ]
+    },
+    {
+      "id": "p03",
+      "titulo": "Para qué sirve",
+      "texto": "Detrás de cada compra, de cada venta y de cada inversión hay una decisión. Y una decisión no es buena por cómo termina: es buena por la información que tenías cuando la tomaste y por el rigor con que la razonaste. Los datos del mercado son públicos, pero un dato suelto no es conocimiento. Hay que ordenarlo, compararlo y relacionarlo con otros para ver una tendencia o descubrir una relación. Eso pedía bases de datos, planillas y horas de trabajo. Acá es una pregunta.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": ".an .pg-caput", "margen": 8 },
+        { "tipo": "esperar", "s": 2.0 },
+        { "tipo": "hover", "sel": { "sel": ".an .pg-caput p", "nth": 1 }, "espera": 5.0 },
+        { "tipo": "hover", "sel": { "sel": ".an .pg-caput p", "nth": 2 }, "espera": 5.5 },
+        { "tipo": "hover", "sel": { "sel": ".an .pg-caput p", "nth": 3 }, "espera": 6.0 },
+        { "tipo": "hover", "sel": { "sel": ".an .pg-caput p", "nth": 4 }, "espera": 5.0 },
+        { "tipo": "hover", "sel": { "sel": ".an .pg-caput p", "nth": 6 }, "espera": 2.0 }
+      ]
+    },
+    {
+      "id": "p04",
+      "titulo": "El pedido y su costo",
+      "texto": "El pedido se escribe con tus palabras, como se lo pedirías a una persona. Podés pedir un ranking, la evolución de algo en el tiempo, un total o la comparación entre dos períodos. Sobre ventas, producción, cupos, capacidad, cortes y precios. Antes de consultar, el botón te muestra cuántos tokens va a costar, aproximadamente.",
+      "acciones": [
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": ".an .pg-form", "margen": 16 },
+        { "tipo": "resaltar", "sel": "#an-pedido", "margen": 6 },
+        { "tipo": "hover", "sel": "#an-pedido", "espera": 11.0 },
+        { "tipo": "resaltar", "sel": ".an .pg-form .pg-boton", "margen": 6 },
+        { "tipo": "hover", "sel": ".an .pg-form .pg-boton", "espera": 3.0 },
+        { "tipo": "resaltar", "sel": ".an .pg-costo", "margen": 6 },
+        { "tipo": "esperar", "s": 1.5 }
+      ]
+    },
+    {
+      "id": "p05",
+      "titulo": "Los pedidos de ejemplo",
+      "texto": "Para probar sin gastar están los pedidos de ejemplo, que ya vienen leídos. Elegís uno y aparecen dos puntos numerados, plegados: cómo se entendió el pedido y el resultado. Cada uno se abre con su flechita.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": ".an .pg-ejemplos", "margen": 6 },
+        { "tipo": "esperar", "s": 2.0 },
+        { "tipo": "select", "sel": "#an-ejemplo", "etiqueta": "Ranking de empresas por ventas al cupo, últimos 12 meses", "espera": 1.2 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": ".an .pg-ejemplos", "margen": 16 },
+        { "tipo": "resaltar", "sel": { "sel": ".an details.pg-panel > summary", "nth": 0 }, "margen": 4 },
+        { "tipo": "esperar", "s": 2.0 },
+        { "tipo": "resaltar", "sel": { "sel": ".an details.pg-panel > summary", "nth": 1 }, "margen": 4 },
+        { "tipo": "esperar", "s": 2.0 }
+      ]
+    },
+    {
+      "id": "p06",
+      "titulo": "1 · Así entendí el pedido",
+      "texto": "El primer punto es la clave del Analista: te dice, en una frase, qué entendió. Y debajo lo abre en menús: qué mostrar, qué medida y cómo agruparla. Si no era eso lo que querías, no hace falta volver a escribir: cambiás el menú y se recalcula en el momento, sin consultar de nuevo y sin gastar tokens.",
+      "acciones": [
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": { "sel": ".an details.pg-panel > summary", "nth": 0 }, "espera": 0.8 },
+        { "tipo": "resaltar", "sel": ".an-entendido", "margen": 6 },
+        { "tipo": "esperar", "s": 4.0 },
+        { "tipo": "resaltar", "sel": "label.an-campo:has(span:text-is(\"Qué mostrar\"))", "margen": 5 },
+        { "tipo": "esperar", "s": 1.6 },
+        { "tipo": "resaltar", "sel": "label.an-campo:has(span:text-is(\"Medida\"))", "margen": 5 },
+        { "tipo": "esperar", "s": 1.6 },
+        { "tipo": "resaltar", "sel": "label.an-campo:has(span:text-is(\"Agrupar por\"))", "margen": 5 },
+        { "tipo": "esperar", "s": 2.0 },
+        { "tipo": "select", "sel": "label.an-campo:has(span:text-is(\"Agrupar por\")) select", "etiqueta": "Grupo económico", "espera": 1.2 },
+        { "tipo": "resaltar", "sel": ".an-entendido", "margen": 6 },
+        { "tipo": "esperar", "s": 3.0 }
+      ]
+    },
+    {
+      "id": "p07",
+      "titulo": "Los filtros",
+      "texto": "Los demás menús acotan: por categoría, por provincia, por grupo económico, por cámara o por empresa, y entre qué meses. También el orden y cuántas filas mostrar. Así, de un mismo pedido salen muchos análisis: lo mismo, pero solo las no integradas, o solo una provincia, o desde otro año.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": ".an-controles", "margen": 6 },
+        { "tipo": "esperar", "s": 5.0 },
+        { "tipo": "resaltar", "sel": "label.an-campo:has(span:text-is(\"Categoría\"))", "margen": 5 },
+        { "tipo": "select", "sel": "label.an-campo:has(span:text-is(\"Categoría\")) select", "etiqueta": "No integradas", "espera": 2.0 },
+        { "tipo": "resaltar", "sel": "label.an-campo:has(span:text-is(\"Desde\"))", "margen": 5 },
+        { "tipo": "select", "sel": "label.an-campo:has(span:text-is(\"Desde\")) select", "etiqueta": "ene 2025", "espera": 2.0 },
+        { "tipo": "resaltar", "sel": ".an-entendido", "margen": 6 },
+        { "tipo": "esperar", "s": 3.0 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p08",
+      "titulo": "2 · Resultado",
+      "texto": "El segundo punto es el resultado. El título dice qué se está viendo, el gráfico lo muestra y la tabla trae los números, con el porcentaje de cada uno y el acumulado. Al pie figuran la fuente y el enlace al tablero del sitio de donde salen esos mismos datos, por si querés seguir mirando ahí.",
+      "acciones": [
+        { "tipo": "click", "sel": { "sel": ".an details.pg-panel > summary", "nth": 0 }, "espera": 0.5 },
+        { "tipo": "click", "sel": { "sel": ".an details.pg-panel > summary", "nth": 1 }, "espera": 0.8 },
+        { "tipo": "scroll", "sel": { "sel": ".an details.pg-panel", "nth": 1 }, "margen": 16 },
+        { "tipo": "resaltar", "sel": ".an-encabezado", "margen": 6 },
+        { "tipo": "esperar", "s": 1.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "hover", "sel": { "sel": ".an-grafico .recharts-bar-rectangle", "nth": 1 }, "espera": 1.5 },
+        { "tipo": "resaltar", "sel": ".an-tabla thead", "margen": 4 },
+        { "tipo": "esperar", "s": 1.3 },
+        { "tipo": "resaltar", "sel": ".an .pg-fuente", "margen": 6 },
+        { "tipo": "hover", "sel": ".an .pg-fuente a", "espera": 1.0 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p09",
+      "titulo": "De ranking a evolución y a comparación",
+      "texto": "Con el mismo pedido podés cambiar la pregunta. De ranking a evolución en el tiempo, y el gráfico pasa a mostrar cómo se movió cada uno, mes por mes o año por año. O a comparación entre dos períodos, para ver quién creció y quién cayó entre uno y otro. El gráfico y la tabla cambian solos.",
+      "acciones": [
+        { "tipo": "click", "sel": { "sel": ".an details.pg-panel > summary", "nth": 0 }, "espera": 0.8 },
+        { "tipo": "resaltar", "sel": "label.an-campo:has(span:text-is(\"Qué mostrar\"))", "margen": 5 },
+        { "tipo": "select", "sel": "label.an-campo:has(span:text-is(\"Qué mostrar\")) select", "etiqueta": "Evolución en el tiempo", "espera": 1.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": ".an-controles", "margen": 60 },
+        { "tipo": "esperar", "s": 2.5 },
+        { "tipo": "resaltar", "sel": "label.an-campo:has(span:text-is(\"Qué mostrar\"))", "margen": 5 },
+        { "tipo": "select", "sel": "label.an-campo:has(span:text-is(\"Qué mostrar\")) select", "etiqueta": "Comparación entre dos períodos", "espera": 1.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": ".an-controles", "margen": 60 },
+        { "tipo": "esperar", "s": 1.8 }
+      ]
+    },
+    {
+      "id": "p10",
+      "titulo": "Descargar la tabla",
+      "texto": "Y si querés llevarte los números, «Descargar la tabla» baja lo que estás viendo en un archivo de planilla, listo para abrir en Excel.",
+      "acciones": [
+        { "tipo": "resaltar", "sel": ".an-descarga", "margen": 6 },
+        { "tipo": "hover", "sel": ".an-descarga", "espera": 5.0 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p11",
+      "titulo": "No es solo ventas",
+      "texto": "No es solo ventas. Probá con los precios: la diferencia entre el biodiésel y el gas oil, mes a mes. O con el corte real, el uso de la capacidad instalada o el precio del aceite según la distancia al puerto. La lista de medidas muestra todo lo que se puede pedir, y cada medida trae sus propios menús.",
+      "acciones": [
+        { "tipo": "select", "sel": "#an-ejemplo", "etiqueta": "Biodiésel contra gas oil: la diferencia de precio, mes a mes", "espera": 1.0 },
+        { "tipo": "scroll", "sel": ".an .pg-ejemplos", "margen": 16 },
+        { "tipo": "click", "sel": { "sel": ".an details.pg-panel > summary", "nth": 1 }, "espera": 0.8 },
+        { "tipo": "scroll", "sel": { "sel": ".an details.pg-panel", "nth": 1 }, "margen": 16 },
+        { "tipo": "esperar", "s": 2.2 },
+        { "tipo": "click", "sel": { "sel": ".an details.pg-panel > summary", "nth": 0 }, "espera": 0.8 },
+        { "tipo": "resaltar", "sel": "label.an-campo:has(span:text-is(\"Medida\"))", "margen": 5 },
+        { "tipo": "esperar", "s": 2.0 },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p12",
+      "titulo": "Tu propio pedido",
+      "texto": "Ahora, un pedido propio. Lo escribís, mirás el costo en el botón y analizás. Este es el único paso que consulta a la inteligencia artificial, y por eso es el único que cuesta tokens. La inteligencia artificial solo lee el pedido y lo traduce a esos menús. Los números los calcula el programa con los datos del sitio: la inteligencia artificial no toca ninguna cifra.",
+      "acciones": [
+        { "tipo": "scroll", "arriba": true },
+        { "tipo": "scroll", "sel": ".an .pg-form", "margen": 16 },
+        { "tipo": "escribir", "sel": "#an-pedido", "texto": "¿Qué grupos económicos vendieron más biodiésel al cupo en 2025?", "ritmo": 55, "espera": 1.0 },
+        { "tipo": "resaltar", "sel": ".an .pg-form .pg-boton", "margen": 6 },
+        { "tipo": "hover", "sel": ".an .pg-form .pg-boton", "espera": 1.5 },
+        { "tipo": "limpiar" },
+        { "tipo": "click", "sel": ".an .pg-form .pg-boton", "espera": 1.0, "real": true },
+        { "tipo": "esperar_a", "sel": { "sel": ".an .pg-form .pg-boton", "texto": "Analizar" }, "max": 120, "real": true },
+        { "tipo": "esperar_a", "sel": ".an details.pg-panel", "max": 20, "real": true }
+      ]
+    },
+    {
+      "id": "p13",
+      "titulo": "Así lo entendió",
+      "texto": "En unos segundos vuelve. Lo primero es mirar cómo lo entendió: si leyó bien, el resultado ya está listo. Si no, lo corregís con los menús, sin pagar otra consulta. Al pie figura cuántos tokens costó. Y si el pedido no se puede responder con los datos del sitio, te lo dice y no descuenta nada.",
+      "acciones": [
+        { "tipo": "scroll", "sel": ".an .pg-ejemplos", "margen": 16, "real": true },
+        { "tipo": "click", "sel": { "sel": ".an details.pg-panel > summary", "nth": 0 }, "espera": 0.8, "real": true },
+        { "tipo": "resaltar", "sel": ".an-entendido", "margen": 6, "real": true },
+        { "tipo": "esperar", "s": 2.5, "real": true },
+        { "tipo": "click", "sel": { "sel": ".an details.pg-panel > summary", "nth": 0 }, "espera": 0.5, "real": true },
+        { "tipo": "click", "sel": { "sel": ".an details.pg-panel > summary", "nth": 1 }, "espera": 0.8, "real": true },
+        { "tipo": "scroll", "sel": { "sel": ".an details.pg-panel", "nth": 1 }, "margen": 16, "real": true },
+        { "tipo": "resaltar", "sel": ".an-encabezado", "margen": 6, "real": true },
+        { "tipo": "esperar", "s": 2.5, "real": true },
+        { "tipo": "resaltar", "sel": ".an .pg-cobrado", "margen": 6, "real": true },
+        { "tipo": "esperar", "s": 2.5, "real": true },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p14",
+      "titulo": "Mi panel",
+      "texto": "Como en el Polígrafo, todo queda guardado en Mi panel. Arriba, los tokens que te quedan y los que usaste. Abajo, cada consulta, que se vuelve a abrir cuando quieras, sin gastar.",
+      "acciones": [
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Mi panel", "exacto": true } },
+        { "tipo": "cargar", "extra": 300 },
+        { "tipo": "esperar_a", "sel": ".pn-tarjetas", "max": 30 },
+        { "tipo": "rotulo", "texto": "Mi panel" },
+        { "tipo": "resaltar", "sel": ".pn-tarjetas", "margen": 6 },
+        { "tipo": "esperar", "s": 1.5 },
+        { "tipo": "limpiar" },
+        { "tipo": "scroll", "sel": { "sel": ".pn details.pg-panel", "nth": 0 }, "margen": 16 },
+        { "tipo": "resaltar", "sel": ".pn-consultas", "margen": 6, "real": true },
+        { "tipo": "hover", "sel": ".pn-abrir", "espera": 1.5, "real": true },
+        { "tipo": "limpiar" }
+      ]
+    },
+    {
+      "id": "p15",
+      "titulo": "Cierre",
+      "texto": "El Analista no reemplaza tu curiosidad ni tu criterio: los multiplica. La inteligencia artificial expande el universo de respuestas posibles; la inteligencia humana formula las preguntas que les dan sentido. De esa unión sale un salto: de lo posible a lo probable. La pregunta que vale la pena ordena datos que estaban aislados, les da contexto y los convierte en información. Y esa información expande la frontera del conocimiento. Los intercambios entre las personas existen porque cada una valora distinto lo que da y lo que recibe. Así fue, así es y así será. Pero, por primera vez en la historia, esa diferencia ya no va a nacer de quién tiene los datos: hoy están al alcance de todos. Va a nacer de la inteligencia de quien pregunta.",
+      "acciones": [
+        { "tipo": "rotulo", "texto": "" },
+        { "tipo": "click", "sel": { "sel": ".section-nav a", "texto": "Analista", "exacto": true } },
+        { "tipo": "cargar", "extra": 400 },
+        { "tipo": "resaltar", "sel": { "sel": ".an .pg-caput p", "nth": 6 }, "margen": 5 },
+        { "tipo": "hover", "sel": { "sel": ".an .pg-caput p", "nth": 6 }, "espera": 5.7 },
+        { "tipo": "esperar", "s": 5.7 },
+        { "tipo": "limpiar" },
+        { "tipo": "resaltar", "sel": { "sel": ".an .pg-caput p", "nth": 3 }, "margen": 5 },
+        { "tipo": "hover", "sel": { "sel": ".an .pg-caput p", "nth": 3 }, "espera": 4.9 },
+        { "tipo": "esperar", "s": 4.9 },
+        { "tipo": "limpiar" },
+        { "tipo": "resaltar", "sel": { "sel": ".an .pg-caput p", "nth": 1 }, "margen": 5 },
+        { "tipo": "hover", "sel": { "sel": ".an .pg-caput p", "nth": 1 }, "espera": 4.2 },
+        { "tipo": "esperar", "s": 4.2 },
+        { "tipo": "limpiar" },
+        { "tipo": "cartel", "kicker": "Tutorial", "titulo": "Analista Explorarg", "sub": "explorarg.com · Agente · Analista", "marca": "EXPLORARG · MARKETSCAN" }
+      ]
+    }
+  ]
+}
