@@ -13,7 +13,12 @@ Fuentes (requiere /Volumes/comun montado):
   - Plantas procesadoras aceite.geojson  → plantas de molienda de aceite (mapa)
 
 Uso:
-    python3 scripts/regenerate_data.py [--dry-run]
+    python3 scripts/regenerate_data.py [--dry-run] [--glicerina-revisada]
+
+--glicerina-revisada es de la parte de gas oil (ver regenerate_gasoil.py).
+Al final corre también regenerate_gasoil.py (mercado de gas oil y naftas) y
+regenerate_bioetanol.py (precio oficial del bioetanol, que se baja del sitio
+de la Secretaría de Energía: necesita internet).
 
 El script NO estima datos: si falta un dato o una validación falla, aborta
 con mensaje explícito. Revisar el diff antes de commitear.
@@ -1083,6 +1088,11 @@ def main():
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     import regenerate_gasoil
     regenerate_gasoil.generar(dry)
+
+    # Precio oficial del bioetanol: no está en los hypers, se baja del sitio de la
+    # Secretaría de Energía (HDO, 22/11/2026). Si no hay red, avisa y sigue.
+    import regenerate_bioetanol
+    regenerate_bioetanol.generar(dry)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,2361 @@
+{
+ "meta": {
+  "generado": "2026-11-22 21:41",
+  "nota": "Generado por scripts/poligrafo_ejemplos.mjs - no editar a mano"
+ },
+ "ejemplos": [
+  {
+   "id": "dicho-dato-1",
+   "titulo": "1. A un mercado con reglas",
+   "enunciado": "pasar de un sistema basado en cupos, de precios administrados y decisiones discrecionales, a un mercado con reglas. Reglas conocidas, competencia, transparencia y previsibilidad.",
+   "contexto": "Senadora Patricia Bullrich, cierre del debate en el Senado del proyecto de ley de biocombustibles (la media sanción), 17/9/2026. Defiende el proyecto.",
+   "episodio": {
+    "n": 1,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/1"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "pasar de un sistema basado en cupos",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "contradice",
+      "norma_explicacion": "La media sanción fija para el biodiésel un período de transición hasta el 1° de enero de 2036 y, durante ese período, un modelo de asignación de cupos y definición de precios. El proyecto no deja atrás el sistema de cupos: lo mantiene hasta 2036.",
+      "citas": [
+       {
+        "id": "MS-38",
+        "texto": "Para las mezclas obligatorias de gasoil y/o diésel oil con biodiesel, corresponderá el siguiente modelo para la asignación de cupos y definición de precios:"
+       },
+       {
+        "id": "MS-35",
+        "texto": "Fíjase un Período de Transición para el mercado de biodiesel desde la entrada en vigencia de la presente ley hasta el 1° de enero de 2036"
+       }
+      ],
+      "revision": null
+     },
+     {
+      "id": "A2",
+      "cita": "de precios administrados",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "La ley vigente dispone que las compras para la mezcla obligatoria se hagan a los precios que establece la autoridad de aplicación. La media sanción, en cambio, dispone que elaboradores y mezcladores hagan ofertas en precio y volumen en un Mercado Electrónico y lleguen a un acuerdo mutuo.",
+      "citas": [
+       {
+        "id": "L27640-13",
+        "texto": "deberá ser llevada a cabo por las empresas encargadas de las mezclas a los precios que establezca la autoridad de aplicación"
+       },
+       {
+        "id": "MS-14",
+        "texto": "En dicho Mercado, los elaboradores y mezcladores podrán realizar sus ofertas de venta y compra respectivamente en precio y volumen, y arribar a un acuerdo mutuo."
+       }
+      ],
+      "revision": null
+     },
+     {
+      "id": "A3",
+      "cita": "y decisiones discrecionales",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "contradice",
+      "norma_explicacion": "La media sanción mantiene la facultad de la autoridad de aplicación de modificar el corte obligatorio cuando lo considere conveniente, como ya lo permitía la ley vigente. Además, le deja a esa autoridad la decisión sobre la modalidad de negociación, con consulta no vinculante. Es decir, conserva decisiones discrecionales.",
+      "citas": [
+       {
+        "id": "MS-12",
+        "texto": "La Autoridad de Aplicación podrá modificar excepcionalmente el referido porcentaje obligatorio cuando lo considere conveniente, por motivos ambientales, sociales o económicos"
+       },
+       {
+        "id": "MS-14",
+        "texto": "La Autoridad de Aplicación determinará, previa consulta no vinculante con los elaboradores y mezcladores, la modalidad a aplicar a la negociación"
+       },
+       {
+        "id": "L27640-8",
+        "texto": "La autoridad de aplicación podrá elevar el referido porcentaje obligatorio cuando lo considere conveniente"
+       }
+      ],
+      "revision": null
+     },
+     {
+      "id": "A4",
+      "cita": "a un mercado con reglas",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "La media sanción ordena crear un sistema de subastas en un Mercado Electrónico para cumplir la mezcla obligatoria y fija qué debe contemplar ese mercado.",
+      "citas": [
+       {
+        "id": "MS-14",
+        "texto": "se deberá instrumentar un sistema de subastas en un Mercado Electrónico que concentre la comercialización de manera única, transparente y de acceso público"
+       }
+      ],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "La tabla del artículo 38 reparte el corte entre un segmento reservado a las no integradas y un segmento de negociación libre que empieza en 0%. Hoy las no integradas venden el 94,6% del cupo.",
+       "citas": [
+        {
+         "id": "MS-38",
+         "texto": "Empresas No Integradas (Corte por Sistema de comercialización Art. 14) | 7,5% | 6,5% | 5,5% | 5,0% | 4,0%"
+        },
+        {
+         "id": "MS-38",
+         "texto": "Total Mercado (Integradas + No Integradas - Corte Negociación Libre Arts. 14 y 15) | 0,0% | 3,5% | 4,5% | 5,0% | 6,0%"
+        }
+       ],
+       "datos": [
+        "D-CUPO-CATEGORIAS"
+       ],
+       "vale_para": "La negociación libre entre integradas y no integradas vale solo para la porción del corte del segmento de negociación libre, que es 0% mientras el corte sea de 7,5% y llega a 6% desde 2031.",
+       "no_vale_para": "El segmento del sistema de comercialización está reservado a las empresas no integradas, con porcentajes fijados por ley (7,5% del corte mientras el corte sea de 7,5%) y topes por empresa y por grupo."
+      }
+     },
+     {
+      "id": "A5",
+      "cita": "Reglas conocidas",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "no_alcanza",
+      "norma_explicacion": "La ley fija las pautas generales del mercado, pero deja la modalidad de negociación y las normas complementarias para que las defina después la autoridad de aplicación. Si las reglas son conocidas o no es discutible.",
+      "citas": [
+       {
+        "id": "MS-14",
+        "texto": "La Autoridad de Aplicación determinará, previa consulta no vinculante con los elaboradores y mezcladores, la modalidad a aplicar a la negociación"
+       },
+       {
+        "id": "MS-5",
+        "texto": "dictar las normas complementarias que resulten necesarias para interpretar y aclarar el presente régimen"
+       }
+      ],
+      "revision": null
+     },
+     {
+      "id": "A6",
+      "cita": "competencia",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "La media sanción dispone que las actividades deberán propender a la competencia y fija topes de participación con ese fin.",
+      "citas": [
+       {
+        "id": "MS-9",
+        "texto": "Dichas actividades deberán propender a la competencia, la no discriminación, el libre acceso"
+       }
+      ],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "Los topes que el texto pone para garantizar la competencia se aplican al bioetanol y al segmento no integrado del biodiésel, pero no al segmento de negociación libre. En el segmento no integrado ya hay un grupo que supera el 10% de las ventas al cupo.",
+       "citas": [
+        {
+         "id": "MS-9",
+         "texto": "A los fines de garantizar la competencia, la participación por empresa elaboradora no excederá el veinte por ciento (20%) del total de la cantidad anual de bioetanol comercializado en el corte obligatorio"
+        },
+        {
+         "id": "MS-39",
+         "texto": "A los efectos de la definición de volúmenes a ser comercializados en el segmento de Empresas No Integradas, se considerarán las siguientes pautas:"
+        }
+       ],
+       "datos": [
+        "D-CUPO-MAYOR-GRUPO"
+       ],
+       "vale_para": "En bioetanol rige un tope de 20% por empresa. En el segmento reservado a las no integradas de biodiésel rigen topes de 10% y 50.000 t por empresa y de 10% por grupo económico.",
+       "no_vale_para": "En el segmento de negociación libre del biodiésel, donde participan las integradas, el texto no fija topes de participación por empresa ni por grupo."
+      }
+     },
+     {
+      "id": "A7",
+      "cita": "transparencia",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "La media sanción dispone que el Mercado Electrónico concentre la comercialización de manera transparente y de acceso público, y que los contratos a término se informen y se publiquen periódicamente.",
+      "citas": [
+       {
+        "id": "MS-14",
+        "texto": "que concentre la comercialización de manera única, transparente y de acceso público"
+       },
+       {
+        "id": "MS-15",
+        "texto": "estarán sujetas a mecanismos que garanticen transparencia, accesibilidad, competencia y el adecuado funcionamiento del mercado y deberán ser publicadas periódicamente"
+       }
+      ],
+      "revision": null
+     },
+     {
+      "id": "A8",
+      "cita": "y previsibilidad",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "no_alcanza",
+      "norma_explicacion": "El proyecto fija una tabla de cortes por año hasta 2036 y habla de una transición previsible. Pero el mismo texto permite a la autoridad de aplicación modificar el porcentaje obligatorio cuando lo considere conveniente, así que es discutible que sea previsible.",
+      "citas": [
+       {
+        "id": "MS-37",
+        "texto": "desarrollar todas las acciones necesarias para una transición gradual, ordenada y previsible"
+       },
+       {
+        "id": "MS-12",
+        "texto": "La Autoridad de Aplicación podrá modificar excepcionalmente el referido porcentaje obligatorio cuando lo considere conveniente"
+       }
+      ],
+      "revision": null
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1 y A2 y A3 y A4 y A5 y A6 y A7 y A8",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-2",
+   "titulo": "2. Hay ganadores y ganadores",
+   "enunciado": "No hay ganadores y perdedores. Hay ganadores y ganadores. Esto es win-win, no es perdedores.",
+   "contexto": "Senadora Patricia Bullrich, cierre del debate en el Senado del proyecto de ley de biocombustibles (la media sanción), 17/9/2026. Defiende el proyecto.",
+   "episodio": {
+    "n": 2,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/2"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "No hay ganadores y perdedores. Hay ganadores y ganadores.",
+      "tipo": "opinion",
+      "motivo": "",
+      "choca": true,
+      "opinion_hecho": "que con el proyecto nadie pierde",
+      "citas": [
+       {
+        "id": "MS-38",
+        "texto": "Empresas No Integradas (Corte por Sistema de comercialización Art. 14) | 7,5% | 6,5% | 5,5% | 5,0% | 4,0%"
+       },
+       {
+        "id": "MS-39",
+        "texto": "ii) la participación por grupo económico relacionado con la empresa elaboradora respectiva no excederá el diez por ciento (10%) del total de la cantidad de biodiesel comercializada por año calendario;"
+       }
+      ],
+      "datos": [
+       "D-CUPO-MAYOR-GRUPO",
+       "D-CUPO-CATEGORIAS"
+      ],
+      "norma_explicacion": "El artículo 38 del proyecto baja la parte del corte reservada a las no integradas del 7,5% al 4% entre 2031 y 2036. El artículo 39 pone un tope del 10% por grupo económico en ese segmento. Según la ficha, el GRUPO BOJANICH tiene hoy el 29,2% de las ventas al cupo y el GRUPO PUCCIARIELLO el 10,9%: los dos superan ese tope."
+     },
+     {
+      "id": "A2",
+      "cita": "Esto es win-win, no es perdedores.",
+      "tipo": "opinion",
+      "motivo": "",
+      "choca": true,
+      "opinion_hecho": "que el proyecto no deja perdedores",
+      "citas": [
+       {
+        "id": "MS-38",
+        "texto": "Empresas No Integradas (Corte por Sistema de comercialización Art. 14) | 7,5% | 6,5% | 5,5% | 5,0% | 4,0%"
+       },
+       {
+        "id": "MS-39",
+        "texto": "i) la participación por empresa elaboradora no excederá el diez por ciento (10%) del total de la cantidad de biodiesel comercializada por año calendario con un tope máximo de cincuenta mil (50.000) toneladas;"
+       }
+      ],
+      "datos": [
+       "D-CUPO-CATEGORIAS",
+       "D-CUPO-MAYOR-GRUPO"
+      ],
+      "norma_explicacion": "El proyecto achica el segmento reservado a las no integradas: pasa del 7,5% al 4% del corte, según el artículo 38. También fija topes por empresa (10% y 50.000 t) y por grupo (10%), según el artículo 39. Las no integradas venden hoy el 94,6% del cupo, y dos grupos superan el tope del 10%."
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1 y A2",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-3",
+   "titulo": "3. Esto es el 10 más el 5 de este coprocesamiento",
+   "enunciado": "Esto lleva el corte al 15 que están planteando. Esto es el 10 más el 5 de este coprocesamiento. Es decir, que de alguna manera podrían votar el proyecto porque estamos llegando a ese 15.",
+   "contexto": "Senadora Patricia Bullrich, cierre del debate en el Senado del proyecto de ley de biocombustibles (la media sanción), 17/9/2026. Defiende el proyecto.",
+   "episodio": {
+    "n": 3,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/3"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "Esto lleva el corte al 15 que están planteando.",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "contradice",
+      "norma_explicacion": "El proyecto fija el corte obligatorio de biodiésel en 10% a partir de los 12 meses, y en la tabla del artículo 38 el corte obligatorio total llega como máximo a 10%. Además, el artículo 18 dice expresamente que el volumen coprocesado no se cuenta para el corte obligatorio de biodiésel.",
+      "citas": [
+       {
+        "id": "MS-12",
+        "texto": "A partir de los doce (12) meses de la sanción de la ley, el porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, será del diez por ciento (10%) de biodiesel."
+       },
+       {
+        "id": "MS-18",
+        "texto": "los mezcladores no podrán considerar su volumen a los efectos del cómputo de la mezcla del corte obligatorio de biodiesel"
+       },
+       {
+        "id": "MS-38",
+        "texto": "Corte Obligatorio Total | 7,5% | 10,0% | 10,0% | 10,0% | 10,0%"
+       }
+      ],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "El 15% figura en el proyecto solo para el bioetanol en la nafta. Para el biodiésel en el gasoil el corte es del 10%.",
+       "citas": [
+        {
+         "id": "MS-13",
+         "texto": "A partir de los doce (12) meses de la sanción de la ley, el porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, será del quince por ciento (15%) de bioetanol."
+        },
+        {
+         "id": "MS-12",
+         "texto": "A partir de los doce (12) meses de la sanción de la ley, el porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, será del diez por ciento (10%) de biodiesel."
+        }
+       ],
+       "datos": [],
+       "vale_para": "Bioetanol: el proyecto lleva su corte obligatorio al 15%.",
+       "no_vale_para": "Biodiésel: su corte obligatorio llega al 10% y el coprocesamiento no se cuenta para el corte."
+      }
+     },
+     {
+      "id": "A2",
+      "cita": "Esto es el 10 más el 5 de este coprocesamiento.",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "contradice",
+      "norma_explicacion": "El proyecto fija un corte de biodiésel del 10%. El 5% del coprocesamiento es solo el límite del beneficio impositivo del artículo 34, y el mismo artículo 18 excluye ese volumen del cómputo del corte obligatorio. Por eso no forma con el 10% un corte del 15%.",
+      "citas": [
+       {
+        "id": "MS-18",
+        "texto": "los mezcladores no podrán considerar su volumen a los efectos del cómputo de la mezcla del corte obligatorio de biodiesel. No obstante, los mezcladores podrán hacer uso de los beneficios establecidos en el artículo 34 hasta un límite máximo del cinco por ciento (5,0%) de mezcla medido sobre la cantidad total del producto final comercializado."
+       },
+       {
+        "id": "MS-12",
+        "texto": "A partir de los doce (12) meses de la sanción de la ley, el porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, será del diez por ciento (10%) de biodiesel."
+       }
+      ],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "El 5% del coprocesamiento corresponde solo a los mezcladores refinadores, como beneficio impositivo. Los elaboradores no reciben volumen adicional del corte por ese 5%.",
+       "citas": [
+        {
+         "id": "MS-18",
+         "texto": "En los casos en que los mezcladores que a su vez sean refinadores incorporen, de manera optativa, materia prima no fósil como insumo para la producción de gasoil mediante co-procesamiento"
+        }
+       ],
+       "datos": [],
+       "vale_para": "Mezcladores que además son refinadores: pueden coprocesar y tener el beneficio impositivo hasta el 5%.",
+       "no_vale_para": "Elaboradores de biodiésel: el 5% coprocesado no les da volumen en el corte, que queda en 10%."
+      }
+     },
+     {
+      "id": "A3",
+      "cita": "Es decir, que de alguna manera podrían votar el proyecto porque estamos llegando a ese 15.",
+      "tipo": "opinion",
+      "motivo": "",
+      "choca": true,
+      "opinion_hecho": "que con el proyecto el corte de biodiésel llega al 15%",
+      "citas": [
+       {
+        "id": "MS-18",
+        "texto": "los mezcladores no podrán considerar su volumen a los efectos del cómputo de la mezcla del corte obligatorio de biodiesel"
+       },
+       {
+        "id": "MS-38",
+        "texto": "Corte Obligatorio Total | 7,5% | 10,0% | 10,0% | 10,0% | 10,0%"
+       }
+      ],
+      "datos": [],
+      "norma_explicacion": "El proyecto fija el corte de biodiésel en 10% y excluye del cómputo del corte el volumen coprocesado. Por lo tanto, no llega a un corte del 15% de biodiésel."
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1 y A2 y A3",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-4",
+   "titulo": "4. Un sendero específico y previsible",
+   "enunciado": "Ahora está en un 7,5 y a los 12 meses va a aumentar al 10. Es decir que le estamos dando un margen importante. Y se prevé un sendero específico y previsible.",
+   "contexto": "Senadora Patricia Bullrich, cierre del debate en el Senado del proyecto de ley de biocombustibles (la media sanción), 17/9/2026. Defiende el proyecto.",
+   "episodio": {
+    "n": 4,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/4"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "Ahora está en un 7,5",
+      "tipo": "dato",
+      "indicador": "corte",
+      "revision": {
+       "tipo": "verdad_a_medias",
+       "omite": "Omite que el corte que efectivamente se mezcla está por debajo del obligatorio: en los últimos 12 meses el corte real fue 6,41% y faltaron 124.582 t para cumplir el 7,5%.",
+       "explicacion": "La ficha muestra un corte real de 6,41% en los últimos 12 meses y de 5,79% en 2025, con un cumplimiento de 86,5% y 78,1%. Además, el corte real alcanzó al obligatorio en solo 3 de los 16 años completos.",
+       "citas": [],
+       "datos": [
+        "D-CORTE-12M",
+        "D-CORTE-ULTIMO-ANIO",
+        "D-CORTE-ANIOS-CUMPLIDOS"
+       ],
+       "resultado": "no_se_sostiene"
+      },
+      "sujeto": null,
+      "criterio": null,
+      "magnitud": null,
+      "base": null,
+      "medida": "obligatorio",
+      "periodo": "mes:2026-09",
+      "periodo_inicial": null,
+      "comparador": "igual",
+      "valor_numero": 7.5,
+      "valor_lista": []
+     },
+     {
+      "id": "A2",
+      "cita": "a los 12 meses va a aumentar al 10",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "El art. 12 de la media sanción fija el corte en 7,5% y lo lleva al 10% a partir de los doce meses de la sanción. El mismo artículo permite que la Autoridad de Aplicación lo modifique excepcionalmente.",
+      "citas": [
+       {
+        "id": "MS-12",
+        "texto": "A partir de los doce (12) meses de la sanción de la ley, el porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, será del diez por ciento (10%) de biodiesel."
+       }
+      ],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "La tabla del art. 38 asigna todo el aumento, y además un punto del segmento de las no integradas, a la negociación libre, donde también compiten las integradas. Hoy las no integradas venden el 94,6% del cupo.",
+       "citas": [
+        {
+         "id": "MS-38",
+         "texto": "Empresas No Integradas (Corte por Sistema de comercialización Art. 14) | 7,5% | 6,5% | 5,5% | 5,0% | 4,0%"
+        },
+        {
+         "id": "MS-38",
+         "texto": "Total Mercado (Integradas + No Integradas - Corte Negociación Libre Arts. 14 y 15) | 0,0% | 3,5% | 4,5% | 5,0% | 6,0%"
+        }
+       ],
+       "datos": [
+        "D-CUPO-CATEGORIAS"
+       ],
+       "vale_para": "El segmento de negociación libre (integradas y no integradas), que pasa de 0% a 3,5% del corte.",
+       "no_vale_para": "El segmento reservado a las no integradas, que baja de 7,5% a 6,5% cuando el corte sube al 10%."
+      }
+     },
+     {
+      "id": "A3",
+      "cita": "Es decir que le estamos dando un margen importante.",
+      "tipo": "opinion",
+      "motivo": "Es una valoración sobre el alcance del aumento."
+     },
+     {
+      "id": "A4",
+      "cita": "se prevé un sendero específico",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "El art. 38 fija, año por año hasta 2036, los porcentajes del corte por segmento y el corte obligatorio total.",
+      "citas": [
+       {
+        "id": "MS-38",
+        "texto": "Corte Obligatorio Total | 7,5% | 10,0% | 10,0% | 10,0% | 10,0%"
+       }
+      ],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "El sendero es descendente para el segmento de las no integradas y ascendente para la negociación libre, donde participan las integradas.",
+       "citas": [
+        {
+         "id": "MS-38",
+         "texto": "Empresas No Integradas (Corte por Sistema de comercialización Art. 14) | 7,5% | 6,5% | 5,5% | 5,0% | 4,0%"
+        },
+        {
+         "id": "MS-38",
+         "texto": "Total Mercado (Integradas + No Integradas - Corte Negociación Libre Arts. 14 y 15) | 0,0% | 3,5% | 4,5% | 5,0% | 6,0%"
+        }
+       ],
+       "datos": [
+        "D-CUPO-CATEGORIAS"
+       ],
+       "vale_para": "El segmento de negociación libre, abierto a integradas y no integradas, que crece de 0% a 6%.",
+       "no_vale_para": "El segmento reservado a las no integradas, que baja de 7,5% a 4% entre la entrada en vigencia y 2031-2036."
+      }
+     },
+     {
+      "id": "A5",
+      "cita": "y previsible",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "no_alcanza",
+      "norma_explicacion": "El art. 38 fija el sendero, pero el art. 12 permite a la Autoridad de Aplicación modificar excepcionalmente el porcentaje obligatorio cuando lo considere conveniente. Con el texto solo no se puede decidir si el sendero es previsible.",
+      "citas": [
+       {
+        "id": "MS-12",
+        "texto": "La Autoridad de Aplicación podrá modificar excepcionalmente el referido porcentaje obligatorio cuando lo considere conveniente, por motivos ambientales, sociales o económicos, en función de asegurar el abastecimiento de la demanda ante situaciones que afecten el mercado interno o por cuestiones técnicas y/o de calidad."
+       },
+       {
+        "id": "MS-38",
+        "texto": "Corte Obligatorio Total | 7,5% | 10,0% | 10,0% | 10,0% | 10,0%"
+       }
+      ],
+      "revision": null
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1 y A2 y A4 y A5",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-5",
+   "titulo": "5. Los países europeos nos han cerrado el mercado",
+   "enunciado": "Si hemos firmado el acuerdo con la Unión Europea y los países europeos nos han cerrado el mercado a nuestros biocombustibles, la verdad es que tenemos que lograr volverlos a abrir.",
+   "contexto": "Senadora Patricia Bullrich, cierre del debate en el Senado del proyecto de ley de biocombustibles (la media sanción), 17/9/2026. Defiende el proyecto.",
+   "episodio": {
+    "n": 5,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/5"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "hemos firmado el acuerdo con la Unión Europea",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "no_alcanza",
+      "norma_explicacion": "La Decisión 2019/245 acepta compromisos que ofrecieron ocho productores exportadores junto con CARBIO, no un acuerdo firmado por el Estado argentino. Si el \"hemos\" se refiere al país o al gobierno, el texto no lo respalda; si se refiere a los exportadores, sí lo describe. El texto no permite decidir entre las dos lecturas.",
+      "citas": [
+       {
+        "id": "UE245-1",
+        "texto": "Se aceptan los compromisos ofrecidos por los productores exportadores enumerados a continuación junto con la Cámara Argentina de Biocombustibles («CARBIO») en relación con el procedimiento antisubvenciones relativo a las importaciones de biodiésel originario de Argentina."
+       },
+       {
+        "id": "UE245-C4",
+        "texto": "Tras la comunicación final, todos los productores exportadores que cooperaron, incluidas sus empresas vinculadas, junto con la Cámara Argentina de Biocombustibles («CARBIO») ofrecieron compromisos de precios de conformidad con el artículo 13, apartado 1, del Reglamento (UE) 2016/1037."
+       }
+      ],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "El compromiso alcanza solo a los exportadores que figuran en la lista de la Decisión. Según la reseña del sitio, el acuerdo excluye a las empresas no integradas.",
+       "citas": [
+        {
+         "id": "UE245-1",
+         "texto": "Se aceptan los compromisos ofrecidos por los productores exportadores enumerados a continuación junto con la Cámara Argentina de Biocombustibles («CARBIO»)"
+        },
+        {
+         "id": "ML-8",
+         "texto": "El acuerdo excluye explícitamente a las empresas no integradas."
+        }
+       ],
+       "datos": [],
+       "vale_para": "Los ocho productores exportadores enumerados en la Decisión, todos empresas integradas que forman parte de CARBIO",
+       "no_vale_para": "Las demás empresas argentinas, entre ellas las no integradas, que no forman parte del compromiso"
+      }
+     },
+     {
+      "id": "A2",
+      "cita": "los países europeos nos han cerrado el mercado a nuestros biocombustibles",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "contradice",
+      "norma_explicacion": "El Reglamento 2025/835 renueva el derecho compensatorio, pero exime de él a las importaciones de las empresas que tienen compromisos aceptados, dentro de un contingente anual libre de derechos a precio mínimo. El mercado queda abierto con condiciones; el texto no lo cierra.",
+      "citas": [
+       {
+        "id": "UE835-2",
+        "texto": "1. Las importaciones declaradas para despacho a libre práctica estarán exentas del derecho compensatorio establecido en el artículo 1, siempre y cuando los productos hayan sido fabricados, expedidos y facturados por empresas de las cuales la Comisión haya aceptado compromisos y cuyos nombres se relacionen en la Decisión de Ejecución (UE) 2019/245"
+       },
+       {
+        "id": "UE835-C2",
+        "texto": "En febrero de 2019, la Comisión también aceptó los compromisos ofrecidos por los exportadores argentinos, consistentes en un contingente anual libre de derechos para el biodiésel a un precio mínimo basado en el precio oficial del aceite de soja argentino, más los costes de producción y los fletes."
+       }
+      ],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "La exención alcanza solo a las empresas con compromisos aceptados; para el resto de las importaciones argentinas rige el derecho del 33,4%. Según la ficha, las no integradas no exportaron en toda la serie, mientras que las integradas exportaron 14,8 millones de toneladas.",
+       "citas": [
+        {
+         "id": "UE835-1",
+         "texto": "Todas las demás importaciones originarias de Argentina"
+        },
+        {
+         "id": "ML-8",
+         "texto": "El acuerdo excluye explícitamente a las empresas no integradas."
+        }
+       ],
+       "datos": [
+        "D-EXPO-NI-HISTORICO",
+        "D-EXPO-CATEGORIAS"
+       ],
+       "vale_para": "Las empresas integradas que figuran en la Decisión 2019/245 tienen acceso libre de derechos dentro del contingente anual",
+       "no_vale_para": "Las demás empresas argentinas, entre ellas las no integradas, pagan el derecho compensatorio del 33,4% y no exportaron nunca"
+      }
+     },
+     {
+      "id": "A3",
+      "cita": "la verdad es que tenemos que lograr volverlos a abrir",
+      "tipo": "opinion",
+      "motivo": "Expresa un objetivo o una propuesta, no un hecho comprobable."
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1 y A2",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-6",
+   "titulo": "6. Que no haya reglas paraarancelarias",
+   "enunciado": "Entonces es importante que no haya reglas paraarancelarias para nuestros productos, porque en definitiva es lo que nos ha pasado.",
+   "contexto": "Senadora Patricia Bullrich, cierre del debate en el Senado del proyecto de ley de biocombustibles (la media sanción), 17/9/2026. Defiende el proyecto.",
+   "episodio": {
+    "n": 6,
+    "sello": "Doble vara",
+    "ruta": "/del-dicho-al-dato/6"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "Entonces es importante que no haya reglas paraarancelarias para nuestros productos",
+      "tipo": "opinion",
+      "motivo": "Es una valoración sobre lo que conviene; no afirma un hecho."
+     },
+     {
+      "id": "A2",
+      "cita": "porque en definitiva es lo que nos ha pasado",
+      "tipo": "sin_datos",
+      "motivo": "Afirma que los productos argentinos enfrentaron barreras paraarancelarias en otros países; los indicadores no miden medidas comerciales extranjeras y los textos legales disponibles no son las normas de esos países."
+     }
+    ],
+    "preguntas": [],
+    "forma": "A2",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-7",
+   "titulo": "7. Mucha previsibilidad a las economías regionales",
+   "enunciado": "Durante toda la vigencia de esta ley se mantienen 6 puntos porcentuales para el bioetanol de caña de azúcar y 6 para el de maíz. Esto le da mucha previsibilidad a las economías regionales y para las inversiones que ya existen.",
+   "contexto": "Senadora Patricia Bullrich, cierre del debate en el Senado del proyecto de ley de biocombustibles (la media sanción), 17/9/2026. Defiende el proyecto.",
+   "episodio": {
+    "n": 7,
+    "sello": "Doble vara",
+    "ruta": "/del-dicho-al-dato/7"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "Durante toda la vigencia de esta ley se mantienen 6 puntos porcentuales para el bioetanol de caña de azúcar y 6 para el de maíz.",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "El artículo 13 de la media sanción dice que, mientras la ley esté vigente, se mantienen 6% para el bioetanol de caña de azúcar y 6% para el de maíz. El mismo artículo permite a la Autoridad de Aplicación modificar de forma excepcional el porcentaje obligatorio.",
+      "citas": [
+       {
+        "id": "MS-13",
+        "texto": "Durante el período de vigencia de la ley, se mantendrán los porcentajes de corte respetando su materia prima de origen en un seis por ciento (6%) para el bioetanol producido a partir de caña de azúcar y en un seis por ciento (6%) para el producido a partir de maíz."
+       },
+       {
+        "id": "MS-13",
+        "texto": "La Autoridad de Aplicación podrá modificar excepcionalmente el referido porcentaje obligatorio cuando lo considere conveniente, por motivos ambientales, sociales o económicos, en función de asegurar el abastecimiento de la demanda ante situaciones que afecten el mercado interno o por cuestiones técnicas y/o de calidad."
+       }
+      ],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "La media sanción mantiene fija la porción del bioetanol reservada por materia prima durante toda la vigencia de la ley. En cambio, en el biodiésel reduce de forma escalonada el segmento reservado a las no integradas y le pone fecha de fin a la transición.",
+       "citas": [
+        {
+         "id": "MS-38",
+         "texto": "Empresas No Integradas (Corte por Sistema de comercialización Art. 14) | 7,5% | 6,5% | 5,5% | 5,0% | 4,0%"
+        },
+        {
+         "id": "MS-35",
+         "texto": "Fíjase un Período de Transición para el mercado de biodiesel desde la entrada en vigencia de la presente ley hasta el 1° de enero de 2036"
+        }
+       ],
+       "datos": [],
+       "vale_para": "Bioetanol: los segmentos de 6% por materia prima (caña y maíz) se mantienen durante los 15 años de vigencia de la ley.",
+       "no_vale_para": "Biodiésel: el segmento reservado a las empresas no integradas baja de 7,5% a 4% del corte, y el período de transición termina el 1° de enero de 2036."
+      }
+     },
+     {
+      "id": "A2",
+      "cita": "Esto le da mucha previsibilidad a las economías regionales y para las inversiones que ya existen.",
+      "tipo": "opinion",
+      "motivo": "Es una valoración sobre los efectos de la norma."
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-8",
+   "titulo": "8. Una transición mucho más larga",
+   "enunciado": "(Estamos) planteando una transición mucho más larga. Estamos hablando del año 2036.",
+   "contexto": "Senadora Patricia Bullrich, cierre del debate en el Senado del proyecto de ley de biocombustibles (la media sanción), 17/9/2026. Defiende el proyecto.",
+   "episodio": {
+    "n": 8,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/8"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "(Estamos) planteando una transición mucho más larga.",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "no_alcanza",
+      "norma_explicacion": "El proyecto fija un período de transición para el biodiésel hasta el 1° de enero de 2036. La ley vigente rige hasta el 31/12/2030, pero el Poder Ejecutivo puede extenderla una vez por cinco años. Sin la prórroga, el proyecto llega unos cinco años más lejos. Con la prórroga, la ley vigente llega al 31/12/2035 y la diferencia es de un día.",
+      "citas": [
+       {
+        "id": "MS-35",
+        "texto": "Fíjase un Período de Transición para el mercado de biodiesel desde la entrada en vigencia de la presente ley hasta el 1° de enero de 2036, el cual se regirá por las disposiciones contenidas en el presente título."
+       },
+       {
+        "id": "L27640-1",
+        "texto": "tendrá vigencia hasta el 31 de diciembre de 2030, pudiendo el Poder Ejecutivo nacional extenderlo, por única vez, por cinco (5) años más a contar desde la mencionada fecha de vencimiento del mismo."
+       }
+      ],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "El período de transición está definido solo para el mercado de biodiésel, y dentro de él la parte reservada a las no integradas se achica año a año. En cambio, el bioetanol conserva sus porcentajes por materia prima durante toda la vigencia de la ley.",
+       "citas": [
+        {
+         "id": "MS-38",
+         "texto": "Empresas No Integradas (Corte por Sistema de comercialización Art. 14) | 7,5% | 6,5% | 5,5% | 5,0% | 4,0%"
+        },
+        {
+         "id": "MS-13",
+         "texto": "Durante el período de vigencia de la ley, se mantendrán los porcentajes de corte respetando su materia prima de origen en un seis por ciento (6%) para el bioetanol producido a partir de caña de azúcar y en un seis por ciento (6%) para el producido a partir de maíz."
+        }
+       ],
+       "datos": [
+        "D-CUPO-CATEGORIAS"
+       ],
+       "vale_para": "El mercado de biodiésel, cuyo segmento reservado a las empresas no integradas baja del 7,5% al 4% a lo largo de la transición.",
+       "no_vale_para": "El bioetanol, que no tiene período de transición y conserva durante toda la vigencia de la ley sus cortes de 6% para caña y 6% para maíz."
+      }
+     },
+     {
+      "id": "A2",
+      "cita": "Estamos hablando del año 2036.",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "El artículo 35 del proyecto fija el período de transición del mercado de biodiésel hasta el 1° de enero de 2036.",
+      "citas": [
+       {
+        "id": "MS-35",
+        "texto": "Fíjase un Período de Transición para el mercado de biodiesel desde la entrada en vigencia de la presente ley hasta el 1° de enero de 2036, el cual se regirá por las disposiciones contenidas en el presente título."
+       }
+      ],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "La transición hasta 2036 alcanza solo al biodiésel. Dentro de ella, el segmento reservado a las no integradas, que hoy concentran casi todas las ventas al cupo, se reduce progresivamente. El bioetanol conserva sus porcentajes durante toda la vigencia de la ley.",
+       "citas": [
+        {
+         "id": "MS-38",
+         "texto": "Empresas No Integradas (Corte por Sistema de comercialización Art. 14) | 7,5% | 6,5% | 5,5% | 5,0% | 4,0%"
+        },
+        {
+         "id": "MS-13",
+         "texto": "Durante el período de vigencia de la ley, se mantendrán los porcentajes de corte respetando su materia prima de origen en un seis por ciento (6%) para el bioetanol producido a partir de caña de azúcar y en un seis por ciento (6%) para el producido a partir de maíz."
+        }
+       ],
+       "datos": [
+        "D-CUPO-CATEGORIAS"
+       ],
+       "vale_para": "El mercado de biodiésel. Hasta 2036, el segmento del sistema de comercialización reservado a las no integradas baja del 7,5% al 4%, y el resto pasa a negociación libre para integradas y no integradas.",
+       "no_vale_para": "El bioetanol, que no tiene transición hasta 2036 y mantiene durante toda la vigencia de la ley sus cortes de 6% para caña y 6% para maíz."
+      }
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1 y A2",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-9",
+   "titulo": "9. Límites para evitar que (...) terminen concentrándose",
+   "enunciado": "Y también estamos poniendo límites para evitar que el segmento de las empresas no integradas terminen concentrándose.",
+   "contexto": "Senadora Patricia Bullrich, cierre del debate en el Senado del proyecto de ley de biocombustibles (la media sanción), 17/9/2026. Defiende el proyecto.",
+   "episodio": {
+    "n": 9,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/9"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "estamos poniendo límites",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "El art. 39 de la media sanción fija para el segmento de empresas no integradas un tope de 10% de lo comercializado por año para cada empresa, con un máximo de 50.000 t, y otro de 10% para cada grupo económico. Eso coincide con la afirmación de que el proyecto pone límites.",
+      "citas": [
+       {
+        "id": "MS-39",
+        "texto": "i) la participación por empresa elaboradora no excederá el diez por ciento (10%) del total de la cantidad de biodiesel comercializada por año calendario con un tope máximo de cincuenta mil (50.000) toneladas;"
+       },
+       {
+        "id": "MS-39",
+        "texto": "ii) la participación por grupo económico relacionado con la empresa elaboradora respectiva no excederá el diez por ciento (10%) del total de la cantidad de biodiesel comercializada por año calendario;"
+       }
+      ],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "El art. 39 aplica los límites solo a los volúmenes del segmento de empresas no integradas. La tabla del art. 38 y el inciso b) del art. 39 muestran que el segmento de negociación libre, donde también participan las integradas, queda sin topes de participación. Según la ficha, hoy el GRUPO BOJANICH tiene el 29,2% de las ventas al cupo.",
+       "citas": [
+        {
+         "id": "MS-39",
+         "texto": "a) A los efectos de la definición de volúmenes a ser comercializados en el segmento de Empresas No Integradas, se considerarán las siguientes pautas:"
+        },
+        {
+         "id": "MS-38",
+         "texto": "Total Mercado (Integradas + No Integradas - Corte Negociación Libre Arts. 14 y 15) | 0,0% | 3,5% | 4,5% | 5,0% | 6,0%"
+        },
+        {
+         "id": "MS-39",
+         "texto": "b) Todo volumen faltante para el cumplimiento del corte obligatorio podrá ser negociado libremente entre elaboradores y mezcladores."
+        }
+       ],
+       "datos": [
+        "D-CUPO-MAYOR-GRUPO",
+        "D-CUPO-CATEGORIAS"
+       ],
+       "vale_para": "El segmento del sistema de comercialización reservado a las empresas no integradas (art. 14): solo ahí rigen los topes de 10% por empresa, de 50.000 t y de 10% por grupo económico.",
+       "no_vale_para": "El segmento de negociación libre, abierto a integradas y no integradas, no tiene topes por empresa ni por grupo para el biodiésel. Según la tabla, ese segmento crece de 0% a 6% del corte mientras el d"
+      }
+     },
+     {
+      "id": "A2",
+      "cita": "para evitar que el segmento de las empresas no integradas terminen concentrándose",
+      "tipo": "sin_datos",
+      "motivo": "Es la finalidad o el efecto futuro de la norma, y eso no se puede comprobar con los indicadores ni con el texto legal."
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1 y A2",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-10",
+   "titulo": "10. Se van a concentrar todas cerca del puerto",
+   "enunciado": "Porque uno de los miedos era que se van a concentrar todas cerca del puerto. un sistema de comercialización que tiene que establecer regiones geográficas de negociación.",
+   "contexto": "Senadora Patricia Bullrich, cierre del debate en el Senado del proyecto de ley de biocombustibles (la media sanción), 17/9/2026. Defiende el proyecto.",
+   "episodio": {
+    "n": 10,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/10"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "uno de los miedos era que se van a concentrar todas cerca del puerto",
+      "tipo": "sin_datos",
+      "motivo": "Habla de un temor de otros actores y de una posible concentración futura de plantas; ni los indicadores ni los textos legales lo miden."
+     },
+     {
+      "id": "A2",
+      "cita": "un sistema de comercialización que tiene que establecer regiones geográficas de negociación",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "El artículo 39 de la media sanción dispone que el mecanismo de comercialización del artículo 14 debe determinar regiones geográficas de negociación para el biodiésel, con el 20% de lo comercializado por año destinado a esas regiones.",
+      "citas": [
+       {
+        "id": "MS-39",
+        "texto": "iv) el mecanismo de comercialización dispuesto en el artículo 14 deberá determinar regiones geográficas de negociación para el biodiesel. A tal fin el veinte por ciento (20%) del total de la cantidad de biodiesel comercializada por año calendario se destinará a esas regiones geográficas, con el objetivo de lograr competitividad y eficiencia en los costos logísticos."
+       }
+      ],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "La exigencia de regiones geográficas figura entre las pautas para el segmento de Empresas No Integradas. El segmento de negociación libre, que crece de 0% a 6% del corte, y el bioetanol no tienen esa exigencia.",
+       "citas": [
+        {
+         "id": "MS-39",
+         "texto": "a) A los efectos de la definición de volúmenes a ser comercializados en el segmento de Empresas No Integradas, se considerarán las siguientes pautas:"
+        },
+        {
+         "id": "MS-38",
+         "texto": "Total Mercado (Integradas + No Integradas - Corte Negociación Libre Arts. 14 y 15) | 0,0% | 3,5% | 4,5% | 5,0% | 6,0%"
+        }
+       ],
+       "datos": [],
+       "vale_para": "El biodiésel, dentro del segmento de Empresas No Integradas (sistema de comercialización del art. 14), y solo para el 20% de lo comercializado por año.",
+       "no_vale_para": "El segmento de negociación libre (integradas y no integradas), que llega a 6 de los 10 puntos del corte entre 2031 y 2036, y el bioetanol, que no tiene regiones geográficas."
+      }
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1 y A2",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-11",
+   "titulo": "11. Una regla antimonopólica",
+   "enunciado": "una regla antimonopólica: que ninguna empresa puede superar el 20% del bioetanol comercializado para el corte obligatorio.",
+   "contexto": "Senadora Patricia Bullrich, cierre del debate en el Senado del proyecto de ley de biocombustibles (la media sanción), 17/9/2026. Defiende el proyecto.",
+   "episodio": {
+    "n": 11,
+    "sello": "Arbitrariedad regulatoria",
+    "ruta": "/del-dicho-al-dato/11"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "una regla antimonopólica: que ninguna empresa puede superar el 20% del bioetanol comercializado para el corte obligatorio.",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "El proyecto establece, para garantizar la competencia, que la participación de cada empresa elaboradora no puede superar el 20% del bioetanol comercializado por año en el corte obligatorio.",
+      "citas": [
+       {
+        "id": "MS-9",
+        "texto": "A los fines de garantizar la competencia, la participación por empresa elaboradora no excederá el veinte por ciento (20%) del total de la cantidad anual de bioetanol comercializado en el corte obligatorio durante el año calendario correspondiente."
+       }
+      ],
+      "datos": [],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "La regla contra la concentración cubre todo el corte de bioetanol. En biodiésel, los topes por empresa y por grupo se aplican solo al volumen del segmento de las no integradas, y el segmento de negociación libre queda sin límite de participación.",
+       "citas": [
+        {
+         "id": "MS-39",
+         "texto": "A los efectos de la definición de volúmenes a ser comercializados en el segmento de Empresas No Integradas, se considerarán las siguientes pautas: i) la participación por empresa elaboradora no excederá el diez por ciento (10%) del total de la cantidad de biodiesel comercializada por año calendario con un tope máximo de cincuenta mil (50.000) toneladas;"
+        },
+        {
+         "id": "MS-38",
+         "texto": "Total Mercado (Integradas + No Integradas - Corte Negociación Libre Arts. 14 y 15) | 0,0% | 3,5% | 4,5% | 5,0% | 6,0%"
+        }
+       ],
+       "datos": [],
+       "vale_para": "Bioetanol: el tope del 20% por empresa alcanza a todo el bioetanol del corte obligatorio.",
+       "no_vale_para": "Biodiésel: el tope por empresa (10% y 50.000 t) y el tope por grupo (10%) rigen solo en el segmento reservado a las no integradas. En el segmento de negociación libre, donde también venden las integra"
+      }
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-12",
+   "titulo": "12. No queda desvestida ni La Pampa, ni San Luis",
+   "enunciado": "El biodiésel tiene una transición, no tiene un salto al vacío. No queda desvestida ni La Pampa, ni San Luis, ni la provincia de Buenos Aires.",
+   "contexto": "Senadora Patricia Bullrich, cierre del debate en el Senado del proyecto de ley de biocombustibles (la media sanción), 17/9/2026. Defiende el proyecto.",
+   "episodio": {
+    "n": 12,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/12"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "El biodiésel tiene una transición",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "El proyecto fija un período de transición para el mercado de biodiésel desde su entrada en vigencia hasta el 1° de enero de 2036, con una tabla que reparte el corte entre el segmento de las no integradas y el de negociación libre.",
+      "citas": [
+       {
+        "id": "MS-35",
+        "texto": "Fíjase un Período de Transición para el mercado de biodiesel desde la entrada en vigencia de la presente ley hasta el 1° de enero de 2036, el cual se regirá por las disposiciones contenidas en el presente título."
+       }
+      ],
+      "datos": [],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "La transición con fecha de fin y con una reserva que se achica rige solo para el biodiésel. Para el bioetanol, el texto mantiene las reservas por materia prima durante toda la vigencia de la ley.",
+       "citas": [
+        {
+         "id": "MS-38",
+         "texto": "Empresas No Integradas (Corte por Sistema de comercialización Art. 14) | 7,5% | 6,5% | 5,5% | 5,0% | 4,0%"
+        },
+        {
+         "id": "MS-13",
+         "texto": "Durante el período de vigencia de la ley, se mantendrán los porcentajes de corte respetando su materia prima de origen en un seis por ciento (6%) para el bioetanol producido a partir de caña de azúcar y en un seis por ciento (6%) para el producido a partir de maíz."
+        }
+       ],
+       "datos": [],
+       "vale_para": "El biodiésel: tiene una transición con plazo, que termina el 1° de enero de 2036, y durante ella el segmento reservado a las no integradas baja del 7,5% al 4%.",
+       "no_vale_para": "El bioetanol: no tiene transición. Durante toda la vigencia de la ley (15 años) conserva los porcentajes reservados por materia prima, 6% para caña y 6% para maíz."
+      }
+     },
+     {
+      "id": "A2",
+      "cita": "no tiene un salto al vacío",
+      "tipo": "opinion",
+      "motivo": "Es una calificación figurada de cómo es el cambio que propone el proyecto."
+     },
+     {
+      "id": "A3",
+      "cita": "No queda desvestida ni La Pampa, ni San Luis, ni la provincia de Buenos Aires.",
+      "tipo": "opinion",
+      "motivo": "",
+      "choca": true,
+      "opinion_hecho": "que las elaboradoras de La Pampa, San Luis y la provincia de Buenos Aires no pierden con el proyecto",
+      "citas": [
+       {
+        "id": "MS-38",
+        "texto": "Empresas No Integradas (Corte por Sistema de comercialización Art. 14) | 7,5% | 6,5% | 5,5% | 5,0% | 4,0%"
+       },
+       {
+        "id": "MS-39",
+        "texto": "ii) la participación por grupo económico relacionado con la empresa elaboradora respectiva no excederá el diez por ciento (10%) del total de la cantidad de biodiesel comercializada por año calendario;"
+       },
+       {
+        "id": "MS-39",
+        "texto": "i) la participación por empresa elaboradora no excederá el diez por ciento (10%) del total de la cantidad de biodiesel comercializada por año calendario con un tope máximo de cincuenta mil (50.000) toneladas;"
+       }
+      ],
+      "datos": [
+       "D-CUPO-CATEGORIAS",
+       "D-CUPO-MAYOR-GRUPO"
+      ],
+      "norma_explicacion": "El proyecto reduce el segmento reservado a las no integradas, que son casi todas las elaboradoras de La Pampa, San Luis y la provincia de Buenos Aires, del 7,5% al 4% del corte. Además les pone topes de 10% por empresa (con un máximo de 50.000 t) y de 10% por grupo económico. En los últimos 12 meses las no integradas vendieron el 94,6% del cupo, y el Grupo Bahía Energía, con la mayoría de sus plantas en Buenos Aires, vendió el 29,2%: con el tope quedaría muy por debajo de esa participación."
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1 y A3",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-13",
+   "titulo": "13. Hay nuevas materias (...) en la reglamentación",
+   "enunciado": "hay nuevas materias primas que se van a tener que contemplar en la reglamentación, que realmente es importante.",
+   "contexto": "Senadora Patricia Bullrich, cierre del debate en el Senado del proyecto de ley de biocombustibles (la media sanción), 17/9/2026. Defiende el proyecto.",
+   "episodio": {
+    "n": 13,
+    "sello": "Otros veredictos",
+    "ruta": "/del-dicho-al-dato/13"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "hay nuevas materias primas que se van a tener que contemplar en la reglamentación",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "El proyecto amplía el concepto de biocombustible a combustibles de materias primas orgánicas renovables, residuos y sintéticos de agua y CO2, y pide que se declaren así según la reglamentación que se dicte. La ley vigente solo reconoce bioetanol y biodiésel de materias primas nacionales agropecuarias, agroindustriales o de desechos orgánicos.",
+      "citas": [
+       {
+        "id": "MS-6",
+        "texto": "b) aquellos combustibles de origen sintético que utilizan como principales materias primas agua y dióxido de carbono (CO2), siendo su principal fuente de energía la energía eléctrica proveniente de fuentes renovables;"
+       },
+       {
+        "id": "MS-6",
+        "texto": "Dichos productos deberán ser declarados como biocombustibles de conformidad con la reglamentación que a tal efecto se dicte, y en tanto cumplan los requisitos de calidad que establezca la Autoridad de Aplicación."
+       },
+       {
+        "id": "L27640-4",
+        "texto": "A los fines de la presente ley, se entiende por biocombustible al bioetanol y al biodiésel que cumplan los requisitos de calidad que establezca la autoridad de aplicación y que se produzcan en plantas instaladas en la República Argentina a partir de materias primas nacionales cuyo origen sea agropecuario, agroindustrial y/o provenga de desechos orgánicos."
+       }
+      ],
+      "datos": [],
+      "revision": null
+     },
+     {
+      "id": "A2",
+      "cita": "que realmente es importante",
+      "tipo": "opinion",
+      "motivo": "Es una valoración sobre la importancia de incorporar nuevas materias primas."
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-14",
+   "titulo": "14. Ese fraude no va",
+   "enunciado": "Por eso hay límites por empresa y por grupo económico, porque si no, las empresas se separan y después se llevan todo el cupo. decir: yo me separo y entonces quiero cinco cupos; decimos no, esto es un grupo económico. No, no, no, ese fraude no va.",
+   "contexto": "Senadora Patricia Bullrich, cierre del debate en el Senado del proyecto de ley de biocombustibles (la media sanción), 17/9/2026. Defiende el proyecto.",
+   "episodio": {
+    "n": 14,
+    "sello": "Arbitrariedad regulatoria",
+    "ruta": "/del-dicho-al-dato/14"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "Por eso hay límites por empresa y por grupo económico",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "El proyecto fija un tope de participación del 10% por empresa elaboradora, con un máximo de 50.000 toneladas, y otro del 10% por grupo económico.",
+      "citas": [
+       {
+        "id": "MS-39",
+        "texto": "i) la participación por empresa elaboradora no excederá el diez por ciento (10%) del total de la cantidad de biodiesel comercializada por año calendario con un tope máximo de cincuenta mil (50.000) toneladas;"
+       },
+       {
+        "id": "MS-39",
+        "texto": "ii) la participación por grupo económico relacionado con la empresa elaboradora respectiva no excederá el diez por ciento (10%) del total de la cantidad de biodiesel comercializada por año calendario;"
+       }
+      ],
+      "datos": [],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "Los topes por empresa y por grupo se fijan solo para los volúmenes del segmento de empresas no integradas. El segmento de negociación libre, que pasa del 0% al 6% del corte, no tiene esos límites.",
+       "citas": [
+        {
+         "id": "MS-39",
+         "texto": "a) A los efectos de la definición de volúmenes a ser comercializados en el segmento de Empresas No Integradas, se considerarán las siguientes pautas:"
+        },
+        {
+         "id": "MS-38",
+         "texto": "Total Mercado (Integradas + No Integradas - Corte Negociación Libre Arts. 14 y 15) | 0,0% | 3,5% | 4,5% | 5,0% | 6,0%"
+        }
+       ],
+       "datos": [],
+       "vale_para": "Las empresas no integradas, en el segmento del sistema de comercialización reservado a ellas.",
+       "no_vale_para": "El segmento de negociación libre, donde participan las integradas y las no integradas y no rige ningún tope por empresa ni por grupo."
+      }
+     },
+     {
+      "id": "A2",
+      "cita": "porque si no, las empresas se separan y después se llevan todo el cupo",
+      "tipo": "sin_datos",
+      "motivo": "Es una hipótesis sobre cómo se comportarían las empresas si no hubiera límites; ni los indicadores ni los textos permiten comprobarla."
+     },
+     {
+      "id": "A3",
+      "cita": "decir: yo me separo y entonces quiero cinco cupos; decimos no, esto es un grupo económico",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "Según el proyecto, los cambios societarios posteriores no bastan por sí solos para que deje de existir un grupo económico que existía al 31/12/2025 o que se forme después. Por eso separar las empresas no alcanza para sumar cupos por fuera del tope del grupo.",
+      "citas": [
+       {
+        "id": "MS-36",
+        "texto": "cuando las condiciones de control, influencia significativa o los vínculos especiales previstos en este inciso hubieren existido al 31 de diciembre de 2025 o se configuraran con posterioridad a dicha fecha, las modificaciones en la composición o estructura societaria posteriores no serán suficientes, por sí solas, para desvirtuar la existencia del grupo económico."
+       }
+      ],
+      "datos": [],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "El tope por grupo, que es lo que vuelve relevante la regla contra las separaciones, se aplica solo a los volúmenes del segmento de empresas no integradas.",
+       "citas": [
+        {
+         "id": "MS-39",
+         "texto": "a) A los efectos de la definición de volúmenes a ser comercializados en el segmento de Empresas No Integradas, se considerarán las siguientes pautas:"
+        },
+        {
+         "id": "MS-38",
+         "texto": "Total Mercado (Integradas + No Integradas - Corte Negociación Libre Arts. 14 y 15) | 0,0% | 3,5% | 4,5% | 5,0% | 6,0%"
+        }
+       ],
+       "datos": [],
+       "vale_para": "Las empresas no integradas, en el segmento del sistema de comercialización, donde rige el tope del 10% por grupo económico.",
+       "no_vale_para": "El segmento de negociación libre, abierto a integradas y no integradas, donde no hay tope por grupo y agrupar las empresas no limita lo que pueden vender."
+      }
+     },
+     {
+      "id": "A4",
+      "cita": "No, no, no, ese fraude no va.",
+      "tipo": "opinion",
+      "motivo": "Califica de fraude una conducta y rechaza que se permita."
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1 y A2 y A3",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-15",
+   "titulo": "15. Tiene ganadores, perdedores, afectados",
+   "enunciado": "Como todo proyecto que implica un aumento de corte de biocombustibles, tiene ganadores, perdedores, afectados. El sector que más nos importa a nosotros, del Ejecutivo, es el consumidor.",
+   "contexto": "Lic. Daniel González, por el Poder Ejecutivo nacional, en el plenario de comisiones del Senado, 3/6/2026. Habla del proyecto de ley de biocombustibles S-809/26, que el Ejecutivo apoya y que después tuvo media sanción del Senado.",
+   "episodio": {
+    "n": 15,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/15"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "Como todo proyecto que implica un aumento de corte de biocombustibles",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "El proyecto lleva el corte obligatorio de biodiésel de 7,5% a 10% a los doce meses de la sanción, y el de bioetanol de 12% a 15%. La ley vigente, con el decreto que la modificó, fija hoy el biodiésel en 7,5%, así que el proyecto implica un aumento del corte.",
+      "citas": [
+       {
+        "id": "MS-12",
+        "texto": "A partir de los doce (12) meses de la sanción de la ley, el porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, será del diez por ciento (10%) de biodiesel."
+       },
+       {
+        "id": "MS-13",
+        "texto": "A partir de los doce (12) meses de la sanción de la ley, el porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, será del quince por ciento (15%) de bioetanol."
+       },
+       {
+        "id": "L27640-8",
+        "texto": "deberá contener un porcentaje obligatorio de biodiésel de SIETE COMA CINCO POR CIENTO (7,5%)"
+       }
+      ],
+      "datos": [],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "La tabla del proyecto le da todo el aumento del corte de biodiésel al segmento de negociación libre. Al mismo tiempo, el segmento reservado a las no integradas se achica año tras año.",
+       "citas": [
+        {
+         "id": "MS-38",
+         "texto": "Empresas No Integradas (Corte por Sistema de comercialización Art. 14) | 7,5% | 6,5% | 5,5% | 5,0% | 4,0%"
+        },
+        {
+         "id": "MS-38",
+         "texto": "Total Mercado (Integradas + No Integradas - Corte Negociación Libre Arts. 14 y 15) | 0,0% | 3,5% | 4,5% | 5,0% | 6,0%"
+        }
+       ],
+       "datos": [],
+       "vale_para": "El segmento de negociación libre del biodiésel (integradas y no integradas), que pasa de 0% a 3,5% del corte y llega a 6% desde 2031: ahí va todo el aumento.",
+       "no_vale_para": "El segmento del sistema de comercialización reservado a las no integradas: no recibe nada del aumento y baja de 7,5% a 6,5%, y después hasta 4%."
+      }
+     },
+     {
+      "id": "A2",
+      "cita": "tiene ganadores, perdedores, afectados",
+      "tipo": "opinion",
+      "motivo": "Es una caracterización general de que toda suba del corte reparte ganancias y pérdidas, sin un hecho medible concreto."
+     },
+     {
+      "id": "A3",
+      "cita": "El sector que más nos importa a nosotros, del Ejecutivo, es el consumidor.",
+      "tipo": "opinion",
+      "motivo": "Expresa una prioridad del Ejecutivo y no afirma un hecho comprobable."
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-16",
+   "titulo": "16. Una diferencia de 80% el biodiésel por arriba del fósil",
+   "enunciado": "Antes de esta suba de precios de petróleo estábamos hablando de una diferencia de 80% el biodiésel por arriba del fósil.",
+   "contexto": "Lic. Daniel González, por el Poder Ejecutivo nacional, en el plenario de comisiones del Senado, 3/6/2026. Habla del proyecto de ley de biocombustibles S-809/26, que el Ejecutivo apoya y que después tuvo media sanción del Senado.",
+   "episodio": {
+    "n": 16,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/16"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "Antes de esta suba de precios de petróleo estábamos hablando de una diferencia de 80% el biodiésel por arriba del fósil.",
+      "tipo": "dato",
+      "indicador": "brecha_precio",
+      "revision": {
+       "tipo": "verdad_a_medias",
+       "omite": "Que una diferencia cercana al 80% solo aparece frente al gas oil importado puesto en puerto (sin gastos internos), y que frente al gas oil fósil que se vende en el país la diferencia de esos meses rondaba el 50%.",
+       "explicacion": "Frente al importado puesto en puerto, el biodiésel estuvo 82% más caro en enero de 2026 y 94% en febrero de 2026. Frente al gas oil fósil local estuvo entre 48% y 52% más caro de noviembre de 2025 a febrero de 2026. Con cualquiera de las dos comparaciones el biodiésel era bastante más caro.",
+       "citas": [],
+       "datos": [
+        "D-PRECIO-BRECHA-IMPORTADO",
+        "D-PRECIO-BRECHA-MESES"
+       ],
+       "resultado": "se_sostiene"
+      },
+      "sujeto": null,
+      "criterio": null,
+      "magnitud": null,
+      "base": null,
+      "medida": null,
+      "producto": "biodiesel",
+      "producto_base": null,
+      "periodo": null,
+      "periodo_inicial": null,
+      "comparador": "igual",
+      "valor_numero": 80,
+      "valor_lista": []
+     }
+    ],
+    "preguntas": [
+     {
+      "id": "P1",
+      "parametro": "producto_base",
+      "aplica_a": [
+       "A1"
+      ],
+      "pregunta": "Cuando dice \"el fósil\", ¿se refiere al gas oil fósil que se vende en el país o al gas oil importado?",
+      "opciones": [
+       {
+        "valor": "gasoil_fosil",
+        "etiqueta": "Gas oil fósil local: el grado 2 mayorista sin impuestos, sin el biodiésel que lleva mezclado"
+       },
+       {
+        "valor": "gasoil_importado",
+        "etiqueta": "Gas oil importado, puesto en puerto (CIF), sin impuestos"
+       }
+      ]
+     },
+     {
+      "id": "P2",
+      "parametro": "periodo",
+      "aplica_a": [
+       "A1"
+      ],
+      "pregunta": "¿Qué período es \"antes de esta suba de precios de petróleo\"? (lo dijo el 3/6/2026)",
+      "opciones": [
+       {
+        "valor": "mes:2026-02",
+        "etiqueta": "Feb 2026"
+       },
+       {
+        "valor": "mes:2026-03",
+        "etiqueta": "Mar 2026"
+       },
+       {
+        "valor": "mes:2026-01",
+        "etiqueta": "Ene 2026"
+       },
+       {
+        "valor": "rango:2025-11:2026-02",
+        "etiqueta": "Nov 2025 a feb 2026"
+       }
+      ]
+     }
+    ],
+    "forma": "A1",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-17",
+   "titulo": "17. No vemos lógica en duplicar el corte de biodiésel",
+   "enunciado": "No vemos lógica en duplicar el corte de biodiésel, como proponen algunos proyectos, porque eso implica un aumento en términos reales, estructural y permanente, del gasoil que se consume en todo el país.",
+   "contexto": "Lic. Daniel González, por el Poder Ejecutivo nacional, en el plenario de comisiones del Senado, 3/6/2026. Habla del proyecto de ley de biocombustibles S-809/26, que el Ejecutivo apoya y que después tuvo media sanción del Senado.",
+   "episodio": {
+    "n": 17,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/17"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "No vemos lógica en duplicar el corte de biodiésel",
+      "tipo": "opinion",
+      "motivo": "Es una valoración sobre la conveniencia de una propuesta."
+     },
+     {
+      "id": "A2",
+      "cita": "como proponen algunos proyectos",
+      "tipo": "sin_datos",
+      "motivo": "Los textos de los otros proyectos no están en los textos legales, y la reseña del sitio no dice que alguno proponga duplicar el corte."
+     },
+     {
+      "id": "A3",
+      "cita": "eso implica un aumento en términos reales, estructural y permanente, del gasoil que se consume en todo el país",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "contradice",
+      "norma_explicacion": "Según la ficha, si el corte pasara de 7,5% a 15%, el precio del gas oil en el surtidor habría subido en 60 de los 103 meses con datos y bajado en 43, en un rango que va de -1,6% a +5,0%. Entre abril y septiembre de 2026 habría bajado todos los meses. Como el efecto cambia de signo, no es un aumento estructural ni permanente.",
+      "citas": [],
+      "datos": [
+       "D-SURTIDOR-CORTE",
+       "D-PRECIO-BRECHA-ANIOS"
+      ],
+      "revision": null
+     }
+    ],
+    "preguntas": [],
+    "forma": "A2 y A3",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-18",
+   "titulo": "18. Un impacto inmediato negativo en los ingresos del Estado",
+   "enunciado": "Recuerden que los biocombustibles están exentos. Entonces cualquier aumento de corte tiene un impacto inmediato negativo en los ingresos del Estado nacional.",
+   "contexto": "Lic. Daniel González, por el Poder Ejecutivo nacional, en el plenario de comisiones del Senado, 3/6/2026. Habla del proyecto de ley de biocombustibles S-809/26, que el Ejecutivo apoya y que después tuvo media sanción del Senado.",
+   "episodio": {
+    "n": 18,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/18"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "Recuerden que los biocombustibles están exentos.",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "La ley vigente dispone que el biodiésel y el bioetanol no están gravados por el impuesto a los combustibles líquidos ni por el impuesto al dióxido de carbono, y que en la mezcla el gravamen recae solo sobre el componente fósil. El proyecto mantiene esa exención.",
+      "citas": [
+       {
+        "id": "L27640-22",
+        "texto": "El biodiésel y el bioetanol no estarán gravados por el Impuesto a los Combustibles Líquidos (ICL) y por el Impuesto al Dióxido de Carbono (ICO2)"
+       },
+       {
+        "id": "MS-34",
+        "texto": "Los biocombustibles habilitados por la Autoridad de Aplicación no estarán gravados por el Impuesto a los Combustibles Líquidos (ICL) ni por el Impuesto al Dióxido de Carbono (ICO2)"
+       }
+      ],
+      "datos": [],
+      "revision": null
+     },
+     {
+      "id": "A2",
+      "cita": "Entonces cualquier aumento de corte tiene un impacto inmediato negativo en los ingresos del Estado nacional.",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "La ficha muestra que cuando sube el corte, el Estado deja de cobrar el impuesto de los litros de gas oil fósil que reemplaza el biodiésel: pasar de 7,5% a 15% de corte, en septiembre de 2026, implicaba $ 24,6 menos de impuestos por litro de gas oil vendido. Como cada litro de gas oil fósil paga $ 327,66 de impuestos y el biodiésel no paga nada, cualquier punto de corte que se suma baja esa recaudación.",
+      "citas": [],
+      "datos": [
+       "D-FISCO-CORTE",
+       "D-IMPUESTOS-GASOIL"
+      ],
+      "revision": null
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1 y A2",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-19",
+   "titulo": "19. Es equivalente al costo del fósil",
+   "enunciado": "Volviendo al etanol, su costo, a diferencia del biodiésel, es equivalente al costo del fósil con el cual se mezcla.",
+   "contexto": "Lic. Daniel González, por el Poder Ejecutivo nacional, en el plenario de comisiones del Senado, 3/6/2026. Habla del proyecto de ley de biocombustibles S-809/26, que el Ejecutivo apoya y que después tuvo media sanción del Senado.",
+   "episodio": {
+    "n": 19,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/19"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "Volviendo al etanol, su costo [...] es equivalente al costo del fósil con el cual se mezcla.",
+      "tipo": "dato",
+      "indicador": "brecha_precio",
+      "revision": {
+       "tipo": "verdad_a_medias",
+       "omite": "Omite que un litro de bioetanol tiene un tercio menos de energía que uno de nafta, así que aunque el precio por litro se parezca, a igual energía el bioetanol resulta más caro.",
+       "explicacion": "La ficha muestra que un litro de bioetanol tiene 34% menos energía que uno de nafta y que, a igual energía, el bioetanol fue más caro que la nafta fósil en los 100 meses con datos (por ejemplo, +9% en mayo y +11% en junio de 2026).",
+       "citas": [],
+       "datos": [
+        "T-ENERGIA-NAFTA-BIOETANOL",
+        "D-PRECIO-BIOETANOL-MESES"
+       ],
+       "resultado": "no_se_sostiene"
+      },
+      "sujeto": null,
+      "criterio": null,
+      "magnitud": null,
+      "base": null,
+      "medida": null,
+      "producto": "bioetanol",
+      "producto_base": "nafta_fosil",
+      "equivalencia": null,
+      "periodo": null,
+      "periodo_inicial": null,
+      "comparador": "aprox",
+      "valor_numero": 0,
+      "valor_lista": []
+     },
+     {
+      "id": "A2",
+      "cita": "a diferencia del biodiésel",
+      "tipo": "dato",
+      "indicador": "brecha_precio",
+      "revision": {
+       "tipo": "verdad_a_medias",
+       "omite": "Omite que, en los meses en que se hizo la declaración, el litro de biodiésel estaba casi al mismo precio que el gas oil: el contraste con el etanol no se ve en esos meses.",
+       "explicacion": "La ficha muestra que el biodiésel fue apenas 1% más caro que el gas oil fósil local en abril y mayo de 2026, y 2% más caro que el gas oil importado en mayo de 2026. En otros meses la diferencia llegó a +52% y +94%.",
+       "citas": [],
+       "datos": [
+        "D-PRECIO-BRECHA-MESES",
+        "D-PRECIO-BRECHA-IMPORTADO"
+       ],
+       "resultado": "no_se_sostiene"
+      },
+      "sujeto": null,
+      "criterio": null,
+      "magnitud": null,
+      "base": null,
+      "medida": null,
+      "producto": "biodiesel",
+      "producto_base": null,
+      "equivalencia": "por_litro",
+      "periodo": null,
+      "periodo_inicial": null,
+      "comparador": "mayor",
+      "valor_numero": 0,
+      "valor_lista": []
+     }
+    ],
+    "preguntas": [
+     {
+      "id": "P1",
+      "parametro": "equivalencia",
+      "aplica_a": [
+       "A1"
+      ],
+      "pregunta": "¿El costo del etanol \"es equivalente\" al de la nafta comparando litro contra litro o a igual energía?",
+      "opciones": [
+       {
+        "valor": "por_litro",
+        "etiqueta": "Litro contra litro"
+       },
+       {
+        "valor": "por_energia",
+        "etiqueta": "A igual energía: el litro de biocombustible rinde menos que el de fósil"
+       }
+      ]
+     },
+     {
+      "id": "P2",
+      "parametro": "producto_base",
+      "aplica_a": [
+       "A2"
+      ],
+      "pregunta": "\"El fósil\" con el que se mezcla el biodiésel: ¿el gas oil fósil local o el importado?",
+      "opciones": [
+       {
+        "valor": "gasoil_fosil",
+        "etiqueta": "Gas oil fósil local: el grado 2 mayorista sin impuestos, sin el biodiésel que lleva mezclado"
+       },
+       {
+        "valor": "gasoil_importado",
+        "etiqueta": "Gas oil importado, puesto en puerto (CIF), sin impuestos"
+       }
+      ]
+     },
+     {
+      "id": "P3",
+      "parametro": "periodo",
+      "aplica_a": [
+       "A1",
+       "A2"
+      ],
+      "pregunta": "La frase se dijo el 3/6/2026. ¿Qué período tomamos para \"es\"?",
+      "opciones": [
+       {
+        "valor": "mes:2026-05",
+        "etiqueta": "May 2026"
+       },
+       {
+        "valor": "mes:2026-06",
+        "etiqueta": "Jun 2026"
+       },
+       {
+        "valor": "ultimos_12_meses",
+        "etiqueta": "Los últimos 12 meses (oct 2025 a sep 2026)"
+       },
+       {
+        "valor": "ultimo_mes",
+        "etiqueta": "Sep 2026 (último mes con datos)"
+       }
+      ]
+     }
+    ],
+    "forma": "A1 y A2",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-20",
+   "titulo": "20. Es un perfecto equilibrio",
+   "enunciado": "lo que se propone en este proyecto, y que nosotros apoyamos, que es un corte del 10%. Es un perfecto equilibrio, o un gran equilibrio.",
+   "contexto": "Lic. Daniel González, por el Poder Ejecutivo nacional, en el plenario de comisiones del Senado, 3/6/2026. Habla del proyecto de ley de biocombustibles S-809/26, que el Ejecutivo apoya y que después tuvo media sanción del Senado.",
+   "episodio": {
+    "n": 20,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/20"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "lo que se propone en este proyecto, y que nosotros apoyamos, que es un corte del 10%",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "El proyecto fija el corte obligatorio de biodiésel en 7,5% y dispone que a los doce meses de la sanción pase a 10%. También permite que la Secretaría de Energía modifique ese porcentaje de manera excepcional.",
+      "citas": [
+       {
+        "id": "MS-12",
+        "texto": "A partir de los doce (12) meses de la sanción de la ley, el porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, será del diez por ciento (10%) de biodiesel."
+       },
+       {
+        "id": "MS-12",
+        "texto": "La Autoridad de Aplicación podrá modificar excepcionalmente el referido porcentaje obligatorio cuando lo considere conveniente"
+       }
+      ],
+      "datos": [],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "La tabla del proyecto reparte el corte del 10% entre dos segmentos. Toda la suba, y más, va al segmento de negociación libre, mientras que la parte reservada a las no integradas se achica.",
+       "citas": [
+        {
+         "id": "MS-38",
+         "texto": "Empresas No Integradas (Corte por Sistema de comercialización Art. 14) | 7,5% | 6,5% | 5,5% | 5,0% | 4,0%"
+        },
+        {
+         "id": "MS-38",
+         "texto": "Total Mercado (Integradas + No Integradas - Corte Negociación Libre Arts. 14 y 15) | 0,0% | 3,5% | 4,5% | 5,0% | 6,0%"
+        }
+       ],
+       "datos": [],
+       "vale_para": "El segmento de negociación libre, abierto a integradas y no integradas: pasa de 0% a 3,5% con el corte del 10% y sube hasta 6% desde 2031.",
+       "no_vale_para": "El segmento del sistema de comercialización reservado a las no integradas: baja de 7,5% a 6,5% con el corte del 10% y sigue bajando hasta 4% desde 2031."
+      }
+     },
+     {
+      "id": "A2",
+      "cita": "Es un perfecto equilibrio, o un gran equilibrio.",
+      "tipo": "opinion",
+      "motivo": "Es una valoración del corte propuesto."
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-21",
+   "titulo": "21. Nosotros no creemos en cupos",
+   "enunciado": "Nosotros no creemos en cupos, creemos en la competencia. en el biodiésel, que esa competencia se vaya dando en el tiempo, con una reducción gradual de los cupos en 5 años.",
+   "contexto": "Lic. Daniel González, por el Poder Ejecutivo nacional, en el plenario de comisiones del Senado, 3/6/2026. Habla del proyecto de ley de biocombustibles S-809/26, que el Ejecutivo apoya y que después tuvo media sanción del Senado.",
+   "episodio": {
+    "n": 21,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/21"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "Nosotros no creemos en cupos, creemos en la competencia.",
+      "tipo": "opinion",
+      "motivo": "Es una declaración de principios sobre lo que cree el Ejecutivo; no afirma un hecho del mercado ni del texto."
+     },
+     {
+      "id": "A2",
+      "cita": "en el biodiésel, que esa competencia se vaya dando en el tiempo, con una reducción gradual de los cupos",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "La tabla del proyecto baja por etapas la parte del corte reservada al sistema de comercialización de las empresas no integradas: 7,5%, 6,5%, 5,5%, 5,0% y 4,0%. Es una reducción gradual del segmento con cupo.",
+      "citas": [
+       {
+        "id": "MS-38",
+        "texto": "Empresas No Integradas (Corte por Sistema de comercialización Art. 14) | 7,5% | 6,5% | 5,5% | 5,0% | 4,0%"
+       }
+      ],
+      "datos": [],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "La reducción la absorbe solo el segmento reservado a las no integradas. El segmento de negociación libre, donde también entran las integradas, crece en la misma proporción.",
+       "citas": [
+        {
+         "id": "MS-38",
+         "texto": "Total Mercado (Integradas + No Integradas - Corte Negociación Libre Arts. 14 y 15) | 0,0% | 3,5% | 4,5% | 5,0% | 6,0%"
+        }
+       ],
+       "datos": [],
+       "vale_para": "El segmento reservado a las empresas no integradas (sistema de comercialización), que baja de 7,5% a 4,0% del corte.",
+       "no_vale_para": "El segmento de negociación libre, abierto a integradas y no integradas, que no se reduce sino que crece de 0,0% a 6,0% del corte."
+      }
+     },
+     {
+      "id": "A3",
+      "cita": "en 5 años.",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "no_alcanza",
+      "norma_explicacion": "Los escalones de reducción van desde la sanción hasta el 1° de enero de 2031, unos cinco años. Pero el segmento reservado sigue en 4,0% y la transición dura hasta el 1° de enero de 2036. Si se lee que la reducción se hace en cinco años, el texto lo respalda; si se lee que los cupos se terminan en cinco años, no.",
+      "citas": [
+       {
+        "id": "MS-38",
+        "texto": "Segmento / Año | Durante corte obligatorio de 7,5% | Desde corte obligatorio de 10% hasta 31/12/2028 | 2029 | 2030 | A partir del 1° de enero de 2031 hasta el 1° de enero de 2036"
+       },
+       {
+        "id": "MS-35",
+        "texto": "Fíjase un Período de Transición para el mercado de biodiesel desde la entrada en vigencia de la presente ley hasta el 1° de enero de 2036"
+       }
+      ],
+      "datos": [],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "El plazo de reducción y la transición rigen solo para el mercado de biodiésel. En el bioetanol, el texto mantiene los porcentajes reservados por materia prima durante toda la vigencia de la ley.",
+       "citas": [
+        {
+         "id": "MS-35",
+         "texto": "Fíjase un Período de Transición para el mercado de biodiesel desde la entrada en vigencia de la presente ley hasta el 1° de enero de 2036"
+        },
+        {
+         "id": "MS-13",
+         "texto": "Durante el período de vigencia de la ley, se mantendrán los porcentajes de corte respetando su materia prima de origen en un seis por ciento (6%) para el bioetanol producido a partir de caña de azúcar y en un seis por ciento (6%) para el producido a partir de maíz."
+        }
+       ],
+       "datos": [],
+       "vale_para": "El biodiésel, cuyo segmento con cupo se reduce por etapas dentro de un período de transición.",
+       "no_vale_para": "El bioetanol: los cupos por materia prima (6% para caña de azúcar y 6% para maíz) se mantienen sin reducción durante toda la vigencia de la ley."
+      }
+     }
+    ],
+    "preguntas": [],
+    "forma": "A2 y A3",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-22",
+   "titulo": "22. Un proyecto de mayor consenso que este",
+   "enunciado": "Entendemos que esto es sumamente difícil, que hay ganadores y perdedores. Se me hace difícil imaginar un proyecto de mayor consenso que este.",
+   "contexto": "Lic. Daniel González, por el Poder Ejecutivo nacional, en el plenario de comisiones del Senado, 3/6/2026. Habla del proyecto de ley de biocombustibles S-809/26, que el Ejecutivo apoya y que después tuvo media sanción del Senado.",
+   "episodio": {
+    "n": 22,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/22"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "Entendemos que esto es sumamente difícil",
+      "tipo": "opinion",
+      "motivo": "Es una valoración sobre la dificultad del tema, no un hecho que se pueda medir."
+     },
+     {
+      "id": "A2",
+      "cita": "que hay ganadores y perdedores",
+      "tipo": "opinion",
+      "motivo": "Es una valoración general sobre los efectos del proyecto. No nombra quién gana ni quién pierde, así que no hay un hecho concreto para comprobar en el texto."
+     },
+     {
+      "id": "A3",
+      "cita": "Se me hace difícil imaginar un proyecto de mayor consenso que este.",
+      "tipo": "opinion",
+      "motivo": "Es una valoración subjetiva sobre cuánto consenso tiene el proyecto. Es una cuestión de grado que ni los textos ni los datos permiten desmentir."
+     }
+    ],
+    "preguntas": [],
+    "forma": "",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-23",
+   "titulo": "23. Una mezcla que tiene que ser predecible y estable",
+   "enunciado": "Recordemos que ellos tienen que calibrar motores para una mezcla que tiene que ser predecible y estable. Por eso lo que se propone (en) este proyecto de ley, de que estas mezclas mínimas permanezcan por 15 años, también nos parece una buena idea.",
+   "contexto": "Lic. Daniel González, por el Poder Ejecutivo nacional, en el plenario de comisiones del Senado, 3/6/2026. Habla del proyecto de ley de biocombustibles S-809/26, que el Ejecutivo apoya y que después tuvo media sanción del Senado.",
+   "episodio": {
+    "n": 23,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/23"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "ellos tienen que calibrar motores para una mezcla que tiene que ser predecible y estable",
+      "tipo": "sin_datos",
+      "motivo": "Es una afirmación técnica sobre cómo se calibran los motores, y ni los indicadores ni los textos legales la tratan."
+     },
+     {
+      "id": "A2",
+      "cita": "lo que se propone (en) este proyecto de ley, de que estas mezclas mínimas permanezcan por 15 años",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "no_alcanza",
+      "norma_explicacion": "El proyecto tiene una vigencia de 15 años y fija mezclas mínimas obligatorias de biodiésel y de bioetanol durante ese plazo. Pero esas mezclas suben a los 12 meses (de 7,5% a 10% en biodiésel y de 12% a 15% en bioetanol), y la autoridad de aplicación puede modificarlas de manera excepcional. Que las mezclas se mantengan o no depende de cómo se lea esa facultad.",
+      "citas": [
+       {
+        "id": "MS-1",
+        "texto": "con una vigencia de quince (15) años contados a partir de su aprobación"
+       },
+       {
+        "id": "MS-12",
+        "texto": "A partir de los doce (12) meses de la sanción de la ley, el porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, será del diez por ciento (10%) de biodiesel."
+       },
+       {
+        "id": "MS-12",
+        "texto": "La Autoridad de Aplicación podrá modificar excepcionalmente el referido porcentaje obligatorio cuando lo considere conveniente, por motivos ambientales, sociales o económicos"
+       }
+      ],
+      "datos": [],
+      "revision": {
+       "tipo": "verdad_a_medias",
+       "omite": "No dice que la mezcla mínima cambia a los 12 meses de sancionada la ley ni que la autoridad de aplicación puede modificarla de manera excepcional por motivos ambientales, sociales, económicos o técnicos.",
+       "explicacion": "Los artículos sobre la mezcla de gas oil y de naftas prevén una suba del porcentaje a los 12 meses y dejan que la autoridad lo modifique de manera excepcional. Con el texto solo no se puede saber si en la práctica la mezcla se mantendrá estable durante los 15 años.",
+       "citas": [
+        {
+         "id": "MS-13",
+         "texto": "A partir de los doce (12) meses de la sanción de la ley, el porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, será del quince por ciento (15%) de bioetanol."
+        },
+        {
+         "id": "MS-13",
+         "texto": "La Autoridad de Aplicación podrá modificar excepcionalmente el referido porcentaje obligatorio cuando lo considere conveniente"
+        }
+       ],
+       "datos": [],
+       "resultado": "no_alcanza"
+      }
+     },
+     {
+      "id": "A3",
+      "cita": "también nos parece una buena idea",
+      "tipo": "opinion",
+      "motivo": "Es una valoración del proyecto."
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1 y A2",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-24",
+   "titulo": "24. Un proyecto que iba a libre mercado",
+   "enunciado": "En el Senado se dio un enorme debate, desde el proyecto original del Poder Ejecutivo, que era un proyecto que iba a libre mercado, oferta y demanda rápidamente, en un par de años.",
+   "contexto": "Gustavo Idígoras, presidente de CIARA (la cámara de la industria aceitera), en el programa UpRiver, 4/11/2026. Habla del proyecto de ley de biocombustibles que tuvo media sanción del Senado el 17/9/2026 y de las empresas integradas.",
+   "episodio": {
+    "n": 24,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/24"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "En el Senado se dio un enorme debate",
+      "tipo": "opinion",
+      "motivo": "Califica el tamaño del debate en el Senado; ningún indicador ni texto mide cuán grande fue un debate."
+     },
+     {
+      "id": "A2",
+      "cita": "el proyecto original del Poder Ejecutivo, que era un proyecto que iba a libre mercado, oferta y demanda",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "no_alcanza",
+      "norma_explicacion": "El proyecto del Ejecutivo reemplazaba la asignación administrada por un sistema único de licitaciones de volúmenes y precios, que es un mecanismo de oferta. Pero también mantenía el corte obligatorio, ponía un tope del 14% por empresa y obligaba a que integradas y no integradas tuvieran la misma relación entre producción y capacidad. Si eso cuenta como libre mercado depende de cómo se lea.",
+      "citas": [
+       {
+        "id": "LB-288",
+        "texto": "La determinación de volúmenes y precios en el abastecimiento de biocombustibles será realizada periódicamente mediante un sistema único de licitaciones transparentes, de acceso público, de acuerdo a las condiciones que se definen seguidamente para cada biocombustible:"
+       },
+       {
+        "id": "LB-288",
+        "texto": "a) 3. La adjudicación respetará que para cada año calendario, la relación entre la producción real propia y a façón, y la capacidad instalada del conjunto de empresas que producen materia prima (empresas integradas), sea igual a la del conjunto de las restantes empresas elaboradoras."
+       }
+      ],
+      "datos": [],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "El mismo artículo le garantizaba al bioetanol de caña un volumen fijo hasta 2030, mientras que el biodiésel no tenía ninguna reserva así.",
+       "citas": [
+        {
+         "id": "LB-288",
+         "texto": "b) 2. Hasta el 31 de diciembre de 2030, el abastecimiento de los volúmenes periódicos de bioetanol a base de caña de azúcar se realizará respetándose el volumen anual promedio del período 2021 – 2023."
+        }
+       ],
+       "datos": [],
+       "vale_para": "El biodiésel y el bioetanol de maíz, que pasaban de entrada a licitaciones.",
+       "no_vale_para": "El bioetanol de caña de azúcar: hasta el 31/12/2030 tenía reservado el volumen anual promedio de 2021-2023."
+      }
+     },
+     {
+      "id": "A3",
+      "cita": "rápidamente, en un par de años",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "contradice",
+      "norma_explicacion": "El texto obligaba a empezar las licitaciones como mucho 30 días después de que la ley entrara en vigencia, sin período de transición. El cambio no llevaba un par de años: era casi inmediato. Lo único que se escalonaba en varios años era la suba del corte.",
+      "citas": [
+       {
+        "id": "LB-288",
+        "texto": "deberá dar inicio a las licitaciones en un plazo máximo de 30 días corridos a partir de la entrada en vigencia de la presente ley."
+       },
+       {
+        "id": "LBR-3",
+        "texto": "sin transición ni cupo fijo"
+       }
+      ],
+      "datos": [],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "El plazo corto valía para el biodiésel. Para el bioetanol de caña, el texto mantenía hasta 2030 un volumen asegurado según el promedio de 2021-2023.",
+       "citas": [
+        {
+         "id": "LB-288",
+         "texto": "b) 2. Hasta el 31 de diciembre de 2030, el abastecimiento de los volúmenes periódicos de bioetanol a base de caña de azúcar se realizará respetándose el volumen anual promedio del período 2021 – 2023."
+        }
+       ],
+       "datos": [],
+       "vale_para": "El biodiésel y el bioetanol de maíz, que pasaban a licitaciones a los 30 días.",
+       "no_vale_para": "El bioetanol de caña de azúcar, que conservaba un volumen reservado hasta el 31/12/2030."
+      }
+     }
+    ],
+    "preguntas": [],
+    "forma": "A2 y A3",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-25",
+   "titulo": "25. Se hicieron muchísimos ajustes",
+   "enunciado": "se hicieron muchísimos ajustes a ese proyecto de ley.",
+   "contexto": "Gustavo Idígoras, presidente de CIARA (la cámara de la industria aceitera), en el programa UpRiver, 4/11/2026. Habla del proyecto de ley de biocombustibles que tuvo media sanción del Senado el 17/9/2026 y de las empresas integradas.",
+   "episodio": {
+    "n": 25,
+    "sello": "Otros veredictos",
+    "ruta": "/del-dicho-al-dato/25"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "se hicieron muchísimos ajustes a ese proyecto de ley.",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "La reseña de la media sanción dice que, frente al texto que ingresó al Senado, cambiaron de fondo quince de los 44 artículos. Uno de ellos es el plazo de la transición: el texto original la cerraba el 31 de diciembre de 2030 y la media sanción la lleva al 1° de enero de 2036. Que se hicieron cambios importantes al proyecto se confirma; cuántos son «muchísimos» es una valoración.",
+      "citas": [
+       {
+        "id": "ML-21",
+        "texto": "Respecto del S-809/26 que ingresó el 14-5 cambian quince artículos de fondo (5, 9, 12, 13, 14, 15, 16, 17, 18, 22, 34, 35, 36, 38 y 39)"
+       },
+       {
+        "id": "S809-35",
+        "texto": "Fíjase un Período de Transición para el mercado de biodiesel desde la entrada en vigencia de la presente ley hasta el 31 de diciembre de 2030"
+       },
+       {
+        "id": "MS-35",
+        "texto": "Fíjase un Período de Transición para el mercado de biodiesel desde la entrada en vigencia de la presente ley hasta el 1° de enero de 2036"
+       }
+      ],
+      "datos": [],
+      "revision": null
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-26",
+   "titulo": "26. Salvo un par de provincias",
+   "enunciado": "se hicieron muchísimos ajustes a ese proyecto de ley, consensuados por los senadores de muchas provincias, salvo un par de provincias.",
+   "contexto": "Gustavo Idígoras, presidente de CIARA (la cámara de la industria aceitera), en el programa UpRiver, 4/11/2026. Habla del proyecto de ley de biocombustibles que tuvo media sanción del Senado el 17/9/2026 y de las empresas integradas.",
+   "episodio": {
+    "n": 26,
+    "sello": "Falso",
+    "ruta": "/del-dicho-al-dato/26"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "se hicieron muchísimos ajustes a ese proyecto de ley",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "La reseña de la media sanción indica que, respecto del texto que ingresó al Senado, cambiaron quince artículos de fondo. Uno de ellos es el plazo de la transición, que pasó del 31 de diciembre de 2030 al 1° de enero de 2036.",
+      "citas": [
+       {
+        "id": "ML-21",
+        "texto": "Respecto del S-809/26 que ingresó el 14-5 cambian quince artículos de fondo (5, 9, 12, 13, 14, 15, 16, 17, 18, 22, 34, 35, 36, 38 y 39)"
+       },
+       {
+        "id": "S809-35",
+        "texto": "Fíjase un Período de Transición para el mercado de biodiesel desde la entrada en vigencia de la presente ley hasta el 31 de diciembre de 2030"
+       },
+       {
+        "id": "MS-35",
+        "texto": "Fíjase un Período de Transición para el mercado de biodiesel desde la entrada en vigencia de la presente ley hasta el 1° de enero de 2036"
+       }
+      ],
+      "datos": [],
+      "revision": null
+     },
+     {
+      "id": "A2",
+      "cita": "consensuados por los senadores de muchas provincias, salvo un par de provincias",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "contradice",
+      "norma_explicacion": "En la votación en general del 17/9/2026, de los 24 distritos 9 no acompañaron el proyecto: en 7 ganó el voto en contra y en 2 hubo empate. No fueron un par sino nueve; además, 6 de los 15 distritos donde ganó el voto a favor tuvieron algún voto en contra.",
+      "citas": [],
+      "datos": [
+       "D-SENADO-VOTACION"
+      ],
+      "revision": null
+     }
+    ],
+    "preguntas": [],
+    "forma": "A1 y A2",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-27",
+   "titulo": "27. Nunca invirtieron en (...) fábrica de aceite",
+   "enunciado": "y se pasó a una ley que no era la mejor del mundo, claramente, porque mantiene el mercado regulado hasta el 2036, un 4% para todas las empresas que nunca invirtieron en tener una fábrica de aceite.",
+   "contexto": "Gustavo Idígoras, presidente de CIARA (la cámara de la industria aceitera), en el programa UpRiver, 4/11/2026. Habla del proyecto de ley de biocombustibles que tuvo media sanción del Senado el 17/9/2026 y de las empresas integradas.",
+   "episodio": {
+    "n": 27,
+    "sello": "Otros veredictos",
+    "ruta": "/del-dicho-al-dato/27"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "y se pasó a una ley que no era la mejor del mundo, claramente",
+      "tipo": "opinion",
+      "motivo": "Es una valoración sobre la calidad de la media sanción."
+     },
+     {
+      "id": "A2",
+      "cita": "porque mantiene el mercado regulado hasta el 2036",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "La media sanción fija un Período de Transición para el mercado de biodiésel hasta el 1° de enero de 2036, con una tabla de cupos y segmentos por tipo de empresa que llega hasta esa fecha.",
+      "citas": [
+       {
+        "id": "MS-35",
+        "texto": "Fíjase un Período de Transición para el mercado de biodiesel desde la entrada en vigencia de la presente ley hasta el 1° de enero de 2036, el cual se regirá por las disposiciones contenidas en el presente título."
+       },
+       {
+        "id": "MS-38",
+        "texto": "Para las mezclas obligatorias de gasoil y/o diésel oil con biodiesel, corresponderá el siguiente modelo para la asignación de cupos y definición de precios:"
+       }
+      ],
+      "datos": [],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "El plazo de 2036 alcanza solo al mercado de biodiésel; para el bioetanol el proyecto mantiene la regulación por materia prima durante los quince años de vigencia de la ley.",
+       "citas": [
+        {
+         "id": "MS-13",
+         "texto": "Durante el período de vigencia de la ley, se mantendrán los porcentajes de corte respetando su materia prima de origen en un seis por ciento (6%) para el bioetanol producido a partir de caña de azúcar y en un seis por ciento (6%) para el producido a partir de maíz."
+        },
+        {
+         "id": "MS-1",
+         "texto": "con una vigencia de quince (15) años contados a partir de su aprobación."
+        }
+       ],
+       "datos": [],
+       "vale_para": "El biodiésel: su transición con cupos por segmento termina el 1° de enero de 2036.",
+       "no_vale_para": "El bioetanol: los cortes por materia prima (6% de caña y 6% de maíz) se mantienen durante toda la vigencia de la ley, que es de quince años desde su aprobación, más allá de 2036."
+      }
+     },
+     {
+      "id": "A3",
+      "cita": "un 4% para todas las empresas que nunca invirtieron en tener una fábrica de aceite",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "respalda",
+      "norma_explicacion": "La tabla de la media sanción reserva a las empresas no integradas un 4% del corte por el sistema de comercialización desde el 1° de enero de 2031 hasta el 1° de enero de 2036. Ese 4% es para todo el segmento, no para cada empresa, y la definición de no integrada incluye también a las de 50.000 t o menos de capacidad aunque pertenezcan a un grupo con fábrica de aceite.",
+      "citas": [
+       {
+        "id": "MS-38",
+        "texto": "Empresas No Integradas (Corte por Sistema de comercialización Art. 14) | 7,5% | 6,5% | 5,5% | 5,0% | 4,0%"
+       },
+       {
+        "id": "MS-36",
+        "texto": "i) tener una capacidad de producción menor o igual a cincuenta mil (50.000) toneladas por año;"
+       }
+      ],
+      "datos": [],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "Los topes por empresa y por grupo alcanzan solo al segmento de las no integradas; el segmento de negociación libre, abierto a las integradas, no tiene esos límites. Además, el 4% recién rige desde 2031: antes, el segmento es de 7,5%, 6,5%, 5,5% y 5%.",
+       "citas": [
+        {
+         "id": "MS-39",
+         "texto": "i) la participación por empresa elaboradora no excederá el diez por ciento (10%) del total de la cantidad de biodiesel comercializada por año calendario con un tope máximo de cincuenta mil (50.000) toneladas;"
+        },
+        {
+         "id": "MS-38",
+         "texto": "Total Mercado (Integradas + No Integradas - Corte Negociación Libre Arts. 14 y 15) | 0,0% | 3,5% | 4,5% | 5,0% | 6,0%"
+        }
+       ],
+       "datos": [],
+       "vale_para": "Las empresas no integradas: tienen un segmento reservado (7,5% al principio, que baja hasta 4% desde 2031), con un tope del 10% por empresa (máximo 50.000 t) y del 10% por grupo económico.",
+       "no_vale_para": "Las empresas integradas: no tienen segmento reservado, pero compiten en el segmento de negociación libre (6% desde 2031) sin topes por empresa ni por grupo."
+      }
+     }
+    ],
+    "preguntas": [],
+    "forma": "A2 y A3",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-28",
+   "titulo": "28. Esa capacidad industrial solo usa el 15%",
+   "enunciado": "el primer punto que tenemos hoy es una capacidad ociosa enorme. Santa Fe tiene instalado en su provincia la mayor capacidad industrial de biodiésel del mundo, en términos de concentración y territorialmente. Esa capacidad industrial solo usa el 15%.",
+   "contexto": "Gustavo Idígoras, presidente de CIARA (la cámara de la industria aceitera), en el programa UpRiver, 4/11/2026. Habla del proyecto de ley de biocombustibles que tuvo media sanción del Senado el 17/9/2026 y de las empresas integradas.",
+   "episodio": {
+    "n": 28,
+    "sello": "Otros veredictos",
+    "ruta": "/del-dicho-al-dato/28"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "el primer punto que tenemos hoy es una capacidad ociosa enorme",
+      "tipo": "opinion",
+      "motivo": "Califica el grado de la capacidad ociosa (\"enorme\") sin dar una cifra que se pueda contrastar."
+     },
+     {
+      "id": "A2",
+      "cita": "Santa Fe tiene instalado en su provincia la mayor capacidad industrial de biodiésel del mundo, en términos de concentración y territorialmente.",
+      "tipo": "sin_datos",
+      "motivo": "El sitio no tiene la capacidad instalada de otros países ni de otras regiones del mundo, así que no puede armar el ranking mundial."
+     },
+     {
+      "id": "A3",
+      "cita": "Esa capacidad industrial solo usa el 15%.",
+      "tipo": "dato",
+      "indicador": "utilizacion_capacidad",
+      "revision": null,
+      "sujeto": "provincia:SANTA FE",
+      "criterio": null,
+      "magnitud": null,
+      "base": null,
+      "medida": null,
+      "producto": null,
+      "producto_base": null,
+      "periodo": null,
+      "periodo_inicial": null,
+      "comparador": "igual",
+      "valor_numero": 15,
+      "valor_lista": []
+     }
+    ],
+    "preguntas": [
+     {
+      "id": "P1",
+      "parametro": "periodo",
+      "aplica_a": [
+       "A3"
+      ],
+      "pregunta": "Con \"hoy\" y \"solo usa\", ¿qué período querés medir?",
+      "opciones": [
+       {
+        "valor": "ultimos_12_meses",
+        "etiqueta": "Los últimos 12 meses (oct 2025 a sep 2026)"
+       },
+       {
+        "valor": "anio:2025",
+        "etiqueta": "2025"
+       },
+       {
+        "valor": "anio:2026",
+        "etiqueta": "2026 (enero a sep, año en curso)"
+       },
+       {
+        "valor": "ultimo_mes",
+        "etiqueta": "Sep 2026 (último mes con datos)"
+       }
+      ]
+     }
+    ],
+    "forma": "A2 y A3",
+    "avisos": []
+   }
+  },
+  {
+   "id": "dicho-dato-29",
+   "titulo": "29. No puede comercializar [en] el mercado interno",
+   "enunciado": "Esa capacidad industrial solo usa el 15%. El otro 85 no puede comercializar en el mercado interno.",
+   "contexto": "Gustavo Idígoras, presidente de CIARA (la cámara de la industria aceitera), en el programa UpRiver, 4/11/2026. Habla del proyecto de ley de biocombustibles que tuvo media sanción del Senado el 17/9/2026 y de las empresas integradas.",
+   "episodio": {
+    "n": 29,
+    "sello": "Otros veredictos",
+    "ruta": "/del-dicho-al-dato/29"
+   },
+   "modelo": "claude-opus-5-5",
+   "analisis": {
+    "afirmaciones": [
+     {
+      "id": "A1",
+      "cita": "Esa capacidad industrial solo usa el 15%.",
+      "tipo": "dato",
+      "indicador": "utilizacion_capacidad",
+      "revision": null,
+      "sujeto": "categoria:INTEGRADA",
+      "criterio": null,
+      "magnitud": null,
+      "base": null,
+      "medida": null,
+      "producto": null,
+      "producto_base": null,
+      "periodo": null,
+      "periodo_inicial": null,
+      "comparador": "igual",
+      "valor_numero": 15,
+      "valor_lista": []
+     },
+     {
+      "id": "A2",
+      "cita": "El otro 85 no puede comercializar en el mercado interno.",
+      "tipo": "norma",
+      "motivo": "",
+      "norma_juicio": "contradice",
+      "norma_explicacion": "La ley vigente reserva el abastecimiento de la mezcla obligatoria a las elaboradoras que no exportan, lo que deja afuera del cupo a las integradas, pero no les prohíbe vender en el mercado interno: permite que los mezcladores les compren libremente biodiésel para cortes superiores al obligatorio y para otros destinos. Además, la ficha muestra que las integradas vendieron al cupo todos los años (37.846 t en 2025) y que una integrada vendió al cupo en los últimos 12 meses.",
+      "citas": [
+       {
+        "id": "L27640-11",
+        "texto": "El abastecimiento de las cantidades de biodiésel mensuales para el cumplimiento de la mezcla obligatoria con gasoil y/o diésel oil será llevado a cabo por las empresas elaboradoras de dicho biocombustible que –ya sea en forma directa o indirecta a través de sus empresas controlantes y/o controladas– no desarrollen actividades vinculadas con la exportación de biodiésel y/o de sus insumos principales"
+       },
+       {
+        "id": "L27640-13",
+        "texto": "Las empresas encargadas de llevar a cabo las referidas mezclas obligatorias podrán adquirir libremente biocombustibles para obtener mezclas superiores a las del porcentaje obligatorio vigente, pactando en tal caso el precio y el aprovisionamiento de los productos con las empresas elaboradoras de los mismos"
+       }
+      ],
+      "datos": [
+       "D-INTEGRADAS-MERCADO-INTERNO",
+       "D-CUPO-EMPRESAS"
+      ],
+      "revision": {
+       "tipo": "doble_vara",
+       "omite": "",
+       "explicacion": "La exclusión del cupo que establece la ley vigente alcanza solo a las elaboradoras vinculadas con la exportación. Las ventas para cortes superiores o para otros destinos quedan abiertas a cualquier elaboradora.",
+       "citas": [
+        {
+         "id": "L27640-11",
+         "texto": "no desarrollen actividades vinculadas con la exportación de biodiésel y/o de sus insumos principales"
+        }
+       ],
+       "datos": [
+        "D-INTEGRADAS-MERCADO-INTERNO",
+        "D-CUPO-EMPRESAS"
+       ],
+       "vale_para": "Las empresas que exportan biodiésel o sus insumos (las integradas), excluidas por la ley vigente del abastecimiento de la mezcla obligatoria.",
+       "no_vale_para": "Las no integradas, que no exportan y tienen reservado el abastecimiento de la mezcla obligatoria; y, para todas, las ventas fuera del corte obligatorio, que son libres."
+      }
+     }
+    ],
+    "preguntas": [
+     {
+      "id": "P1",
+      "parametro": "periodo",
+      "aplica_a": [
+       "A1"
+      ],
+      "pregunta": "¿A qué período se refiere \"solo usa el 15%\"?",
+      "opciones": [
+       {
+        "valor": "ultimos_12_meses",
+        "etiqueta": "Los últimos 12 meses (oct 2025 a sep 2026)"
+       },
+       {
+        "valor": "anio:2025",
+        "etiqueta": "2025"
+       },
+       {
+        "valor": "anio:2026",
+        "etiqueta": "2026 (enero a sep, año en curso)"
+       },
+       {
+        "valor": "ultimo_mes",
+        "etiqueta": "Sep 2026 (último mes con datos)"
+       }
+      ]
+     }
+    ],
+    "forma": "A1 y A2",
+    "avisos": []
+   }
+  }
+ ]
+}

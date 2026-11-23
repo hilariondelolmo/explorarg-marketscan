@@ -38,7 +38,7 @@
   /* Sin borde. El relleno superior es el aire entre las barras pegajosas y
      el título al navegar por ancla - nada del tema anterior queda a la vista. */
   border-top: none;
-  padding: 2.2rem 0 2.6rem;
+  padding: var(--aire-cabecera) 0 2.6rem;
   scroll-margin-top: 0;
 }
 

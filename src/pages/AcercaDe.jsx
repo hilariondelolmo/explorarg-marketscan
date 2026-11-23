@@ -13,7 +13,6 @@ export default function AcercaDe() {
   return (
     <section className="page-section acerca" id="acerca-de">
       <div className="container">
-        <p className="section-kicker">Acerca de</p>
         <h2>ExplorArg Marketscan</h2>
         <p className="section-intro acerca-intro">
           Los reportes de Explora S.A. sobre la industria y el mercado argentino de biodiesel,

@@ -477,7 +477,7 @@ export function CambioRegimen({ texto }) {
       <Flujo
         pasos={[
           { titulo: 'Hoy, con la Ley 27.640', texto: 'La Secretaría de Energía asigna cada mes un cupo a cada elaboradora y fija el precio con la fórmula de la Resolución 963/2023.' },
-          { titulo: 'Con la media sanción', texto: 'Mercado electrónico con subastas que no son obligatorias, contratos a término y negociaciones entre privados (el "acuerdo mutuo" del artículo 14), con un techo en la paridad de importación. El corte sube de 7,5% a 10% a los doce meses y es todo biodiésel: el coprocesado de las refinerías queda afuera.', destacado: true },
+          { titulo: 'Con la media sanción', texto: 'Mercado electrónico con subastas que no son obligatorias, contratos a término y negociaciones entre privados (el "acuerdo mutuo" del artículo 14), con un precio de referencia en la paridad de importación. El corte sube de 7,5% a 10% a los doce meses y es todo biodiésel: el coprocesado de las refinerías queda afuera.', destacado: true },
         ]}
       />
     </Esq>
@@ -546,7 +546,7 @@ const ENTRO_SALIO = [
   },
   {
     art: 'Artículo 39',
-    entro: 'Tope 14% por empresa y por grupo; regiones "podrá"',
+    entro: 'Tope 14% por empresa y por grupo; las regiones estaban en el artículo 14, sin porcentaje',
     salio: '10% con máximo de 50.000 t por empresa; 10% por grupo; regiones "deberá", 20%',
     juega: 'Juega para los grupos económicos y para las integradas.',
     nota: 'El tope se construyó sobre una presentación de CEPREB sobre las distancias al puerto, demostrada incorrecta con los números presentados por la Secretaría de Energía.',

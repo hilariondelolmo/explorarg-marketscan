@@ -1,10 +1,33 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "fluid": true,
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "functions": {
     "api/descarga.js": {
       "includeFiles": "descargas/**"
+    },
+    "api/poligrafo.js": {
+      "includeFiles": "src/data/*.json",
+      "maxDuration": 300
+    },
+    "api/analista.js": {
+      "includeFiles": "src/data/*.json",
+      "maxDuration": 120
+    },
+    "api/admin.js": {
+      "includeFiles": "src/data/*.json",
+      "maxDuration": 60
+    },
+    "api/cuenta.js": {
+      "maxDuration": 30
+    },
+    "api/compra.js": {
+      "maxDuration": 30
+    },
+    "api/pago-mp.js": {
+      "maxDuration": 30
     }
   }
 }

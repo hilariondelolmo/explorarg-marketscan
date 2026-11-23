@@ -26,7 +26,8 @@ const slug = (ruta) => ruta.replace(/^\/|\/$/g, '').replace(/\//g, '-');
 
 const paginas = conf.paginas.map((p) => ({
   ruta: p.ruta,
-  titulo: p.titulo.replace(/\n/g, ' - '),
+  // El salto de renglón de la imagen: espacio si la frase sigue (minúscula), guion si es otra frase.
+  titulo: p.titulo.replace(/\n(?=\p{Ll})/gu, ' ').replace(/\n/g, ' - '),
   descripcion: p.descripcion || conf.descripcion,
 }));
 for (const e of dd.episodios) {

@@ -10,9 +10,10 @@ que ofrece el filtro Producto del tablero RANKING Actualizado del workbook 05
 (su fuente "Precio abierto por producto" pivotea estas mismas columnas); el
 gas oil grado 1 solo tiene precio surtidor y datos de 2010 a 2013.
 
-Lo llama regenerate_gasoil.py; solo, necesita /Volumes/comun. Salida:
+Lo llama regenerate_gasoil.py; solo, necesita /Volumes/comun. Salidas:
 public/data/gasoil_productos.json (fuera del bundle; la página lo pide al
-abrirse). Los índices de mes, tipo de negocio y canal de comercialización son
+abrirse) y src/data/naftas_precios.json (serie país de las naftas, para el
+Polígrafo; con --solo-naftas se rearma desde el cruce ya publicado, sin el hyper). Los índices de mes, tipo de negocio y canal de comercialización son
 los de gasoil_precios.json.
 
 Convenciones (las del cruce fino de gas oil, para que las series de gas oil
@@ -29,6 +30,7 @@ con los filtros iniciales del ranking den exactamente las precalculadas):
 """
 
 import json
+import math
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
@@ -36,6 +38,11 @@ from pathlib import Path
 T = '"Extract"."Extract"'
 PUB_DIR = Path(__file__).resolve().parent.parent / "public" / "data"
 SALIDA = "gasoil_productos.json"
+# Serie país de las naftas (dentro del bundle): la usa el Polígrafo para comparar
+# el bioetanol con la nafta. Sale del mismo cruce, con los mismos recortes que el
+# gas oil de src/lib/poligrafo/precios.js (mayorista sin impuestos; surtidor al público).
+DATA_DIR = Path(__file__).resolve().parent.parent / "src" / "data"
+SALIDA_NAFTAS = "naftas_precios.json"
 
 TIPOS = {"s": "surtidor", "c": "con impuestos", "n": "sin impuestos"}
 # Columnas del hyper por producto y tipo de precio ('v' = volumen). Ojo: la
@@ -62,6 +69,19 @@ PRODUCTOS = [
 ]
 # Densidades del workbook (columnas "Densidad Gas Oil" y "Densidad Nafta" de su
 # fuente pivoteada): 0,845 para gas oil y también para kerosene; 0,68 naftas.
+
+
+def centavos(x):
+    """Precio en $/l → centavos enteros (0 = sin dato), con el medio centavo
+    siempre para arriba. El motor Hyper no suma en un orden fijo: el mismo
+    precio ponderado sale con ruido de 1e-12 entre una consulta y otra, y una
+    celda que cae justo en medio centavo (3,045 $/l) redondeaba a 3,04 o a 3,05
+    según la corrida. Primero se quita el ruido (seis decimales de centavo) y
+    después se redondea. Lo usan el cruce fino (extraer_retail) y este cruce
+    por producto, para que los dos den el mismo centavo en cada celda."""
+    if not x:
+        return 0
+    return int(math.floor(round(float(x) * 100, 6) + 0.5))
 
 
 def tipos_de(p):
@@ -123,7 +143,7 @@ def extraer_productos(query, desde, ix_mes, ix_tn, ix_cc):
                  0 if cd == "Minorista" else 1, ix_tn(tn or "N/D"), ix_cc(cc or "N/D"))
         celda = acum.get(clave)
         if celda is None:
-            celda = acum[clave] = defaultdict(float)
+            celda = acum[clave] = defaultdict(int)
         for p in PRODUCTOS:
             k = p["id"]
             # peso de la celda fina: volumen de las bocas con precio con
@@ -134,10 +154,11 @@ def extraer_productos(query, desde, ix_mes, ix_tn, ix_cc):
             for t in tipos_de(p):
                 # centavos, como el cruce fino: un precio que redondea a 0 es
                 # "sin dato" y no aporta peso (feb-2010 trae celdas de 0,002 $/l)
-                pv = round(float(vals.get(f"p{t}_{k}") or 0) * 100) / 100
-                if not pv:
+                pc = centavos(vals.get(f"p{t}_{k}"))
+                if not pc:
                     continue
-                celda[f"p{t}_{k}"] += pv * w
+                # centavos × m3, enteros: la suma no depende del orden de las filas
+                celda[f"p{t}_{k}"] += pc * w
                 celda[f"w{t}_{k}"] += w
     cols = {c: [] for c in ["mes", "cd", "tn", "cc"] + columnas()}
     for clave in sorted(acum):
@@ -150,7 +171,7 @@ def extraer_productos(query, desde, ix_mes, ix_tn, ix_cc):
             k = p["id"]
             for t in tipos_de(p):
                 w = celda.get(f"w{t}_{k}", 0)
-                cols[f"p{t}_{k}"].append(round(celda[f"p{t}_{k}"] / w, 4) if w else 0)
+                cols[f"p{t}_{k}"].append(round(celda[f"p{t}_{k}"] / (w * 100), 4) if w else 0)
                 cols[f"w{t}_{k}"].append(int(w))
     return cols
 
@@ -187,8 +208,108 @@ def escribir_productos(cols, meses, tipos_negocio, canales_com, dry):
     print(f"  ✓ public/data/{SALIDA} ({len(texto) // 1024} KB · {len(cols['mes'])} filas)")
 
 
+# Una celda del cruce (tipo de negocio × canal) cuyo precio se va a más del triple o
+# a menos de un tercio de la mediana del mes es un precio mal cargado en el
+# relevamiento (mar-2026: nafta súper mayorista sin impuestos a $ 467.856 el litro en
+# una celda de 1.455 m3, que llevaba el promedio país a $ 11.313). Esas celdas no
+# entran en la serie de naftas y quedan anotadas en el JSON. No se corrige nada más.
+FUERA_DE_RANGO = 3
+
+
+def _mediana_ponderada(celdas):
+    """Mediana de los precios de las celdas [(precio, m3, ...)], ponderada por m3."""
+    orden = sorted(celdas)
+    mitad = sum(c[1] for c in orden) / 2
+    acum = 0
+    for c in orden:
+        acum += c[1]
+        if acum >= mitad:
+            return c[0]
+    return orden[-1][0]
+
+
+def serie_naftas(cols, meses, canales_com, tipos_negocio):
+    """Precio país por mes de la nafta súper y la premium, en $/l: mayorista sin
+    impuestos (todo el canal mayorista) y surtidor (minorista, al público), cada
+    uno con los m3 que lo ponderan. Mismos recortes que el gas oil del Polígrafo.
+    Devuelve (filas, descartadas): las celdas fuera de rango no entran."""
+    al_publico = canales_com.index("Al público")
+    mayorista = lambda i: cols["cd"][i] == 1
+    publico = lambda i: cols["cd"][i] == 0 and cols["cc"][i] == al_publico
+    descartadas = []
+
+    def serie(prod, tipo, filtro, nombre):
+        P, W = cols[f"p{tipo}_{prod}"], cols[f"w{tipo}_{prod}"]
+        por_mes = defaultdict(list)
+        for i in range(len(cols["mes"])):
+            if P[i] and W[i] and filtro(i):
+                por_mes[cols["mes"][i]].append((P[i], W[i], i))
+        out = {}
+        for m, celdas in por_mes.items():
+            med = _mediana_ponderada(celdas)
+            buenas = [c for c in celdas if med / FUERA_DE_RANGO <= c[0] <= med * FUERA_DE_RANGO]
+            for precio, m3, i in celdas:
+                if not (med / FUERA_DE_RANGO <= precio <= med * FUERA_DE_RANGO):
+                    descartadas.append(dict(mes=meses[m], serie=nombre, precio=round(precio, 2), m3=int(m3), mediana=round(med, 2),
+                                            tipo_negocio=tipos_negocio[cols["tn"][i]], canal=canales_com[cols["cc"][i]]))
+            peso = sum(c[1] for c in buenas)
+            out[meses[m]] = (round(sum(c[0] * c[1] for c in buenas) / peso, 2), int(round(peso)))
+        return out
+
+    partes = [serie("ns", "n", mayorista, "súper mayorista sin impuestos"), serie("ns", "s", publico, "súper surtidor"),
+              serie("np", "n", mayorista, "premium mayorista sin impuestos"), serie("np", "s", publico, "premium surtidor")]
+    filas = []
+    for mes in meses:
+        if not any(mes in p for p in partes):
+            continue
+        fila = [mes]
+        for p in partes:
+            fila += list(p.get(mes, (None, None)))
+        filas.append(fila)
+    return filas, sorted(descartadas, key=lambda d: (d["mes"], d["serie"]))
+
+
+def escribir_naftas(cols, meses, canales_com, tipos_negocio, dry):
+    filas, descartadas = serie_naftas(cols, meses, canales_com, tipos_negocio)
+    payload = dict(
+        meta=dict(
+            generado=datetime.now().strftime("%Y-%m-%d %H:%M"),
+            fuentes=["Precio derivados petroleo 1104 minorista y mayorista new.hyper"],
+            nota="Generado por scripts/gasoil_productos.py (lo llama regenerate_gasoil.py) - no editar a mano. "
+                 "Relevamiento SE Res. 1104: precio país ponderado por volumen, en $/l; los m3 son el ponderador. "
+                 f"No entran las celdas (tipo de negocio × canal) con un precio a más de {FUERA_DE_RANGO} veces o a menos de "
+                 f"1/{FUERA_DE_RANGO} de la mediana del mes: son precios mal cargados en el relevamiento (lista en descartadas).",
+        ),
+        unidad="$/l", desde=filas[0][0], ultimo_mes=filas[-1][0],
+        campos=["fecha", "super_mayorista_sin_imp", "m3_super_mayorista", "super_surtidor", "m3_super_publico",
+                "premium_mayorista_sin_imp", "m3_premium_mayorista", "premium_surtidor", "m3_premium_publico"],
+        descartadas=descartadas,
+    )
+    ultimo = filas[-1]
+    resumen = (f"{len(filas)} meses, {filas[0][0]} a {ultimo[0]} · súper mayorista sin impuestos $ {ultimo[1]} · súper surtidor $ {ultimo[3]}"
+               f" · {len(descartadas)} celdas fuera de rango descartadas")
+    recientes = [d for d in descartadas if d["mes"] >= f"{int(ultimo[0][:4]) - 1}-01"]
+    if recientes:
+        print("  ! naftas: precios mal cargados en el relevamiento, que no entran en la serie: "
+              + "; ".join(f"{d['mes']} {d['serie']} $ {d['precio']:,.0f} ({d['m3']} m3, {d['tipo_negocio']} / {d['canal']})" for d in recientes[:6])
+              + (" …" if len(recientes) > 6 else ""))
+    if dry:
+        print(f"  [dry-run] {SALIDA_NAFTAS}: {resumen}")
+        return
+    # una línea por mes: el diff muestra qué mes cambió
+    cuerpo = json.dumps(payload, ensure_ascii=False, indent=1)[:-2]
+    lineas = ",\n".join("  " + json.dumps(f, ensure_ascii=False) for f in filas)
+    (DATA_DIR / SALIDA_NAFTAS).write_text(f'{cuerpo},\n "mensual": [\n{lineas}\n ]\n}}\n', encoding="utf-8")
+    print(f"  ✓ src/data/{SALIDA_NAFTAS} ({resumen})")
+
+
 if __name__ == "__main__":
     import sys
+    if "--solo-naftas" in sys.argv:
+        # arma la serie de naftas con el cruce ya publicado, sin abrir el hyper
+        publicado = json.loads((PUB_DIR / SALIDA).read_text(encoding="utf-8"))
+        escribir_naftas(publicado, publicado["meses"], publicado["canales_com"], publicado["tipos_negocio"], "--dry-run" in sys.argv)
+        sys.exit(0)
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     from regenerate_gasoil import DESDE, Hyper, Indice, OUT_DIR, VOL, check, meses_entre, ym
     check(VOL.exists(), "El volumen /Volumes/comun no está montado")
@@ -206,3 +327,4 @@ if __name__ == "__main__":
     finally:
         hy.close()
     escribir_productos(cols, precios["meses"], ix_tn.valores, ix_cc.valores, "--dry-run" in sys.argv)
+    escribir_naftas(cols, precios["meses"], ix_cc.valores, ix_tn.valores, "--dry-run" in sys.argv)

@@ -97,9 +97,9 @@ const NUMEROS = {
 
 // Párrafos de "La media sanción del 17 de septiembre"
 const LEY = {
-  p1: <p>El Senado aprobó el 17 de septiembre de 2026, por 41 votos a 25, el nuevo marco regulatorio de biocombustibles. Deroga la Ley 27.640, lleva el corte de biodiésel de 7,5% a 10% a los doce meses y lo hace todo biodiésel: el coprocesado de las refinerías quedó afuera del corte. Reemplaza el cupo y el precio fijado por el Estado por un mercado electrónico con subastas y un techo en la paridad de importación. Y fija una transición hasta el 1 de enero de 2036 en la que una parte del corte se reserva a las no integradas: 7,5% el primer año, 6,5% hasta 2028, 5,5% en 2029, 5% en 2030 y 4% de 2031 a 2035. Después, nada.</p>,
-  p2: <p>Entre el proyecto que ingresó en mayo y el texto que salió del recinto cambiaron once artículos de fondo. Los tres que más pesan, el 36, el 38 y el 39, se leyeron en el recinto y se aceptaron sin que nadie explicara por qué.</p>,
-  p3: <p>Lo que no cambió pesa tanto como lo que cambió. La autoridad puede reducir el corte (artículo 12). La subasta queda subordinada al "acuerdo mutuo" entre las partes y a la modalidad que la autoridad decida (artículo 14). La ley 27.640 se deroga de un día para el otro, antes de que el mercado nuevo funcione (artículo 40). El corte solo se cumple con biocombustible elaborado en el país y con materia prima nacional (artículo 24). La reserva de 6% y 6% para el bioetanol de caña y de maíz es permanente (artículo 13), mientras la del biodiésel no integrado se extingue en 2036.</p>,
+  p1: <p>El Senado aprobó el 17 de septiembre de 2026, por 41 votos a 25, el nuevo marco regulatorio de biocombustibles. Deroga la Ley 27.640, lleva el corte de biodiésel de 7,5% a 10% a los doce meses y lo hace todo biodiésel: el coprocesado de las refinerías quedó afuera del corte. Reemplaza el cupo y el precio fijado por el Estado por un mercado electrónico con subastas y un precio de referencia en la paridad de importación. Y fija una transición hasta el 1 de enero de 2036 en la que una parte del corte se reserva a las no integradas: 7,5% el primer año, 6,5% hasta 2028, 5,5% en 2029, 5% en 2030 y 4% de 2031 a 2035. Después, nada.</p>,
+  p2: <p>Entre el proyecto que ingresó en mayo y el texto que salió del recinto cambiaron quince artículos de fondo. Los tres que más pesan, el 36, el 38 y el 39, se leyeron en el recinto y se aceptaron sin que nadie explicara por qué.</p>,
+  p3: <p>Lo que no cambió pesa tanto como lo que cambió. La autoridad puede reducir el corte (artículo 12). El precio sigue saliendo de un "acuerdo mutuo" entre las partes: la subasta que se agregó no obliga, y su modalidad la decide la autoridad (artículo 14). La ley 27.640 se deroga de un día para el otro, antes de que el mercado nuevo funcione (artículo 40). El corte solo se cumple con biocombustible elaborado en el país y con materia prima nacional (artículo 24). La reserva de 6% y 6% para el bioetanol de caña y de maíz es permanente (artículo 13), mientras la del biodiésel no integrado se extingue en 2036.</p>,
 };
 
 // Párrafos de la falla 1
@@ -280,7 +280,7 @@ export const armarCapitulos = (esq = false) => [
     titulo: 'La media sanción del 17 de septiembre: qué cambia',
     pal: ROSA,
     frase: 'Deroga la Ley 27.640, lleva el corte de biodiésel de 7,5% a 10% a los doce meses y lo hace todo biodiésel.',
-    detalle: 'Entre el proyecto que ingresó en mayo y el texto que salió del recinto cambiaron once artículos de fondo.',
+    detalle: 'Entre el proyecto que ingresó en mayo y el texto que salió del recinto cambiaron quince artículos de fondo.',
     // Con esquemas: solo cuadros, el texto en los pop-ups (HDO, 19/10/2026)
     cuerpo: esq ? (
       <>
@@ -288,23 +288,26 @@ export const armarCapitulos = (esq = false) => [
         <E.Transicion />
         <E.Votacion />
         <E.EntroSalio texto={LEY.p2} />
-        <E.Esq titulo="Los once artículos de fondo que cambiaron entre mayo y el recinto, y el 14, que no cambió." texto={LEY.p3}>
+        <E.Esq titulo="Los quince artículos de fondo que cambiaron entre mayo y el recinto." texto={LEY.p3}>
         <Tabla
             min="760px"
             cab={['Artículo', 'Cómo entró (S-809/26, mayo)', 'Cómo salió (17 de septiembre)', 'Para quién juega']}
             filas={[
+              ['5 c)', 'La autoridad denuncia ante la Autoridad Nacional de la Competencia las imperfecciones del mercado y el abuso de posición dominante', 'La autoridad solicita su intervención cuando advierte indicios de prácticas prohibidas', 'A criterio de la autoridad'],
               ['9', 'Sin tope en bioetanol', 'Tope de 20% por empresa en bioetanol', 'Nadie llega al 20%: sin efecto'],
-              ['12', 'Excepciones al corte a criterio de la autoridad', 'Define las zonas frías patagónicas', 'Mezcladores'],
+              ['12', 'Excepciones al corte a criterio de la autoridad', 'Define las zonas frías patagónicas; modificar el corte pasa a ser "excepcional" y "por motivos ambientales, sociales o económicos"', 'Mezcladores'],
               ['13', 'Remanente del etanol', 'Abierto a biomasa forestal y otras materias primas, con cupo de la autoridad', 'A criterio de la autoridad'],
-              ['14', 'Subasta sujeta al "acuerdo mutuo" entre las partes y a la modalidad que fije la autoridad', 'Igual: no obliga a las subastas y admite los acuerdos mutuos entre las partes', 'Mezcladoras. Lo que hay que garantizar es la libre competencia, y los acuerdos entre partes no la garantizan'],
+              ['14', 'Mercado electrónico sin subastas: ofertas y "acuerdo mutuo"; con regiones de negociación; la modalidad se definía en conjunto con elaboradores y mezcladores', 'Agrega un sistema de subastas que no obliga y admite el "acuerdo mutuo"; las regiones pasan al 39; la modalidad la fija la autoridad, previa consulta no vinculante', 'Mezcladoras. Lo que hay que garantizar es la libre competencia, y los acuerdos entre partes no la garantizan'],
             ['15', 'Contratos a término', 'Con mecanismos de transparencia y publicación', 'Mezcladoras, a full; en contra de las no integradas'],
-              ['16', 'Paridad de importación', 'Paridad = "costo de reemplazo real"', 'Indefinido: lo define la autoridad'],
+              ['16', 'Precio máximo: la oferta no podía superar la paridad de importación', 'Precio de referencia; paridad = "costo de reemplazo real"', 'Indefinido: lo define la autoridad'],
+              ['17', 'Cortes superiores al obligatorio, sin más', 'Agrega que su comercialización y consumo son libres y que las provincias pueden fomentarlos con nuevas bocas de expendio', 'Provincias'],
               ['18 y 34', 'Coprocesado computa hasta 3% del corte', 'Coprocesado fuera del corte, exento de ICL e ICO2 hasta 5%', 'Refinerías: hasta USD 148 millones por año de impuestos'],
-              ['35', 'Transición hasta el 31-12-2031', 'Hasta el 1-1-2036', 'El segmento dura más, pero al 4%'],
+              ['22', 'Combustible de aviación (SAF) exceptuado de todo mandato', 'Salvo requerimientos de normas internacionales del sector', 'Sin efecto sobre el biodiésel'],
+              ['35', 'Transición hasta el 31-12-2030', 'Hasta el 1-1-2036', 'El segmento dura más, pero al 4%'],
               ['36 a) y b)', 'Integrada = grupo con aceitera', 'Integrada = más de 50.000 t y aceitera, las dos cosas', 'Plantas de 50.000 t de grupos aceiteros'],
               ['36 c)', 'Grupo económico', 'Grupo ampliado, con continuidad al 31-12-2025', 'Candado contra la fragmentación'],
               ['38', 'No integradas 7,5 / 5 / 4 / 3%; coprocesado en la tabla', 'No integradas 7,5 / 6,5 / 5,5 / 5 / 4%; total mercado 0 / 3,5 / 4,5 / 5 / 6%', 'No integradas, en el papel'],
-              ['39', 'Tope 14% por empresa y por grupo; regiones "podrá"', '10% con máximo de 50.000 t por empresa; 10% por grupo; regiones "deberá", 20%', 'Grupos, regiones y aceiteras; pierden las tres no integradas grandes'],
+              ['39', 'Tope 14% por empresa, sobre el segmento no integrado, y 14% por grupo; las regiones estaban en el artículo 14, sin porcentaje', '10% con máximo de 50.000 t por empresa; 10% por grupo; regiones "deberá", 20%', 'Grupos, regiones y aceiteras; pierden las tres no integradas grandes'],
             ]}
           />
         </E.Esq>
@@ -317,17 +320,21 @@ export const armarCapitulos = (esq = false) => [
           min="760px"
           cab={['Artículo', 'Cómo entró (S-809/26, mayo)', 'Cómo salió (17 de septiembre)', 'Para quién juega']}
           filas={[
+            ['5 c)', 'La autoridad denuncia ante la Autoridad Nacional de la Competencia las imperfecciones del mercado y el abuso de posición dominante', 'La autoridad solicita su intervención cuando advierte indicios de prácticas prohibidas', 'A criterio de la autoridad'],
             ['9', 'Sin tope en bioetanol', 'Tope de 20% por empresa en bioetanol', 'Nadie llega al 20%: sin efecto'],
-            ['12', 'Excepciones al corte a criterio de la autoridad', 'Define las zonas frías patagónicas', 'Mezcladores'],
+            ['12', 'Excepciones al corte a criterio de la autoridad', 'Define las zonas frías patagónicas; modificar el corte pasa a ser "excepcional" y "por motivos ambientales, sociales o económicos"', 'Mezcladores'],
             ['13', 'Remanente del etanol', 'Abierto a biomasa forestal y otras materias primas, con cupo de la autoridad', 'A criterio de la autoridad'],
+            ['14', 'Mercado electrónico sin subastas: ofertas y "acuerdo mutuo"; con regiones de negociación; la modalidad se definía en conjunto con elaboradores y mezcladores', 'Agrega un sistema de subastas que no obliga y admite el "acuerdo mutuo"; las regiones pasan al 39; la modalidad la fija la autoridad, previa consulta no vinculante', 'Mezcladoras. Lo que hay que garantizar es la libre competencia, y los acuerdos entre partes no la garantizan'],
             ['15', 'Contratos a término', 'Con mecanismos de transparencia y publicación', 'Neutro'],
-            ['16', 'Paridad de importación', 'Paridad = "costo de reemplazo real"', 'Indefinido: lo define la autoridad'],
+            ['16', 'Precio máximo: la oferta no podía superar la paridad de importación', 'Precio de referencia; paridad = "costo de reemplazo real"', 'Indefinido: lo define la autoridad'],
+            ['17', 'Cortes superiores al obligatorio, sin más', 'Agrega que su comercialización y consumo son libres y que las provincias pueden fomentarlos con nuevas bocas de expendio', 'Provincias'],
             ['18 y 34', 'Coprocesado computa hasta 3% del corte', 'Coprocesado fuera del corte, exento de ICL e ICO2 hasta 5%', 'Refinerías: hasta USD 148 millones por año de impuestos'],
-            ['35', 'Transición hasta el 31-12-2031', 'Hasta el 1-1-2036', 'El segmento dura más, pero al 4%'],
+            ['22', 'Combustible de aviación (SAF) exceptuado de todo mandato', 'Salvo requerimientos de normas internacionales del sector', 'Sin efecto sobre el biodiésel'],
+            ['35', 'Transición hasta el 31-12-2030', 'Hasta el 1-1-2036', 'El segmento dura más, pero al 4%'],
             ['36 a) y b)', 'Integrada = grupo con aceitera', 'Integrada = más de 50.000 t y aceitera, las dos cosas', 'Plantas de 50.000 t de grupos aceiteros'],
             ['36 c)', 'Grupo económico', 'Grupo ampliado, con continuidad al 31-12-2025', 'Candado contra la fragmentación'],
             ['38', 'No integradas 7,5 / 5 / 4 / 3%; coprocesado en la tabla', 'No integradas 7,5 / 6,5 / 5,5 / 5 / 4%; total mercado 0 / 3,5 / 4,5 / 5 / 6%', 'No integradas, en el papel'],
-            ['39', 'Tope 14% por empresa y por grupo; regiones "podrá"', '10% con máximo de 50.000 t por empresa; 10% por grupo; regiones "deberá", 20%', 'Grupos, regiones y aceiteras; pierden las tres no integradas grandes'],
+            ['39', 'Tope 14% por empresa, sobre el segmento no integrado, y 14% por grupo; las regiones estaban en el artículo 14, sin porcentaje', '10% con máximo de 50.000 t por empresa; 10% por grupo; regiones "deberá", 20%', 'Grupos, regiones y aceiteras; pierden las tres no integradas grandes'],
           ]}
         />
         {LEY.p3}

@@ -38,10 +38,13 @@ Salidas:
                          gasoil_importaciones.py para la página Importaciones)
 
 Uso:
-    python3 scripts/regenerate_gasoil.py [--dry-run]
+    python3 scripts/regenerate_gasoil.py [--dry-run] [--glicerina-revisada]
 
-Lo llama también regenerate_data.py al final. No estima datos: si una
-validación falla, aborta.
+Lo llama también regenerate_data.py al final (las dos opciones valen igual
+desde ahí). No estima datos: si una validación falla, aborta.
+--glicerina-revisada acepta un cambio de más de 1% en meses ya publicados de
+la glicerina de Explora (ver controlar_glicerina_explora); sin esa opción, el
+generador aborta.
 
 Decisiones de cálculo (16/09/2026, ver memoria project-gasoil-pagina):
   - Precio ponderado = Σ(precio EESS × volumen EESS) / Σ volumen EESS, con el
@@ -70,7 +73,7 @@ except ImportError:
 
 from gasoil_estaciones import COLS_ESTACIONES, NOTA_ESTACIONES, contar_estaciones
 from gasoil_importaciones import CAMMESA, escribir_despachos, extraer_despachos
-from gasoil_productos import escribir_productos, extraer_productos, serie_filtrada
+from gasoil_productos import centavos, escribir_naftas, escribir_productos, extraer_productos, serie_filtrada
 from gasoil_sesco import FUENTE as FUENTE_SESCO, escribir_sesco, extraer_sesco
 from gasoil_terminales import FUENTE as FUENTE_TERMINALES, escribir_terminales, extraer_terminales
 
@@ -204,6 +207,10 @@ SERIES_COMPARADOS = {
 # USA (jul-2022). Va al bloque `comparados` como `glicerina_explora`.
 EXCEL_GLICERINA_EXPLORA = Path.home() / "Explora_projects/Explora_Reporte_Gestion/data/excel/Explora_ReporteGestion_Tableau_ready.xlsx"
 CUENTA_GLICERINA_EXPLORA = "PRECIO DE VENTA > Glicerina 80%"
+# Control contra lo ya publicado (controlar_glicerina_explora): cuánto puede
+# cambiar un mes ya publicado sin abortar, y la opción que acepta un cambio mayor
+TOL_GLICERINA = 0.01
+OPCION_GLICERINA = "--glicerina-revisada"
 RETENCION_ACEITE = "ARGENTINA  SBO Export tax"  # fracción (0,245 = 24,5%)
 PRODUCTOS_GO = {
     "go2_surtidor": ("Gas oil grado 2 - surtidor", 2, "s"),
@@ -331,7 +338,7 @@ def extraer_retail(hy, ix_mes, ix_prov, ix_band, ix_tn, ix_cc):
     dato); volumen = m3 de las EESS con precio surtidor (ponderador)."""
     rows = hy.query("p1104", _sql_ponderado(_sql_eess("1=1"), "f, prov, band, cd, tn, cc"))
     cols = {c: [] for c in RETAIL_COLS}
-    cent = lambda x: int(round(float(x) * 100)) if x else 0
+    cent = centavos  # medio centavo siempre para arriba, igual que gasoil_productos.py
     for (f, prov, band, cd, tn, cc, w2, ps2, pc2, pn2, e2, w3, ps3, pc3, pn3,
          wc2, wn2, wc3, wn3, vt2, vt3) in rows:
         if not (w2 or wc2 or wn2 or w3 or wc3 or wn3):
@@ -388,6 +395,8 @@ def extraer_bocas(hy, ix_mes, ix_prov, ix_band, ix_tn, ix_cc, geo):
     bocas = {}   # id → [id, op, band, prov, localidad, direccion, lng, lat] (último mes visto)
     partes = [{c: [] for c in BOCA_COLS} for _ in range(N_PARTES)]
     meses = defaultdict(lambda: {c: [] for c in MES_COLS})  # fecha → columnas de las bocas relevadas ese mes
+    # por boca queda el redondeo de siempre: el precio de una boca no tiene ruido de
+    # orden entre corridas, y pasarlo a centavos() reescribía los 297 archivos
     cent = lambda x: int(round(float(x) * 100)) if x else 0
     n = 0
     for (f, boca, op, prov, band, cd, tn, cc, loc, dir_, w2, ps2, pc2, pn2, wc2, w3, ps3, pc3, pn3, wc3) in rows:
@@ -556,6 +565,54 @@ def extraer_glicerina_explora():
     wb.close()
     check(len(serie) > 12, f"Reporte de Gestión: glicerina de Explora con {len(serie)} meses")
     return serie
+
+
+def controlar_glicerina_explora(nueva, aceptar=False):
+    """Compara la serie nueva de la glicerina de Explora ([[mes, usd/ton], ...])
+    con la ya publicada en gasoil_ranking.json. Es el precio de venta de meses
+    cerrados: si un mes ya publicado cambia más de TOL_GLICERINA (o desaparece),
+    lo más probable es un problema del Excel del Reporte de Gestión y no un
+    dato nuevo, y el generador aborta. El 15/11/2026 el libro "Bajada Ventas
+    Tableau Gestión" (de donde el Reporte toma las toneladas) tenía el bloque
+    2016-2025 corrido una fila: la serie cambiaba en 47 meses y nov-2025 pasaba
+    de 384,96 a 21,54 usd/ton. Si el cambio es una corrección real, se corre
+    de nuevo con --glicerina-revisada y queda como aviso. Los ajustes de hasta
+    TOL_GLICERINA y los meses nuevos solo se avisan (decisión HDO 15/11/2026)."""
+    destino = OUT_DIR / "gasoil_ranking.json"
+    if not destino.exists():
+        return
+    try:
+        publicado = json.loads(destino.read_text(encoding="utf-8"))
+        vieja = dict(next(c for c in publicado["comparados"] if c["id"] == "glicerina_explora")["serie"])
+    except (ValueError, KeyError, StopIteration, TypeError):
+        return  # todavía no hay una serie publicada contra la cual comparar
+    nueva = dict(nueva)
+    par = lambda f, a, b: f"{f}: {a:.2f} → " + ("sin dato" if b is None else f"{b:.2f}")
+    grandes, chicos = [], []
+    for f in sorted(vieja):
+        a, b = vieja[f], nueva.get(f)
+        if b is None or abs(b - a) > TOL_GLICERINA * abs(a):
+            grandes.append(par(f, a, b))
+        elif b != a:
+            chicos.append(par(f, a, b))
+    if chicos:
+        print(f"  ⚠ glicerina de Explora: {len(chicos)} mes(es) ya publicado(s) con un ajuste de hasta "
+              f"{TOL_GLICERINA:.0%} (usd/ton): {'; '.join(chicos)}")
+    nuevos = [f"{f}: {nueva[f]:.2f}" for f in sorted(nueva) if f not in vieja]
+    if nuevos:
+        print(f"  glicerina de Explora, meses nuevos (usd/ton): {'; '.join(nuevos)}")
+    if not grandes:
+        return
+    ejemplos = "; ".join(grandes[-6:]) + (" (los seis últimos)" if len(grandes) > 6 else "")
+    if aceptar:
+        print(f"  ⚠ glicerina de Explora: {len(grandes)} mes(es) ya publicado(s) cambian más de {TOL_GLICERINA:.0%} "
+              f"y se aceptan ({OPCION_GLICERINA}): {ejemplos}")
+        return
+    fail(f"Glicerina de Explora: {len(grandes)} mes(es) ya publicado(s) cambian más de {TOL_GLICERINA:.0%} "
+         f"o quedan sin dato (usd/ton): {ejemplos}.\n"
+         f"  Es el precio de venta de meses cerrados y no debería moverse: revisar el Excel del Reporte de Gestión\n"
+         f"  ({EXCEL_GLICERINA_EXPLORA.name}) y el libro de ventas del que toma las toneladas.\n"
+         f"  Si el cambio es una corrección real, correr de nuevo con {OPCION_GLICERINA}.")
 
 
 def extraer_res963(master):
@@ -872,6 +929,8 @@ def generar(dry=False):
         con_dato = [f for f in pais if k in pais[f]]
         peor = max((abs(s.get(f, 0) - pais[f][k]) for f in con_dato), default=0)
         # tolerancia: el precio de cada celda va con cuatro decimales de $/l
+        # (hasta 0,00005 de diferencia). Las celdas finas dan el mismo centavo
+        # de los dos lados porque las dos redondean con centavos().
         check(peor < 1e-4 and all(f in s for f in con_dato),
               f"Productos 1104: '{prod}/{tipo}' no reproduce la serie país (diferencia {peor:.6f} $/l)")
     print(f"  ✓ productos 1104: {len(productos_1104['mes'])} celdas · el gas oil con el recorte del ranking "
@@ -935,6 +994,7 @@ def generar(dry=False):
         comparados.append(dict(id=pid, nombre=nombre, fuente=fuente, unidad="usd/ton", serie=serie,
                                hasta=serie[-1][0]))
     glic_explora = [[f, round(v, 2)] for f, v in sorted(extraer_glicerina_explora().items())]
+    controlar_glicerina_explora(glic_explora, aceptar=OPCION_GLICERINA in sys.argv)
     comparados.append(dict(id="glicerina_explora", nombre="Glicerina 80% de Explora, precio de venta",
                            fuente="Explora, Reporte de Gestión (ponderado de ventas locales y de exportación)",
                            unidad="usd/ton", serie=glic_explora, desde=glic_explora[0][0], hasta=glic_explora[-1][0]))
@@ -1010,6 +1070,8 @@ def generar(dry=False):
 
     # Relevamiento abierto por producto para el ranking, también fuera del bundle
     escribir_productos(productos_1104, meses, ix_tn.valores, ix_cc.valores, dry)
+    # Serie país de las naftas (src/data/naftas_precios.json), para el Polígrafo
+    escribir_naftas(productos_1104, meses, ix_cc.valores, ix_tn.valores, dry)
     # Ventas de las tablas SESCO (página Tablas SESCO), también fuera del bundle
     escribir_sesco(sesco, dry)
     # Despachos de importación (página Importaciones), también fuera del bundle

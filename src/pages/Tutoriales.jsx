@@ -18,7 +18,6 @@ export default function Tutoriales() {
     <>
       <section className="page-section" id="tutoriales">
         <div className="container">
-          <p className="section-kicker">Tutoriales</p>
           <h2>Cómo se usa cada página</h2>
           <p className="section-intro">
             Un video por página: cómo se navega, para qué sirve cada filtro y qué muestra cada tablero.

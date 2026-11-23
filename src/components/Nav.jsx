@@ -125,6 +125,15 @@ export default function Nav() {
             </button>
             {angosto ? abierto === 'dash' && createPortal(menuDash, document.body) : menuDash}
           </li>
+          {/* Orden pedido por HDO (23/11/2026): Agente después de Dashboards y Reforma después de Marco Legal */}
+          <li>
+            <NavLink
+              to="/agente"
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              Agente
+            </NavLink>
+          </li>
           <li>
             <NavLink
               to="/marco-legal"
@@ -135,18 +144,18 @@ export default function Nav() {
           </li>
           <li>
             <NavLink
-              to="/articulos"
-              className={({ isActive }) => (isActive ? 'active' : '')}
-            >
-              Artículos
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
               to="/que-se-juega-en-diputados"
               className={enReforma ? 'active' : ''}
             >
               Reforma Ley 27.640
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/articulos"
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              Artículos
             </NavLink>
           </li>
           <li>

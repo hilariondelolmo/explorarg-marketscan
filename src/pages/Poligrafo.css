@@ -1,0 +1,800 @@
+/* Página /poligrafo. Todo cuelga de .pg para no tocar otras páginas. */
+
+.pg > .container {
+  max-width: 940px;
+}
+
+/* El caput va justificado y a todo el ancho de la página (regla de HDO, 22/11/2026):
+   sin max-width que lo corte antes. Vale también para el Analista, que usa esta clase. */
+.pg .pg-intro {
+  text-align: justify;
+}
+
+/* El caput del Polígrafo tiene varios párrafos (texto de HDO, 23/11/2026): misma letra que
+   .section-intro, justificado y a todo el ancho. */
+.pg .pg-caput {
+  margin-bottom: 1.6rem;
+}
+
+.pg .pg-caput p {
+  margin: 0 0 0.6rem;
+  color: var(--ink-2);
+  font-size: 0.92rem;
+  text-align: justify;
+}
+
+.pg .pg-caput p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- formulario ---------- */
+
+.pg .pg-form {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--bg-3);
+  padding: 1rem 1.1rem 0.9rem;
+}
+
+.pg .pg-label {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pg textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 7rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.pg .pg-label-contexto {
+  margin-top: 0.8rem;
+}
+
+.pg .pg-label-contexto span {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.pg input[type='text'] {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.93rem;
+}
+
+.pg input[type='text']:focus-visible,
+.pg textarea:focus-visible,
+.pg .pg-boton:focus-visible {
+  outline: 2px solid var(--accent-exp);
+  outline-offset: 2px;
+}
+
+.pg .pg-form-pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.7rem;
+}
+
+.pg .pg-contador {
+  color: var(--ink-muted);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.pg .pg-boton {
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent-exp);
+  color: #fff;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.pg .pg-boton:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.pg .pg-ejemplos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.7rem;
+  margin: 0.9rem 0 0;
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+}
+
+.pg .pg-ejemplos select {
+  flex: 1 1 18rem;
+  min-width: 0;
+  max-width: 34rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.88rem;
+}
+
+.pg .pg-ejemplos select:focus-visible {
+  outline: 2px solid var(--accent-exp);
+  outline-offset: 2px;
+}
+
+.pg .pg-episodio {
+  margin: 0 0 0.4rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: 6px;
+  background: var(--bg-3);
+  color: var(--ink-2);
+  font-size: 0.88rem;
+}
+
+.pg .pg-episodio a {
+  color: var(--accent-exp);
+}
+
+.pg .pg-estado {
+  margin: 1.2rem 0 0;
+  color: var(--ink-2);
+  font-size: 0.92rem;
+}
+
+.pg .pg-error {
+  margin-top: 1.2rem;
+  padding: 0.8rem 1rem;
+  border-left: 4px solid var(--accent-alert);
+  border-radius: 4px;
+  background: var(--bg-3);
+  color: var(--ink);
+  font-size: 0.92rem;
+}
+
+.pg .pg-error p {
+  margin: 0;
+}
+
+.pg .pg-error p + p {
+  margin-top: 0.35rem;
+  color: var(--ink-2);
+}
+
+/* ---------- paneles ---------- */
+
+.pg .pg-caso {
+  margin-top: 1.6rem;
+  scroll-margin-top: calc(var(--nav-h) + 12px);
+}
+
+.pg .pg-panel {
+  /* el padding completo pisa el `section { padding: 5rem 0 }` global */
+  margin-top: 1.4rem;
+  padding: 1.2rem 0 0;
+  border-top: 1px solid var(--rule-soft);
+}
+
+.pg .pg-panel h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.6rem;
+  font-size: 1.12rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.pg .pg-paso {
+  display: inline-grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex: none;
+}
+
+.pg .pg-panel-intro {
+  margin: 0 0 0.9rem;
+  color: var(--ink-2);
+  font-size: 0.9rem;
+}
+
+.pg .pg-costo {
+  margin: 0.6rem 0 0;
+  color: var(--ink-muted);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.pg .pg-cobrado {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.pg .pg-sin-credito {
+  margin: 0.7rem 0 0;
+  padding: 0.55rem 0.7rem;
+  border-left: 3px solid var(--accent-alert);
+  border-radius: 0 6px 6px 0;
+  background: color-mix(in srgb, var(--accent-alert) 8%, var(--bg));
+  color: var(--ink);
+  font-size: 0.88rem;
+}
+/* el enlace a Mi panel no se parte en dos renglones */
+.pg .pg-sin-credito a {
+  white-space: nowrap;
+}
+
+/* ---------- lo que se despliega con la flechita ----------
+   Los puntos numerados y la caja de cada frase son <details> (regla de HDO,
+   22/11/2026). Safari no acepta bien un summary con display: flex: el summary va
+   en bloque y la fila flexible es el elemento de adentro. */
+
+.pg .pg-plegable > summary {
+  display: block;
+  list-style: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pg .pg-plegable > summary::-webkit-details-marker {
+  display: none;
+}
+
+.pg .pg-plegable > summary:focus-visible {
+  outline: 2px solid var(--accent-exp);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.pg .pg-flecha {
+  flex: none;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin: -0.25rem 0.3rem 0 auto;
+  border-right: 2px solid var(--ink-muted);
+  border-bottom: 2px solid var(--ink-muted);
+  transform: rotate(45deg); /* hacia abajo: está plegado */
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.pg .pg-plegable[open] > summary .pg-flecha {
+  margin-top: 0.25rem;
+  transform: rotate(-135deg); /* hacia arriba: está desplegado */
+}
+
+.pg .pg-plegable > summary:hover .pg-flecha {
+  border-color: var(--ink);
+}
+
+.pg .pg-panel.pg-plegable {
+  margin-top: 1.1rem;
+  padding-top: 1rem;
+}
+
+.pg .pg-panel.pg-plegable > summary h3 {
+  margin: 0;
+}
+
+.pg .pg-panel.pg-plegable > .pg-plegable-cuerpo {
+  margin-top: 0.7rem;
+}
+
+/* ---------- preguntas ---------- */
+
+.pg .pg-pregunta {
+  margin: 0 0 1rem;
+  padding: 0;
+  border: none;
+  min-width: 0;
+}
+
+.pg .pg-pregunta legend {
+  padding: 0;
+  margin-bottom: 0.45rem;
+  font-size: 0.97rem;
+  font-weight: 600;
+}
+
+.pg .pg-aplica {
+  margin-left: 0.4rem;
+  color: var(--ink-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.pg .pg-opcion {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 0.35rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--bg);
+  font-size: 0.92rem;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.pg .pg-opcion:hover {
+  border-color: var(--accent-exp);
+}
+
+.pg .pg-opcion.elegida {
+  border-color: var(--accent-exp);
+  box-shadow: inset 0 0 0 1px var(--accent-exp);
+}
+
+.pg .pg-opcion input {
+  margin: 0.2rem 0 0;
+  accent-color: var(--accent-exp);
+  flex: none;
+}
+
+/* ---------- forma lógica ---------- */
+
+.pg .pg-forma-lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pg .pg-forma-lista li {
+  display: flex;
+  gap: 0.7rem;
+  align-items: baseline;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: 0.93rem;
+  line-height: 1.45;
+}
+
+.pg .pg-forma-lista em {
+  color: var(--ink-muted);
+}
+
+.pg .pg-id {
+  display: inline-block;
+  min-width: 2rem;
+  padding: 1px 6px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  color: var(--ink-2);
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  flex: none;
+}
+
+.pg .pg-rotulo {
+  margin-right: 0.55rem;
+  color: var(--ink-muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.pg .pg-formula {
+  margin: 0.9rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.pg .pg-formula code {
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  background: var(--bg-4);
+  color: var(--ink);
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+.pg .pg-formula-ayuda {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--ink-muted);
+  font-size: 0.82rem;
+}
+
+.pg .pg-fuera {
+  margin: 0.7rem 0 0;
+  color: var(--ink-muted);
+  font-size: 0.82rem;
+}
+
+/* ---------- sellos y colores de estado ---------- */
+
+.pg .pg-sello {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pg .pg-sello-grande {
+  padding: 7px 16px;
+  font-size: 1rem;
+}
+
+.pg .pg-sello.pg-verdadero { background: var(--accent-bio); }
+.pg .pg-sello.pg-falso { background: var(--accent-alert); }
+.pg .pg-sello.pg-indeterminado { background: var(--accent-oil); }
+.pg .pg-sello.pg-opinion { background: var(--accent-neutral); }
+.pg .pg-sello.pg-doble_vara { background: var(--accent-warn); color: #1a1a1a; }
+
+.pg .pg-borde-verdadero { border-left-color: var(--accent-bio); }
+.pg .pg-borde-falso { border-left-color: var(--accent-alert); }
+.pg .pg-borde-indeterminado { border-left-color: var(--accent-oil); }
+.pg .pg-borde-opinion { border-left-color: var(--accent-neutral); }
+.pg .pg-borde-doble_vara { border-left-color: var(--accent-warn); }
+
+.pg .pg-texto-verdadero { color: var(--accent-bio); }
+.pg .pg-texto-falso { color: var(--accent-alert); }
+
+/* ---------- resultado ---------- */
+
+.pg .pg-general {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: 1.1rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--rule);
+  border-left-width: 5px;
+  border-radius: 6px;
+  background: var(--bg-3);
+}
+
+.pg .pg-resumen {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.pg .pg-regla {
+  margin: 0.25rem 0 0;
+  color: var(--ink-2);
+  font-size: 0.86rem;
+}
+
+.pg .pg-afirmacion {
+  /* plegadas quedan una debajo de la otra, pegadas */
+  margin-bottom: 0.4rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--rule);
+  border-left-width: 4px;
+  border-radius: 6px;
+  background: var(--bg);
+}
+
+.pg .pg-afirmacion-cab {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.pg .pg-afirmacion-frase {
+  flex: 1;
+  min-width: 0;
+}
+
+/* todos los sellos del mismo ancho: las frases quedan alineadas en columna */
+.pg .pg-afirmacion-cab .pg-sello {
+  flex: none;
+  min-width: 7.9rem;
+  text-align: center;
+}
+
+.pg .pg-aclara {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--ink-muted);
+  font-size: 0.8rem;
+}
+
+.pg .pg-cita {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: var(--ink);
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+
+.pg .pg-afirmacion > .pg-plegable-cuerpo {
+  margin-top: 0.6rem;
+  padding-top: 0.2rem;
+  border-top: 1px solid var(--rule-soft);
+}
+
+.pg .pg-afirmacion[open] {
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.8rem;
+}
+
+.pg .pg-linea {
+  margin: 0.55rem 0 0;
+  color: var(--ink-2);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.pg .pg-cotejo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 2.2rem;
+  margin: 0.7rem 0 0;
+}
+
+.pg .pg-cotejo dt {
+  color: var(--ink-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.pg .pg-cotejo dd {
+  margin: 0.1rem 0 0;
+  font-size: 1.15rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.3;
+}
+
+.pg .pg-margen,
+.pg .pg-nota,
+.pg .pg-fuente {
+  margin: 0.5rem 0 0;
+  color: var(--ink-muted);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.pg .pg-motivo {
+  margin: 0.5rem 0 0;
+  color: var(--ink-2);
+  font-size: 0.9rem;
+}
+
+.pg .pg-fuente a {
+  color: var(--accent-exp);
+}
+
+/* ---------- citas de textos legales ---------- */
+
+.pg .pg-norma {
+  margin-top: 0.6rem;
+}
+
+.pg .pg-cita-legal {
+  margin: 0 0 0.6rem;
+  padding: 0.6rem 0.8rem 0.55rem;
+  border-left: 3px solid var(--accent-exp);
+  border-radius: 0 4px 4px 0;
+  background: var(--bg-3);
+}
+
+.pg .pg-cita-legal figcaption {
+  color: var(--ink-muted);
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+
+.pg .pg-cita-legal figcaption strong {
+  color: var(--ink-2);
+  font-weight: 650;
+}
+
+.pg .pg-cita-legal blockquote {
+  margin: 0.3rem 0 0;
+  padding: 0;
+  border: none;
+  color: var(--ink);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
+/* ---------- segunda lectura (lo que la frase omite) ---------- */
+
+.pg .pg-segunda {
+  margin-top: 0.9rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--rule);
+}
+
+.pg .pg-segunda-titulo {
+  margin: 0 0 0.55rem;
+  font-size: 0.93rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.pg .pg-partes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem 1.4rem;
+  margin: 0 0 0.7rem;
+}
+
+.pg .pg-partes dt {
+  color: var(--ink-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.pg .pg-partes dd {
+  margin: 0.15rem 0 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.pg .pg-segunda .pg-linea {
+  margin-bottom: 0.55rem;
+}
+
+.pg .pg-segunda-cierre {
+  color: var(--ink);
+}
+
+.pg .pg-dato-ficha {
+  border-left-color: var(--accent-bio);
+}
+
+.pg .pg-dato-ficha .pg-fuente {
+  margin-top: 0.35rem;
+}
+
+.pg .pg-lema {
+  margin: 0.7rem 0 0;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--rule);
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.45;
+}
+
+.pg .pg-articulo {
+  margin: 0.5rem 0 0;
+  color: var(--ink-2);
+  font-size: 0.84rem;
+  line-height: 1.55;
+  white-space: pre-line;
+}
+
+.pg .pg-detalle {
+  margin-top: 0.6rem;
+}
+
+.pg .pg-detalle summary {
+  color: var(--accent-exp);
+  font-size: 0.84rem;
+  cursor: pointer;
+}
+
+.pg .pg-tabla-wrap {
+  margin-top: 0.5rem;
+  overflow-x: auto;
+}
+
+.pg .pg-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.pg .pg-tabla th,
+.pg .pg-tabla td {
+  padding: 0.3rem 0.6rem;
+  border-bottom: 1px solid var(--rule-soft);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.pg .pg-tabla th {
+  color: var(--ink-muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pg .pg-tabla th:last-child,
+.pg .pg-tabla td:last-child {
+  text-align: right;
+}
+
+.pg .pg-tabla .pg-fila-total td {
+  font-weight: 700;
+}
+
+.pg .pg-pie {
+  margin: 1.4rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--rule-soft);
+  color: var(--ink-muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 560px) {
+  .pg .pg-partes {
+    grid-template-columns: 1fr;
+  }
+
+  /* en el celular la frase baja a un segundo renglón: arriba quedan el sello y la flechita */
+  .pg .pg-afirmacion-cab {
+    flex-wrap: wrap;
+  }
+
+  .pg .pg-afirmacion-frase {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  .pg .pg-afirmacion-cab .pg-sello {
+    min-width: 0;
+  }
+
+  .pg .pg-general {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .pg .pg-tabla th,
+  .pg .pg-tabla td {
+    white-space: normal;
+  }
+}

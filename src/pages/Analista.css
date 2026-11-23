@@ -1,0 +1,181 @@
+/* Analista (Agente Explorarg). Usa los estilos del Polígrafo (.pg) y suma estos,
+   que cuelgan de .an para no tocar otras páginas. */
+
+.an > .container {
+  max-width: 1040px;
+}
+
+.an textarea {
+  min-height: 4.6rem;
+}
+
+.an .an-entendido {
+  margin: 0 0 0.6rem;
+  color: var(--ink);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* ---------- los menús con que se corrige la consulta ---------- */
+
+.an .an-controles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 0.7rem 0.9rem;
+  margin-top: 0.4rem;
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--bg-3);
+}
+
+.an .an-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.an .an-campo-ancho {
+  grid-column: span 2;
+}
+
+.an .an-campo > span {
+  color: var(--ink-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.an .an-campo select {
+  width: 100%;
+  min-width: 0;
+  padding: 0.42rem 0.5rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.88rem;
+}
+
+.an .an-campo select:focus-visible,
+.an .an-descarga:focus-visible {
+  outline: 2px solid var(--accent-exp);
+  outline-offset: 2px;
+}
+
+/* ---------- resultado ---------- */
+
+.an .an-encabezado {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.an .an-titulo {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.12rem;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.an .an-bajada {
+  margin: 0.15rem 0 0;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+}
+
+.an .an-descarga {
+  flex: none;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.an .an-descarga:hover {
+  border-color: var(--accent-exp);
+  color: var(--accent-exp);
+}
+
+.an .an-cifra {
+  margin: 0.5rem 0 0.9rem;
+  color: var(--accent-exp);
+  font-size: 2.1rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.an .an-grafico {
+  margin: 0.6rem 0 0.9rem;
+  padding: 0.6rem 0.4rem 0.2rem;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+.an .an-grafico-leyenda {
+  margin: 0 0.6rem 0.4rem;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+
+.an .an-tabla-wrap {
+  max-height: 30rem;
+  overflow: auto;
+}
+
+.an .an-tabla thead th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-3);
+}
+
+.an .an-tabla th,
+.an .an-tabla td {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.an .an-tabla .an-texto {
+  text-align: left;
+  white-space: normal;
+}
+
+.an .an-tabla .an-puesto {
+  width: 2.2rem;
+  color: var(--ink-muted);
+  text-align: right;
+}
+
+.an .an-tabla .an-fila-resto td {
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .an .an-campo-ancho {
+    grid-column: auto;
+  }
+
+  .an .an-encabezado {
+    flex-direction: column;
+  }
+
+  .an .an-cifra {
+    font-size: 1.7rem;
+  }
+}

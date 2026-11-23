@@ -449,7 +449,7 @@
   top: calc(var(--nav-h) + 40px);
   z-index: 94;
   background: var(--bg);
-  padding-top: 2.2rem; /* mismo aire que .page-section bajo la sub-nav */
+  padding-top: var(--aire-cabecera); /* mismo aire que .page-section bajo la sub-nav */
   padding-bottom: 0.2rem;
   box-shadow: 0 -3px 0 var(--bg);
   margin-bottom: 0.4rem;

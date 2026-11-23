@@ -1,0 +1,97 @@
+{
+ "meta": {
+  "generado": "2026-11-22 17:14",
+  "nota": "Generado por scripts/poligrafo_tecnicos.py - no editar a mano",
+  "fuente": "Directiva (UE) 2018/2001 del Parlamento Europeo y del Consejo, del 11/12/2018 (energías renovables), anexos III y V",
+  "url": "https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32018L2001"
+ },
+ "contenido_energetico": [
+  {
+   "id": "nafta",
+   "nombre": "Nafta",
+   "nombre_oficial": "Gasolina",
+   "mj_kg": 43.0,
+   "mj_l": 32.0
+  },
+  {
+   "id": "bioetanol",
+   "nombre": "Bioetanol",
+   "nombre_oficial": "Etanol procedente de fuentes renovables",
+   "mj_kg": 27.0,
+   "mj_l": 21.0
+  },
+  {
+   "id": "gasoil",
+   "nombre": "Gas oil",
+   "nombre_oficial": "Gasóleo",
+   "mj_kg": 43.0,
+   "mj_l": 36.0
+  },
+  {
+   "id": "biodiesel",
+   "nombre": "Biodiésel",
+   "nombre_oficial": "Biodiésel - éster metílico de ácidos grasos (éster metílico producido a partir de un aceite procedente de biomasa)",
+   "mj_kg": 37.0,
+   "mj_l": 33.0
+  },
+  {
+   "id": "hvo",
+   "nombre": "Aceite vegetal hidrotratado (HVO)",
+   "nombre_oficial": "Aceite hidrotratado procedente de biomasa (tratado termoquímicamente con hidrógeno), utilizado en sustitución del gasóleo",
+   "mj_kg": 44.0,
+   "mj_l": 34.0
+  }
+ ],
+ "reduccion_emisiones": [
+  {
+   "id": "biodiesel_soja",
+   "nombre": "Biodiésel de soja",
+   "nombre_oficial": "Biodiésel de soja",
+   "tipico": 55.0,
+   "defecto": 50.0
+  },
+  {
+   "id": "biodiesel_aceite_usado",
+   "nombre": "Biodiésel de aceite de cocina usado",
+   "nombre_oficial": "Biodiésel de aceite de cocina usado",
+   "tipico": 88.0,
+   "defecto": 84.0
+  },
+  {
+   "id": "biodiesel_grasas",
+   "nombre": "Biodiésel de grasas animales",
+   "nombre_oficial": "Biodiésel procedente de grasas animales fundidas (**)",
+   "tipico": 84.0,
+   "defecto": 78.0
+  },
+  {
+   "id": "hvo_soja",
+   "nombre": "Aceite vegetal hidrotratado de soja",
+   "nombre_oficial": "Aceite vegetal hidrotratado de soja",
+   "tipico": 55.0,
+   "defecto": 51.0
+  },
+  {
+   "id": "bioetanol_cana",
+   "nombre": "Bioetanol de caña de azúcar",
+   "nombre_oficial": "Etanol de caña de azúcar",
+   "tipico": 70.0,
+   "defecto": 70.0
+  },
+  {
+   "id": "bioetanol_maiz_caldera",
+   "nombre": "Bioetanol de maíz (gas natural, caldera convencional)",
+   "nombre_oficial": "Etanol de maíz (gas natural como combustible de proceso en caldera convencional)",
+   "tipico": 48.0,
+   "defecto": 40.0
+  },
+  {
+   "id": "bioetanol_maiz_cogeneracion",
+   "nombre": "Bioetanol de maíz (gas natural, cogeneración)",
+   "nombre_oficial": "Etanol de maíz (gas natural como combustible de proceso en instalaciones de cogeneración (*))",
+   "tipico": 55.0,
+   "defecto": 48.0
+  }
+ ],
+ "fosil_referencia_g_co2eq_mj": 94.0
+}

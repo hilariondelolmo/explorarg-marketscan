@@ -1,0 +1,66 @@
+# Ley de Bases y Puntos de Partida para la Libertad de los Argentinos (expediente 25-PE-2023)
+# Dictamen de mayoría de la Cámara de Diputados, Orden del Día 1/2024.
+# Título VI (Energía), Sección IV "Ley 27.640, Biocombustibles": artículos 281 a 289 (páginas 61 a 64).
+# Fuente oficial: https://www4.hcdn.gob.ar/dependencias/dcomisiones/periodo-141/141-1.pdf (bajado el 22/11/2026).
+# Texto pasado con pdftotext. No se corrigió nada: quedan las erratas del original ("Artículo13",
+# "elaboradoras. debiéndose"). Solo se sacaron los encabezados de página, se unieron los renglones
+# de las dos columnas y se armó fila por fila la tabla del artículo 285 (columnas separadas con "|").
+# El mismo Orden del Día trae otro texto en las páginas 147 a 149 (una disidencia): no es este.
+
+Art. 281. – Sustitúyese el artículo 1º de la Ley 27.640 de Biocombustibles, por el siguiente:
+Artículo 1º: Apruébese el Marco Regulatorio de Biocombustibles, el cual comprende todas las actividades de elaboración, almacenaje, comercialización y mezcla de biocombustibles.
+
+Art. 282. – Sustitúyese el artículo 3º de la Ley 27.640 de Biocombustibles, por el siguiente:
+Artículo 3º: Serán funciones de la Autoridad de Aplicación:
+a) Regular, administrar y fiscalizar la producción, comercialización y uso sustentable de los biocombustibles;
+b) Adecuar a los términos de la presente ley las normas que establecen las especificaciones de calidad de los biocombustibles, la seguridad de las instalaciones en las cuales estos se elaboran, mezclan y/o almacenan, y aquellas que se vinculen con el registro y/o habilitación de las empresas y/o productos;
+c) Realizar auditorías e inspecciones en las empresas e instalaciones de elaboración, almacenaje y/o mezcla de biocombustibles, a fin de controlar su correcto funcionamiento y su ajuste a la normativa vigente;
+d) Aplicar las sanciones establecidas en la presente Ley;
+e) Fiscalizar el ejercicio de las actividades a que se refiere la presente ley, a fin de asegurar la observancia de las normas legales y reglamentarias correspondientes;
+f) Hacer uso de todos los medios que considere necesarios para el ejercicio de sus funciones de inspección y fiscalización;
+g) Dictar las normas complementarias que resulten necesarias para interpretar y aclarar el presente régimen, así como también ejercer toda otra atribución que surja de la reglamentación de la presente ley a los efectos de su mejor cumplimiento;
+h) Incrementar los porcentajes de mezcla obligatoria de los biocombustibles con gasoil y/o nafta de origen fósil y garantizar su cumplimiento, de acuerdo a las condiciones establecidas en la presente Ley;
+i) Verificar que las asignaciones de biocombustibles para el abastecimiento de la mezcla obligatoria con combustibles fósiles se efectúen de acuerdo con lo indicado en el Artículo 13 y garantizar su cumplimiento de acuerdo con las condiciones establecidas en la presente Ley;
+j) Publicar los resultados de las licitaciones realizadas en el marco de la presente Ley.
+
+Art. 283. – Sustitúyese el artículo 4º de la Ley 27.640 de Biocombustibles, por el siguiente:
+Artículo 4º: A los fines de la presente Ley, se entiende por biocombustible al bioetanol, al biodiésel y a cualquier otro biocombustible líquido que cumpla los requisitos de calidad que establezca la Autoridad de Aplicación y cuyo origen sea agropecuario, agroindustrial y/o provenga de desechos orgánicos y/o plásticos, considerándose que los mismos se computarán como parte del corte obligatorio establecido en la presente ley.
+Por un plazo de dieciocho (18) años contados a partir de la entrada en vigencia de la presente Ley, los biocombustibles que se mezclen obligatoriamente con combustibles fósiles deberán ser producidos en instalaciones situadas en la República Argentina, utilizando materias primas nacionales.
+
+Art. 284. – Sustitúyese el artículo 5º de la Ley 27.640 de Biocombustibles, por el siguiente:
+Artículo 5º: Quienes elaboren, almacenen y/o comercialicen biocombustibles deberán registrarse y habilitarse en el Registro que se crea por la presente norma, conforme lo establezca la reglamentación.
+
+Art. 285. – Sustitúyese el artículo 8º de la Ley 27.640 de Biocombustibles, por el siguiente:
+Artículo 8º: El porcentaje para la mezcla o corte obligatorio se fija conforme se indica a continuación:
+a) Biodiesel. El gasoil o diésel de origen fósil deberá contener un porcentaje de mezcla con biodiesel obligatorio, en volumen, medido sobre la cantidad total del producto final, de acuerdo con el siguiente cronograma:
+Fecha de inicio de la mezcla o corte | Porcentaje de biodiesel en gasoil de origen fósil (en volumen)
+Fecha de entrada en vigencia de esta Ley | 10 %
+1º de enero de 2025 | 11 %
+1º de abril de 2026 | 12,5 %
+A partir del doce coma cinco por ciento (12,5 %) de mezcla o corte obligatorio de biodiesel en gasoil o diésel de origen fósil y no antes de tres (3) años de la entrada en vigencia de la presente Ley la Autoridad de Aplicación propondrá al Congreso aumentos progresivos de porcentaje de mezcla o corte obligatorio hasta alcanzar el quince por ciento (15 %).
+En la zona patagónica el porcentaje de mezcla o corte obligatorio de biodiesel en gasoil o diésel de origen fósil será del diez por ciento (10 %) hasta tanto se solucionen cuestiones técnicas y/o de infraestructura.
+b) Bioetanol.
+b) 1. Las naftas de origen fósil deberán contener un porcentaje de mezcla con bioetanol Obligatorio, en volumen, medido sobre la cantidad total del producto final del doce por ciento (12 %). Durante los primeros dos (2) años desde la entrada en vigencia de la presente Ley, la Autoridad de Aplicación podrá disponer un incremento del porcentaje de mezcla hasta el quince por ciento (15 %). A partir del quince por ciento (15 %) de mezcla o corte obligatorio de bioetanol en naftas de origen fósil y no antes de tres (3) años de la entrada en vigencia de la presente Ley, la Autoridad de Aplicación propondrá al Congreso aumentos progresivos de porcentaje de mezcla o corte obligatorio hasta alcanzar un porcentaje entre el dieciocho por ciento (18 %) y el veintisiete por ciento (27 %).
+c) Cuando la mezcla o corte obligatorio supere el quince por ciento (15 %) para el biodiesel o el dieciocho por ciento (18 %) para el bioetanol, las empresas que produzcan y/o destilen hidrocarburos estarán autorizadas a participar conforme a lo establecido en el artículo 13 de la presente Ley en el abastecimiento de biocombustibles únicamente en el volumen excedente a los porcentajes de mezcla o corte antes mencionados. En ningún caso, la participación de las empresas que produzcan y/o destilen hidrocarburos podrá ser superior al quince por ciento (15 %) del volumen excedente;
+d) Los porcentajes de mezcla o corte obligatorios establecidos en los acápites a) y b) precedentes podrán ser exceptuados por la Autoridad de Aplicación únicamente en caso de escasez general y comprobada de materia prima, conforme lo establezca la reglamentación a la presente Ley.
+
+Art. 286. – Sustitúyese el artículo 10 de la Ley 27.640, de Biocombustibles, por el siguiente:
+Artículo 10: Las empresas responsables de llevar a cabo las mezclas obligatorias de biocombustibles con combustibles fósiles deberán adquirirlos, sin excepción, de las empresas elaboradoras autorizadas a tales efectos por la Autoridad de Aplicación, de acuerdo a los parámetros de precio y distribución de volúmenes conforme lo establecido en el Artículo13 de la presente Ley.
+
+Art. 287. – Sustitúyese el artículo 11 de la Ley 27.640, de Biocombustibles, por el siguiente:
+Artículo 11: Las empresas elaboradoras de biocombustibles, sin distinción de materia prima de origen, ni de su condición de integradas o no integradas, ni de su composición societaria, tendrán derecho a participar en los mercados de producción y suministro de biocombustibles tanto para el mercado interno como para el de exportación.
+
+Art. 288. – Sustitúyese el artículo 13 de la Ley 27.640, de Biocombustibles, por el siguiente:
+Artículo 13: Determinación de volúmenes y precio. La determinación de volúmenes y precios en el abastecimiento de biocombustibles será realizada periódicamente mediante un sistema único de licitaciones transparentes, de acceso público, de acuerdo a las condiciones que se definen seguidamente para cada biocombustible:
+a) Para el biodiesel:
+a) 1. La adjudicación a cada empresa no podrá exceder el catorce por ciento (14 %) del total del volumen objeto de la licitación del período correspondiente;
+a) 2. La adjudicación de volumen a cada empresa en las licitaciones no excederá el máximo de su capacidad instalada registrada;
+a) 3. La adjudicación respetará que para cada año calendario, la relación entre la producción real propia y a façón, y la capacidad instalada del conjunto de empresas que producen materia prima (empresas integradas), sea igual a la del conjunto de las restantes empresas elaboradoras. debiéndose verificar a tal efecto la composición societaria de las empresas participantes de cada grupo empresario, conforme lo establezca la reglamentación.
+b) Para el bioetanol:
+b) 1. La adjudicación de volumen a cada empresa en las licitaciones no excederá el máximo de su capacidad instalada registrada;
+b) 2. Hasta el 31 de diciembre de 2030, el abastecimiento de los volúmenes periódicos de bioetanol a base de caña de azúcar se realizará respetándose el volumen anual promedio del período 2021 – 2023. Esta medida regirá para las empresas productoras de bioetanol a partir de caña de azúcar habilitadas al 31 de diciembre de 2023.
+c) En caso de incumplimiento en el abastecimiento conforme los volúmenes adjudicados, la Autoridad de Aplicación o quien ésta determine podrá revocar la adjudicación efectuada, conforme lo establezca la reglamentación a la presente Ley.
+d) En caso de que los precios adjudicados superen los precios internacionales de importación, calculados conforme al índice internacionalmente reconocido, los vendedores de biocombustibles deberán vender al precio de importación vigente en cada momento.
+La Autoridad de Aplicación será responsable de implementar y supervisar las licitaciones establecidas, y deberá dar inicio a las licitaciones en un plazo máximo de 30 días corridos a partir de la entrada en vigencia de la presente ley.
+
+Art. 289. – Deróganse los artículos 6º, 9º, 12, 14, 15, 16, 17 y 23 de la Ley 27.640.

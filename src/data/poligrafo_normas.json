@@ -1,0 +1,1514 @@
+{
+ "meta": {
+  "generado": "2026-11-22 18:41",
+  "nota": "Generado por scripts/poligrafo_normas.py - no editar a mano"
+ },
+ "normas": [
+  {
+   "id": "MS",
+   "nombre": "Media sanción del Senado del 17/9/2026 (CD-76/26)",
+   "corto": "Media sanción del Senado (CD-76/26)",
+   "que_es": "El proyecto de Marco Regulatorio de Biocombustibles que aprobó el Senado el 17/9/2026 y que está en revisión en Diputados. Todavía no es ley. Deroga la Ley 27.640.",
+   "ruta": "/que-se-juega-en-diputados",
+   "url": null
+  },
+  {
+   "id": "L27640",
+   "nombre": "Ley 27.640 - Marco Regulatorio de Biocombustibles (vigente)",
+   "corto": "Ley 27.640 (vigente)",
+   "que_es": "La ley que rige hoy, sancionada el 15/7/2021. Texto original publicado en el Boletín Oficial el 4/8/2021.",
+   "ruta": "/marco-legal",
+   "url": "https://www.argentina.gob.ar/normativa/nacional/ley-27640-352587/texto"
+  },
+  {
+   "id": "UE245",
+   "nombre": "Decisión de Ejecución (UE) 2019/245 de la Comisión Europea, del 11/2/2019 (acuerdo de compromiso con los exportadores argentinos de biodiésel)",
+   "corto": "Decisión (UE) 2019/245 - acuerdo con la Unión Europea",
+   "que_es": "La decisión por la que la Comisión Europea aceptó los compromisos ofrecidos por ocho productores exportadores argentinos de biodiésel junto con CARBIO, después de imponer derechos compensatorios. Fija las condiciones: un precio mínimo de importación y un nivel anual de volumen.",
+   "ruta": "/marco-legal",
+   "url": "https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32019D0245"
+  },
+  {
+   "id": "UE835",
+   "nombre": "Reglamento de Ejecución (UE) 2025/835 de la Comisión Europea, del 5/5/2025 (renovación del derecho compensatorio al biodiésel argentino)",
+   "corto": "Reglamento (UE) 2025/835",
+   "que_es": "El reglamento que, tras la reconsideración por expiración, vuelve a imponer el derecho compensatorio al biodiésel argentino y mantiene exentas las importaciones hechas bajo los compromisos de la Decisión (UE) 2019/245.",
+   "ruta": "/marco-legal",
+   "url": "https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32025R0835"
+  },
+  {
+   "id": "S809",
+   "nombre": "Proyecto S-809/26, texto original que ingresó al Senado el 14/5/2026",
+   "corto": "Proyecto S-809/26, texto original",
+   "que_es": "El proyecto de Marco Regulatorio de Biocombustibles tal como ingresó al Senado el 14/5/2026, firmado por la senadora Bullrich y otros siete senadores. Es el punto de partida del debate en el Senado: después lo cambiaron el dictamen de comisiones del 3/9/2026 y el recinto, y el texto final es la media sanción (piezas MS). Sirve solo para saber qué decía el proyecto al principio y qué cambió.",
+   "ruta": "/marco-legal",
+   "url": "https://www.senado.gob.ar/parlamentario/parlamentaria/496663/downloadPdf"
+  },
+  {
+   "id": "LB",
+   "nombre": "Ley de Bases, dictamen de mayoría de Diputados (Orden del Día 1/2024): capítulo de biocombustibles",
+   "corto": "Ley de Bases 2024, dictamen de Diputados",
+   "que_es": "El capítulo de biocombustibles del proyecto de Ley de Bases del Poder Ejecutivo (expediente 25-PE-2023): Título VI, Sección IV, artículos 281 a 289 del dictamen de mayoría. Diputados lo aprobó en general el 2/2/2024 por 144 a 109. Es el primer proyecto del gobierno actual sobre biocombustibles. Nunca fue ley: el 6/2/2024 el proyecto volvió a comisión y el texto que se sancionó después ya no traía este capítulo. Cada artículo sustituye o deroga artículos de la Ley 27.640.",
+   "ruta": "/mapa-diputados",
+   "url": "https://www4.hcdn.gob.ar/dependencias/dcomisiones/periodo-141/141-1.pdf"
+  },
+  {
+   "id": "LBR",
+   "nombre": "Reseña del sitio sobre el capítulo de biocombustibles de la Ley de Bases (Mapa de Diputados)",
+   "corto": "Mapa de Diputados del sitio",
+   "que_es": "Lo que el sitio resume del capítulo de biocombustibles que Diputados votó el 2/2/2024 y de qué pasó después. Es el resumen del sitio; el texto de los artículos está en las piezas LB.",
+   "ruta": "/mapa-diputados",
+   "url": null,
+   "resena": true
+  },
+  {
+   "id": "ML",
+   "nombre": "Marco Legal de explorarg.com (línea de tiempo)",
+   "corto": "Marco Legal del sitio",
+   "que_es": "Los hitos normativos que reseña el sitio, de 2006 a hoy: leyes, decretos, resoluciones, medidas de otros países y proyectos. Es el resumen del sitio, con enlace a cada texto oficial; no es el texto de las normas.",
+   "ruta": "/marco-legal",
+   "url": null,
+   "resena": true
+  }
+ ],
+ "items": [
+  {
+   "id": "MS-1",
+   "norma": "MS",
+   "rotulo": "Artículo 1",
+   "titulo": "Ámbito de Aplicación",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo I - Objeto",
+   "texto": "ARTÍCULO 1º.- Ámbito de Aplicación. La presente ley regula las actividades de elaboración, almacenaje, comercialización, mezcla y autoconsumo de biocombustibles en el territorio nacional, con una vigencia de quince (15) años contados a partir de su aprobación."
+  },
+  {
+   "id": "MS-2",
+   "norma": "MS",
+   "rotulo": "Artículo 2",
+   "titulo": "Interés público",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo I - Objeto",
+   "texto": "ARTÍCULO 2º.- Interés público. Las actividades reguladas por la presente ley se declaran de interés público, en tanto contribuyen a la seguridad energética y a la transición hacia energías más limpias, en el marco de los objetivos específicos establecidos en esta norma."
+  },
+  {
+   "id": "MS-3",
+   "norma": "MS",
+   "rotulo": "Artículo 3",
+   "titulo": "Objetivos",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo II - Política General",
+   "texto": "ARTÍCULO 3º.- Objetivos. Fíjanse los siguientes objetivos para la política nacional en materia de biocombustibles:\na) proteger adecuadamente los derechos de los consumidores de biocombustibles y de combustibles en general, especialmente en lo relativo a sus intereses económicos, calidad y disponibilidad en los términos de la presente ley;\nb) promover la eficiencia y la competitividad de los mercados de elaboración y comercialización de biocombustibles y alentar las inversiones en el sector;\nc) asegurar el cumplimiento de las normas de calidad de los biocombustibles, fijando las reglas, la metodología de actualización de las mismas y los controles de cumplimiento apropiados;\nd) dar estricto cumplimiento a las normas de seguridad de las instalaciones en las cuales los biocombustibles se elaboran, mezclan, almacenan y/o autoconsumen;\ne) impulsar el empleo de los biocombustibles en los términos de esta ley, como factor de desarrollo e incremento de la eficiencia y competitividad de los diversos sectores económicos, de las provincias y de las regiones;\nf) promover la incorporación de nuevas tecnologías y modalidades de gestión que contribuyan a la eficiencia de las actividades de elaboración, almacenaje, comercialización, mezcla y autoconsumo de biocombustibles, así como la promoción del desarrollo tecnológico en la República Argentina con ese objeto;\ng) fomentar la exportación de biocombustibles para el mejoramiento de la balanza de pagos, garantizando la explotación eficiente y racional de los recursos y la sustentabilidad de su actividad;\nh) impulsar la transición del sector de biocombustibles hacia un mercado dinámico, eficiente, desregulado y libre, a fin de fomentar los acuerdos entre privados;\ni) contribuir a la diversificación de la matriz energética mediante el desarrollo sostenido de los biocombustibles, conforme lo determine la autoridad de aplicación en virtud de lo dispuesto en el artículo 5° de la presente ley, y en función de la evolución del mercado interno y externo, así como de las innovaciones científicas y tecnológicas.\nLa autoridad de aplicación sujetará su accionar a los principios y disposiciones de la presente norma, y deberá controlar que la actividad del sector se ajuste a los mismos."
+  },
+  {
+   "id": "MS-4",
+   "norma": "MS",
+   "rotulo": "Artículo 4",
+   "titulo": "Autoridad de Aplicación",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo III - Autoridad de Aplicación",
+   "texto": "ARTÍCULO 4º.- Autoridad de Aplicación. La Autoridad de Aplicación de la presente ley será la Secretaría de Energía del Ministerio de Economía."
+  },
+  {
+   "id": "MS-5",
+   "norma": "MS",
+   "rotulo": "Artículo 5",
+   "titulo": "Funciones y facultades",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo III - Autoridad de Aplicación",
+   "texto": "ARTÍCULO 5º.- Funciones y facultades. La Autoridad de Aplicación tendrá, sin perjuicio de las otorgadas por otras normas reglamentarias y complementarias, las siguientes funciones y facultades:\na) regular las actividades de elaboración, almacenaje, autoconsumo y comercialización en el mercado interno o externo de los biocombustibles, impulsando la competitividad de los mercados;\nb) adecuar a los términos de la presente ley las normas que establecen las especificaciones de calidad de los biocombustibles, la seguridad de las instalaciones en las cuales éstos se elaboran, mezclan y/o almacenan, y aquellas que se vinculen con el registro y/o habilitación de las empresas y/o productos;\nc) solicitar la intervención de la Autoridad Nacional de la Competencia, cuando advierta indicios de prácticas prohibidas por la Ley N° 27.442 de Defensa a la Competencia, tanto en el mercado de comercialización de biocombustibles, así como en el mercado de materias primas e insumos destinados a su producción, sin perjuicio de las facultades de actuación de dicho organismo, de oficio o a instancia de quienes realicen las actividades previstas en el artículo 1° de la presente ley;\nd) promover las exportaciones de biocombustibles, independientemente del volumen de producción, en cumplimiento de las normas del comercio internacional;\ne) determinar la tasa de fiscalización y control que anualmente pagarán quienes desarrollen las actividades del artículo 1° de esta ley, así como su metodología de pago y recaudación;\nf) fiscalizar el ejercicio de las actividades a las que se refiere la presente ley, a fin de asegurar la observancia de las normas legales y reglamentarias correspondientes;\ng) aplicar las sanciones establecidas en la presente ley;\nh) incentivar la producción, distribución y comercialización de biogás crudo, biogás, biometano, diésel renovable, biojet o combustible de aviación sostenible (SAF), biobúnker u otros biocombustibles puros o mezclados en distintos porcentajes con combustibles fósiles autorizados, así como de sus diferentes mezclas, asegurando la competitividad de los mercados donde sea posible;\ni) implementar un sistema único de comercialización transparente, de acceso público, a ser realizado periódicamente por un organismo independiente, cuyas reglas, términos y condiciones serán establecidas por la presente ley;\nj) determinar y publicar, por medio de un tercero independiente y con la periodicidad que estime correspondiente ante la variación de la economía, los precios de paridad de referencia internacional de biocombustibles y/o de combustibles sustitutivos;\nk) fomentar acuerdos con las provincias y la Ciudad Autónoma de Buenos Aires destinados a optimizar la gestión pública de toda la operatoria derivada de la aplicación de la presente ley, particularmente en materia de registros, organización y armonización de normas de calidad, seguridad y ambiente;\nl) dictar las normas complementarias que resulten necesarias para interpretar y aclarar el presente régimen, así como también ejercer toda otra atribución que surja de la reglamentación de la presente ley a los efectos de su mejor cumplimiento."
+  },
+  {
+   "id": "MS-6",
+   "norma": "MS",
+   "rotulo": "Artículo 6",
+   "titulo": "Concepto",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo IV - Sobre los Biocombustibles",
+   "texto": "ARTÍCULO 6º.- Concepto. A los fines de la presente ley, se entiende por biocombustibles a aquellos combustibles líquidos o gaseosos generados mediante procesos de fermentación o transesterificación a partir de materias primas cuyo origen sea agropecuario, agroindustrial y/o provenga de desechos orgánicos.\nAsimismo, se entiende por biocombustible a:\na) los combustibles líquidos que proceden de materias primas de origen orgánico renovable, tanto vegetal como animal, y/o del tratamiento de material residual de origen biológico y/u orgánico;\nb) aquellos combustibles de origen sintético que utilizan como principales materias primas agua y dióxido de carbono (CO2), siendo su principal fuente de energía la energía eléctrica proveniente de fuentes renovables;\nDichos productos deberán ser declarados como biocombustibles de conformidad con la reglamentación que a tal efecto se dicte, y en tanto cumplan los requisitos de calidad que establezca la Autoridad de Aplicación.\nLa Autoridad de Aplicación podrá incluir en la categoría de biocombustibles, a los efectos de la presente ley, a cualquier otro combustible líquido o gaseoso, en función de la evolución del mercado interno y externo y de las innovaciones científicas y tecnológicas, de conformidad con la reglamentación que a tal efecto se dicte y sujeto al cumplimiento de los requisitos de calidad establecidos."
+  },
+  {
+   "id": "MS-7",
+   "norma": "MS",
+   "rotulo": "Artículo 7",
+   "titulo": "Calidad",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo IV - Sobre los Biocombustibles",
+   "texto": "ARTÍCULO 7º.- Calidad. Los biocombustibles y las mezclas de éstos con combustibles fósiles que se comercialicen dentro del territorio nacional deberán cumplir con la normativa de calidad vigente para cada uno de los productos en cuestión, conforme lo determine la Autoridad de Aplicación."
+  },
+  {
+   "id": "MS-8",
+   "norma": "MS",
+   "rotulo": "Artículo 8",
+   "titulo": "Sujetos activos",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo V - Sujetos de la ley",
+   "texto": "ARTÍCULO 8º.- Sujetos activos. Son sujetos activos de la industria de los biocombustibles los elaboradores o productores, almacenadores, mezcladores, autoconsumidores, suministradores y/o comercializadores."
+  },
+  {
+   "id": "MS-9",
+   "norma": "MS",
+   "rotulo": "Artículo 9",
+   "titulo": "Libre ingreso a la actividad",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo V - Sujetos de la ley",
+   "texto": "ARTÍCULO 9º.- Libre ingreso a la actividad. Las actividades comprendidas en la presente ley serán ejercidas libremente con arreglo a las disposiciones generales en ella previstas y a las normas reglamentarias que en su consecuencia se dicten.\nDichas actividades deberán propender a la competencia, la no discriminación, el libre acceso, la asignación eficiente de recursos, la seguridad pública y la preservación del medio ambiente.\nA los fines de garantizar la competencia, la participación por empresa elaboradora no excederá el veinte por ciento (20%) del total de la cantidad anual de bioetanol comercializado en el corte obligatorio durante el año calendario correspondiente."
+  },
+  {
+   "id": "MS-10",
+   "norma": "MS",
+   "rotulo": "Artículo 10",
+   "titulo": "Elaboración, almacenaje, suministro, comercialización y mezcla",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo V - Sujetos de la ley",
+   "texto": "ARTÍCULO 10.- Elaboración, almacenaje, suministro, comercialización y mezcla. La elaboración, almacenamiento, autoconsumo, suministro y/o comercialización de biocombustibles, incluyendo su mezcla con combustibles fósiles, en el mercado interno y/o externo, podrán ser llevadas a cabo por las personas humanas o jurídicas que se encuentren debidamente registradas, conforme a los requisitos que se establezcan en la reglamentación.\nLa Autoridad de Aplicación verificará la veracidad y el cumplimiento de la información aportada al momento de la inscripción, e indicará las subsanaciones que correspondan dentro de un plazo de diez (10) días hábiles contados desde su presentación.\nEl silencio administrativo tendrá sentido positivo, conforme los alcances previstos en el artículo 10, inciso b) de la Ley Nacional de Procedimientos Administrativos N° 19.549 y sus modificatorias."
+  },
+  {
+   "id": "MS-11",
+   "norma": "MS",
+   "rotulo": "Artículo 11",
+   "titulo": "Condiciones de prestación",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 11.- Condiciones de prestación. Los sujetos alcanzados por la presente ley estarán obligados a mantener los equipos, instalaciones, envases y todo activo afectado a la actividad de forma tal que no impliquen un peligro para la seguridad pública.\nLa obligación establecida en el párrafo precedente subsiste incluso ante la inactividad, cese de operaciones o abandono de las instalaciones, y se extenderá hasta la baja registral definitiva o la destrucción total de los bienes debidamente acreditada ante la Autoridad de Aplicación con su documentación respaldatoria.\nLas instalaciones afectadas a la industria de los biocombustibles estarán sujetas a regímenes de inspección, revisión y verificación técnica periódica por parte de la Autoridad de Aplicación, quien estará facultada para ordenar medidas de carácter inmediato ante situaciones de peligro inminente o falta de mantenimiento, tendientes exclusivamente a resguardar la seguridad pública."
+  },
+  {
+   "id": "MS-12",
+   "norma": "MS",
+   "rotulo": "Artículo 12",
+   "titulo": "Mezcla obligatoria de biocombustibles con combustibles fósiles",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 12.- Mezcla obligatoria de biocombustibles con combustibles fósiles. Gas Oil. Establécese que todo combustible líquido clasificado como gasoil o diésel oil — conforme la normativa de calidad de combustibles vigente o la que en el futuro la reemplace— que se comercialice dentro del territorio nacional deberá contener un porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, del siete coma cinco por ciento (7,5%) de biodiesel.\nA partir de los doce (12) meses de la sanción de la ley, el porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, será del diez por ciento (10%) de biodiesel.\nLa Autoridad de Aplicación podrá modificar excepcionalmente el referido porcentaje obligatorio cuando lo considere conveniente, por motivos ambientales, sociales o económicos, en función de asegurar el abastecimiento de la demanda ante situaciones que afecten el mercado interno o por cuestiones técnicas y/o de calidad.\nQuedará exceptuado de la mezcla obligatoria con biodiesel el gasoil o diésel oil comercializado para ser utilizado en embarcaciones fluviales y marítimas, minería, combustibles de primer llenado, gasoil antártico, formulación de lodos de perforación en yacimientos, centrales eléctricas y zonas frías patagónicas; así como otras excepciones que mediante acto fundado determine la Autoridad de Aplicación.\nSe entiende por zonas frías patagónicas, aquellas donde resulte de aplicación el gasoil grado invernal conforme la norma IRAM de calidad de combustibles vigente; así como otras excepciones que mediante acto fundado determine la Autoridad de Aplicación."
+  },
+  {
+   "id": "MS-13",
+   "norma": "MS",
+   "rotulo": "Artículo 13",
+   "titulo": "Mezcla obligatoria de biocombustibles con combustibles fósiles",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 13.- Mezcla obligatoria de biocombustibles con combustibles fósiles. Naftas. Establécese que todo combustible líquido clasificado como nafta —conforme la normativa de calidad de combustibles vigente o la que en el futuro la reemplace— que se comercialice dentro del territorio nacional deberá contener un porcentaje mínimo obligatorio de mezcla, en volumen, medido sobre la cantidad total del producto final comercializado, del doce por ciento (12%) de bioetanol.\nA partir de los doce (12) meses de la sanción de la ley, el porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, será del quince por ciento (15%) de bioetanol.\nLa Autoridad de Aplicación podrá modificar excepcionalmente el referido porcentaje obligatorio cuando lo considere conveniente, por motivos ambientales, sociales o económicos, en función de asegurar el abastecimiento de la demanda ante situaciones que afecten el mercado interno o por cuestiones técnicas y/o de calidad.\nDurante el período de vigencia de la ley, se mantendrán los porcentajes de corte respetando su materia prima de origen en un seis por ciento (6%) para el bioetanol producido a partir de caña de azúcar y en un seis por ciento (6%) para el producido a partir de maíz.\nEl porcentaje de corte remanente para llegar al corte obligatorio total no estará sujeto a ninguna regulación sobre su materia prima de origen, pudiendo ser bioetanol a partir de cereales, caña de azúcar, lignocelulósica, biomasa forestal o toda otra materia prima contemplada en el artículo 6° de la presente ley.\nCuando lo considere pertinente, la Autoridad de Aplicación podrá disponer de un cupo en el porcentaje de corte remanente a toda otra materia prima contemplada en el artículo 6° de la presente ley."
+  },
+  {
+   "id": "MS-14",
+   "norma": "MS",
+   "rotulo": "Artículo 14",
+   "titulo": "Mecanismo de comercialización",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 14.- Mecanismo de comercialización. A los fines del cumplimiento mensual de la mezcla obligatoria, se deberá instrumentar un sistema de subastas en un Mercado Electrónico que concentre la comercialización de manera única, transparente y de acceso público, operado por un organismo independiente con experiencia comprobada en negociación de productos energéticos, agropecuarios, financieros u otros, y bajo estándares internacionales de comercio.\nEn dicho Mercado, los elaboradores y mezcladores podrán realizar sus ofertas de venta y compra respectivamente en precio y volumen, y arribar a un acuerdo mutuo.\nEl Mercado deberá contemplar:\na) un registro de elaboradores y mezcladores con el fin de habilitarlos para la negociación mediante mecanismos seguros de identificación;\nb) rondas de negociación de precios y volúmenes específicas para el biodiesel y para el bioetanol, teniendo en cuenta a su vez la distinción de materia prima en el bioetanol a fin de establecer la proporción establecida en el artículo 13;\nc) un registro de los contratos y/o acuerdos resultantes de la operatoria.\nLa Autoridad de Aplicación determinará, previa consulta no vinculante con los elaboradores y mezcladores, la modalidad a aplicar a la negociación que sea más adecuada y conveniente para el cumplimiento de los objetivos de la ley."
+  },
+  {
+   "id": "MS-15",
+   "norma": "MS",
+   "rotulo": "Artículo 15",
+   "titulo": "Mercado a término de abastecimiento de biocombustibles para la mezcla obligatoria y otros destinos",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 15.- Mercado a término de abastecimiento de biocombustibles para la mezcla obligatoria y otros destinos. Sin perjuicio de lo establecido en el artículo 14, los elaboradores y mezcladores podrán, de manera opcional y de común acuerdo, establecer contratos a término para los volúmenes de biodiesel o bioetanol destinados al cumplimiento de la mezcla obligatoria, siendo estos contratos de libre negociación y contractualización en precio, plazo y otras condiciones comerciales afines.\nA los fines del cumplimiento de las mezclas obligatorias, las operaciones entre elaboradores y mezcladores deberán ser informadas a la Autoridad de Aplicación según la periodicidad que ésta indique, estarán sujetas a mecanismos que garanticen transparencia, accesibilidad, competencia y el adecuado funcionamiento del mercado y deberán ser publicadas periódicamente"
+  },
+  {
+   "id": "MS-16",
+   "norma": "MS",
+   "rotulo": "Artículo 16",
+   "titulo": "Precios de referencia de paridad de importación",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 16.- Precios de referencia de paridad de importación. Como referencia en el marco del mecanismo del artículo 24, se publicarán los valores que se indican a continuación:\na) para el biodiesel: el resultante de computar la paridad de importación del biodiesel;\nb) para el bioetanol: el resultante de computar la paridad de importación del bioetanol.\nSe entiende por paridad de importación al costo económico de reemplazo de la oferta doméstica de bioetanol anhidro o biodiesel por un producto importado equivalente en un contexto real de mercado.\nA los efectos de su determinación, el organismo independiente elaborará y publicará una metodología de cálculo y los resultados obtenidos en cada oportunidad, previo a la realización de los ejercicios mensuales de comercialización.\nLa información utilizada para todos los cálculos referidos deberá provenir de fuentes de mercado internacionalmente reconocidas."
+  },
+  {
+   "id": "MS-17",
+   "norma": "MS",
+   "rotulo": "Artículo 17",
+   "titulo": "Cortes superiores",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 17.- Cortes superiores. Los mezcladores podrán agregar biodiesel y/u otros biocombustibles al gasoil o diésel oil, y bioetanol y/u otros biocombustibles a la nafta, en adición a los porcentajes de mezcla establecidos en los artículos 12 y 13 —conforme la normativa de calidad de combustibles vigente o la que en el futuro la reemplace—, hasta el límite que impongan las normas técnicas en vigencia sobre la calidad y composición fisicoquímica del producto final, pudiendo adquirir dichos biocombustibles adicionales a cualquier empresa elaboradora siendo libre su comercialización y consumo.\nLas provincias y la Ciudad Autónoma de Buenos Aires en ejercicio de sus facultades podrán establecer regímenes de fomento propios habilitando nuevas bocas de expendio que favorezcan la comercialización de manera opcional e incremental de cortes superiores a los mínimos obligatorios establecidos en la presente ley."
+  },
+  {
+   "id": "MS-18",
+   "norma": "MS",
+   "rotulo": "Artículo 18",
+   "titulo": "Co-procesamiento de materias primas no fósiles",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 18.- Co-procesamiento de materias primas no fósiles. En los casos en que los mezcladores que a su vez sean refinadores incorporen, de manera optativa, materia prima no fósil como insumo para la producción de gasoil mediante co-procesamiento, los mezcladores no podrán considerar su volumen a los efectos del cómputo de la mezcla del corte obligatorio de biodiesel. No obstante, los mezcladores podrán hacer uso de los beneficios establecidos en el artículo 34 hasta un límite máximo del cinco por ciento (5,0%) de mezcla medido sobre la cantidad total del producto final comercializado."
+  },
+  {
+   "id": "MS-19",
+   "norma": "MS",
+   "rotulo": "Artículo 19",
+   "titulo": "Consumo incremental de Biocombustibles",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 19.- Consumo incremental de Biocombustibles. Autorízase la circulación de vehículos con motores flex fuel para el uso de bioetanol y biodiesel en mezclas con cortes superiores a los porcentajes obligatorios establecidos en la presente ley, en función de las tecnologías automotrices disponibles, resultando aplicable tanto para vehículos nuevos como modificados conforme a la normativa reglamentaria que desarrolle la autoridad competente.\nAmbas autorizaciones quedan supeditadas al estricto cumplimiento de las especificaciones de emisiones ambientales establecidas en la normativa provincial y nacional, normas de presupuestos mínimos y al cumplimiento de las normativas de transporte."
+  },
+  {
+   "id": "MS-20",
+   "norma": "MS",
+   "rotulo": "Artículo 20",
+   "titulo": "Biometano",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 20.- Biometano. En el caso del biometano, se permite expresamente la inyección en gasoductos del sistema de transporte conforme a la normativa de calidad y seguridad que dicte la Autoridad de Aplicación, así como también su almacenamiento y transporte como gas comprimido o gas licuado.\nLa comercialización de biometano será en todo momento libre; estará exceptuado de cualquier mandato de cumplimiento de corte obligatorio con su equivalente fósil y exceptuado de los mandatos de otros biocombustibles previstos en la presente ley."
+  },
+  {
+   "id": "MS-21",
+   "norma": "MS",
+   "rotulo": "Artículo 21",
+   "titulo": "Bocas de expendio",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 21.- Bocas de expendio. Podrá disponerse la libre incorporación de surtidores adicionales con cortes incrementales de biocombustibles a los obligatorios por parte de las empresas expendedoras de combustible o cualquier otra boca de expendio, sin otro requisito que el cumplimiento de las reglamentaciones técnicas respecto de la calidad de combustibles establecida por la Autoridad de Aplicación, así como de la normativa correspondiente a la habilitación y la seguridad de las mismas.\nLa Autoridad de Aplicación establecerá los requisitos mínimos aplicables a las bocas de expendio de biocombustibles, sin perjuicio del cumplimiento de la normativa provincial o municipal en el ámbito de su competencia."
+  },
+  {
+   "id": "MS-22",
+   "norma": "MS",
+   "rotulo": "Artículo 22",
+   "titulo": "Combustible Sostenible de Aviación",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 22.- Combustible Sostenible de Aviación. El Combustible Sostenible de Aviación, comúnmente denominado SAF o Biojet, será en todo momento de comercialización libre y de libre elección. A su vez, estará exceptuado de cualquier mandato de cumplimiento de corte obligatorio con su equivalente fósil y de los mandatos de otros biocombustibles previstos en la presente ley, a excepción de requerimientos impuestos por normativas internacionales del sector asociado."
+  },
+  {
+   "id": "MS-23",
+   "norma": "MS",
+   "rotulo": "Artículo 23",
+   "titulo": "Libre Comercio",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VII - Exportación e Importación",
+   "texto": "ARTÍCULO 23.- Libre Comercio. Se permite la libre importación de biocombustibles para ser utilizados en mezclas superiores al corte obligatorio y en los casos en los que hubiese faltante de oferta para satisfacer la demanda del corte obligatorio."
+  },
+  {
+   "id": "MS-24",
+   "norma": "MS",
+   "rotulo": "Artículo 24",
+   "titulo": "Excepciones para la mezcla obligatoria de biocombustibles de origen nacional",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VII - Exportación e Importación",
+   "texto": "ARTÍCULO 24.- Excepciones para la mezcla obligatoria de biocombustibles de origen nacional. Los biocombustibles destinados al cumplimiento del porcentaje de mezcla obligatoria con combustibles fósiles deberán haber sido elaborados en plantas habilitadas instaladas en la República Argentina y a partir de materias primas de origen nacional.\nLa Autoridad de Aplicación podrá autorizar la importación de biocombustibles elaborados en plantas instaladas fuera de la República Argentina y a partir de materias primas de origen extranjero para el cumplimiento de los porcentajes de mezcla obligatoria en los siguientes casos:\na) en caso de verificada escasez de abastecimiento de biocombustibles al mercado interno;\nb) en caso de constatarse que el precio de paridad de referencia previsto en el artículo 16 para biocombustibles elaborados en plantas instaladas fuera de la República Argentina y a partir de materias primas de origen extranjero y/o sus materias primas fuera inferior al precio ofertado para la compra de biocombustibles y/o sus materias primas de origen nacional."
+  },
+  {
+   "id": "MS-25",
+   "norma": "MS",
+   "rotulo": "Artículo 25",
+   "titulo": "Aspecto tributario",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VII - Exportación e Importación",
+   "texto": "ARTÍCULO 25.- Aspecto tributario. Los biocombustibles y/o sus materias primas importadas se equipararán, a efectos impositivos, a los biocombustibles y/o sus materias primas de origen nacional destinados al cumplimiento del porcentaje de mezcla obligatoria."
+  },
+  {
+   "id": "MS-26",
+   "norma": "MS",
+   "rotulo": "Artículo 26",
+   "titulo": "Autoridad de control",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VIII - Control, Inspección, Fiscalización y Sanciones",
+   "texto": "ARTÍCULO 26.- Autoridad de control. Fiscalización y control. Supuestos. La Autoridad de Aplicación nacional fiscalizará el ejercicio de las actividades a que se refiere el artículo 1º de la presente ley, a fin de asegurar la observancia de las normas legales y reglamentarias.\nSin que importe una limitación a otros aspectos de las actividades previstas, la Autoridad de Aplicación fiscalizará:\na) la calidad de los biocombustibles y las mezclas comercializadas;\nb) la seguridad de las instalaciones en las que se desarrollan las actividades contempladas en el artículo 1° de la presente ley."
+  },
+  {
+   "id": "MS-27",
+   "norma": "MS",
+   "rotulo": "Artículo 27",
+   "titulo": "Auditorías e Inspecciones",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VIII - Control, Inspección, Fiscalización y Sanciones",
+   "texto": "ARTÍCULO 27.- Auditorías e Inspecciones. La Autoridad de Aplicación podrá realizar auditorías e inspecciones en las empresas e instalaciones de elaboración, almacenaje, mezcla y/o comercialización de biocombustibles, a fin de controlar su correcto funcionamiento y de asegurar la observancia de las normas legales y reglamentarias correspondientes."
+  },
+  {
+   "id": "MS-28",
+   "norma": "MS",
+   "rotulo": "Artículo 28",
+   "titulo": "Funciones de fiscalización y control técnico",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VIII - Control, Inspección, Fiscalización y Sanciones",
+   "texto": "ARTÍCULO 28.- Funciones de fiscalización y control técnico. La Autoridad de Aplicación podrá celebrar convenios para delegar sus funciones de fiscalización y control técnico en organismos públicos o privados que acrediten la competencia necesaria. Asimismo, podrá celebrar convenios específicos con las provincias y la Ciudad Autónoma de Buenos Aires para delegar el ejercicio de sus facultades."
+  },
+  {
+   "id": "MS-29",
+   "norma": "MS",
+   "rotulo": "Artículo 29",
+   "titulo": "Facultades y alcances",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VIII - Control, Inspección, Fiscalización y Sanciones",
+   "texto": "ARTÍCULO 29.- Facultades y alcances. Concurrencia normativa. Las facultades acordadas no obstan al ejercicio de las atribuciones conferidas al Estado por otras leyes, cuyo cumplimiento también autorice inspecciones o controles oficiales."
+  },
+  {
+   "id": "MS-30",
+   "norma": "MS",
+   "rotulo": "Artículo 30",
+   "titulo": "Deber de cooperación",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VIII - Control, Inspección, Fiscalización y Sanciones",
+   "texto": "ARTÍCULO 30.- Deber de cooperación. Quienes se encuentren registrados conforme al artículo 10 de la presente ley facilitarán en la forma más amplia el ejercicio por parte de los funcionarios competentes de las tareas de inspección y fiscalización.\nSección 2ª - Infracciones y sanciones"
+  },
+  {
+   "id": "MS-31",
+   "norma": "MS",
+   "rotulo": "Artículo 31",
+   "titulo": "Incumplimientos",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VIII - Control, Inspección, Fiscalización y Sanciones",
+   "texto": "ARTÍCULO 31.- Incumplimientos. El incumplimiento de lo establecido en la presente ley, su reglamentación y de las disposiciones y resoluciones que dicte la Autoridad de Aplicación dará lugar a la aplicación de algunas o todas las sanciones que se detallan a continuación:\na) inhabilitación transitoria para desarrollar dicha actividad;\nb) inhabilitación definitiva para desarrollar dicha actividad;\nc) las multas que pudieran corresponder."
+  },
+  {
+   "id": "MS-32",
+   "norma": "MS",
+   "rotulo": "Artículo 32",
+   "titulo": "Infracciones y valores",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VIII - Control, Inspección, Fiscalización y Sanciones",
+   "texto": "ARTÍCULO 32.- Infracciones y valores. Establécese que las multas con las que la Autoridad de Aplicación podrá sancionar a las personas que desarrollen las actividades comprendidas en la presente ley serán:\na) faltas muy graves: con multas equivalentes al precio de venta al público de hasta un millón (1.000.000) de litros de nafta súper;\nb) faltas graves: con multas equivalentes al precio de venta al público de hasta quinientos mil (500.000) litros de nafta súper;\nc) faltas leves: con multas equivalentes al precio de venta al público de hasta cien mil (100.000) litros de nafta súper;\nd) la reincidencia en infracciones por parte de un mismo operador dará lugar a la aplicación de sanciones sucesivas de mayor gravedad hasta su duplicación respecto de la anterior.\nEn caso de reincidencia:\n- en una falta leve, se podrán aplicar las sanciones previstas para faltas graves.\n- en una falta grave, se podrán aplicar las sanciones previstas para faltas muy graves."
+  },
+  {
+   "id": "MS-33",
+   "norma": "MS",
+   "rotulo": "Artículo 33",
+   "titulo": "Procedimiento Administrativo y Control Jurisdiccional",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo IX - Procedimiento y Control Jurisdiccional",
+   "texto": "ARTÍCULO 33.- Procedimiento Administrativo y Control Jurisdiccional. A los efectos de la actuación administrativa de la Autoridad de Aplicación, regirá la Ley Nacional de Procedimientos Administrativos y sus normas reglamentarias.\nAgotada la vía administrativa, procederá el recurso en sede judicial directamente ante la Cámara Federal de Apelaciones con competencia en lo contencioso-administrativo con jurisdicción en el lugar del hecho.\nLos recursos que se interpongan contra la aplicación de las sanciones previstas en la presente ley tendrán efecto devolutivo."
+  },
+  {
+   "id": "MS-34",
+   "norma": "MS",
+   "rotulo": "Artículo 34",
+   "titulo": "Impuestos",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo X - Disposiciones Comunes",
+   "texto": "ARTÍCULO 34.- Impuestos. Los biocombustibles habilitados por la Autoridad de Aplicación no estarán gravados por el Impuesto a los Combustibles Líquidos (ICL) ni por el Impuesto al Dióxido de Carbono (ICO2), alcanzando el citado tratamiento a todas sus etapas de producción, distribución y comercialización.\nEn el caso de la mezcla de dichos biocombustibles con combustibles fósiles, el gravamen recaerá sólo sobre el componente de combustible fósil que integre la mezcla.\nAsimismo, tampoco estará gravada por dichos impuestos la porción de gasoil producido a partir de co-procesamiento de materias primas no fósiles hasta los límites fijados en el artículo 18."
+  },
+  {
+   "id": "MS-35",
+   "norma": "MS",
+   "rotulo": "Artículo 35",
+   "titulo": "Plazo",
+   "donde": "TÍTULO II - PERÍODO DE TRANSICIÓN PARA BIODIESEL · Capítulo I - Disposiciones Generales",
+   "texto": "ARTÍCULO 35.- Plazo. Fíjase un Período de Transición para el mercado de biodiesel desde la entrada en vigencia de la presente ley hasta el 1° de enero de 2036, el cual se regirá por las disposiciones contenidas en el presente título."
+  },
+  {
+   "id": "MS-36",
+   "norma": "MS",
+   "rotulo": "Artículo 36",
+   "titulo": "Definiciones",
+   "donde": "TÍTULO II - PERÍODO DE TRANSICIÓN PARA BIODIESEL · Capítulo I - Disposiciones Generales",
+   "texto": "ARTÍCULO 36.- Definiciones. Exclusivamente durante y a los efectos del Período de Transición, se entiende por:\na) Empresas Integradas: aquellas productoras de biodiesel que cumplen simultáneamente con las siguientes características:\ni) tener una capacidad de producción mayor a cincuenta mil (50.000) toneladas;\nii) formar parte de un ente individual y/o grupo económico tenedor, entre sus activos, de una o más fábricas de aceites vegetales y harinas proteicas.\nb) Empresas No Integradas: aquellas productoras de biodiesel que cumplan con al menos una de las siguientes características:\ni) tener una capacidad de producción menor o igual a cincuenta mil (50.000) toneladas por año;\nii) no formar parte de un ente individual y/o grupo económico tenedor, entre sus activos, de una o más fábricas de aceites vegetales y harinas proteicas.\nc) Grupo Económico: es el conjunto de dos o más sociedades comerciales, públicas, privadas o mixtas, o cualquier otro tipo de ente, donde uno de ellos, ejerce control o influencia significativa sobre las otras, ya sea que se hayan constituido o no en la República Argentina. Se considera que existe grupo económico si se cumple alguna de las siguientes condiciones:\ni. control de votos: si alguna de las sociedades comerciales o ente posee, por sí o por interpósita persona humana o jurídica y a través de cualquier título, participación en el otro ente que otorgue los votos necesarios para formar la voluntad social en las reuniones sociales o asambleas ordinarias y extraordinarias. Dicha participación podrá ser directa o indirecta, a través de otros entes;\nii. influencia dominante: si alguna de las sociedades comerciales o ente ejerce una influencia dominante en las decisiones del otro ente, en forma directa o indirecta, por sí o por interpósita persona humana o jurídica, como consecuencia de la tenencia de acciones, cuotas, participaciones, partes de interés u otros títulos, incluidos los títulos de deuda que otorguen cualquier tipo de derecho a ser convertidos en acciones u otras participaciones representativas del capital.\nLa influencia dominante se presume de forma irrefutable si posee, directa o indirectamente, al menos el veinticinco por ciento (25%) del capital y, además, constituye la primera minoría;\niii. vínculos especiales: si alguna de las sociedades comerciales o ente tiene especiales vínculos con el otro ente que manifiesten una relación de dependencia, entre otras cuestiones, por compartir total o parcialmente la dirección o el gerenciamiento; por la existencia de dependencia en materia productiva, técnica, económica-comercial, financiera o patrimonial; o por la existencia de operaciones comerciales, crediticias u otras estipuladas entre las partes fuera de los usos y costumbres de mercado aplicables a entes totalmente independientes entre sí.\niv. cuantificación y Principio de Realidad Económica: para determinar la capacidad de producción de biodiesel dentro de un grupo, se suma el porcentaje de participación de cada entidad en el capital de las empresas restantes. La evaluación de la existencia de un grupo económico se basa en el principio de realidad económica (establecido en la ley N° 11.683 t.o. o normas similares). Esto significa que se analiza cualquier acuerdo o acto que, de hecho o de derecho, transfiera activos u otorgue influencia determinante en la administración o en la estrategia competitiva de una entidad a otra.\nContinuidad del grupo económico. A los efectos de la presente ley, cuando las condiciones de control, influencia significativa o los vínculos especiales previstos en este inciso hubieren existido al 31 de diciembre de 2025 o se configuraran con posterioridad a dicha fecha, las modificaciones en la composición o estructura societaria posteriores no serán suficientes, por sí solas, para desvirtuar la existencia del grupo económico."
+  },
+  {
+   "id": "MS-37",
+   "norma": "MS",
+   "rotulo": "Artículo 37",
+   "titulo": "Funciones y facultades de la Autoridad de Aplicación",
+   "donde": "TÍTULO II - PERÍODO DE TRANSICIÓN PARA BIODIESEL · Capítulo I - Disposiciones Generales",
+   "texto": "ARTÍCULO 37.- Funciones y facultades de la Autoridad de Aplicación. Adicionalmente a las facultades y funciones previstas en el artículo 5° de la presente ley, serán funciones de la Autoridad durante el período de transición las siguientes:\na) evaluar la evolución del mercado de biodiesel y/o sus materias primas, y desarrollar todas las acciones necesarias para una transición gradual, ordenada y previsible hacia los objetivos fijados en el artículo 2º de la presente norma;\nb) solicitar, con carácter de declaración jurada y con la periodicidad que considere necesaria, las estimaciones de demanda de biodiesel previstas por las compañías mezcladoras y/o importadoras de combustibles fósiles, a los efectos de llevar a cabo la asignación del biocombustible necesario para el cumplimiento de los porcentajes de mezcla obligatoria con gasoil;\nc) determinar los volúmenes de biocombustibles para el abastecimiento de la mezcla obligatoria con gasoil y garantizar su cumplimiento, de acuerdo con las condiciones de vigencia y los términos establecidos en el artículo 38;\nd) fiscalizar la efectiva entrega de los volúmenes asignados según lo dispuesto en el artículo 38."
+  },
+  {
+   "id": "MS-38",
+   "norma": "MS",
+   "rotulo": "Artículo 38",
+   "titulo": "Mezclas obligatorias, cupos y precios",
+   "donde": "TÍTULO II - PERÍODO DE TRANSICIÓN PARA BIODIESEL · Capítulo I - Disposiciones Generales",
+   "texto": "ARTÍCULO 38.- Mezclas obligatorias, cupos y precios. Biodiesel. Para las mezclas obligatorias de gasoil y/o diésel oil con biodiesel, corresponderá el siguiente modelo para la asignación de cupos y definición de precios:\nSegmento / Año | Durante corte obligatorio de 7,5% | Desde corte obligatorio de 10% hasta 31/12/2028 | 2029 | 2030 | A partir del 1° de enero de 2031 hasta el 1° de enero de 2036\nEmpresas No Integradas (Corte por Sistema de comercialización Art. 14) | 7,5% | 6,5% | 5,5% | 5,0% | 4,0%\nTotal Mercado (Integradas + No Integradas - Corte Negociación Libre Arts. 14 y 15) | 0,0% | 3,5% | 4,5% | 5,0% | 6,0%\nCorte Obligatorio Total | 7,5% | 10,0% | 10,0% | 10,0% | 10,0%"
+  },
+  {
+   "id": "MS-39",
+   "norma": "MS",
+   "rotulo": "Artículo 39",
+   "titulo": "Mezclas obligatorias, cupos y precios",
+   "donde": "TÍTULO II - PERÍODO DE TRANSICIÓN PARA BIODIESEL · Capítulo I - Disposiciones Generales",
+   "texto": "ARTÍCULO 39.- Mezclas obligatorias, cupos y precios. Pautas.\na) A los efectos de la definición de volúmenes a ser comercializados en el segmento de Empresas No Integradas, se considerarán las siguientes pautas:\ni) la participación por empresa elaboradora no excederá el diez por ciento (10%) del total de la cantidad de biodiesel comercializada por año calendario con un tope máximo de cincuenta mil (50.000) toneladas;\nii) la participación por grupo económico relacionado con la empresa elaboradora respectiva no excederá el diez por ciento (10%) del total de la cantidad de biodiesel comercializada por año calendario;\niii) la adjudicación de volumen a cada empresa en el sistema de comercialización no excederá el porcentaje máximo de su capacidad instalada registrada;\niv) el mecanismo de comercialización dispuesto en el artículo 14 deberá determinar regiones geográficas de negociación para el biodiesel. A tal fin el veinte por ciento (20%) del total de la cantidad de biodiesel comercializada por año calendario se destinará a esas regiones geográficas, con el objetivo de lograr competitividad y eficiencia en los costos logísticos.\nb) Todo volumen faltante para el cumplimiento del corte obligatorio podrá ser negociado libremente entre elaboradores y mezcladores."
+  },
+  {
+   "id": "MS-40",
+   "norma": "MS",
+   "rotulo": "Artículo 40",
+   "titulo": "Derogación de la ley 27.640",
+   "donde": "TÍTULO III - DISPOSICIONES COMPLEMENTARIAS",
+   "texto": "ARTÍCULO 40.- Derogación de la ley 27.640. Establécese que, a partir de la entrada en vigencia de la presente ley, quedará derogada la ley 27.640 y toda su normativa reglamentaria y complementaria."
+  },
+  {
+   "id": "MS-41",
+   "norma": "MS",
+   "rotulo": "Artículo 41",
+   "titulo": "Adecuación normativa",
+   "donde": "TÍTULO III - DISPOSICIONES COMPLEMENTARIAS",
+   "texto": "ARTÍCULO 41.- Adecuación normativa. A los fines del cumplimiento de los objetivos de la presente ley, la Autoridad de Aplicación deberá efectuar las adecuaciones que correspondan en toda otra normativa referida a los biocombustibles en los términos de la presente, y propiciar su eventual derogación o sustitución respecto de las normas de jerarquía superior en las que se sustentan."
+  },
+  {
+   "id": "MS-42",
+   "norma": "MS",
+   "rotulo": "Artículo 42",
+   "titulo": "Jerarquía normativa",
+   "donde": "TÍTULO III - DISPOSICIONES COMPLEMENTARIAS",
+   "texto": "ARTÍCULO 42.- Jerarquía normativa. En caso de conflicto normativo entre otras leyes y la presente, prevalecerán las disposiciones de esta ley."
+  },
+  {
+   "id": "MS-43",
+   "norma": "MS",
+   "rotulo": "Artículo 43",
+   "titulo": "Entrada en vigencia",
+   "donde": "TÍTULO III - DISPOSICIONES COMPLEMENTARIAS",
+   "texto": "ARTÍCULO 43.- Entrada en vigencia. La presente ley entrará en vigencia a partir del día siguiente al de su publicación en el Boletín Oficial."
+  },
+  {
+   "id": "MS-44",
+   "norma": "MS",
+   "rotulo": "Artículo 44",
+   "titulo": "Comuníquese al Poder Ejecutivo",
+   "donde": "TÍTULO III - DISPOSICIONES COMPLEMENTARIAS",
+   "texto": "ARTÍCULO 44.- Comuníquese al Poder Ejecutivo."
+  },
+  {
+   "id": "L27640-1",
+   "norma": "L27640",
+   "rotulo": "Artículo 1",
+   "titulo": "Apruébese el Marco Regulatorio de Biocombustibles, el cual comprende todas las actividades",
+   "donde": "",
+   "texto": "Artículo 1º- Apruébese el Marco Regulatorio de Biocombustibles, el cual comprende todas las actividades de elaboración, almacenaje, comercialización y mezcla de biocombustibles, y tendrá vigencia hasta el 31 de diciembre de 2030, pudiendo el Poder Ejecutivo nacional extenderlo, por única vez, por cinco (5) años más a contar desde la mencionada fecha de vencimiento del mismo."
+  },
+  {
+   "id": "L27640-2",
+   "norma": "L27640",
+   "rotulo": "Artículo 2",
+   "titulo": "Autoridad de aplicación",
+   "donde": "",
+   "texto": "Artículo 2º- Establécese que la autoridad de aplicación de la presente ley será la Secretaría de Energía, dependiente del Ministerio de Economía."
+  },
+  {
+   "id": "L27640-3",
+   "norma": "L27640",
+   "rotulo": "Artículo 3",
+   "titulo": "Funciones de la autoridad de aplicación",
+   "donde": "",
+   "texto": "Artículo 3º- Serán funciones de la autoridad de aplicación:\na) Regular, administrar y fiscalizar la producción, comercialización y uso sustentable de los biocombustibles;\nb) Adecuar a los términos de la presente ley las normas que establecen las especificaciones de calidad de los biocombustibles, la seguridad de las instalaciones en las cuales estos se elaboran, mezclan y/o almacenan, y aquellas que se vinculen con el registro y/o habilitación de las empresas y/o productos;\nc) Realizar auditorías e inspecciones en las empresas e instalaciones de elaboración, almacenaje y/o mezcla de biocombustibles, a fin de controlar su correcto funcionamiento y su ajuste a la normativa vigente;\nd) Aplicar las sanciones establecidas en la presente ley;\ne) Solicitar, con carácter de declaración jurada y con la periodicidad que considere necesario, las estimaciones de demanda de biocombustibles previstas por las compañías elaboradoras y/o importadoras de combustibles fósiles, a los efectos de llevar a cabo la asignación del biocombustible necesario para el cumplimiento de los porcentajes de mezcla obligatoria con gasoil y/o nafta;\nf) Establecer y modificar los porcentajes de mezcla obligatoria de los biocombustibles con gasoil y/o nafta y garantizar su cumplimiento, de acuerdo a las condiciones establecidas en la presente ley;\ng) Garantizar la disponibilidad de los insumos necesarios para la elaboración de los biocombustibles con destino a la mezcla obligatoria, pudiendo arbitrar y establecer los mecanismos que estime necesarios a fin de que la adquisición de aquellos sea llevada a cabo según las condiciones normales y habituales del mercado y sin distorsión alguna, estableciendo como límite, en el caso que corresponda, el precio de exportación de dichos insumos menos los respectivos gastos;\nh) Determinar las asignaciones de biocombustibles para el abastecimiento de la mezcla obligatoria con gasoil y/o nafta, y garantizar su cumplimiento, de acuerdo a las condiciones establecidas en la presente ley;\ni) Determinar y publicar, en el segmento de empresas pertinente y con la periodicidad que estime corresponder a la variación de la economía, los precios a los cuales deberá llevarse a cabo la comercialización de los biocombustibles destinados a la mezcla obligatoria con combustibles fósiles establecida en el marco de la presente ley;\nj) Determinar la tasa de fiscalización y control que anualmente pagarán los agentes alcanzados por esta ley, así como su metodología de pago y recaudación;\nk) Fiscalizar el ejercicio de las actividades a que se refiere la presente ley, a fin de asegurar la observancia de las normas legales y reglamentarias correspondientes;\nl) Hacer uso de todos los medios que considere necesarios para el ejercicio de sus funciones de inspección y fiscalización;\nm) Dictar las normas complementarias que resulten necesarias para interpretar y aclarar el presente régimen, así como también ejercer toda otra atribución que surja de la reglamentación de la presente ley a los efectos de su mejor cumplimiento."
+  },
+  {
+   "id": "L27640-4",
+   "norma": "L27640",
+   "rotulo": "Artículo 4",
+   "titulo": "Definición de biocombustibles",
+   "donde": "",
+   "texto": "Artículo 4º- A los fines de la presente ley, se entiende por biocombustible al bioetanol y al biodiésel que cumplan los requisitos de calidad que establezca la autoridad de aplicación y que se produzcan en plantas instaladas en la República Argentina a partir de materias primas nacionales cuyo origen sea agropecuario, agroindustrial y/o provenga de desechos orgánicos."
+  },
+  {
+   "id": "L27640-5",
+   "norma": "L27640",
+   "rotulo": "Artículo 5",
+   "titulo": "Habilitación de empresas",
+   "donde": "",
+   "texto": "Artículo 5º- Solo podrán elaborar, almacenar y/o comercializar biocombustibles, o llevar a cabo la mezcla de estos con combustibles fósiles en cualquier proporción, las empresas que se encuentren debidamente habilitadas a tales efectos por la autoridad de aplicación, caso contrario la actividad será considerada clandestina.\nLas empresas que produzcan y/o destilen hidrocarburos no podrán ser titulares o tener participación en empresas y/o plantas productoras de biocombustibles."
+  },
+  {
+   "id": "L27640-6",
+   "norma": "L27640",
+   "rotulo": "Artículo 6",
+   "titulo": "Modificaciones en instalaciones y/o empresas",
+   "donde": "",
+   "texto": "Artículo 6º- Las ampliaciones y/o mejoras que lleven a cabo en sus instalaciones las empresas elaboradoras de biocombustibles con destino a la mezcla obligatoria, y/o las modificaciones que pudieran efectuar en su modelo de negocio –considerando también las empresas controlantes y/o controladas–, no podrán derivar en la obtención de un mejor posicionamiento de la empresa respecto del tratamiento otorgado por la autoridad de aplicación en el marco de la presente ley."
+  },
+  {
+   "id": "L27640-7",
+   "norma": "L27640",
+   "rotulo": "Artículo 7",
+   "titulo": "Calidad de biocombustibles y sus mezclas",
+   "donde": "",
+   "texto": "Artículo 7º– La totalidad de los biocombustibles y de las mezclas de estos con combustibles fósiles que se comercialicen dentro del territorio nacional deberán cumplir con la normativa de calidad vigente para cada uno de los productos en cuestión."
+  },
+  {
+   "id": "L27640-8",
+   "norma": "L27640",
+   "rotulo": "Artículo 8",
+   "titulo": "Mezcla obligatoria de biocombustibles con combustibles fósiles",
+   "donde": "",
+   "texto": "Artículo 8º- Establécese que todo combustible líquido clasificado como gasoil o diésel oil –conforme la normativa de calidad de combustibles vigente o la que en el futuro la reemplace– que se comercialice dentro del territorio nacional deberá contener un porcentaje obligatorio de biodiésel de cinco por ciento (5%), en volumen, medido sobre la cantidad total del producto final.\nLa autoridad de aplicación podrá elevar el referido porcentaje obligatorio cuando lo considere conveniente en función del abastecimiento de la demanda, la balanza comercial, la promoción de inversiones en economías regionales y/o razones ambientales o técnicas, o bien reducirlo hasta un porcentaje nominal de tres por ciento (3%), en volumen, cuando el incremento en los precios de los insumos básicos para la elaboración del biodiésel pudiera distorsionar el precio del combustible fósil en el surtidor por alterar la composición proporcional de aquel sobre este último, o bien ante situaciones de escasez de biodiésel por parte de las empresas elaboradoras autorizadas por la autoridad de aplicación para el abastecimiento del mercado.\n(\nNota Infoleg\n: por art. 1º del\nDecreto Nº 438/2022\nB.O. 16/6/2022 se establece que, de conformidad con lo previsto en el Artículo 8º segundo párrafo de la presente Ley, a partir de la entrada en vigencia de la medida de referencia todo combustible líquido clasificado como gasoil o diésel oil que se comercialice dentro del territorio nacional deberá contener un porcentaje obligatorio de biodiésel de SIETE COMA CINCO POR CIENTO (7,5%), en volumen, medido sobre la cantidad total del producto final. Ver art. 2º de la misma norma. Vigencia: a partir del día siguiente al de su publicación en el Boletín Oficial.)"
+  },
+  {
+   "id": "L27640-9",
+   "norma": "L27640",
+   "rotulo": "Artículo 9",
+   "titulo": "Establécese que todo combustible líquido clasificado como nafta –conforme la normativa de",
+   "donde": "",
+   "texto": "Artículo 9º- Establécese que todo combustible líquido clasificado como nafta –conforme la normativa de calidad de combustibles vigente o la que en el futuro la reemplace– que se comercialice dentro del territorio nacional deberá contener un porcentaje obligatorio de bioetanol de doce por ciento (12%), en volumen, medido sobre la cantidad total del producto final.\nAbastecimiento de biocombustibles para la mezcla obligatoria y otros destinos."
+  },
+  {
+   "id": "L27640-10",
+   "norma": "L27640",
+   "rotulo": "Artículo 10",
+   "titulo": "Las empresas responsables de llevar a cabo las mezclas obligatorias de biocombustibles con",
+   "donde": "",
+   "texto": "Artículo 10.- Las empresas responsables de llevar a cabo las mezclas obligatorias de biocombustibles con combustibles fósiles deberán adquirir, sin excepción, la totalidad de aquellos exclusivamente de las empresas elaboradoras autorizadas a tales efectos por la autoridad de aplicación, de acuerdo a los parámetros de precio y distribución de cantidades que se encuentran establecidos en la presente ley.\nLas empresas elaboradoras de biocombustibles que decidan llevar a cabo el abastecimiento para dichas mezclas deberán garantizar la provisión de los productos en cuestión, pudiendo la autoridad de aplicación revocar la autorización de suministro mencionada en el párrafo precedente a las empresas que incumplan con el referido compromiso de abastecimiento."
+  },
+  {
+   "id": "L27640-11",
+   "norma": "L27640",
+   "rotulo": "Artículo 11",
+   "titulo": "El abastecimiento de las cantidades de biodiésel mensuales para el cumplimiento de la mezc",
+   "donde": "",
+   "texto": "Artículo 11.- El abastecimiento de las cantidades de biodiésel mensuales para el cumplimiento de la mezcla obligatoria con gasoil y/o diésel oil será llevado a cabo por las empresas elaboradoras de dicho biocombustible que –ya sea en forma directa o indirecta a través de sus empresas controlantes y/o controladas– no desarrollen actividades vinculadas con la exportación de biodiésel y/o de sus insumos principales, debiendo la autoridad de aplicación asignar dichas cantidades entre aquellas, a prorrata y efectuando los cálculos en función del equivalente mensual de la capacidad de elaboración anual de cada empresa, con un límite máximo de cincuenta mil (50.000) toneladas anuales en el caso de las empresas con escala superior.\nEn los casos en que la distribución descrita precedentemente no resulte suficiente para satisfacer la demanda mensual de biodiésel para el cumplimiento del porcentaje de mezcla obligatoria con gasoil y/o diésel oil, las cantidades faltantes serán abastecidas en partes iguales por las empresas elaboradoras de biodiésel que se encuentren comprendidas en el párrafo precedente y que cuenten con posibilidades de proveer aquellas, estableciéndose como límite máximo la capacidad de elaboración de cada empresa.\nA los efectos del abastecimiento descrito precedentemente, se considerarán las empresas que cumplan con las premisas establecidas en el presente artículo que hayan sido autorizadas por la autoridad de aplicación en el marco de la ley 26.093 para el abastecimiento de biodiésel con destino a la mezcla obligatoria al momento de la sanción de la presente ley y la capacidad de elaboración reconocida a tal fecha para las mismas –contemplando una tolerancia del diez por ciento (10%)–, no pudiendo incorporarse nuevas empresas en el mercado hasta tanto no se agote la capacidad instalada de aquellas.\nLa eventual reducción del porcentaje de mezcla obligatoria mencionada en el artículo 8º de la presente ley será soportada por todas las empresas elaboradoras de biodiésel que abastezcan dicho mercado, de manera proporcional y de acuerdo a los mismos parámetros sobre los cuales se llevan a cabo las asignaciones de biodiésel a cada una de ellas."
+  },
+  {
+   "id": "L27640-12",
+   "norma": "L27640",
+   "rotulo": "Artículo 12",
+   "titulo": "El abastecimiento de los volúmenes de bioetanol mensuales para el cumplimiento de la mezcl",
+   "donde": "",
+   "texto": "Artículo 12.- El abastecimiento de los volúmenes de bioetanol mensuales para el cumplimiento de la mezcla obligatoria con nafta será llevado a cabo por las empresas elaboradoras de dicho biocombustible, bajo los siguientes parámetros:\na) Bioetanol elaborado a base de caña de azúcar:\nLos volúmenes de bioetanol equivalentes a un porcentaje nominal del seis por ciento (6%) de la mezcla obligatoria serán asignados por la autoridad de aplicación a las empresas elaboradoras de bioetanol a base de caña de azúcar, a prorrata y efectuando los cálculos en función del equivalente mensual de los cupos de bioetanol anuales vigentes a la fecha de vencimiento del régimen establecido por la ley 26.093 y 26.334, estableciéndose como límite máximo la capacidad de elaboración de cada empresa.\nEn caso de escasez general y comprobada, la autoridad de aplicación podrá reducir transitoriamente el porcentaje de bioetanol a base de caña de azúcar y podrá elevarlo cuando lo considere conveniente en función del abastecimiento de la demanda, la balanza comercial, razones ambientales o técnicas o promoción de inversiones en economías regionales.\nDe igual forma, las empresas mezcladoras podrán comprar libremente bioetanol a base de caña de azúcar y superar el porcentaje de corte establecido en el presente artículo, en función de las particularidades técnicas de sus respectivas plantas y procesos, de la optimización de costos que se reflejen en el precio final, del costo de los sustitutos y del ahorro de divisas, hasta el límite que impongan las normas técnicas en vigencia sobre la calidad y composición fisicoquímica del producto final.\nLos cupos de las adquisiciones obligatorias de bioetanol elaborado en base a caña de azúcar correspondientes a las empresas productoras con cupos otorgados en el marco de las leyes 26.093 y 26.334, serán asignados por la autoridad de aplicación manteniendo los volúmenes anuales establecidos oportunamente en el anexo único de la resolución 692/2019 (SGE), sin perjuicio de las ampliaciones que eventualmente se solicitaren, las que estarán sujetas a las condiciones generales precedentemente establecidas;\nb) Bioetanol elaborado a base de maíz:\nLos volúmenes de bioetanol equivalentes a un porcentaje nominal del seis por ciento (6%) de la mezcla obligatoria serán asignados por la autoridad de aplicación a las empresas elaboradoras de bioetanol a base de maíz, a prorrata y efectuando los cálculos en función del equivalente mensual de los cupos de bioetanol anuales vigentes a la fecha de vencimiento del régimen establecido por las leyes 26.093 y 26.334, estableciéndose como límite máximo la capacidad de elaboración de cada empresa.\nLa autoridad de aplicación podrá elevar el referido porcentaje nominal cuando lo considere conveniente en función del abastecimiento de la demanda, la balanza comercial, la promoción de inversiones en economías regionales, y/o razones ambientales o técnicas, o bien reducirlo hasta un porcentaje nominal del tres por ciento (3%), en volumen, cuando el incremento en los precios de los insumos básicos para la elaboración del bioetanol a base de maíz pudiera distorsionar el precio del combustible fósil en el surtidor por alterar la composición proporcional de aquel sobre este último y/o ante situaciones de escasez de bioetanol a base de maíz por parte de las empresas elaboradoras autorizadas por la autoridad de aplicación para el abastecimiento del mercado.\nDel total de la eventual reducción del porcentaje de mezcla obligatoria mencionado en el artículo 12 de la presente ley serán soportados dos tercios (2/3) por las empresas elaboradoras de bioetanol a base de maíz que –ya sea en forma directa o indirecta a través de sus empresas controlantes y/o controladas– desarrollen actividades vinculadas con la exportación de los insumos principales para su elaboración, y un tercio (1/3) por el resto de las empresas elaboradoras de bioetanol de maíz que se encuentren habilitadas para el abastecimiento del mercado. En ambos casos, dicha reducción deberá ser llevada a cabo a prorrata y de acuerdo al mismo criterio aplicado para la asignación de los volúmenes de bioetanol a las empresas elaboradoras a base de maíz."
+  },
+  {
+   "id": "L27640-13",
+   "norma": "L27640",
+   "rotulo": "Artículo 13",
+   "titulo": "Determinación del precio",
+   "donde": "",
+   "texto": "Artículo 13.- La adquisición de las cantidades de biodiésel para el cumplimiento de la mezcla obligatoria con gasoil y/o diésel oil, y de los volúmenes de bioetanol comprendidos en los incisos a) y b) del artículo 12 de la presente ley, deberá ser llevada a cabo por las empresas encargadas de las mezclas a los precios que establezca la autoridad de aplicación de acuerdo a las metodologías de cálculo que esta determine para cada uno de los productos en cuestión.\nLas empresas encargadas de llevar a cabo las referidas mezclas obligatorias podrán adquirir libremente biocombustibles para obtener mezclas superiores a las del porcentaje obligatorio vigente, pactando en tal caso el precio y el aprovisionamiento de los productos con las empresas elaboradoras de los mismos, al igual que en los casos en que se lleve a cabo la comercialización de biocombustibles que no tenga por destino la mezcla obligatoria con combustibles fósiles."
+  },
+  {
+   "id": "L27640-14",
+   "norma": "L27640",
+   "rotulo": "Artículo 14",
+   "titulo": "Las metodologías de cálculo de los precios de los biocombustibles para el abastecimiento d",
+   "donde": "",
+   "texto": "Artículo 14.- Las metodologías de cálculo de los precios de los biocombustibles para el abastecimiento de las mezclas obligatorias con combustibles fósiles que establezca la autoridad de aplicación deberán garantizar una rentabilidad determinada por la misma, considerando los costos de su elaboración, transporte y el precio para producto puesto en su planta de producción."
+  },
+  {
+   "id": "L27640-15",
+   "norma": "L27640",
+   "rotulo": "Artículo 15",
+   "titulo": "Comisión Especial de Biocombustibles",
+   "donde": "",
+   "texto": "Artículo 15.- Créase la Comisión Especial de Biocombustibles, que tendrá por finalidad el estudio y análisis de las posibilidades del sector, la consulta con todos los actores involucrados, así como la formulación de propuestas y proyectos para la industria. Dicha comisión estará presidida por la autoridad de aplicación y participarán de la misma los ministerios de Economía, Ciencia y Tecnología, Desarrollo Productivo, Ambiente, Agricultura, Secretaría de Energía, la que será asistida por un consejo de las provincias productoras de biocombustibles, quien tendrá la función de la elaboración del Plan Estratégico para el Desarrollo de Biocombustibles en la Argentina, con el fin de impulsar en forma integral y sistémica el desarrollo de biocombustibles en el país, incorporando los aspectos económicos, territoriales, ambientales y sociales."
+  },
+  {
+   "id": "L27640-16",
+   "norma": "L27640",
+   "rotulo": "Artículo 16",
+   "titulo": "Sustitución de importaciones",
+   "donde": "",
+   "texto": "Artículo 16.- De manera complementaria al corte obligatorio que se encontrare vigente, y cuando las condiciones del mercado lo permitan, la autoridad de aplicación arbitrará los medios necesarios para sustituir la importación de combustibles fósiles con biocombustibles, con el objeto de evitar la salida de divisas, promover inversiones para la industrialización de materia prima nacional y alentar la generación de empleo.\nLas empresas elaboradoras de biocombustibles que decidan llevar a cabo el abastecimiento para dichas mezclas deberán garantizar la provisión de los productos en cuestión, pudiendo la autoridad de aplicación revocar la autorización de suministro mencionada en el párrafo precedente a las empresas que incumplan con el referido compromiso de abastecimiento."
+  },
+  {
+   "id": "L27640-17",
+   "norma": "L27640",
+   "rotulo": "Artículo 17",
+   "titulo": "A los fines de desarrollar la sustitución de importación de combustibles, la autoridad de",
+   "donde": "",
+   "texto": "Artículo 17.- A los fines de desarrollar la sustitución de importación de combustibles, la autoridad de aplicación:\na) Asignará los volúmenes de biocombustibles destinados a la sustitución de importaciones en base a los segmentos y criterios de participación y abastecimiento de la presente ley y la disponibilidad por capacidad industrial instalada;\nb) Establecerá requisitos y condiciones de comercialización para estos volúmenes de biocombustibles, totales o parciales, segmentados por productos, materias primas o regiones productivas;\nc) Podrá impulsar acuerdos de abastecimiento anuales, bianuales o trianuales con el objeto de optimizar operaciones de producción y disponibilidad de los productos;\nd) Teniendo en cuenta el sector consumidor, podrá establecer porcentajes de mezcla diferentes y/o tratamientos particulares por región geográfica y/o para períodos o meses del año de consumo y/o tratamientos particulares."
+  },
+  {
+   "id": "L27640-18",
+   "norma": "L27640",
+   "rotulo": "Artículo 18",
+   "titulo": "Infracciones y sanciones",
+   "donde": "",
+   "texto": "Artículo 18.- El incumplimiento de lo establecido en la presente ley y de las disposiciones y resoluciones que dicte la autoridad de aplicación a efectos de reglamentar el presente régimen dará lugar a la aplicación de algunas o todas las sanciones que se detallan a continuación:\na) Inhabilitación transitoria para desarrollar dicha actividad;\nb) Inhabilitación definitiva para desarrollar dicha actividad;\nc) Las multas que pudieran corresponder."
+  },
+  {
+   "id": "L27640-19",
+   "norma": "L27640",
+   "rotulo": "Artículo 19",
+   "titulo": "Establécese que las multas con las que la autoridad de aplicación podrá sancionar a las em",
+   "donde": "",
+   "texto": "Artículo 19.- Establécese que las multas con las que la autoridad de aplicación podrá sancionar a las empresas que desarrollen las actividades comprendidas en la presente ley serán:\na) Faltas muy graves, con multas equivalentes al precio de venta al público de hasta cuatro millones quinientos mil (4.500.000) litros de nafta súper;\nb) Faltas graves, con multas equivalentes al precio de venta al público de hasta un millón seiscientos mil (1.600.000) litros de nafta súper;\nc) Las faltas leves, sancionables por la autoridad de aplicación con multas equivalentes al precio de venta al público de hasta ciento cincuenta mil (150.000) litros de nafta súper;\nd) La reincidencia en infracciones por parte de un mismo operador dará lugar a la aplicación de sanciones sucesivas de mayor gravedad hasta su duplicación respecto de la anterior; En el caso de reincidencia:\n1. En una falta leve, se podrán aplicar las sanciones previstas para faltas graves.\n2. En una falta grave, se podrán aplicar las sanciones previstas para faltas muy graves."
+  },
+  {
+   "id": "L27640-20",
+   "norma": "L27640",
+   "rotulo": "Artículo 20",
+   "titulo": "A los efectos de la actuación administrativa de la autoridad de aplicación, regirán la Ley",
+   "donde": "",
+   "texto": "Artículo 20.- A los efectos de la actuación administrativa de la autoridad de aplicación, regirán la Ley Nacional de Procedimientos Administrativos y sus normas reglamentarias.\nAgotada la vía administrativa, procederá el recurso en sede judicial directamente ante la cámara federal de apelaciones con competencia en materia contencioso-administrativa con jurisdicción en el lugar del hecho. Los recursos que se interpongan contra la aplicación de las sanciones previstas en la presente ley tendrán efecto devolutivo."
+  },
+  {
+   "id": "L27640-21",
+   "norma": "L27640",
+   "rotulo": "Artículo 21",
+   "titulo": "Establécese que, a partir de la entrada en vigencia de la presente ley, quedarán sin efect",
+   "donde": "",
+   "texto": "Artículo 21.- Establécese que, a partir de la entrada en vigencia de la presente ley, quedarán sin efecto todas las disposiciones establecidas en las leyes 23.287, 26.093 y 26.334, y toda la normativa reglamentaria de las mismas."
+  },
+  {
+   "id": "L27640-22",
+   "norma": "L27640",
+   "rotulo": "Artículo 22",
+   "titulo": "El biodiésel y el bioetanol no estarán gravados por el Impuesto a los Combustibles Líquido",
+   "donde": "",
+   "texto": "Artículo 22.- El biodiésel y el bioetanol no estarán gravados por el Impuesto a los Combustibles Líquidos (ICL) y por el Impuesto al Dióxido de Carbono (ICO2), establecidos en el título III, capítulos I y II, respectivamente, de la ley 23.966, alcanzando el citado tratamiento a todas sus etapas de producción, distribución y comercialización. En el caso de la mezcla de dichos biocombustibles con combustibles fósiles, el gravamen recaerá solo por el componente de combustible fósil que integre la mezcla. El tratamiento impositivo previsto en el presente artículo regirá hasta la fecha de finalización del régimen y corresponderá en tanto y en cuanto las materias primas principales utilizadas en los respectivos procesos productivos sean de origen nacional."
+  },
+  {
+   "id": "L27640-23",
+   "norma": "L27640",
+   "rotulo": "Artículo 23",
+   "titulo": "La autoridad de aplicación establecerá los requisitos y condiciones para el autoconsumo, d",
+   "donde": "",
+   "texto": "Artículo 23.- La autoridad de aplicación establecerá los requisitos y condiciones para el autoconsumo, distribución y comercialización de biodiésel, bioetanol en estado puro –B100 y E100–, biogás crudo, biogás, biometano, biojet u otros biocombustibles puros o mezclados en distintos porcentajes con combustibles fósiles autorizados, así como de sus diferentes mezclas."
+  },
+  {
+   "id": "L27640-24",
+   "norma": "L27640",
+   "rotulo": "Artículo 24",
+   "titulo": "La presente ley entrará en vigencia a partir del día siguiente de su publicación en el Bol",
+   "donde": "",
+   "texto": "Artículo 24.- La presente ley entrará en vigencia a partir del día siguiente de su publicación en el Boletín Oficial."
+  },
+  {
+   "id": "L27640-25",
+   "norma": "L27640",
+   "rotulo": "Artículo 25",
+   "titulo": "Comuníquese al Poder Ejecutivo nacional",
+   "donde": "",
+   "texto": "Artículo 25.- Comuníquese al Poder Ejecutivo nacional."
+  },
+  {
+   "id": "S809-1",
+   "norma": "S809",
+   "rotulo": "Artículo 1",
+   "titulo": "Ámbito de Aplicación",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo I - Objeto",
+   "texto": "ARTÍCULO 1º.- Ámbito de Aplicación. La presente ley regula las actividades de elaboración, almacenaje, comercialización, mezcla y autoconsumo de biocombustibles en el territorio nacional, con una vigencia de 15 (quince) años contados a partir de su aprobación."
+  },
+  {
+   "id": "S809-2",
+   "norma": "S809",
+   "rotulo": "Artículo 2",
+   "titulo": "Interés público",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo I - Objeto",
+   "texto": "ARTÍCULO 2º.- Interés público. Las actividades reguladas por la presente ley se declaran de interés público, en tanto contribuyen a la seguridad energética y a la transición hacia energías más limpias, en el marco de los objetivos específicos establecidos en esta norma."
+  },
+  {
+   "id": "S809-3",
+   "norma": "S809",
+   "rotulo": "Artículo 3",
+   "titulo": "Objetivos",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo II - Política General",
+   "texto": "ARTÍCULO 3º.- Objetivos. Fíjanse los siguientes objetivos para la política nacional en materia de biocombustibles:\na) Proteger adecuadamente los derechos de los consumidores de biocombustibles y de combustibles en general, especialmente en lo relativo a sus intereses económicos, calidad y disponibilidad en los términos de la presente ley;\nb) Promover la eficiencia y la competitividad de los mercados de elaboración y comercialización de biocombustibles, y alentar las inversiones en el sector;\nc) Asegurar el cumplimiento de las normas de calidad de los biocombustibles, fijando las reglas, la metodología de actualización de las mismas y los controles de cumplimiento apropiados;\nd) Dar estricto cumplimiento a las normas de seguridad de las instalaciones en las cuales los biocombustibles se elaboran, mezclan, almacenan y/o autoconsumen;\ne) Impulsar el empleo de los biocombustibles en los términos de esta ley, como factor de desarrollo e incremento de la eficiencia y competitividad de los diversos sectores económicos, de las provincias y de las regiones;\nf) Promover la incorporación de nuevas tecnologías y modalidades de gestión que contribuyan a la eficiencia de las actividades de elaboración, almacenaje, comercialización, mezcla y autoconsumo de biocombustibles, así como la promoción del desarrollo tecnológico en la República Argentina con ese objeto;\ng) Fomentar la exportación de biocombustibles para el mejoramiento de la balanza de pagos, garantizando la explotación eficiente y racional de los recursos y la sustentabilidad de su actividad;\nh) Impulsar la transición del sector de biocombustibles hacia un mercado dinámico, eficiente, desregulado y libre, a fin de fomentar los acuerdos entre privados;\ni) Contribuir a la diversificación de la matriz energética mediante el desarrollo sostenido de los biocombustibles, conforme lo determine la autoridad de aplicación en virtud de lo dispuesto en el artículo 5° de la presente ley, y en función de la evolución del mercado interno y externo, así como de las innovaciones científicas y tecnológicas.\nLa autoridad de aplicación sujetará su accionar a los principios y disposiciones de la presente norma, y deberá controlar que la actividad del sector se ajuste a los mismos."
+  },
+  {
+   "id": "S809-4",
+   "norma": "S809",
+   "rotulo": "Artículo 4",
+   "titulo": "Autoridad de Aplicación",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo III - Autoridad de Aplicación",
+   "texto": "ARTÍCULO 4º.- Autoridad de Aplicación. La Autoridad de Aplicación de la presente ley será la SECRETARÍA DE ENERGÍA del MINISTERIO DE ECONOMÍA."
+  },
+  {
+   "id": "S809-5",
+   "norma": "S809",
+   "rotulo": "Artículo 5",
+   "titulo": "Funciones y facultades",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo III - Autoridad de Aplicación",
+   "texto": "ARTÍCULO 5º.- Funciones y facultades. La Autoridad de Aplicación tendrá, sin perjuicio de las otorgadas por otras normas reglamentarias y complementarias, las siguientes funciones y facultades:\na) Regular las actividades de elaboración, almacenaje, autoconsumo y comercialización en el mercado interno o externo de los biocombustibles, impulsando la competitividad de los mercados;\nb) Adecuar a los términos de la presente ley las normas que establecen las especificaciones de calidad de los biocombustibles, la seguridad de las instalaciones en las cuales estos se elaboran, mezclan y/o almacenan, y aquellas que se vinculen con el registro y/o habilitación de las empresas y/o productos;\nc) Denunciar ante la Autoridad Nacional de la Competencia, bajo el régimen establecido por la Ley N° 27.442, las imperfecciones que constate en el mercado de materias primas e insumos destinados a la producción de biocombustibles, cuando tengan entidad suficiente para alterar los precios y las cantidades negociadas, así como el abuso de posición dominante por parte de quienes realicen las actividades previstas en el artículo 1° de la presente ley;\nd) Promover las exportaciones de biocombustibles, independientemente del volumen de producción, en cumplimiento de las normas del comercio internacional;\ne) Determinar la tasa de fiscalización y control que anualmente pagarán quienes desarrollen las actividades del artículo 1° de esta ley, así como su metodología de pago y recaudación;\nf) Fiscalizar el ejercicio de las actividades a las que se refiere la presente ley, a fin de asegurar la observancia de las normas legales y reglamentarias correspondientes;\ng) Aplicar las sanciones establecidas en la presente ley;\nh) Incentivar la producción, distribución y comercialización de biogás crudo, biogás, biometano, diésel renovable, biojet o combustible de aviación sostenible (SAF), biobunker u otros biocombustibles puros o mezclados en distintos porcentajes con combustibles fósiles autorizados, así como de sus diferentes mezclas, asegurando la competitividad de los mercados donde sea posible;\ni) Implementar un sistema único de comercialización transparente, de acceso público, a ser realizado periódicamente por un organismo independiente, cuyas reglas, términos y condiciones serán establecidas por la presente ley;\nj) Determinar y publicar, por medio de un tercero independiente y con la periodicidad que estime correspondiente ante la variación de la economía, los precios de paridad de referencia internacional de biocombustibles y/o de combustibles sustitutivos;\nk) Fomentar acuerdos con las provincias y la Ciudad Autónoma de Buenos Aires destinados a optimizar la gestión pública de toda la operatoria derivada de la aplicación de la presente ley, particularmente en materia de registros, organización y armonización de normas de calidad, seguridad y ambiente;\nl) Dictar las normas complementarias que resulten necesarias para interpretar y aclarar el presente régimen, así como también ejercer toda otra atribución que surja de la reglamentación de la presente ley a los efectos de su mejor cumplimiento."
+  },
+  {
+   "id": "S809-6",
+   "norma": "S809",
+   "rotulo": "Artículo 6",
+   "titulo": "Concepto",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo IV - Sobre los Biocombustibles",
+   "texto": "ARTÍCULO 6º.- Concepto. A los fines de la presente ley, se entiende por biocombustibles a aquellos combustibles líquidos o gaseosos generados mediante procesos de fermentación o transesterificación a partir de materias primas cuyo origen sea agropecuario, agroindustrial y/o provenga de desechos orgánicos.\nAsimismo, se entiende por biocombustible a:\ni) Los combustibles líquidos que proceden de materias primas de origen orgánico renovable, tanto vegetal como animal, y/o del tratamiento de material residual de origen biológico y/u orgánico;\nii) Aquellos combustibles de origen sintético que utilizan como principales materias primas agua y CO2 (dióxido de carbono), siendo su principal fuente de energía la energía eléctrica proveniente de fuentes renovables;\nDichos productos deberán ser declarados como biocombustibles de conformidad con la reglamentación que a tal efecto se dicte, y en tanto cumplan los requisitos de calidad que establezca la autoridad de aplicación.\nLa autoridad de aplicación podrá incluir en la categoría de biocombustibles, a los efectos de la presente ley, a cualquier otro combustible líquido o gaseoso, en función de la evolución del mercado interno y externo y de las innovaciones científicas y tecnológicas, de conformidad con la reglamentación que a tal efecto se dicte y sujeto al cumplimiento de los requisitos de calidad establecidos."
+  },
+  {
+   "id": "S809-7",
+   "norma": "S809",
+   "rotulo": "Artículo 7",
+   "titulo": "Calidad",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo IV - Sobre los Biocombustibles",
+   "texto": "ARTÍCULO 7º.- Calidad. Los biocombustibles y las mezclas de estos con combustibles fósiles que se comercialicen dentro del territorio nacional deberán cumplir con la normativa de calidad vigente para cada uno de los productos en cuestión, conforme lo determine la autoridad de aplicación."
+  },
+  {
+   "id": "S809-8",
+   "norma": "S809",
+   "rotulo": "Artículo 8",
+   "titulo": "Sujetos activos",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo V - Sujetos de la Ley",
+   "texto": "ARTÍCULO 8º.- Sujetos activos. Son sujetos activos de la industria de los biocombustibles los elaboradores o productores, almacenadores, mezcladores, autoconsumidores, suministradores y/o comercializadores."
+  },
+  {
+   "id": "S809-9",
+   "norma": "S809",
+   "rotulo": "Artículo 9",
+   "titulo": "Libre ingreso a la actividad",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo V - Sujetos de la Ley",
+   "texto": "ARTÍCULO 9º.- Libre ingreso a la actividad. Las actividades comprendidas en la presente ley serán ejercidas libremente con arreglo a las disposiciones generales en ella previstas y a las normas reglamentarias que en su consecuencia se dicten.\nDichas actividades deberán propender a la competencia, la no discriminación, el libre acceso, la asignación eficiente de recursos, la seguridad pública y la preservación del medio ambiente."
+  },
+  {
+   "id": "S809-10",
+   "norma": "S809",
+   "rotulo": "Artículo 10",
+   "titulo": "Elaboración, almacenaje, suministro, comercialización y mezcla",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo V - Sujetos de la Ley",
+   "texto": "ARTÍCULO 10.- Elaboración, almacenaje, suministro, comercialización y mezcla. La elaboración, almacenamiento, autoconsumo, suministro y/o comercialización de biocombustibles, incluyendo su mezcla con combustibles fósiles, en el mercado interno y/o externo, podrán ser llevadas a cabo por las personas humanas o jurídicas que se encuentren debidamente registradas, conforme a los requisitos que se establezcan en la reglamentación.\nLa Autoridad de Aplicación verificará la veracidad y el cumplimiento de la información aportada al momento de la inscripción, e indicará las subsanaciones que correspondan dentro de un plazo de DIEZ (10) días hábiles contados desde su presentación.\nEl silencio administrativo tendrá sentido positivo, con los alcances previstos en el artículo 10, inciso b) de la Ley Nacional de Procedimientos Administrativos N° 19.549 y sus modificatorias."
+  },
+  {
+   "id": "S809-11",
+   "norma": "S809",
+   "rotulo": "Artículo 11",
+   "titulo": "Condiciones de prestación",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 11.- Condiciones de prestación. Los sujetos alcanzados por la presente ley estarán obligados a mantener los equipos, instalaciones, envases y todo activo afectado a la actividad de forma tal que no impliquen un peligro para la seguridad pública.\nLa obligación establecida en el párrafo precedente subsiste incluso ante la inactividad, cese de operaciones o abandono de las instalaciones, y se extenderá hasta la baja registral definitiva o la destrucción total de los bienes debidamente acreditada ante la Autoridad de Aplicación con su documentación respaldatoria.\nLas instalaciones afectadas a la industria de los biocombustibles estarán sujetas a regímenes de inspección, revisión y verificación técnica periódica por parte de la Autoridad de Aplicación, quien estará facultada para ordenar medidas de carácter inmediato ante situaciones de peligro inminente o falta de mantenimiento, tendientes exclusivamente a resguardar la seguridad pública."
+  },
+  {
+   "id": "S809-12",
+   "norma": "S809",
+   "rotulo": "Artículo 12",
+   "titulo": "Mezcla obligatoria de biocombustibles con combustibles fósiles",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 12.- Mezcla obligatoria de biocombustibles con combustibles fósiles. Gas Oil. Establécese que todo combustible líquido clasificado como gasoil o diésel oil — conforme la normativa de calidad de combustibles vigente o la que en el futuro la reemplace— que se comercialice dentro del territorio nacional deberá contener un porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, del SIETE COMA CINCO POR CIENTO (7,5%) de biodiesel. A partir de los DOCE (12) meses de la sanción de la ley, el porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, será del DIEZ POR CIENTO (10%) de biodiesel.\nLa autoridad de aplicación podrá modificar el referido porcentaje obligatorio cuando lo considere conveniente en función de asegurar el abastecimiento de la demanda ante situaciones que afecten el mercado interno o por cuestiones técnicas y/o de calidad.\nQuedará exceptuado de la mezcla obligatoria con biodiesel el gasoil o diésel oil comercializado para ser utilizado en embarcaciones fluviales y marítimas, minería, combustibles de primer llenado, gasoil antártico, formulación de lodos de perforación en yacimientos, centrales eléctricas y zonas frías patagónicas; así como otras excepciones que mediante acto fundado determine la autoridad de aplicación."
+  },
+  {
+   "id": "S809-13",
+   "norma": "S809",
+   "rotulo": "Artículo 13",
+   "titulo": "Mezcla obligatoria de biocombustibles con combustibles fósiles",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 13.- Mezcla obligatoria de biocombustibles con combustibles fósiles. Naftas. Establécese que todo combustible líquido clasificado como nafta —conforme la normativa de calidad de combustibles vigente o la que en el futuro la reemplace— que se comercialice dentro del territorio nacional deberá contener un porcentaje mínimo obligatorio de mezcla, en volumen, medido sobre la cantidad total del producto final comercializado, del DOCE POR CIENTO (12%) de bioetanol.\nA partir de los DOCE (12) meses de la sanción de la ley, el porcentaje de mezcla mínimo obligatorio, en volumen, medido sobre la cantidad total del producto final comercializado, será del QUINCE POR CIENTO (15%) de bioetanol.\nLa autoridad de aplicación podrá modificar el referido porcentaje obligatorio cuando lo considere conveniente en función de asegurar el abastecimiento de la demanda ante situaciones que afecten el mercado interno o por cuestiones técnicas y/o de calidad.\nDurante el período de vigencia de la ley, se mantendrán los porcentajes de corte respetando su materia prima de origen en un SEIS POR CIENTO (6%) para el bioetanol producido a partir de caña de azúcar y en un SEIS POR CIENTO (6%) para el producido a partir de maíz.\nEl porcentaje de corte remanente para llegar al corte obligatorio total no estará sujeto a ninguna regulación sobre su materia prima de origen."
+  },
+  {
+   "id": "S809-14",
+   "norma": "S809",
+   "rotulo": "Artículo 14",
+   "titulo": "Mecanismo de comercialización",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 14.- Mecanismo de comercialización. A los fines del cumplimiento mensual de la mezcla obligatoria, se deberá instrumentar un Mercado Electrónico que concentre la comercialización de manera única, transparente y de acceso público, administrado por un organismo independiente con experiencia comprobada en negociación de productos energéticos y bajo estándares internacionales de comercio.\nEn dicho Mercado, los elaboradores y mezcladores podrán realizar sus ofertas de venta y compra respectivamente en precio y volumen, y arribar a un acuerdo mutuo.\nEl Mercado deberá contemplar:\ni) Un registro de elaboradores y mezcladores con el fin de habilitarlos para la negociación mediante mecanismos seguros de identificación;\nii) Rondas de negociación de precios y volúmenes específicas para el biodiesel y para el bioetanol, teniendo en cuenta a su vez la distinción de materia prima en el bioetanol a fin de establecer la proporción establecida en el artículo 13;\niii) Regiones geográficas de negociación a fin de lograr competitividad y eficiencia en los costos logísticos;\niv) Un registro de los contratos y/o acuerdos resultantes de la operatoria. La autoridad de aplicación determinará conjuntamente con los elaboradores y mezcladores la modalidad más adecuada a aplicar a la negociación."
+  },
+  {
+   "id": "S809-15",
+   "norma": "S809",
+   "rotulo": "Artículo 15",
+   "titulo": "Mercado a término de abastecimiento de biocombustibles para la mezcla obligatoria y otros destinos",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 15.- Mercado a término de abastecimiento de biocombustibles para la mezcla obligatoria y otros destinos. Sin perjuicio de lo establecido en el artículo 14, los elaboradores y mezcladores podrán, de manera opcional y de común acuerdo, establecer contratos a término para los volúmenes de biodiesel o bioetanol destinados al cumplimiento de la mezcla obligatoria, siendo estos contratos de libre negociación y contractualización en precio, plazo y otras condiciones comerciales afines.\nA los fines del cumplimiento de las mezclas obligatorias, las operaciones entre elaboradores y mezcladores deberán ser informadas a la autoridad de aplicación según la periodicidad que esta indique."
+  },
+  {
+   "id": "S809-16",
+   "norma": "S809",
+   "rotulo": "Artículo 16",
+   "titulo": "Precios máximos de mercado",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 16.- Precios máximos de mercado. Los precios de comercialización ofertados de acuerdo al mecanismo del artículo 14 no podrán superar los valores máximos que se indican a continuación, los cuales serán establecidos por el organismo independiente en cuestión:\na) Para el biodiesel: el resultante de computar la paridad de importación de biodiesel;\nb) Para el bioetanol: el resultante de computar la paridad de importación del bioetanol.\nA los efectos de su determinación, el organismo independiente elaborará y publicará una metodología de cálculo y los resultados obtenidos en cada oportunidad, previo a la realización de los ejercicios mensuales de comercialización.\nLa información utilizada para todos los cálculos referidos deberá provenir de fuentes de mercado internacionalmente reconocidas."
+  },
+  {
+   "id": "S809-17",
+   "norma": "S809",
+   "rotulo": "Artículo 17",
+   "titulo": "Cortes superiores",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 17.- Cortes superiores. Los mezcladores podrán agregar biodiesel y/u otros biocombustibles al gasoil o diésel oil, y bioetanol y/u otros biocombustibles a la nafta, en adición a los porcentajes de mezcla establecidos en los artículos 12 y 13 —conforme la normativa de calidad de combustibles vigente o la que en el futuro la reemplace—, hasta el límite que impongan las normas técnicas en vigencia sobre la calidad y composición fisicoquímica del producto final, pudiendo adquirir dichos biocombustibles adicionales a cualquier empresa elaboradora."
+  },
+  {
+   "id": "S809-18",
+   "norma": "S809",
+   "rotulo": "Artículo 18",
+   "titulo": "Co-procesamiento de Materias Primas no fósiles",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 18.- Co-procesamiento de Materias Primas no fósiles. En los casos en que los mezcladores que a su vez sean refinadores incorporen materia prima no fósil como insumo para la producción de gasoil mediante co-procesamiento, las mezcladoras podrán, a su elección, considerarlo a los efectos del cómputo de la mezcla del corte obligatorio de biodiesel."
+  },
+  {
+   "id": "S809-19",
+   "norma": "S809",
+   "rotulo": "Artículo 19",
+   "titulo": "Consumo incremental de Biocombustibles",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 19.- Consumo incremental de Biocombustibles. Autorízase la circulación de vehículos con motores flex fuel para el uso de bioetanol y biodiesel en mezclas con cortes superiores a los porcentajes obligatorios establecidos en la presente ley, en función de las tecnologías automotrices disponibles, resultando aplicable tanto para vehículos nuevos como modificados conforme a la normativa reglamentaria que desarrolle la autoridad competente.\nAmbas autorizaciones quedan supeditadas al estricto cumplimiento de las especificaciones de emisiones ambientales establecidas en la normativa provincial y nacional, normas de presupuestos mínimos y al cumplimiento de las normativas de transporte."
+  },
+  {
+   "id": "S809-20",
+   "norma": "S809",
+   "rotulo": "Artículo 20",
+   "titulo": "Biometano",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 20.- Biometano. En el caso del biometano, se permite expresamente la inyección en gasoductos del sistema de transporte conforme a la normativa de calidad y seguridad que dicte la autoridad de aplicación, así como también su almacenamiento y transporte como gas comprimido o gas licuado.\nLa comercialización de biometano será en todo momento libre; estará exceptuado de cualquier mandato de cumplimiento de corte obligatorio con su equivalente fósil y exceptuado de los mandatos de otros biocombustibles previstos en la presente ley."
+  },
+  {
+   "id": "S809-21",
+   "norma": "S809",
+   "rotulo": "Artículo 21",
+   "titulo": "Bocas de expendio",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 21.- Bocas de expendio. Podrá disponerse la libre incorporación de surtidores adicionales con cortes incrementales de biocombustibles a los obligatorios por parte de las empresas expendedoras de combustible o cualquier otra boca de expendio, sin otro requisito que el cumplimiento de las reglamentaciones técnicas respecto de la calidad de combustibles establecida por la autoridad de aplicación, así como de la normativa correspondiente a la habilitación y la seguridad de las mismas.\nLa Autoridad de Aplicación establecerá los requisitos mínimos aplicables a las bocas de expendio de biocombustibles, sin perjuicio del cumplimiento de la normativa provincial o municipal en el ámbito de su competencia."
+  },
+  {
+   "id": "S809-22",
+   "norma": "S809",
+   "rotulo": "Artículo 22",
+   "titulo": "Combustible Sostenible de Aviación",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VI - Disposiciones comunes a los Sujetos Activos",
+   "texto": "ARTÍCULO 22.- Combustible Sostenible de Aviación. El Combustible Sostenible de Aviación, comúnmente denominado SAF o Biojet, será en todo momento de comercialización libre y de libre elección. A su vez, estará exceptuado de cualquier mandato de cumplimiento de corte obligatorio con su equivalente fósil y de los mandatos de otros biocombustibles previstos en la presente ley."
+  },
+  {
+   "id": "S809-23",
+   "norma": "S809",
+   "rotulo": "Artículo 23",
+   "titulo": "Libre Comercio",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VII - Exportación e Importación",
+   "texto": "ARTÍCULO 23.- Libre Comercio. Se permite la libre importación de biocombustibles para ser utilizados en mezclas superiores al corte obligatorio y en los casos en los que hubiese faltante de oferta para satisfacer la demanda del corte obligatorio."
+  },
+  {
+   "id": "S809-24",
+   "norma": "S809",
+   "rotulo": "Artículo 24",
+   "titulo": "Excepciones para la Mezcla Obligatoria de biocombustibles de origen nacional",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VII - Exportación e Importación",
+   "texto": "ARTÍCULO 24.- Excepciones para la Mezcla Obligatoria de biocombustibles de origen nacional. Los biocombustibles destinados al cumplimiento del porcentaje de mezcla obligatoria con combustibles fósiles deberán haber sido elaborados en plantas habilitadas instaladas en la República Argentina y a partir de materias primas de origen nacional.\nLa autoridad de aplicación podrá autorizar la importación de biocombustibles elaborados en plantas instaladas fuera de la República Argentina y a partir de materias primas de origen extranjero para el cumplimiento de los porcentajes de mezcla obligatoria en los siguientes casos:\na) En caso de verificada escasez de abastecimiento de biocombustibles al mercado interno;\nb) En caso de constatarse que el precio de paridad de referencia de biocombustibles elaborados en plantas instaladas fuera de la República Argentina y a partir de materias primas de origen extranjero y/o sus materias primas fuera inferior al precio ofertado para la compra de biocombustibles y/o sus materias primas de origen nacional."
+  },
+  {
+   "id": "S809-25",
+   "norma": "S809",
+   "rotulo": "Artículo 25",
+   "titulo": "Aspecto tributario",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VII - Exportación e Importación",
+   "texto": "ARTÍCULO 25.- Aspecto tributario. Los biocombustibles y/o sus materias primas importadas se equipararán, a efectos impositivos, a los biocombustibles y/o sus materias primas de origen nacional destinados al cumplimiento del porcentaje de mezcla obligatoria."
+  },
+  {
+   "id": "S809-26",
+   "norma": "S809",
+   "rotulo": "Artículo 26",
+   "titulo": "Autoridad de control",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VIII - Control, Inspección, Fiscalización y Sanciones Sección 1ª - Fiscalización",
+   "texto": "ARTÍCULO 26.- Autoridad de control. Fiscalización y control. Supuestos. La autoridad de aplicación nacional fiscalizará el ejercicio de las actividades a que se refiere el artículo 1º de la presente ley, a fin de asegurar la observancia de las normas legales y reglamentarias.\nSin que importe una limitación a otros aspectos de las actividades previstas, la autoridad de aplicación fiscalizará:\ni) La calidad de los biocombustibles y las mezclas comercializadas;\nii) La seguridad de las instalaciones en las que se desarrollan las actividades contempladas en el artículo 1° de la presente ley."
+  },
+  {
+   "id": "S809-27",
+   "norma": "S809",
+   "rotulo": "Artículo 27",
+   "titulo": "Auditorías e Inspecciones",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VIII - Control, Inspección, Fiscalización y Sanciones Sección 1ª - Fiscalización",
+   "texto": "ARTÍCULO 27.- Auditorías e Inspecciones. La Autoridad de Aplicación podrá realizar auditorías e inspecciones en las empresas e instalaciones de elaboración, almacenaje, mezcla y/o comercialización de biocombustibles, a fin de controlar su correcto funcionamiento y de asegurar la observancia de las normas legales y reglamentarias correspondientes."
+  },
+  {
+   "id": "S809-28",
+   "norma": "S809",
+   "rotulo": "Artículo 28",
+   "titulo": "Funciones de fiscalización y control técnico",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VIII - Control, Inspección, Fiscalización y Sanciones Sección 1ª - Fiscalización",
+   "texto": "ARTÍCULO 28.- Funciones de fiscalización y control técnico. La Autoridad de Aplicación podrá celebrar convenios para delegar sus funciones de fiscalización y control técnico en organismos públicos o privados que acrediten la competencia necesaria. Asimismo, podrá celebrar convenios específicos con las Provincias y la CIUDAD AUTÓNOMA DE BUENOS AIRES para delegar el ejercicio de sus facultades."
+  },
+  {
+   "id": "S809-29",
+   "norma": "S809",
+   "rotulo": "Artículo 29",
+   "titulo": "Facultades y alcances",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VIII - Control, Inspección, Fiscalización y Sanciones Sección 1ª - Fiscalización",
+   "texto": "ARTÍCULO 29.- Facultades y alcances. Concurrencia normativa. Las facultades acordadas no obstan al ejercicio de las atribuciones conferidas al Estado por otras leyes, cuyo cumplimiento también autorice inspecciones o controles oficiales."
+  },
+  {
+   "id": "S809-30",
+   "norma": "S809",
+   "rotulo": "Artículo 30",
+   "titulo": "Deber de cooperación",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo VIII - Control, Inspección, Fiscalización y Sanciones Sección 1ª - Fiscalización",
+   "texto": "ARTÍCULO 30.- Deber de cooperación. Quienes se encuentren registrados conforme al artículo 10 de la presente ley facilitarán en la forma más amplia el ejercicio por parte de los funcionarios competentes de las tareas de inspección y fiscalización."
+  },
+  {
+   "id": "S809-31",
+   "norma": "S809",
+   "rotulo": "Artículo 31",
+   "titulo": "Incumplimientos",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Sección 2ª - Infracciones y sanciones",
+   "texto": "ARTÍCULO 31.- Incumplimientos. El incumplimiento de lo establecido en la presente ley, su reglamentación y de las disposiciones y resoluciones que dicte la autoridad de aplicación dará lugar a la aplicación de algunas o todas las sanciones que se detallan a continuación:\na) Inhabilitación transitoria para desarrollar dicha actividad;\nb) Inhabilitación definitiva para desarrollar dicha actividad;\nc) Las multas que pudieran corresponder."
+  },
+  {
+   "id": "S809-32",
+   "norma": "S809",
+   "rotulo": "Artículo 32",
+   "titulo": "Infracciones y valores",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Sección 2ª - Infracciones y sanciones",
+   "texto": "ARTÍCULO 32.- Infracciones y valores. Establécese que las multas con las que la autoridad de aplicación podrá sancionar a las personas que desarrollen las actividades comprendidas en la presente ley serán:\na) Faltas muy graves: con multas equivalentes al precio de venta al público de hasta un millón (1.000.000) de litros de nafta súper;\nb) Faltas graves: con multas equivalentes al precio de venta al público de hasta quinientos mil (500.000) litros de nafta súper;\nc) Faltas leves: con multas equivalentes al precio de venta al público de hasta cien mil (100.000) litros de nafta súper;\nd) La reincidencia en infracciones por parte de un mismo operador dará lugar a la aplicación de sanciones sucesivas de mayor gravedad hasta su duplicación respecto de la anterior.\nEn caso de reincidencia:\n1. En una falta leve, se podrán aplicar las sanciones previstas para faltas graves.\n2. En una falta grave, se podrán aplicar las sanciones previstas para faltas muy graves."
+  },
+  {
+   "id": "S809-33",
+   "norma": "S809",
+   "rotulo": "Artículo 33",
+   "titulo": "Procedimiento Administrativo y Control Jurisdiccional",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo IX - Procedimiento y Control Jurisdiccional",
+   "texto": "ARTÍCULO 33.- Procedimiento Administrativo y Control Jurisdiccional. A los efectos de la actuación administrativa de la autoridad de aplicación, regirán la Ley Nacional de Procedimientos Administrativos y sus normas reglamentarias.\nAgotada la vía administrativa, procederá el recurso en sede judicial directamente ante la Cámara Federal de Apelaciones con competencia en lo contencioso-administrativo con jurisdicción en el lugar del hecho.\nLos recursos que se interpongan contra la aplicación de las sanciones previstas en la presente ley tendrán efecto devolutivo."
+  },
+  {
+   "id": "S809-34",
+   "norma": "S809",
+   "rotulo": "Artículo 34",
+   "titulo": "Impuestos",
+   "donde": "TÍTULO I - MARCO REGULATORIO DE LA ACTIVIDAD · Capítulo X - Disposiciones Comunes",
+   "texto": "ARTÍCULO 34.- Impuestos. Los biocombustibles habilitados por la autoridad de aplicación no estarán gravados por el Impuesto a los Combustibles Líquidos (ICL) ni por el Impuesto al Dióxido de Carbono (ICO2), alcanzando el citado tratamiento a todas sus etapas de producción, distribución y comercialización.\nEn el caso de la mezcla de dichos biocombustibles con combustibles fósiles, el gravamen recaerá solo sobre el componente de combustible fósil que integre la mezcla. Asimismo, tampoco estará gravada por dichos impuestos la porción de gasoil producido a partir de co-procesamiento de materias primas no fósiles."
+  },
+  {
+   "id": "S809-35",
+   "norma": "S809",
+   "rotulo": "Artículo 35",
+   "titulo": "Plazo",
+   "donde": "TÍTULO II - PERÍODO DE TRANSICIÓN PARA BIODIESEL · Capítulo I - Disposiciones Generales",
+   "texto": "ARTÍCULO 35.- Plazo. Fíjase un Período de Transición para el mercado de biodiesel desde la entrada en vigencia de la presente ley hasta el 31 de diciembre de 2030, el cual se regirá por las disposiciones contenidas en el presente título."
+  },
+  {
+   "id": "S809-36",
+   "norma": "S809",
+   "rotulo": "Artículo 36",
+   "titulo": "Definiciones",
+   "donde": "TÍTULO II - PERÍODO DE TRANSICIÓN PARA BIODIESEL · Capítulo I - Disposiciones Generales",
+   "texto": "ARTÍCULO 36.- Definiciones. Exclusivamente durante y a los efectos del Período de Transición, se entiende por:\na) Empresas Integradas: Aquellas productoras de biodiesel que forman parte de un ente individual y/o grupo económico tenedor, entre sus activos, de una o más fábricas de aceites vegetales y harinas proteicas.\nb) Empresas No Integradas: Aquellas productoras de biodiesel que no forman parte de un ente individual y/o grupo económico tenedor, entre sus activos, de una o más fábricas de aceites vegetales y harinas proteicas.\nc) Grupo económico: Conjunto de dos o más entidades (comerciales, públicas o privadas) donde una de ellas, independientemente de si está constituida en la República Argentina, ejerce control o influencia significativa sobre las otras. Se considera que existe un grupo económico si se cumple alguna de las siguientes condiciones:\ni) Control de Votos: Una entidad tiene la participación necesaria para dictar las decisiones en las reuniones o asambleas de otra, ya sea de forma directa o a través de terceros;\nii) Influencia Dominante: Una entidad ejerce una influencia decisiva sobre las decisiones de otra. La misma se presume de forma irrefutable si posee, directa o indirectamente, al menos el 25% del capital y, además, constituye la primera minoría;\niii) Vínculos Especiales: Existen lazos particulares que demuestran dependencia, tales como compartir la dirección o gerenciamiento, poseer dependencia técnica, económica, financiera, patrimonial o de producción, o realizar operaciones comerciales o crediticias que se desvíen de las prácticas habituales entre entidades independientes;\niv) Cuantificación y Principio de Realidad Económica: Para determinar la capacidad de producción de biodiesel dentro de un grupo, se suma el porcentaje de participación de cada entidad en el capital de las empresas restantes. La evaluación de la existencia de un grupo económico se basa en el principio de realidad económica (establecido en la Ley N° 11.683 T.O. o normas similares). Esto significa que se analiza cualquier acuerdo o acto que, de hecho o de derecho, transfiera activos u otorgue influencia determinante en la administración o en la estrategia competitiva de una entidad a otra;\nd) Cómputo máximo: El cupo máximo de valor de porcentaje de corte obligatorio de biodiesel que las mezcladoras podrán computar a partir del co-procesamiento de materia prima de origen no fósil."
+  },
+  {
+   "id": "S809-37",
+   "norma": "S809",
+   "rotulo": "Artículo 37",
+   "titulo": "Funciones y facultades de la Autoridad de Aplicación",
+   "donde": "TÍTULO II - PERÍODO DE TRANSICIÓN PARA BIODIESEL · Capítulo I - Disposiciones Generales",
+   "texto": "ARTÍCULO 37.- Funciones y facultades de la Autoridad de Aplicación. Adicionalmente a las facultades y funciones previstas en el artículo 5° de la presente ley, serán funciones de la autoridad durante el período de transición las siguientes:\na) Evaluar la evolución del mercado de biodiesel y/o sus materias primas, y desarrollar todas las acciones necesarias para una transición gradual, ordenada y previsible hacia los objetivos fijados en el artículo 2º de la presente norma;\nb) Solicitar, con carácter de declaración jurada y con la periodicidad que considere necesaria, las estimaciones de demanda de biodiesel previstas por las compañías mezcladoras y/o importadoras de combustibles fósiles, a los efectos de llevar a cabo la asignación del biocombustible necesario para el cumplimiento de los porcentajes de mezcla obligatoria con gasoil;\nc) Determinar los volúmenes de biocombustibles para el abastecimiento de la mezcla obligatoria con gasoil y garantizar su cumplimiento, de acuerdo con las condiciones de vigencia y los términos establecidos en el artículo 38;\nd) Fiscalizar la efectiva entrega de los volúmenes asignados según lo dispuesto en el artículo 38."
+  },
+  {
+   "id": "S809-38",
+   "norma": "S809",
+   "rotulo": "Artículo 38",
+   "titulo": "Mezclas obligatorias, cupos y precios",
+   "donde": "TÍTULO II - PERÍODO DE TRANSICIÓN PARA BIODIESEL · Capítulo I - Disposiciones Generales",
+   "texto": "ARTÍCULO 38.- Mezclas obligatorias, cupos y precios. Biodiesel. Para las mezclas obligatorias de gasoil y/o diésel oil con biodiesel, corresponderá el siguiente modelo para la asignación de cupos y definición de precios:\nSegmento / Año | Durante corte obligatorio de 7,5% | Desde corte obligatorio de 10% hasta 31/12/2028 | 2029 | 2030\nEmpresas No Integradas (Corte por Sistema de comercialización - Art. 14) | 7,5% | 5,0% | 4,0% | 3,0%\nTotal mercado (Integradas + No Integradas - Corte Negociación Libre Arts. 14 y 15) | 0,0% | 5,0% | 6,0% | 7,0%\nCómputo Máximo (Co-procesamiento mezcladores) | 0,0% | 1,0% | 2,0% | 3,0%\nCorte Obligatorio Total | 7,5% | 10,0% | 10,0% | 10,0%"
+  },
+  {
+   "id": "S809-39",
+   "norma": "S809",
+   "rotulo": "Artículo 39",
+   "titulo": "Mezclas obligatorias, cupos y precios",
+   "donde": "TÍTULO II - PERÍODO DE TRANSICIÓN PARA BIODIESEL · Capítulo I - Disposiciones Generales",
+   "texto": "ARTÍCULO 39.- Mezclas obligatorias, cupos y precios. Pautas. A los efectos de la definición de volúmenes a ser comercializados en el segmento de Empresas No Integradas, se considerarán las siguientes pautas:\na) La participación por empresa elaboradora no excederá el CATORCE POR CIENTO (14%) del total de la cantidad de biodiesel comercializada por año calendario en el segmento de Empresas No Integradas;\nb) La participación por grupo económico relacionado con la empresa elaboradora respectiva no excederá el CATORCE POR CIENTO (14%) del total de la cantidad de biodiesel comercializada por año calendario;\nc) La adjudicación de volumen a cada empresa en el sistema de comercialización no excederá el porcentaje máximo de su capacidad instalada registrada;\nd) En los casos en que los mezcladores que a su vez sean refinadores incorporen materia prima no fósil como insumo para la producción de gasoil mediante co-procesamiento, las mezcladoras podrán, a su elección, considerar a los efectos del cómputo de la mezcla del corte obligatorio el elemento no fósil utilizado en el co-procesamiento de gasoil, pudiéndolo hacer únicamente transcurridos doce (12) meses desde la entrada en vigencia de la presente ley, según los cómputos máximos detallados año a año en el artículo 38;\ne) Todo volumen faltante para el cumplimiento del corte obligatorio podrá ser negociado libremente entre elaboradores y mezcladores."
+  },
+  {
+   "id": "S809-40",
+   "norma": "S809",
+   "rotulo": "Artículo 40",
+   "titulo": "Derogación de la Ley N° 27.640",
+   "donde": "TÍTULO III - DISPOSICIONES COMPLEMENTARIAS",
+   "texto": "ARTÍCULO 40.- Derogación de la Ley N° 27.640. Establécese que, a partir de la entrada en vigencia de la presente ley, quedará derogada la Ley N° 27.640 y toda su normativa reglamentaria y complementaria."
+  },
+  {
+   "id": "S809-41",
+   "norma": "S809",
+   "rotulo": "Artículo 41",
+   "titulo": "Adecuación normativa",
+   "donde": "TÍTULO III - DISPOSICIONES COMPLEMENTARIAS",
+   "texto": "ARTÍCULO 41.- Adecuación normativa. A los fines del cumplimiento de los objetivos de la presente ley, la autoridad de aplicación deberá efectuar las adecuaciones que correspondan en toda otra normativa referida a los biocombustibles en los términos de la presente, y propiciar su eventual derogación o sustitución respecto de las normas de jerarquía superior en las que se sustentan."
+  },
+  {
+   "id": "S809-42",
+   "norma": "S809",
+   "rotulo": "Artículo 42",
+   "titulo": "Jerarquía normativa",
+   "donde": "TÍTULO III - DISPOSICIONES COMPLEMENTARIAS",
+   "texto": "ARTÍCULO 42.- Jerarquía normativa. En caso de conflicto normativo entre otras leyes y la presente, prevalecerán las disposiciones de esta ley."
+  },
+  {
+   "id": "S809-43",
+   "norma": "S809",
+   "rotulo": "Artículo 43",
+   "titulo": "Entrada en vigencia",
+   "donde": "TÍTULO III - DISPOSICIONES COMPLEMENTARIAS",
+   "texto": "ARTÍCULO 43.- Entrada en vigencia. La presente ley entrará en vigencia a partir del día siguiente al de su publicación en el Boletín Oficial."
+  },
+  {
+   "id": "S809-44",
+   "norma": "S809",
+   "rotulo": "Artículo 44",
+   "titulo": "Comuníquese al Poder Ejecutivo",
+   "donde": "TÍTULO III - DISPOSICIONES COMPLEMENTARIAS",
+   "texto": "ARTÍCULO 44.- Comuníquese al Poder Ejecutivo."
+  },
+  {
+   "id": "LB-281",
+   "norma": "LB",
+   "rotulo": "Artículo 281",
+   "titulo": "Sustituye el artículo 1º de la Ley 27.640",
+   "donde": "Título VI, Sección IV",
+   "texto": "Art. 281. – Sustitúyese el artículo 1º de la Ley 27.640 de Biocombustibles, por el siguiente:\nArtículo 1º: Apruébese el Marco Regulatorio de Biocombustibles, el cual comprende todas las actividades de elaboración, almacenaje, comercialización y mezcla de biocombustibles."
+  },
+  {
+   "id": "LB-282",
+   "norma": "LB",
+   "rotulo": "Artículo 282",
+   "titulo": "Sustituye el artículo 3º de la Ley 27.640",
+   "donde": "Título VI, Sección IV",
+   "texto": "Art. 282. – Sustitúyese el artículo 3º de la Ley 27.640 de Biocombustibles, por el siguiente:\nArtículo 3º: Serán funciones de la Autoridad de Aplicación:\na) Regular, administrar y fiscalizar la producción, comercialización y uso sustentable de los biocombustibles;\nb) Adecuar a los términos de la presente ley las normas que establecen las especificaciones de calidad de los biocombustibles, la seguridad de las instalaciones en las cuales estos se elaboran, mezclan y/o almacenan, y aquellas que se vinculen con el registro y/o habilitación de las empresas y/o productos;\nc) Realizar auditorías e inspecciones en las empresas e instalaciones de elaboración, almacenaje y/o mezcla de biocombustibles, a fin de controlar su correcto funcionamiento y su ajuste a la normativa vigente;\nd) Aplicar las sanciones establecidas en la presente Ley;\ne) Fiscalizar el ejercicio de las actividades a que se refiere la presente ley, a fin de asegurar la observancia de las normas legales y reglamentarias correspondientes;\nf) Hacer uso de todos los medios que considere necesarios para el ejercicio de sus funciones de inspección y fiscalización;\ng) Dictar las normas complementarias que resulten necesarias para interpretar y aclarar el presente régimen, así como también ejercer toda otra atribución que surja de la reglamentación de la presente ley a los efectos de su mejor cumplimiento;\nh) Incrementar los porcentajes de mezcla obligatoria de los biocombustibles con gasoil y/o nafta de origen fósil y garantizar su cumplimiento, de acuerdo a las condiciones establecidas en la presente Ley;\ni) Verificar que las asignaciones de biocombustibles para el abastecimiento de la mezcla obligatoria con combustibles fósiles se efectúen de acuerdo con lo indicado en el Artículo 13 y garantizar su cumplimiento de acuerdo con las condiciones establecidas en la presente Ley;\nj) Publicar los resultados de las licitaciones realizadas en el marco de la presente Ley."
+  },
+  {
+   "id": "LB-283",
+   "norma": "LB",
+   "rotulo": "Artículo 283",
+   "titulo": "Sustituye el artículo 4º de la Ley 27.640",
+   "donde": "Título VI, Sección IV",
+   "texto": "Art. 283. – Sustitúyese el artículo 4º de la Ley 27.640 de Biocombustibles, por el siguiente:\nArtículo 4º: A los fines de la presente Ley, se entiende por biocombustible al bioetanol, al biodiésel y a cualquier otro biocombustible líquido que cumpla los requisitos de calidad que establezca la Autoridad de Aplicación y cuyo origen sea agropecuario, agroindustrial y/o provenga de desechos orgánicos y/o plásticos, considerándose que los mismos se computarán como parte del corte obligatorio establecido en la presente ley.\nPor un plazo de dieciocho (18) años contados a partir de la entrada en vigencia de la presente Ley, los biocombustibles que se mezclen obligatoriamente con combustibles fósiles deberán ser producidos en instalaciones situadas en la República Argentina, utilizando materias primas nacionales."
+  },
+  {
+   "id": "LB-284",
+   "norma": "LB",
+   "rotulo": "Artículo 284",
+   "titulo": "Sustituye el artículo 5º de la Ley 27.640",
+   "donde": "Título VI, Sección IV",
+   "texto": "Art. 284. – Sustitúyese el artículo 5º de la Ley 27.640 de Biocombustibles, por el siguiente:\nArtículo 5º: Quienes elaboren, almacenen y/o comercialicen biocombustibles deberán registrarse y habilitarse en el Registro que se crea por la presente norma, conforme lo establezca la reglamentación."
+  },
+  {
+   "id": "LB-285",
+   "norma": "LB",
+   "rotulo": "Artículo 285",
+   "titulo": "Sustituye el artículo 8º de la Ley 27.640",
+   "donde": "Título VI, Sección IV",
+   "texto": "Art. 285. – Sustitúyese el artículo 8º de la Ley 27.640 de Biocombustibles, por el siguiente:\nArtículo 8º: El porcentaje para la mezcla o corte obligatorio se fija conforme se indica a continuación:\na) Biodiesel. El gasoil o diésel de origen fósil deberá contener un porcentaje de mezcla con biodiesel obligatorio, en volumen, medido sobre la cantidad total del producto final, de acuerdo con el siguiente cronograma:\nFecha de inicio de la mezcla o corte | Porcentaje de biodiesel en gasoil de origen fósil (en volumen)\nFecha de entrada en vigencia de esta Ley | 10 %\n1º de enero de 2025 | 11 %\n1º de abril de 2026 | 12,5 %\nA partir del doce coma cinco por ciento (12,5 %) de mezcla o corte obligatorio de biodiesel en gasoil o diésel de origen fósil y no antes de tres (3) años de la entrada en vigencia de la presente Ley la Autoridad de Aplicación propondrá al Congreso aumentos progresivos de porcentaje de mezcla o corte obligatorio hasta alcanzar el quince por ciento (15 %).\nEn la zona patagónica el porcentaje de mezcla o corte obligatorio de biodiesel en gasoil o diésel de origen fósil será del diez por ciento (10 %) hasta tanto se solucionen cuestiones técnicas y/o de infraestructura.\nb) Bioetanol.\nb) 1. Las naftas de origen fósil deberán contener un porcentaje de mezcla con bioetanol Obligatorio, en volumen, medido sobre la cantidad total del producto final del doce por ciento (12 %). Durante los primeros dos (2) años desde la entrada en vigencia de la presente Ley, la Autoridad de Aplicación podrá disponer un incremento del porcentaje de mezcla hasta el quince por ciento (15 %). A partir del quince por ciento (15 %) de mezcla o corte obligatorio de bioetanol en naftas de origen fósil y no antes de tres (3) años de la entrada en vigencia de la presente Ley, la Autoridad de Aplicación propondrá al Congreso aumentos progresivos de porcentaje de mezcla o corte obligatorio hasta alcanzar un porcentaje entre el dieciocho por ciento (18 %) y el veintisiete por ciento (27 %).\nc) Cuando la mezcla o corte obligatorio supere el quince por ciento (15 %) para el biodiesel o el dieciocho por ciento (18 %) para el bioetanol, las empresas que produzcan y/o destilen hidrocarburos estarán autorizadas a participar conforme a lo establecido en el artículo 13 de la presente Ley en el abastecimiento de biocombustibles únicamente en el volumen excedente a los porcentajes de mezcla o corte antes mencionados. En ningún caso, la participación de las empresas que produzcan y/o destilen hidrocarburos podrá ser superior al quince por ciento (15 %) del volumen excedente;\nd) Los porcentajes de mezcla o corte obligatorios establecidos en los acápites a) y b) precedentes podrán ser exceptuados por la Autoridad de Aplicación únicamente en caso de escasez general y comprobada de materia prima, conforme lo establezca la reglamentación a la presente Ley."
+  },
+  {
+   "id": "LB-286",
+   "norma": "LB",
+   "rotulo": "Artículo 286",
+   "titulo": "Sustituye el artículo 10 de la Ley 27.640",
+   "donde": "Título VI, Sección IV",
+   "texto": "Art. 286. – Sustitúyese el artículo 10 de la Ley 27.640, de Biocombustibles, por el siguiente:\nArtículo 10: Las empresas responsables de llevar a cabo las mezclas obligatorias de biocombustibles con combustibles fósiles deberán adquirirlos, sin excepción, de las empresas elaboradoras autorizadas a tales efectos por la Autoridad de Aplicación, de acuerdo a los parámetros de precio y distribución de volúmenes conforme lo establecido en el Artículo13 de la presente Ley."
+  },
+  {
+   "id": "LB-287",
+   "norma": "LB",
+   "rotulo": "Artículo 287",
+   "titulo": "Sustituye el artículo 11 de la Ley 27.640",
+   "donde": "Título VI, Sección IV",
+   "texto": "Art. 287. – Sustitúyese el artículo 11 de la Ley 27.640, de Biocombustibles, por el siguiente:\nArtículo 11: Las empresas elaboradoras de biocombustibles, sin distinción de materia prima de origen, ni de su condición de integradas o no integradas, ni de su composición societaria, tendrán derecho a participar en los mercados de producción y suministro de biocombustibles tanto para el mercado interno como para el de exportación."
+  },
+  {
+   "id": "LB-288",
+   "norma": "LB",
+   "rotulo": "Artículo 288",
+   "titulo": "Sustituye el artículo 13 de la Ley 27.640",
+   "donde": "Título VI, Sección IV",
+   "texto": "Art. 288. – Sustitúyese el artículo 13 de la Ley 27.640, de Biocombustibles, por el siguiente:\nArtículo 13: Determinación de volúmenes y precio. La determinación de volúmenes y precios en el abastecimiento de biocombustibles será realizada periódicamente mediante un sistema único de licitaciones transparentes, de acceso público, de acuerdo a las condiciones que se definen seguidamente para cada biocombustible:\na) Para el biodiesel:\na) 1. La adjudicación a cada empresa no podrá exceder el catorce por ciento (14 %) del total del volumen objeto de la licitación del período correspondiente;\na) 2. La adjudicación de volumen a cada empresa en las licitaciones no excederá el máximo de su capacidad instalada registrada;\na) 3. La adjudicación respetará que para cada año calendario, la relación entre la producción real propia y a façón, y la capacidad instalada del conjunto de empresas que producen materia prima (empresas integradas), sea igual a la del conjunto de las restantes empresas elaboradoras. debiéndose verificar a tal efecto la composición societaria de las empresas participantes de cada grupo empresario, conforme lo establezca la reglamentación.\nb) Para el bioetanol:\nb) 1. La adjudicación de volumen a cada empresa en las licitaciones no excederá el máximo de su capacidad instalada registrada;\nb) 2. Hasta el 31 de diciembre de 2030, el abastecimiento de los volúmenes periódicos de bioetanol a base de caña de azúcar se realizará respetándose el volumen anual promedio del período 2021 – 2023. Esta medida regirá para las empresas productoras de bioetanol a partir de caña de azúcar habilitadas al 31 de diciembre de 2023.\nc) En caso de incumplimiento en el abastecimiento conforme los volúmenes adjudicados, la Autoridad de Aplicación o quien ésta determine podrá revocar la adjudicación efectuada, conforme lo establezca la reglamentación a la presente Ley.\nd) En caso de que los precios adjudicados superen los precios internacionales de importación, calculados conforme al índice internacionalmente reconocido, los vendedores de biocombustibles deberán vender al precio de importación vigente en cada momento.\nLa Autoridad de Aplicación será responsable de implementar y supervisar las licitaciones establecidas, y deberá dar inicio a las licitaciones en un plazo máximo de 30 días corridos a partir de la entrada en vigencia de la presente ley."
+  },
+  {
+   "id": "LB-289",
+   "norma": "LB",
+   "rotulo": "Artículo 289",
+   "titulo": "Deroga los artículos 6º, 9º, 12, 14, 15, 16, 17 y 23 de la Ley 27.640",
+   "donde": "Título VI, Sección IV",
+   "texto": "Art. 289. – Deróganse los artículos 6º, 9º, 12, 14, 15, 16, 17 y 23 de la Ley 27.640."
+  },
+  {
+   "id": "LBR-1",
+   "norma": "LBR",
+   "rotulo": "Mapa de Diputados",
+   "titulo": "Corte de biodiésel (art. 8 nuevo)",
+   "donde": "",
+   "texto": "Corte de biodiésel (art. 8 nuevo): 10% desde la vigencia, 11% desde el 1/1/2025 y 12,5% desde el 1/4/2026; después, y no antes de tres años, la Autoridad de Aplicación proponía al Congreso subas hasta 15%. Patagonia 10%. Excepción solo por escasez general y comprobada de materia prima."
+  },
+  {
+   "id": "LBR-2",
+   "norma": "LBR",
+   "rotulo": "Mapa de Diputados",
+   "titulo": "Integradas (art. 11 nuevo)",
+   "donde": "",
+   "texto": "Integradas (art. 11 nuevo): todas las elaboradoras, \"sin distinción de materia prima de origen, ni de su condición de integradas o no integradas, ni de su composición societaria\", con derecho a participar en el mercado interno y en el de exportación. La ley llamaba integradas a las \"empresas que producen materia prima\": integrada era la que tenía el aceite, no la que superaba un tamaño."
+  },
+  {
+   "id": "LBR-3",
+   "norma": "LBR",
+   "rotulo": "Mapa de Diputados",
+   "titulo": "Dos segmentos igualados por el factor de utilización (art. 13 nuevo, a.3)",
+   "donde": "",
+   "texto": "Dos segmentos igualados por el factor de utilización (art. 13 nuevo, a.3): en cada año calendario, la relación entre la producción real (propia y a façon) y la capacidad instalada del conjunto de las integradas debía ser igual a la del conjunto de las restantes elaboradoras, las no integradas, verificando la composición societaria de cada grupo empresario. Cada conjunto se llevaba el volumen proporcional a su capacidad, con el mismo factor de utilización, y eso se mantenía todo el tiempo: sin transición ni cupo fijo."
+  },
+  {
+   "id": "LBR-4",
+   "norma": "LBR",
+   "rotulo": "Mapa de Diputados",
+   "titulo": "Precio y volúmenes (art. 13 nuevo)",
+   "donde": "",
+   "texto": "Precio y volúmenes (art. 13 nuevo): un sistema único de licitaciones transparentes, de acceso público y periódicas, que la Autoridad de Aplicación debía lanzar a los 30 días de vigencia. La adjudicación a cada empresa no podía superar el 14% del volumen licitado (a.1) ni su capacidad instalada registrada (a.2); el incumplimiento en la entrega permitía revocar la adjudicación (c) y, si el precio adjudicado superaba la paridad de importación, se vendía al precio de importación (d)."
+  },
+  {
+   "id": "LBR-5",
+   "norma": "LBR",
+   "rotulo": "Mapa de Diputados",
+   "titulo": "Mezcladoras (art. 10 nuevo)",
+   "donde": "",
+   "texto": "Mezcladoras (art. 10 nuevo): compran sin excepción a elaboradoras autorizadas, al precio y volumen que salen de las licitaciones. Petroleras solo sobre el excedente cuando el corte supere 15%, y nunca más del 15% de ese excedente."
+  },
+  {
+   "id": "LBR-6",
+   "norma": "LBR",
+   "rotulo": "Mapa de Diputados",
+   "titulo": "Qué pasó después",
+   "donde": "",
+   "texto": "Qué pasó después: el 6/2/2024 la votación en particular se trabó y el proyecto volvió a comisión. El texto que Diputados aprobó el 30/4/2024 (142 a 106) ya no tenía el capítulo de biocombustibles, y la Ley 27.742 sancionada en junio tampoco."
+  },
+  {
+   "id": "UE245-T",
+   "norma": "UE245",
+   "rotulo": "Título",
+   "titulo": "",
+   "donde": "",
+   "texto": "DECISIÓN DE EJECUCIÓN (UE) 2019/245 DE LA COMISIÓN de 11 de febrero de 2019 por la que se aceptan ofertas de compromiso a raíz de la imposición de derechos compensatorios definitivos sobre las importaciones de biodiésel originario de Argentina"
+  },
+  {
+   "id": "UE245-C4",
+   "norma": "UE245",
+   "rotulo": "Considerando 4",
+   "titulo": "",
+   "donde": "",
+   "texto": "Tras la comunicación final, todos los productores exportadores que cooperaron, incluidas sus empresas vinculadas, junto con la Cámara Argentina de Biocombustibles («CARBIO») ofrecieron compromisos de precios de conformidad con el artículo 13, apartado 1, del Reglamento (UE) 2016/1037."
+  },
+  {
+   "id": "UE245-C5",
+   "norma": "UE245",
+   "rotulo": "Considerando 5",
+   "titulo": "",
+   "donde": "",
+   "texto": "A fin de garantizar que los compromisos sean viables, los exportadores de Argentina presentaron ofertas de compromiso con un precio mínimo de importación («PMI») para el producto afectado."
+  },
+  {
+   "id": "UE245-C6",
+   "norma": "UE245",
+   "rotulo": "Considerando 6",
+   "titulo": "",
+   "donde": "",
+   "texto": "Además, con el fin de garantizar la eliminación de las subvenciones perjudiciales y hacer viable y práctico el seguimiento de los productores exportadores que ofrecen los compromisos, estos exportadores argentinos se ofrecieron a garantizar que el volumen de las importaciones realizadas en el marco de los compromisos se fijara a un nivel anual aproximadamente correspondiente a su comportamiento global en el mercado, garantizando al mismo tiempo unas condiciones de competencia equitativas."
+  },
+  {
+   "id": "UE245-C8",
+   "norma": "UE245",
+   "rotulo": "Considerando 8",
+   "titulo": "",
+   "donde": "",
+   "texto": "La Comisión concluyó que las subvenciones perjudiciales podían eliminarse mediante compromisos de precios que abarcaran las importaciones al nivel anual propuesto, junto con un derecho ad valorem definitivo aplicado a las importaciones que superen el nivel anual mencionado en el considerando 6."
+  },
+  {
+   "id": "UE245-C9",
+   "norma": "UE245",
+   "rotulo": "Considerando 9",
+   "titulo": "",
+   "donde": "",
+   "texto": "CARBIO también se comprometió a facilitar a la Comisión información periódica y detallada sobre las ventas a la Unión de los productores exportadores argentinos, lo que permitirá a la Comisión supervisar eficazmente los compromisos. Habida cuenta del papel activo que desempeña CARBIO y de la red de seguridad en la forma del nivel anual a que se hace referencia en el considerando 6, la Comisión consideró que el riesgo de elusión de las ofertas de compromiso es limitado."
+  },
+  {
+   "id": "UE245-C13",
+   "norma": "UE245",
+   "rotulo": "Considerando 13",
+   "titulo": "",
+   "donde": "",
+   "texto": "La Comisión recordó que el nivel anual propuesto de importaciones (alrededor del 10 % del consumo anual medio de la Unión entre 2014 y el período de investigación) está directamente relacionado con las conclusiones de la investigación. A partir del nivel de importaciones examinado en la presente investigación, la Comisión estableció que existía una amenaza de perjuicio importante para la industria de la Unión. Por lo tanto, la Comisión consideró que, en principio, el nivel anual propuesto no debería perjudicar los resultados globales de la industria de la Unión."
+  },
+  {
+   "id": "UE245-C14",
+   "norma": "UE245",
+   "rotulo": "Considerando 14",
+   "titulo": "",
+   "donde": "",
+   "texto": "En lo que respecta al cálculo del PMI, está vinculado a la media mensual de las cotizaciones del precio del aceite de soja publicadas por el Ministerio de Agricultura del Gobierno de Argentina, que reflejan la inclusión del impuesto a la exportación [las cotizaciones se expresan en precios franco a bordo («fob»)]. Más allá del nivel anual, se aplica el derecho ad valorem. Por lo tanto, en principio, la Comisión consideró que un PMI de este tipo reduce el impacto en los precios de los insumos que están sujetos a la política de apoyo de la administración argentina."
+  },
+  {
+   "id": "UE245-C15",
+   "norma": "UE245",
+   "rotulo": "Considerando 15",
+   "titulo": "",
+   "donde": "",
+   "texto": "Por tanto, la Comisión consideró que la combinación del PMI con el nivel anual propuesto más el derecho ad valorem aplicable a las importaciones del producto afectado que superan ese nivel anual elimina los efectos de las subvenciones perjudiciales. Por tanto, se rechazaron esas alegaciones."
+  },
+  {
+   "id": "UE245-C17",
+   "norma": "UE245",
+   "rotulo": "Considerando 17",
+   "titulo": "",
+   "donde": "",
+   "texto": "La Comisión observó que este argumento contradice el argumento formulado por el EBB de que el PMI se había fijado en un nivel demasiado bajo. De ser así, no podría utilizarse indebidamente ningún beneficio adicional como se alega. CARBIO alegó además que los productores exportadores argentinos no tienen la opción de efectuar algunas ventas al nivel del PMI y algunas con derechos pagados. Solamente están autorizados a vender con derechos pagados una vez que se ha agotado por completo el nivel anual. Por lo tanto, de esta manera se mitigaría el supuesto riesgo."
+  },
+  {
+   "id": "UE245-C34",
+   "norma": "UE245",
+   "rotulo": "Considerando 34",
+   "titulo": "",
+   "donde": "",
+   "texto": "Por lo tanto, la Comisión consideró aceptables las ofertas de compromiso de los productores exportadores argentinos. Se ha informado a los productores exportadores que ofrecían los compromisos y a CARBIO, así como a todas las partes interesadas, acerca de los principales hechos, consideraciones y obligaciones en los que se basa la aceptación del compromiso."
+  },
+  {
+   "id": "UE245-C59",
+   "norma": "UE245",
+   "rotulo": "Considerando 59",
+   "titulo": "",
+   "donde": "",
+   "texto": "En caso de incumplimiento o denuncia de los compromisos, o si la Comisión denuncia la aceptación de los mismos, se aplicará automáticamente el derecho compensatorio definitivo impuesto con arreglo al artículo 15, apartado 1, del Reglamento (UE) 2016/1037, de conformidad con el artículo 13, apartado 9, de dicho Reglamento."
+  },
+  {
+   "id": "UE245-1",
+   "norma": "UE245",
+   "rotulo": "Artículo 1",
+   "titulo": "",
+   "donde": "",
+   "texto": "Se aceptan los compromisos ofrecidos por los productores exportadores enumerados a continuación junto con la Cámara Argentina de Biocombustibles («CARBIO») en relación con el procedimiento antisubvenciones relativo a las importaciones de biodiésel originario de Argentina.\nPaís\nEmpresa\nCanal de venta\nCódigo TARIC adicional\nArgentina\nAceitera General Deheza SA\nProducido y vendido por Aceitera General Deheza SA al primer cliente independiente de la Unión que actúe como importador.\nC493\nBunge Argentina SA.\nProducido y vendido por Bunge Argentina SA, o\nproducido por Bunge Argentina SA y vendido por Bunge Agritrade SA, Uruguay, al primer cliente independiente de la Unión que actúe como importador.\nC494\nLDC Argentina SA.\nProducido y vendido por LDC Argentina SA, o\nproducido por LDC Argentina SA y vendido por Louis Dreyfus Company Suisse SA, Suiza, al primer cliente independiente de la Unión que actúe como importador.\nC495\nMolinos Agro SA.\nProducido y vendido por Molinos Agro SA, o\nproducido por Molinos Agro S.A, y vendido por Molinos Overseas Commodities SA, Uruguay, al primer cliente independiente de la Unión que actúe como importador.\nC496\nOleaginosa Moreno Hermanos S.A.C.I.F. y A.\nProducido y vendido por Oleaginosa Moreno Hermanos S.A.C.I.F. y A. al primer cliente independiente de la UE que actúe como importador.\nC497\nVicentin S.A.I.C.\nProducido y vendido por Vicentin S.A.I.C., o\nproducido por Vicentin S.A.I.C., y vendido por Vicentin S.A.I.C. Sucursal, Uruguay, al primer cliente independiente de la Unión que actúe como importador.\nC498\nCargill S.A.C.I.\nProducido y vendido por Cargill S.A.C.I, o\nproducido por Cargill S.A.C.I y vendido por Cargill International SA, Suiza, al primer cliente independiente de la Unión que actúe como importador.\nC491\nCOFCO International Argentina SA.\nProducido y vendido por COFCO International Argentina SA, o\nproducido por COFCO International Argentina SA y vendido por COFCO Resources SA, Suiza, al primer cliente independiente de la Unión que actúe como importador.\nC490"
+  },
+  {
+   "id": "UE245-2",
+   "norma": "UE245",
+   "rotulo": "Artículo 2",
+   "titulo": "",
+   "donde": "",
+   "texto": "La presente Decisión entrará en vigor el día siguiente al de su publicación en el Diario Oficial de la Unión Europea."
+  },
+  {
+   "id": "UE835-T",
+   "norma": "UE835",
+   "rotulo": "Título",
+   "titulo": "",
+   "donde": "",
+   "texto": "REGLAMENTO DE EJECUCIÓN (UE) 2025/835 DE LA COMISIÓN de 5 de mayo de 2025 por el que se impone un derecho compensatorio definitivo a las importaciones de biodiésel originario de Argentina tras una reconsideración por expiración de conformidad con el artículo 18 del Reglamento (UE) 2016/1037 del Parlamento Europeo y del Consejo"
+  },
+  {
+   "id": "UE835-C2",
+   "norma": "UE835",
+   "rotulo": "Considerando 2",
+   "titulo": "",
+   "donde": "",
+   "texto": "Los tipos de los derechos compensatorios actualmente en vigor se sitúan entre el 25 y el 33,4 % sobre las importaciones de los productores exportadores incluidos en la muestra, en el 28,2 % en el caso de las empresas cooperantes no incluidas en la muestra y en el 33,4 % para las demás empresas de Argentina. En febrero de 2019, la Comisión también aceptó los compromisos ofrecidos por los exportadores argentinos, consistentes en un contingente anual libre de derechos para el biodiésel a un precio mínimo basado en el precio oficial del aceite de soja argentino, más los costes de producción y los fletes."
+  },
+  {
+   "id": "UE835-C243",
+   "norma": "UE835",
+   "rotulo": "Considerando 243",
+   "titulo": "",
+   "donde": "",
+   "texto": "Como se muestra en el cuadro 2, la industria del biodiésel siguió siendo una industria enfocada a la exportación. De hecho, desde 2020, se exportó hasta el 74 % de la producción, según el año, y durante el período de investigación de la reconsideración (PIR) se exportó casi la mitad de la producción. Los productores exportadores incluidos en la muestra explicaron que, durante el período de investigación de la reconsideración (en el que estaba el compromiso en vigor), los precios en la Unión —su único destino de exportación durante dicho período— eran bajos y, en general, solo exportaban cuando los precios eran suficientemente elevados en comparación con el precio mínimo de importación en vigor con arreglo al compromiso, a fin de obtener beneficios. Al mismo tiempo, hasta mediados de octubre de 2022, el mandato aumentado sobre el biodiésel (12,5 %) y la posibilidad de suministrar el mandato adicional también a las empresas que normalmente no participaban en el mandato nacional hicieron que una mayor parte de la producción se destinase al consumo interno en lugar de a la exportación. Por este motivo, el porcentaje de exportaciones sobre la producción es inferior al de años anteriores. Una situación similar puede observarse en 2020, cuando el mandato sobre el biodiésel era del 10 % en virtud de la Ley de Biocombustibles de 2006, antes de que la Ley de Biocombustibles de 2021 lo redujera al 5 % en 2021 (incrementado después al 7,5 % a partir de junio de 2022). Desde esta perspectiva, el mandato aumentado sobre el biodiésel implica un mayor consumo interno, mientras que el mandato reducido actúa como un impulso a la exportación. Como consecuencia de ello, los poderes públicos de Argentina, al reducir el mandato sobre el biodiésel en virtud de la Ley de Biocombustibles de 2021, orientaron aún más a la industria argentina del biodiésel hacia las exportaciones. Los menores niveles de producción y de exportaciones totales en términos absolutos durante el período de investigación de la reconsideración se debieron a una caída general de la producción ocasionada por la sequía en Argentina, que afectó a la materia prima del biodiésel, es decir, la soja."
+  },
+  {
+   "id": "UE835-C337",
+   "norma": "UE835",
+   "rotulo": "Considerando 337",
+   "titulo": "",
+   "donde": "",
+   "texto": "La Comisión examinó si las importaciones subvencionadas procedentes de Argentina llegarían a la Unión en volúmenes significativos en caso de que se dejaran expirar las medidas y, con ellas, también el compromiso en vigor por el que los productores exportadores se comprometieron a exportar a la Unión a un precio mínimo de importación."
+  },
+  {
+   "id": "UE835-C355",
+   "norma": "UE835",
+   "rotulo": "Considerando 355",
+   "titulo": "",
+   "donde": "",
+   "texto": "Sobre esta base, la Comisión consideró probable que los productores exportadores argentinos aumentaran sus exportaciones de biodiésel a precios subvencionados al mercado de la Unión si se dejaran expirar las medidas compensatorias y, por tanto, también el compromiso en vigor."
+  },
+  {
+   "id": "UE835-C364",
+   "norma": "UE835",
+   "rotulo": "Considerando 364",
+   "titulo": "",
+   "donde": "",
+   "texto": "Las importaciones procedentes de Argentina experimentaron fluctuaciones, pero en general disminuyeron durante el período considerado (– 44 % en total). Su cuota de mercado se redujo del 5,1 % en 2020 al 2,6 % en el período de investigación de la reconsideración. Cabe señalar que el compromiso mencionado en el considerando 2 siguió siendo efectivo durante todo el período considerado."
+  },
+  {
+   "id": "UE835-C367",
+   "norma": "UE835",
+   "rotulo": "Considerando 367",
+   "titulo": "",
+   "donde": "",
+   "texto": "El precio de las importaciones procedentes de Argentina subió de manera significativa durante el período considerado (+ 95 % en total). Esta subida de precios debe considerarse a la luz del compromiso mencionado en el considerando 2, que siguió siendo efectivo durante el período considerado."
+  },
+  {
+   "id": "UE835-C442",
+   "norma": "UE835",
+   "rotulo": "Considerando 442",
+   "titulo": "",
+   "donde": "",
+   "texto": "En el considerando 2 se ha señalado que la Comisión aceptó ofertas de compromiso mediante la Decisión de Ejecución (UE) 2019/245. La Comisión consideró que eliminan los efectos perjudiciales de las importaciones subvencionadas y limitan en un grado suficiente el riesgo de elusión."
+  },
+  {
+   "id": "UE835-C443",
+   "norma": "UE835",
+   "rotulo": "Considerando 443",
+   "titulo": "",
+   "donde": "",
+   "texto": "CARBIO y los poderes públicos de Argentina alegaron que, en caso de que se renovaran las medidas en vigor, debería mantenerse el compromiso existente. CARBIO consideró que el compromiso era un mecanismo eficaz, que actuaba como factor de estabilización de los precios de importación del biodiésel en la Unión, dados los elevados precios a los que se comercializaba el biodiésel argentino y el margen de subcotización negativo que figura en la solicitud (– 2 %). CARBIO señaló que sus miembros eran disciplinados y se comprometían a proseguir sus esfuerzos con un acuerdo renovado."
+  },
+  {
+   "id": "UE835-C444",
+   "norma": "UE835",
+   "rotulo": "Considerando 444",
+   "titulo": "",
+   "donde": "",
+   "texto": "La Comisión señaló que la actual reconsideración por expiración tiene por objeto evaluar si está justificada la continuación de las medidas compensatorias. Cualquier evaluación del compromiso en vigor queda fuera del ámbito de la actual reconsideración por expiración."
+  },
+  {
+   "id": "UE835-1",
+   "norma": "UE835",
+   "rotulo": "Artículo 1, apartado 2",
+   "titulo": "",
+   "donde": "",
+   "texto": "2. Los tipos del derecho compensatorio definitivo aplicable al precio neto franco en la frontera de la Unión, antes del pago de derechos, del producto descrito en el apartado 1 y producido por las empresas enumeradas a continuación serán los siguientes:\nEmpresa\nDerecho compensatorio\nCódigo TARIC adicional\nAceitera General Deheza S.A.\n33,4 %\nC493\nBunge Argentina S.A.\n33,4 %\nC494\nLDC Argentina S.A.\n26,2 %\nC495\nMolinos Agro S.A.\n25,0 %\nC496\nViterra Argentina S.A.\n25,0 %\nC497\nVicentin S.A.I.C.\n25,0 %\nC498\nCOFCO International Argentina S.A.\n28,2 %\nC490\nCargill S.A.C.I.\n28,2 %\nC491\nTodas las demás importaciones originarias de Argentina\n33,4 %\nC999"
+  },
+  {
+   "id": "UE835-2",
+   "norma": "UE835",
+   "rotulo": "Artículo 2",
+   "titulo": "",
+   "donde": "",
+   "texto": "1. Las importaciones declaradas para despacho a libre práctica estarán exentas del derecho compensatorio establecido en el artículo 1, siempre y cuando los productos hayan sido fabricados, expedidos y facturados por empresas de las cuales la Comisión haya aceptado compromisos y cuyos nombres se relacionen en la Decisión de Ejecución (UE) 2019/245, según sea ocasionalmente modificada, y hayan sido importados conforme a lo dispuesto en la misma Decisión de Ejecución de la Comisión.\n2. Las importaciones mencionadas en el apartado 1 estarán exentas del derecho compensatorio a condición de que: a) vayan acompañadas de una factura de compromiso consistente en una factura comercial que incluya, como mínimo, los elementos y la declaración que se establecen en el anexo 1 del presente Reglamento; b) vayan acompañadas de un certificado de compromiso para la exportación conforme al anexo 2 del presente Reglamento; y c) las mercancías declaradas y presentadas a las autoridades aduaneras correspondan rigurosamente a la descripción que figura en la factura de compromiso.\n3. Se originará una deuda aduanera en el momento de la aceptación de la declaración de despacho a libre práctica: a) siempre que se determine, en el caso de las importaciones descritas en el apartado 1, que no se cumplen una o más de las condiciones enumeradas en dicho apartado y en el apartado 2; o b) cuando la Comisión denuncie su aceptación del compromiso con arreglo al artículo 13, apartado 9, del Reglamento (UE) 2016/1037 por medio de un reglamento o una decisión que haga referencia a transacciones concretas y declare nulas las facturas de compromiso correspondientes."
+  },
+  {
+   "id": "UE835-3",
+   "norma": "UE835",
+   "rotulo": "Artículo 3",
+   "titulo": "",
+   "donde": "",
+   "texto": "Las empresas cuyos compromisos sean aceptados por la Comisión, cuyos nombres figuren en la Decisión de Ejecución (UE) 2019/245, según ulteriores modificaciones, y que estén sujetas a determinadas condiciones especificadas en dicha Decisión también expedirán una factura por las transacciones que no estén exentas del derecho compensatorio. Dicha factura será una factura comercial que contendrá, como mínimo, los datos establecidos en el anexo 3 del presente Reglamento."
+  },
+  {
+   "id": "ML-1",
+   "norma": "ML",
+   "rotulo": "2006",
+   "titulo": "Ley 26.093 - Régimen de Regulación y Promoción",
+   "donde": "",
+   "texto": "Crea el régimen de promoción para la producción y uso sustentables de biocombustibles. Vigencia 15 años desde la reglamentación. Promulgada el 12-05-2006.",
+   "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26093-116299/texto"
+  },
+  {
+   "id": "ML-2",
+   "norma": "ML",
+   "rotulo": "2007",
+   "titulo": "Decreto 109/2007",
+   "donde": "",
+   "texto": "Reglamentación de la Ley 26.093: define órganos de aplicación, registros, requisitos técnicos y beneficios fiscales del régimen.",
+   "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-109-2007-125179"
+  },
+  {
+   "id": "ML-3",
+   "norma": "ML",
+   "rotulo": "2010",
+   "titulo": "Inicio efectivo del corte obligatorio (Res. SE 1283/2006 y 6/2010)",
+   "donde": "",
+   "texto": "Marzo 2010: comienzo del mandato de mezcla obligatoria de biodiesel en gasoil. Corte inicial 5%, luego 7% (2010) y 10% (2014).",
+   "url": "https://www.argentina.gob.ar/normativa/nacional/resolución-1283-2006-120710"
+  },
+  {
+   "id": "ML-4",
+   "norma": "ML",
+   "rotulo": "2010-2012",
+   "titulo": "Resoluciones SE 1674/2010 y SE 56/2012",
+   "donde": "",
+   "texto": "Fijan límite artificial de 50.000 t/año para empresas no integradas, medida que bloquea crecimiento por economías de escala y congela la estructura del sector durante una década.",
+   "url": "https://www.argentina.gob.ar/normativa/buscar?jurisdiccion=Nacional&content_type=Resolución&number=1674&publication_date_year=2010"
+  },
+  {
+   "id": "ML-5",
+   "norma": "ML",
+   "rotulo": "2013",
+   "titulo": "UE - Reglamento 490/2013 (antidumping)",
+   "donde": "",
+   "texto": "La Unión Europea aplica derechos antidumping de 22-25,7% al biodiesel argentino. El cierre del mercado europeo marca el primer shock exportador significativo del sector.",
+   "url": "https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32013R0490"
+  },
+  {
+   "id": "ML-6",
+   "norma": "ML",
+   "rotulo": "2017",
+   "titulo": "USA - Aranceles antidumping 86,2% + compensatorios 71,4%",
+   "donde": "",
+   "texto": "El Departamento de Comercio emite órdenes de derechos sobre el biodiesel argentino. Las exportaciones a EEUU caen a cero inmediatamente.",
+   "url": "https://www.federalregister.gov/documents/2018/01/04/2017-28457/biodiesel-from-argentina-and-indonesia-amended-final-affirmative-antidumping-duty-determinations-and"
+  },
+  {
+   "id": "ML-7",
+   "norma": "ML",
+   "rotulo": "2017",
+   "titulo": "Resolución SE 415/2017",
+   "donde": "",
+   "texto": "Modifica la fórmula de precio del biodiesel establecida en Res. 1125/2013. Continúan los ajustes insuficientes que afectan la rentabilidad del sector.",
+   "url": "https://www.argentina.gob.ar/normativa/buscar?jurisdiccion=Nacional&content_type=Resolución&number=415&publication_date_year=2017"
+  },
+  {
+   "id": "ML-8",
+   "norma": "ML",
+   "rotulo": "2019",
+   "titulo": "Acuerdo de Compromiso UE - CARBIO",
+   "donde": "",
+   "texto": "La UE acepta un compromiso de precio mínimo y cupo de 1,2 millones de toneladas. El acuerdo excluye explícitamente a las empresas no integradas.",
+   "url": "https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32019D0245"
+  },
+  {
+   "id": "ML-9",
+   "norma": "ML",
+   "rotulo": "2021",
+   "titulo": "Ley 27.640 - Marco Regulatorio de Biocombustibles",
+   "donde": "",
+   "texto": "Reemplaza el régimen de promoción. Reduce el corte obligatorio de biodiesel del 10% al 5% (con piso de 3%), mientras mantiene el de bioetanol en 12%. Autora: Marcos Cleri. Promotor: Máximo Kirchner.",
+   "url": "https://www.argentina.gob.ar/normativa/nacional/ley-27640-352587/texto"
+  },
+  {
+   "id": "ML-10",
+   "norma": "ML",
+   "rotulo": "2021",
+   "titulo": "Decreto 717/2021",
+   "donde": "",
+   "texto": "Reglamenta la Ley 27.640. Mantiene restricciones sobre empresas no integradas y el límite de 50.000 t/año.",
+   "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/355000-359999/355460/texact.htm"
+  },
+  {
+   "id": "ML-11",
+   "norma": "ML",
+   "rotulo": "2022",
+   "titulo": "Resoluciones SE 689/2022 y 776/2022",
+   "donde": "",
+   "texto": "Crean el Registro de Operadores y Mezcladores de Biocombustibles (689) y establecen pautas obligatorias para abastecimiento del mercado interno (776).",
+   "url": "https://www.argentina.gob.ar/normativa/buscar?jurisdiccion=Nacional&content_type=Resolución&number=689&publication_date_year=2022"
+  },
+  {
+   "id": "ML-12",
+   "norma": "ML",
+   "rotulo": "2023",
+   "titulo": "Resolución SE 963/2023",
+   "donde": "",
+   "texto": "Publicada el 29-11-2023, tres años y tres meses después de la Ley 27.640, aprueba la metodología para determinación del precio del biodiesel - cumplimiento tardío del Art. 14. Incluye en su Art. 5 una cláusula discrecional que permite apartarse de la fórmula.",
+   "url": "https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-963-2023-394051"
+  },
+  {
+   "id": "ML-13",
+   "norma": "ML",
+   "rotulo": "2023",
+   "titulo": "DNU 70/2023",
+   "donde": "",
+   "texto": "Decreto del gobierno Milei. Su Capítulo VI originalmente modificaba sustancialmente el régimen de biocombustibles; fue retirado de la versión definitiva tras negociaciones con las provincias productoras.",
+   "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-70-2023-395521/texto"
+  },
+  {
+   "id": "ML-14",
+   "norma": "ML",
+   "rotulo": "2024",
+   "titulo": "Proyecto Liga Bioenergética (S-1495/24 + 4752-D-2024)",
+   "donde": "",
+   "texto": "Ingresa al Senado respaldado por nueve provincias, CAPBA, CASFER, el Centro Azucarero y la Cámara del Bioetanol de Maíz. Introduce licitaciones públicas, igualación del factor de utilización, contratos take-or-pay y límites del 14% por empresa y grupo económico.",
+   "url": "https://www.senado.gob.ar/parlamentario/comisiones/proyectosDictamenes/54"
+  },
+  {
+   "id": "ML-15",
+   "norma": "ML",
+   "rotulo": "2024",
+   "titulo": "Ley 27.742 - Bases (sin capítulo biocombustibles)",
+   "donde": "",
+   "texto": "Sancionada sin el capítulo original de biocombustibles, que había sido incluido por el PEN. Las provincias productoras lograron que se retirara para dar tratamiento separado.",
+   "url": "https://www.argentina.gob.ar/normativa/nacional/ley-27742-401266/texto"
+  },
+  {
+   "id": "ML-16",
+   "norma": "ML",
+   "rotulo": "2024",
+   "titulo": "Proyecto Dip. Villaverde (redactado por Sec. Coord. Energía)",
+   "donde": "",
+   "texto": "Expediente D-6969/2024. Redactado por el Secretario Daniel González y presentado por la Dip. Lorena Villaverde (LLA). Reduce el corte a 5% y lo extingue progresivamente hasta 0% en 2031. Habilita coprocesado como componente del corte.",
+   "url": "https://www.diputados.gob.ar/proyectos/proyecto.jsp?exp=6969-D-2024"
+  },
+  {
+   "id": "ML-17",
+   "norma": "ML",
+   "rotulo": "2025",
+   "titulo": "Propuesta de la Secretaría de Energía (Veller)",
+   "donde": "",
+   "texto": "Presentada en octubre 2025. Reduce la participación de no integradas del 7,5% al 2% entre 2025 y 2031. Preserva el universo cerrado de la Ley 27.640 con nuevo lenguaje.",
+   "url": null
+  },
+  {
+   "id": "ML-18",
+   "norma": "ML",
+   "rotulo": "2025-2026",
+   "titulo": "Resoluciones SE 445/2025 y 612/2025 - el corte baja a 7% y vuelve a 7,5%",
+   "donde": "",
+   "texto": "La Res. 445/2025 (7-11-2025) reduce de manera transitoria el corte obligatorio de biodiesel en el gasoil de 7,5% a 7%, invocando el art. 8 de la Ley 27.640 y la suba del aceite de soja. La Res. 612/2025 (30-12-2025, vigente desde el 2-1-2026) restablece el 7,5% y fija el precio de enero en $ 1.797.881 por tonelada.",
+   "url": "https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-445-2025-419993/texto"
+  },
+  {
+   "id": "ML-19",
+   "norma": "ML",
+   "rotulo": "2026",
+   "titulo": "Siete proyectos de reforma en el Senado - S-809/26 (Bullrich y otros) como base",
+   "donde": "",
+   "texto": "El 14-5-2026 ingresa el proyecto del oficialismo, S-809/26 (Bullrich, Cervi, Coto, Olivera Lucero, Fullone, Atauche, Godoy y Álvarez Rivero): deroga la Ley 27.640, lleva el corte de 7,5% a 10% en doce meses, crea un mercado electrónico con tope en la paridad de importación y fija una transición para las empresas no integradas. Se trata junto con S-3/26 (Vigo y Espínola, Liga Bioenergética), S-916/26 (Royon), S-1035/26 (Arce y Rojas Decut), S-1246/26 (Capitanich y otros), S-1861/25 (Carambia y Gadano) y S-1271/25 (Ávila). Las comisiones de Minería, Energía y Combustibles y de Presupuesto y Hacienda abren rondas informativas en junio y agosto; Explora expone el 4 de junio.",
+   "url": "https://www.senado.gob.ar/parlamentario/comisiones/verExp/809.26/S/PL"
+  },
+  {
+   "id": "ML-20",
+   "norma": "ML",
+   "rotulo": "2026",
+   "titulo": "Dictamen del plenario de comisiones (3-9-2026, Orden del Día 362/26)",
+   "donde": "",
+   "texto": "Las comisiones de Minería, Energía y Combustibles y de Presupuesto y Hacienda dictaminan en conjunto sobre los siete expedientes con el S-809/26 como base, con disidencia parcial de Fama, Espínola, Vigo y Juri; el 10-9 se presenta un dictamen de minoría. Respecto del texto que ingresó el 14-5, el dictamen cambia la redacción de 22 de los 44 artículos y cambia de fondo catorce. Siete ya venían cambiados en la versión de la Secretaría de Energía del 29-7 (5, 12, 14, 16, 17, 22 y 35): aparecen las subastas, la modalidad de negociación queda a criterio de la autoridad, el precio máximo pasa a ser un precio de referencia y la transición se estira de 2030 a 2031. Los otros siete los cambia la comisión (9, 13, 18, 34, 36, 38 y 39): el coprocesamiento sale del corte obligatorio, tope de 20% por empresa en bioetanol y tope de 10% por grupo económico en el segmento no integrado. Los artículos 12 y 14, el precio por acuerdo mutuo, quedan como los redactó la Secretaría de Energía.",
+   "url": "https://www.senado.gob.ar/parlamentario/comisiones/verExp/809.26/S/PL"
+  },
+  {
+   "id": "ML-21",
+   "norma": "ML",
+   "rotulo": "2026",
+   "titulo": "Media sanción del Senado - 17-9-2026, 41 votos a 25",
+   "donde": "",
+   "texto": "El Senado aprueba en general por 41 a 25 y en particular título por título el nuevo marco regulatorio de biocombustibles, con cambios leídos en el recinto. Respecto del S-809/26 que ingresó el 14-5 cambian quince artículos de fondo (5, 9, 12, 13, 14, 15, 16, 17, 18, 22, 34, 35, 36, 38 y 39): transición hasta 2036 (era hasta 2030), definición de empresa integrada por capacidad (50.000 t), grupo económico con cláusula de continuidad, tope de 10% por grupo y de 50.000 t por empresa en el segmento no integrado (era 14%), 20% obligatorio para las regiones, tabla de 4% y 6% para 2031-2035, coprocesamiento fuera del corte, subastas con la modalidad a criterio de la autoridad y precio de referencia en lugar de precio máximo. Pasa a Diputados.",
+   "url": "https://www.senado.gob.ar/parlamentario/parlamentaria/117016/Sanci%C3%B3n%20HSN%20-%20/descargarPdfParla"
+  },
+  {
+   "id": "ML-22",
+   "norma": "ML",
+   "rotulo": "2026",
+   "titulo": "Diputados - expediente CD-76/26, girado a Energía y Combustibles y a Presupuesto y Hacienda",
+   "donde": "",
+   "texto": "La media sanción ingresa a la Cámara de Diputados como CD-76/26 y se gira a las comisiones de Energía y Combustibles y de Presupuesto y Hacienda, que deben dictaminar antes de que el proyecto llegue al recinto. Al 12-10-2026 no tiene dictamen de comisión.",
+   "url": "https://www.hcdn.gob.ar/proyectos/resultado.html"
+  }
+ ]
+}

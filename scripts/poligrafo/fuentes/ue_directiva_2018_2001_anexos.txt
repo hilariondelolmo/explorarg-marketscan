@@ -1,0 +1,275 @@
+21.12.2018
+ES
+Diario Oficial de la Unión Europea
+L 328/82
+DIRECTIVA (UE) 2018/2001 DEL PARLAMENTO EUROPEO Y DEL CONSEJO
+de 11 de diciembre de 2018
+ANEXO III
+CONTENIDO ENERGÉTICO DE LOS COMBUSTIBLES
+Combustible
+Contenido energético por peso (valor calorífico inferior, MJ/kg)
+Contenido energético por volumen (valor calorífico inferior, MJ/l)
+COMBUSTIBLES A PARTIR DE BIOMASA Y/U OPERACIONES DE TRANSFORMACIÓN DE BIOMASA
+Biopropano
+46
+24
+Aceite vegetal puro (aceite obtenido a partir de plantas oleaginosas mediante presión, extracción o procedimientos comparables, crudo o refinado, pero sin modificación química)
+37
+34
+Biodiésel - éster metílico de ácidos grasos (éster metílico producido a partir de un aceite procedente de biomasa)
+37
+33
+Biodiésel - éster etílico de ácidos grasos (éster etílico producido a partir de un aceite procedente de biomasa)
+38
+34
+Biogás que puede ser purificado hasta alcanzar una calidad similar a la del gas natural
+50
+—
+Aceite hidrotratado procedente de biomasa (tratado termoquímicamente con hidrógeno), utilizado en sustitución del gasóleo
+44
+34
+Aceite hidrotratado procedente de biomasa (tratado termoquímicamente con hidrógeno), utilizado en sustitución de la gasolina
+45
+30
+Aceite hidrotratado procedente de biomasa (tratado termoquímicamente con hidrógeno), utilizado en sustitución del queroseno de aviación
+44
+34
+Aceite hidrotratado procedente de biomasa (tratado termoquímicamente con hidrógeno), utilizado en sustitución del gas licuado de petróleo
+46
+24
+Aceite procedente de biomasa o de biomasa pirolizada coprocesado (procesado en una refinería simultáneamente con combustibles fósiles), utilizado en sustitución del gasóleo
+43
+36
+Aceite procedente de biomasa o de biomasa pirolizada coprocesado (procesado en una refinería simultáneamente con combustibles fósiles), utilizado en sustitución de la gasolina
+44
+32
+Aceite procedente de biomasa o de biomasa pirolizada coprocesado (procesado en una refinería simultáneamente con combustibles fósiles), utilizado en sustitución del queroseno de aviación
+43
+33
+Aceite procedente de biomasa o de biomasa pirolizada coprocesado (procesado en una refinería simultáneamente con combustibles fósiles), utilizado en sustitución del gas licuado de petróleo
+46
+23
+COMBUSTIBLES RENOVABLES QUE PUEDEN PRODUCIRSE A PARTIR DE VARIAS FUENTES RENOVABLES, INCLUIDA LA BIOMASA
+Metanol procedente de fuentes renovables
+20
+16
+Etanol procedente de fuentes renovables
+27
+21
+Propanol procedente de fuentes renovables
+31
+25
+Butanol procedente de fuentes renovables
+33
+27
+Gasóleo Fischer-Tropsch (hidrocarburo sintético o mezcla de hidrocarburos sintéticos, utilizados en sustitución del gasóleo)
+44
+34
+Gasolina Fischer-Tropsch (hidrocarburo sintético o mezcla de hidrocarburos sintéticos producidos a partir de biomasa, utilizados en sustitución de la gasolina)
+44
+33
+Queroseno de aviación Fischer-Tropsch (hidrocarburo sintético o mezcla de hidrocarburos sintéticos producidos a partir de biomasa, utilizados en sustitución del queroseno de aviación)
+44
+33
+Gas licuado de petróleo Fischer-Tropsch (hidrocarburo sintético o mezcla de hidrocarburos sintéticos, utilizados en sustitución del gas licuado de petróleo)
+46
+24
+DME (dimetil-éter)
+28
+19
+Hidrógeno procedente de fuentes renovables
+120
+—
+ETBE (etil-terc-butil-éter producido a partir del etanol)
+36 (del cual el 37 % procedente de fuentes renovables)
+27 (del cual el 37 % procedente de fuentes renovables)
+MTBE (metil-terc-butil-éter producido a partir del metanol)
+35 (del cual el 22 % procedente de fuentes renovables)
+26 (del cual el 22 % procedente de fuentes renovables)
+TAEE (terc-amil-etil-éter, producido a partir del etanol)
+38 (del cual el 29 % procedente de fuentes renovables)
+29 (del cual el 29 % procedente de fuentes renovables)
+TAME (terc-amil-metil-éter, producido a partir del metanol)
+36 (del cual el 18 % procedente de fuentes renovables)
+28 (del cual el 18 % procedente de fuentes renovables)
+THxEE (terc-hexil-etil-éter, producido a partir del etanol)
+38 (del cual el 25 % procedente de fuentes renovables)
+30 (del cual el 25 % procedente de fuentes renovables)
+THxME (terc-hexil-metil-éter, producido a partir del metanol)
+38 (del cual el 14 % procedente de fuentes renovables)
+30 (del cual el 14 % procedente de fuentes renovables)
+COMBUSTIBLES FÓSILES
+Gasolina
+43
+32
+Gasóleo
+43
+36
+ANEXO IV
+CERTIFICACIÓN DE LOS INSTALADORES
+Los sistemas de certificación o sistemas de cualificación equivalentes mencionados en el artículo 18, apartado 3, se basarán en los siguientes criterios:
+1.
+el procedimiento de certificación o de cualificación deberá ser transparente y quedar claramente definido por los Estados miembros o el organismo administrativo que estos designen;
+2.
+los instaladores de sistemas que utilizan biomasa, bombas de calor, energía geotérmica superficial y energía solar térmica y fotovoltaicos serán certificados por un programa de formación o un proveedor de formación acreditados;
+3.
+los Estados miembros o el organismo administrativo que estos designen se encargarán de la acreditación del programa de formación o del proveedor de formación. El organismo de acreditación garantizará que el programa de formación ofrecido por el proveedor tenga continuidad y cobertura regional o nacional. El proveedor de formación deberá disponer de instalaciones técnicas adecuadas para impartir la formación práctica, en particular material de laboratorio o instalaciones equivalentes. Además de formación básica, el proveedor de formación también impartirá cursos de reciclaje más breves sobre temas de actualidad, incluidas nuevas tecnologías, para permitir una formación continua en instalaciones. Podrá ser proveedor de formación el fabricante de los equipos o sistemas, un instituto o una asociación;
+4.
+la formación para la certificación o la cualificación como instalador incluirá teoría y práctica. Al final de la formación, el instalador deberá poseer las cualificaciones requeridas para instalar equipos y sistemas que respondan a las necesidades del cliente en términos de prestaciones y fiabilidad, dominar el oficio, y respetar todos los códigos y normas aplicables, incluido el etiquetado ecológico y energético;
+5.
+al término del curso de formación se realizará un examen sancionado por un certificado o una cualificación. El examen incluirá una evaluación práctica de la instalación correcta de calderas o estufas de biomasa, bombas de calor, instalaciones geotérmicas superficiales, instalaciones solares térmicas o fotovoltaicas;
+6.
+los sistemas de certificación o sistemas de cualificación equivalentes mencionados en el artículo 18, apartado 3, tendrán debidamente en cuenta las siguientes directrices:
+a)
+deben impartirse programas de formación acreditados a los instaladores con experiencia laboral que hayan seguido, o estén siguiendo, los siguientes tipos de formación:
+i)
+en el caso de los instaladores de calderas y estufas de biomasa: formación de fontanero, montador de tuberías, técnico de calefacción o técnico de equipos sanitarios y de equipos de calefacción y de refrigeración, como requisito previo,
+ii)
+en el caso de los instaladores de bombas de calor: formación como fontanero o técnico de refrigeración y cualificaciones básicas en electricidad y fontanería (cortado de tubos, soldadura de juntas, pegado de juntas, aislamiento térmico, sellado de accesorios, ensayos de estanqueidad e instalación de sistemas de calefacción y refrigeración), como requisito previo,
+iii)
+en el caso de los instaladores de sistemas solares térmicos o fotovoltaicos: formación como fontanero o electricista, y cualificaciones en materia de fontanería, electricidad y cubiertas, en particular conocimientos de soldadura de juntas, pegado de juntas, sellado de accesorios, ensayos de estanqueidad, capacidad de conectar cables, buenos conocimientos de materiales básicos para cubiertas, métodos de colocación de cubrejuntas y aislamiento, como requisito previo; o
+iv)
+un programa de formación profesional que permita a los instaladores obtener cualificaciones adecuadas correspondientes a una formación de tres años en los ámbitos de competencia mencionados en las letras a), b) o c), que incluya tanto el aprendizaje en aulas como en el lugar de trabajo;
+b)
+la parte teórica de la formación de los instaladores de estufas y calderas de biomasa debería proporcionar una visión de conjunto de la situación del mercado de la biomasa y abarcar los aspectos ecológicos, los combustibles de la biomasa, la logística, la protección contra incendios, las subvenciones conexas, las técnicas de combustión, los sistemas de encendido, las soluciones hidráulicas óptimas, la comparación de costes y rentabilidad, así como el diseño, la instalación y el mantenimiento de calderas y estufas de biomasa. La formación también debería proporcionar buenos conocimientos de cualquier norma europea relativa a la tecnología y los combustibles de la biomasa, por ejemplo los gránulos (pellets), y de la normativa nacional y de la Unión relativa a la biomasa;
+c)
+la parte teórica de la formación de los instaladores de bombas de calor debería proporcionar una visión de conjunto de la situación del mercado de las bombas de calor y abarcar los recursos geotérmicos y las temperaturas del suelo de las diferentes regiones, la identificación de suelos y rocas en función de su conductividad térmica, la normativa relativa a la utilización de recursos geotérmicos, la viabilidad del uso de bombas de calor en edificios y la determinación del sistema más idóneo de bombas de calor, así como conocimientos sobre los requisitos técnicos, la seguridad, la filtración de aire, la conexión con la fuente de calor y la disposición del sistema. Asimismo, la formación debería proporcionar buenos conocimientos de cualquier norma europea relativa a las bombas de calor, y de la normativa nacional y de la Unión aplicable. El instalador debería demostrar las siguientes competencias clave:
+i)
+comprensión básica de los principios físicos y de funcionamiento de una bomba de calor, incluidas las características del circuito de la bomba: relación entre las temperaturas bajas del disipador térmico, las temperaturas altas de la fuente de calor, y la eficiencia del sistema, determinación del coeficiente de rendimiento y del factor de rendimiento estacional,
+ii)
+comprensión de los componentes y de su función en el circuito de la bomba de calor, incluido el compresor, la válvula de expansión, el evaporador, el condensador, los elementos y accesorios, el aceite lubricante, el refrigerante, y de las posibilidades de sobrecalentamiento, de subenfriamiento y de enfriamiento con las bombas de calor; y
+iii)
+capacidad de elegir y clasificar los componentes en situaciones típicas de instalación, incluida la determinación de los valores típicos de la carga térmica de los diferentes edificios y, para la producción de agua caliente basada en el consumo de energía, la determinación de la capacidad de la bomba de calor en función de la carga térmica para la producción de agua caliente, de la masa de almacenamiento del edificio y del suministro interrumpible de corriente; determinación del componente que sirve de depósito tampón y su volumen, y posibilidad de integración de un segundo sistema de calefacción;
+d)
+la parte teórica de la formación de los instaladores de sistemas solares térmicos y fotovoltaicos debería proporcionar una visión de conjunto de la situación del mercado de los productos relacionados con la energía solar y establecer comparaciones relativas a costes y rentabilidad, además de abarcar los aspectos ecológicos, los componentes, las características y el dimensionamiento de los sistemas solares, la selección de sistemas precisos y el dimensionamiento de componentes, la determinación de la demanda de calor, la protección contra incendios, las subvenciones conexas, así como el diseño, la instalación y el mantenimiento de las instalaciones solares térmicas y fotovoltaicas. La formación también debería proporcionar buenos conocimientos de cualquier norma europea relativa a la tecnología y la certificación, como Solar Keymark, y la normativa nacional y de la Unión aplicable. El instalador debería demostrar las siguientes competencias clave:
+i)
+capacidad de trabajar en condiciones de seguridad, utilizando las herramientas y equipos necesarios y aplicando los códigos y normas de seguridad, de identificar los riesgos relacionados con la electricidad y la fontanería y otros tipos de riesgos asociados a las instalaciones solares,
+ii)
+capacidad de identificar sistemas y componentes específicos de los sistemas activos y pasivos, incluido el diseño mecánico, y de localizar los componentes y la disposición y configuración de los sistemas,
+iii)
+capacidad de determinar la superficie, la orientación y la inclinación requeridas de los sistemas solares fotovoltaicos y de producción de agua caliente, teniendo en cuenta la sombra, el acceso solar, la integridad estructural, la idoneidad de la instalación para el edificio o el clima, y de identificar los diferentes métodos de instalación adaptados a los tipos de cubiertas y el equipo de equilibrio del sistema requerido para la instalación; y
+iv)
+para los sistemas solares fotovoltaicos en particular, capacidad de adaptar el diseño eléctrico, incluida la determinación de las corrientes de diseño, la selección de los tipos de conductores y especificaciones, adecuados para cada circuito eléctrico, la determinación del tamaño, las especificaciones y la ubicación adecuados para todos los equipos y subsistemas asociados, y la selección de un punto de interconexión apropiado;
+e)
+la certificación del instalador debería tener duración limitada de modo que resulte necesario acudir a seminarios o cursos de reciclaje para actualizar la certificación.
+ANEXO V
+NORMAS PARA CALCULAR EL IMPACTO DE LOS BIOCARBURANTES, BIOLÍQUIDOS Y SUS COMBUSTIBLES FÓSILES DE REFERENCIA EN LAS EMISIONES DE GASES DE EFECTO INVERNADERO
+A. VALORES TÍPICOS Y VALORES POR DEFECTO PARA LOS BIOCARBURANTES PRODUCIDOS SIN EMISIONES NETAS DE CARBONO DEBIDAS A CAMBIOS EN EL USO DEL SUELO
+Proceso de producción del biocarburante
+Reducción de emisiones de gases de efecto invernadero, valores típicos
+Reducción de emisiones de gases de efecto invernadero, valores por defecto
+Etanol de remolacha azucarera (sin biogás procedente de desechos, gas natural como combustible de proceso en caldera convencional)
+67 %
+59 %
+Etanol de remolacha azucarera (con biogás procedente de desechos, gas natural como combustible de proceso en caldera convencional)
+77 %
+73 %
+Etanol de remolacha azucarera (sin biogás procedente de desechos, gas natural como combustible de proceso en instalaciones de cogeneración (*))
+73 %
+68 %
+Etanol de remolacha azucarera (con biogás procedente de desechos, gas natural como combustible de proceso en instalaciones de cogeneración (*))
+79 %
+76 %
+Etanol de remolacha azucarera (sin biogás procedente de desechos, lignito como combustible de proceso en instalaciones de cogeneración (*))
+58 %
+47 %
+Etanol de remolacha azucarera (con biogás procedente de desechos, lignito como combustible de proceso en instalaciones de cogeneración (*))
+71 %
+64 %
+Etanol de maíz (gas natural como combustible de proceso en caldera convencional)
+48 %
+40 %
+Etanol de maíz (gas natural como combustible de proceso en instalaciones de cogeneración (*))
+55 %
+48 %
+Etanol de maíz (lignito como combustible de proceso en instalaciones de cogeneración (*))
+40 %
+28 %
+Etanol de maíz (desechos forestales como combustible de proceso en instalaciones de cogeneración (*))
+69 %
+68 %
+Etanol de otros cereales distintos del maíz (gas natural como combustible de proceso en caldera convencional)
+47 %
+38 %
+Etanol de otros cereales distintos del maíz (gas natural como combustible de proceso en instalaciones de cogeneración (*))
+53 %
+46 %
+Etanol de otros cereales distintos del maíz (lignito como combustible de proceso en instalaciones de cogeneración (*))
+37 %
+24 %
+Etanol de otros cereales distintos del maíz (desechos forestales como combustible de proceso en instalaciones de cogeneración (*))
+67 %
+67 %
+Etanol de caña de azúcar
+70 %
+70 %
+Parte del etil-terc-butil-éter (ETBE) procedente de fuentes renovables
+Iguales a los del proceso utilizado de producción del etanol
+Parte del terc-amil-etil-éter (TAEE) procedente de fuentes renovables
+Iguales a los del proceso utilizado de producción del etanol
+Biodiésel de colza
+52 %
+47 %
+Biodiésel de girasol
+57 %
+52 %
+Biodiésel de soja
+55 %
+50 %
+Biodiésel de aceite de palma (estanque abierto para efluentes)
+32 %
+19 %
+Biodiésel de aceite de palma (proceso con captura de metano en la almazara)
+51 %
+45 %
+Biodiésel de aceite de cocina usado
+88 %
+84 %
+Biodiésel procedente de grasas animales fundidas (**)
+84 %
+78 %
+Aceite vegetal hidrotratado de colza
+51 %
+47 %
+Aceite vegetal hidrotratado de girasol
+58 %
+54 %
+Aceite vegetal hidrotratado de soja
+55 %
+51 %
+Aceite vegetal hidrotratado de palma (estanque abierto para efluentes)
+34 %
+22 %
+Aceite vegetal hidrotratado de palma (proceso con captura de metano en la almazara)
+53 %
+49 %
+Aceite hidrotratado de cocina usado
+87 %
+83 %
+Aceite hidrotratado procedente de grasas animales fundidas (**)
+83 %
+77 %
+Aceite vegetal puro de colza
+59 %
+57 %
+Aceite vegetal puro de girasol
+65 %
+64 %
+Aceite vegetal puro de soja
+63 %
+61 %
+Aceite vegetal puro de palma (estanque abierto para efluentes)
+40 %
+30 %
+Aceite vegetal puro de palma (proceso con captura de metano en la almazara)
+59 %
+57 %
+Aceite puro de cocina usado
+98 %
+98 %
+(*)
+Los valores por defecto de los procesos que utilizan instalaciones de cogeneración solo son válidos si todo el calor del proceso lo suministra la cogeneración.
+(**)
+Se aplica únicamente a los biocarburantes producidos a partir de subproductos animales clasificados como material de las categorías 1 y 2 de conformidad con el Reglamento (CE) n. o 1069/2009 del Parlamento Europeo y del Consejo ( 1 ) , para los que no se consideran las emisiones relacionadas con la higienización como parte del procesamiento.
+ANEXO V, parte C, punto 19
+En lo que respecta a los biocarburantes, a efectos del cálculo mencionado en el punto 3, el valor del combustible fósil de referencia E F(t) será 94 g CO 2 eq/MJ.

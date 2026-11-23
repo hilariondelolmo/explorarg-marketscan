@@ -187,9 +187,21 @@ a.nav-dropdown-item.active {
   }
 }
 
+/* El ítem Polígrafo (22/11/2026) suma unos 95 px a la barra. Para que entre en
+   los mismos anchos que antes, por debajo de 1060 px se acorta el aire entre
+   los links, sin tocar la marca ni el tamaño de la letra. */
+@media (max-width: 1060px) {
+  .top-nav-inner { gap: 1rem; }
+  .top-nav-links { gap: 0.1rem; }
+  .top-nav-links a,
+  .top-nav-links .nav-dropdown-trigger { padding-left: 0.6rem; padding-right: 0.6rem; }
+}
+
 @media (max-width: 820px) {
   .brand-lockup { display: none; }
-  .top-nav-links a { padding: 0.45rem 0.55rem; font-size: 0.8rem; }
+  .top-nav-links a,
+  .top-nav-links .nav-dropdown-trigger { padding: 0.45rem 0.45rem; font-size: 0.8rem; }
+  .top-nav-inner { gap: 0.8rem; }
 }
 
 @media (max-width: 560px) {

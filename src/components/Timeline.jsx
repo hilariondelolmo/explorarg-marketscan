@@ -24,10 +24,9 @@ export default function Timeline({ onOpenDoc }) {
   }, [filter]);
 
   return (
-    <section id="timeline">
+    <section id="timeline" className="pagina-cabecera">
       <div className="container">
         <div className="section-header">
-          <div className="section-eyebrow">Marco Legal</div>
           <h2>Marco legal y regulatorio</h2>
           <p>
             La cronología regulatoria del biodiesel argentino, del hito más reciente hacia atrás

@@ -42,7 +42,7 @@
   top: calc(var(--nav-h) + 40px);
   z-index: 94;
   background: var(--bg);
-  padding-top: 2.2rem; /* mismo aire que .page-section bajo la sub-nav */
+  padding-top: var(--aire-cabecera); /* mismo aire que .page-section bajo la sub-nav */
   box-shadow: 0 -3px 0 var(--bg);
 }
 
@@ -784,7 +784,7 @@ section.page-section-compacta {
   background: var(--bg);
   /* Mismo aire bajo la sub-nav que las secciones sin bloque fijo
      (padding-top de .page-section), pero dentro del sticky opaco */
-  padding-top: 2.2rem;
+  padding-top: var(--aire-cabecera);
   padding-bottom: 0.4rem;
 }
 
@@ -800,7 +800,7 @@ section.page-section-compacta {
   top: calc(var(--nav-h) + 40px);
   z-index: 94;
   background: var(--bg);
-  padding-top: 2.2rem; /* mismo aire que .page-section bajo la sub-nav */
+  padding-top: var(--aire-cabecera); /* mismo aire que .page-section bajo la sub-nav */
 }
 
 /* Tapa el px de redondeo entre cada capa fija y la anterior */

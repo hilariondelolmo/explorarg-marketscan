@@ -8,6 +8,7 @@
 //   que se repiten (pedido de HDO: "no quiero 29 herramientas distintas").
 import DATOS from '../data/dicho_dato.json';
 import ART39 from '../data/dicho_dato_art39.json';
+import { calcularTopes39, periodos39 } from './topes39.js';
 
 export const SERIE = DATOS.serie;
 export const PEDIDO = DATOS.pedido;
@@ -177,43 +178,10 @@ export const NOTAS = {
 
 /* ── El artículo 39 a): cuánto puede vender cada uno ── */
 
-export const PERIODOS_39 = ART39.periodos.map((p) => ({
-  ...p,
-  // Toneladas del segmento no integrado: % del gas oil por la densidad del biodiésel
-  segmento: (ART39.gasoil_m3 * p.ni * ART39.densidad_bio) / 100,
-}));
+// La cuenta está en src/lib/topes39.js, que también usa el Polígrafo: una sola para todo el sitio.
+export const PERIODOS_39 = periodos39(ART39);
 export const MEDIA_SANCION = ART39.media_sancion;
 export const FUENTE_39 = ART39.meta.fuente_publica;
 
-/**
- * La cuenta de la planilla «Art. 39» rev. 1, con el máximo y el porcentaje a
- * elección. Cada sociedad puede vender hasta su capacidad, hasta el `pct` del
- * segmento y hasta el `maximo` en toneladas (null = sin máximo); el grupo,
- * además, hasta el `pct` del segmento entre todas sus sociedades (artículo 39
- * a) ii: sin máximo en toneladas).
- *
- * Por fila devuelve la capacidad, lo que puede vender, lo que podría vender
- * sin el máximo y la diferencia (lo que le saca el máximo).
- */
-export function calcularTopes({ periodoId, maximo, pct }) {
-  const periodo = PERIODOS_39.find((p) => p.id === periodoId) || PERIODOS_39[0];
-  const limite = (periodo.segmento * pct) / 100;
-  const filas = ART39.entidades.map((e) => {
-    const capacidad = e.sociedades.reduce((s, x) => s + x.capacidad, 0);
-    const suma = (tope) => e.sociedades.reduce((s, x) => s + Math.min(x.capacidad, limite, tope ?? Infinity), 0);
-    const porGrupo = (v) => (e.tipo === 'grupo' ? Math.min(v, limite) : v);
-    const puede = porGrupo(suma(maximo));
-    const sinMaximo = porGrupo(suma(null));
-    return { ...e, capacidad, puede, sinMaximo, saca: sinMaximo - puede };
-  });
-  const permitido = filas.reduce((s, f) => s + f.puede, 0);
-  return {
-    periodo,
-    limite,
-    filas,
-    capacidad: filas.reduce((s, f) => s + f.capacidad, 0),
-    permitido,
-    saldo: permitido - periodo.segmento, // negativo: falta
-    cortePosible: (permitido / ART39.densidad_bio / ART39.gasoil_m3) * 100,
-  };
-}
+/** La cuenta de la planilla «Art. 39» rev. 1, con el máximo y el porcentaje a elección (ver topes39.js). */
+export const calcularTopes = (opciones) => calcularTopes39(ART39, opciones);
