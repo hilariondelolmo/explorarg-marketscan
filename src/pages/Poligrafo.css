@@ -1,6 +1,9 @@
 /* Página /poligrafo. Todo cuelga de .pg para no tocar otras páginas. */
 
-.pg > .container {
+/* Con .page-section para ganarle a `.page-section > .container` de Page.css. Las dos reglas pesaban lo
+   mismo: acá ganaba esta porque se carga después, pero al publicar Vite reordena las hojas y ganaba la
+   otra, así que en explorarg.com la columna quedaba de 1280 px en vez de 940 (visto el 23/11/2026). */
+.pg.page-section > .container {
   max-width: 940px;
 }
 

@@ -4,7 +4,7 @@
 
 /* .pg.ag y no .ag a secas: la página de entrada también lleva .pg (por los botones), que
    fija otro ancho; así gana siempre este, sin depender del orden en que carguen las hojas. */
-.pg.ag > .container {
+.pg.ag.page-section > .container {
   max-width: 1040px;
 }
 
@@ -267,7 +267,7 @@
 
 /* ---------- Mi panel (.pn): tokens, consumo y consultas guardadas ---------- */
 
-.pg.pn > .container {
+.pg.pn.page-section > .container {
   max-width: 1040px;
 }
 
@@ -489,7 +489,7 @@
 /* ---------- Administrador (.ad): todas las cuentas y todas las consultas ----------
    Lo ve solo quien administra el sitio. Usa las tarjetas y las tablas de Mi panel. */
 
-.pg.ad > .container {
+.pg.ad.page-section > .container {
   max-width: 1240px;
 }
 
