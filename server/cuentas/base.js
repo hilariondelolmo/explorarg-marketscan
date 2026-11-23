@@ -37,6 +37,11 @@
 //   base.usuarios()                      las fichas de todas las personas
 //   base.todasLasConsultas()             las consultas guardadas de todos
 //   base.todosLosMovimientos()           los movimientos de todos
+//   Para los pedidos de registro con mail y contraseña (server/cuentas/registro.js):
+//   base.pedido(uid)                     el pedido de esa persona, o null
+//   base.guardarPedido(uid, datos)       lo crea o lo reemplaza
+//   base.pedidos()                       todos; cada uno trae su `uid`
+//   base.borrarPedido(uid)               solo para los controles
 //
 // Las fechas se guardan como texto ISO (2026-11-22T21:40:00.000Z): se ordenan
 // solas y valen igual en las dos bases.
@@ -51,6 +56,7 @@ export function baseEnMemoria() {
   const personas = new Map(); // uid -> { usuario, movimientos: Map, consultas: [], compras: Map }
   const colas = new Map(); // uid -> la promesa de la última transacción (van de a una)
   const ajustes = new Map(); // clave -> datos
+  const pedidos = new Map(); // uid -> el pedido de registro
   const de = (uid) => {
     if (!personas.has(uid)) personas.set(uid, { usuario: null, movimientos: new Map(), consultas: [], compras: new Map() });
     return personas.get(uid);
@@ -139,6 +145,18 @@ export function baseEnMemoria() {
     async todosLosMovimientos() {
       return [...personas].flatMap(([uid, p]) => [...p.movimientos].map(([id, m]) => ({ uid, id, ...copia(m) })));
     },
+    async pedido(uid) {
+      return copia(pedidos.get(uid)) ?? null;
+    },
+    async guardarPedido(uid, datos) {
+      pedidos.set(uid, copia(datos));
+    },
+    async pedidos() {
+      return [...pedidos].map(([uid, d]) => ({ uid, ...copia(d) }));
+    },
+    async borrarPedido(uid) {
+      pedidos.delete(uid);
+    },
   };
 }
 
@@ -218,6 +236,18 @@ export function baseFirestore(coleccion = process.env.CUENTAS_COLECCION || 'usua
     usuarios: async () => (await db.collection(coleccion).get()).docs.map((d) => ({ uid: d.id, ...d.data() })),
     todasLasConsultas: () => deTodos('consultas'),
     todosLosMovimientos: () => deTodos('movimientos'),
+    // Los pedidos de registro van en otra colección hermana ("usuarios_registros"), una ficha por persona:
+    // quien pide registrarse todavía no tiene cuenta corriente
+    async pedido(uid) {
+      return (await db.collection(`${coleccion}_registros`).doc(uid).get()).data() ?? null;
+    },
+    async guardarPedido(uid, datos) {
+      await db.collection(`${coleccion}_registros`).doc(uid).set(JSON.parse(JSON.stringify(datos)));
+    },
+    pedidos: async () => (await db.collection(`${coleccion}_registros`).get()).docs.map((d) => ({ uid: d.id, ...d.data() })),
+    async borrarPedido(uid) {
+      await db.collection(`${coleccion}_registros`).doc(uid).delete();
+    },
   };
 }
 

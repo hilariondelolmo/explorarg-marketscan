@@ -5,8 +5,8 @@
 // El candado va acá y no solo en la página, porque a una página se la puede
 // saltear y a esto no.
 //
-// La persona ingresa en el navegador con Firebase Authentication (Google o un
-// enlace al mail) y cada pedido trae su credencial en la cabecera
+// La persona ingresa en el navegador con Firebase Authentication (Google, o mail y
+// contraseña) y cada pedido trae su credencial en la cabecera
 // "Authorization: Bearer ...". Acá se comprueba que la haya firmado Google para
 // el proyecto del sitio.
 //
@@ -31,11 +31,14 @@ export class ErrorDeSesion extends Error {
 const auth = () => getAuth(app());
 
 /**
- * Devuelve quién hace el pedido: { uid, email, nombre }. Si no hay sesión válida,
- * tira ErrorDeSesion (401) y la función no sigue. Con las cuentas apagadas (solo
- * en local) devuelve { uid: 'local', local: true }.
+ * Quién firma el pedido, sin mirar todavía si puede consultar:
+ * { uid, email, nombre, conGoogle, autorizada, mailComprobado }. Sin una credencial
+ * válida tira ErrorDeSesion (401). Con las cuentas apagadas (solo en local) devuelve
+ * { uid: 'local', local: true }.
+ *
+ * La usa sola api/registro.js, que es donde llega quien todavía no puede consultar.
  */
-export async function exigirSesion(req) {
+export async function identificar(req) {
   const estado = estadoCuentas();
   if (estado === 'apagadas') return { uid: 'local', email: null, nombre: null, local: true };
   if (estado === 'sin_configurar') {
@@ -54,10 +57,41 @@ export async function exigirSesion(req) {
   } catch {
     throw new ErrorDeSesion(401, 'sesion_vencida', 'La sesión venció. Ingresá de nuevo.');
   }
-  // Con Google o con el enlace al mail, el mail llega comprobado. Si alguna vez se
-  // habilita otro método, una cuenta con el mail sin comprobar no consulta.
-  if (!datos.email || datos.email_verified === false) {
+  return {
+    uid: datos.uid,
+    email: datos.email ?? null,
+    nombre: datos.name ?? null,
+    // la cuenta tiene un Google asociado: Google ya comprobó que el mail es de esa persona
+    conGoogle: Boolean(datos.firebase?.identities?.['google.com']?.length),
+    // la marca que pone el servidor cuando alguien de Explora autoriza el registro (registro.js)
+    autorizada: datos.autorizada === true,
+    mailComprobado: datos.email_verified !== false,
+  };
+}
+
+/**
+ * Devuelve quién hace el pedido: { uid, email, nombre }. Si no puede consultar, tira
+ * ErrorDeSesion y la función no sigue. Con las cuentas apagadas (solo en local)
+ * devuelve { uid: 'local', local: true }.
+ *
+ * Quién puede consultar (HDO, 23/11/2026):
+ *   - quien entra con Google, directo;
+ *   - quien se registró con mail y contraseña, recién cuando alguien de Explora autorizó
+ *     su pedido (ahí sale el mail de confirmación) y además confirmó el mail.
+ * La autorización se mira en la marca de la credencial y no en si el mail está
+ * confirmado: a Firebase se le puede pedir el mail de confirmación (o el de la
+ * contraseña nueva, que también lo confirma) sin pasar por el sitio. Como la cuenta
+ * corriente se abre en el primer pedido (api/cuenta.js), sin autorización tampoco hay
+ * tokens de bienvenida.
+ */
+export async function exigirSesion(req) {
+  const quien = await identificar(req);
+  if (quien.local) return quien;
+  if (!quien.conGoogle && !quien.autorizada) {
+    throw new ErrorDeSesion(403, 'registro_pendiente', 'Tu registro todavía no fue autorizado.');
+  }
+  if (!quien.email || !quien.mailComprobado) {
     throw new ErrorDeSesion(403, 'mail_sin_comprobar', 'Falta comprobar el mail de la cuenta.');
   }
-  return { uid: datos.uid, email: datos.email, nombre: datos.name ?? null };
+  return { uid: quien.uid, email: quien.email, nombre: quien.nombre };
 }

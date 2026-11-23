@@ -26,6 +26,9 @@
     "api/compra.js": {
       "maxDuration": 30
     },
+    "api/registro.js": {
+      "maxDuration": 30
+    },
     "api/pago-mp.js": {
       "maxDuration": 30
     }

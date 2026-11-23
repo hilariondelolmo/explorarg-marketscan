@@ -7,9 +7,10 @@ import './Poligrafo.css';
 import './Agente.css';
 
 // Administrador (Agente Explorarg): lo que ve quien administra el sitio (HDO, 23/11/2026):
-// todas las cuentas, lo que consumió cada una, lo que se cobró contra lo que costó cada
-// consulta, las afirmaciones que el Polígrafo no pudo comprobar y las consultas que no se
-// cobraron. Con la descarga en planilla para Tableau.
+// los pedidos de registro con mail y contraseña (para autorizarlos o rechazarlos), todas las
+// cuentas, lo que consumió cada una, lo que se cobró contra lo que costó cada consulta, las
+// afirmaciones que el Polígrafo no pudo comprobar y las consultas que no se cobraron. Con la
+// descarga en planilla para Tableau.
 //
 // Los datos vienen de /api/admin, que contesta solo si el mail de la sesión figura en
 // CUENTAS_ADMIN (server/cuentas/admin.js). Esta pestaña se le muestra solo a esa persona,
@@ -121,6 +122,74 @@ function Resultado({ c }) {
   );
 }
 
+// Los pedidos de registro (HDO, 23/11/2026): quien se registra con mail y contraseña espera acá
+// hasta que se lo autoriza; recién ahí le sale el mail de confirmación. Con Google se entra directo.
+const ESTADO_PEDIDO = { pendiente: 'Espera autorización', autorizada: 'Autorizado', rechazada: 'Rechazado' };
+const MAIL_PEDIDO = { enviado: 'se le mandó el mail de confirmación', fallo: 'el mail de confirmación no salió', ya_confirmado: 'ya tenía el mail confirmado' };
+
+function Pedidos({ pedidos, resolver, resolviendo }) {
+  return (
+    <>
+      <p className="ad-nota ad-nota-arriba">
+        Quien se registra con mail y contraseña espera acá. Al autorizar le sale el mail para confirmar su dirección, y cuando lo confirma
+        entra con sus tokens de bienvenida. Quien entra con Google no pasa por esta lista: entra directo.
+      </p>
+      {pedidos.length === 0 ? (
+        <p className="pg-estado">Todavía nadie pidió registrarse con mail y contraseña.</p>
+      ) : (
+        <div className="pg-tabla-wrap">
+          <table className="pg-tabla pn-tabla ad-tabla">
+            <thead>
+              <tr>
+                <th>Mail</th>
+                <th>Pedido</th>
+                <th>Estado</th>
+                <th aria-label="Qué hacer" />
+              </tr>
+            </thead>
+            <tbody>
+              {pedidos.map((p) => (
+                <tr key={p.uid} className={p.estado === 'pendiente' ? 'ad-fila-pendiente' : undefined}>
+                  <td>{p.email}</td>
+                  <td className="ad-fijo">{fechaHora(p.fecha)}</td>
+                  <td>
+                    {ESTADO_PEDIDO[p.estado] ?? p.estado}
+                    {p.resuelto && (
+                      <span className="ad-chico ad-bloque">
+                        {fechaHora(p.resuelto)}
+                        {p.mail ? ` · ${MAIL_PEDIDO[p.mail] ?? p.mail}` : ''}
+                      </span>
+                    )}
+                  </td>
+                  <td>
+                    <div className="ad-acciones">
+                      {p.estado !== 'autorizada' && (
+                        <button type="button" className="ad-boton" onClick={() => resolver(p.uid, 'autorizar')} disabled={Boolean(resolviendo)}>
+                          {resolviendo === p.uid ? 'Un momento…' : 'Autorizar'}
+                        </button>
+                      )}
+                      {p.estado === 'pendiente' && (
+                        <button type="button" className="ad-boton ad-boton-suave" onClick={() => resolver(p.uid, 'rechazar')} disabled={Boolean(resolviendo)}>
+                          Rechazar
+                        </button>
+                      )}
+                      {p.estado === 'autorizada' && p.mail === 'fallo' && (
+                        <button type="button" className="ad-boton ad-boton-suave" onClick={() => resolver(p.uid, 'autorizar')} disabled={Boolean(resolviendo)}>
+                          {resolviendo === p.uid ? 'Un momento…' : 'Mandar el mail de nuevo'}
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </>
+  );
+}
+
 function Tarjeta({ rotulo, valor, nota }) {
   return (
     <div className="pn-tarjeta">
@@ -132,10 +201,12 @@ function Tarjeta({ rotulo, valor, nota }) {
 }
 
 export default function Admin() {
-  const { cabeceras, anotarSaldo } = useCuenta();
+  const { cabeceras, anotarSaldo, setPedidosPendientes } = useCuenta();
   const [datos, setDatos] = useState(null);
   const [error, setError] = useState(null);
   const [leyendo, setLeyendo] = useState(true);
+  const [resolviendo, setResolviendo] = useState(null); // el pedido de registro que se está autorizando o rechazando
+  const esperan = (pedidos) => (pedidos ?? []).filter((p) => p.estado === 'pendiente').length;
 
   const leer = useCallback(async () => {
     setLeyendo(true);
@@ -149,12 +220,35 @@ export default function Admin() {
         return;
       }
       setDatos(cuerpo);
+      setPedidosPendientes(esperan(cuerpo.pedidos)); // la pestaña avisa cuántos esperan
     } catch {
       setError('No se pudo leer el panel. Revisá la conexión.');
     } finally {
       setLeyendo(false);
     }
-  }, [cabeceras, anotarSaldo]);
+  }, [cabeceras, anotarSaldo, setPedidosPendientes]);
+
+  /** Autoriza o rechaza un pedido de registro. Al autorizar, el servidor manda el mail de confirmación. */
+  const resolver = async (uid, accion) => {
+    setResolviendo(uid);
+    setError(null);
+    try {
+      const r = await fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json', ...(await cabeceras()) }, body: JSON.stringify({ accion, uid }) });
+      const cuerpo = await r.json().catch(() => ({}));
+      if (!r.ok || !cuerpo.pedido) {
+        anotarSaldo(cuerpo);
+        setError(cuerpo.error ?? 'No se pudo resolver el pedido.');
+        return;
+      }
+      const pedidos = (datos?.pedidos ?? []).map((p) => (p.uid === uid ? cuerpo.pedido : p));
+      setDatos({ ...datos, pedidos });
+      setPedidosPendientes(esperan(pedidos));
+    } catch {
+      setError('No se pudo resolver el pedido. Revisá la conexión.');
+    } finally {
+      setResolviendo(null);
+    }
+  };
 
   useEffect(() => {
     leer();
@@ -171,7 +265,7 @@ export default function Admin() {
       <div className="container">
         <h2>Las cuentas y las consultas del Agente</h2>
         <p className="section-intro pg-intro">
-          Acá ves todas las cuentas del Agente Explorarg: cuántos tokens usó cada una, lo que se cobró contra lo que costó cada consulta, las
+          Acá ves los pedidos de registro que esperan tu autorización y todas las cuentas del Agente Explorarg: cuántos tokens usó cada una, lo que se cobró contra lo que costó cada consulta, las
           afirmaciones que el Polígrafo no pudo comprobar y las consultas que no se cobraron. Este panel lo ves solo vos. Los montos en
           dólares son a precio de lista del modelo: 10.000 tokens de explorarg equivalen a US$ 1.
         </p>
@@ -231,7 +325,15 @@ export default function Admin() {
               </p>
             )}
 
-            <PanelPlegable paso={1} titulo={`Cuentas (${numero(datos.cuentas.length)})`} abierto>
+            <PanelPlegable
+              paso={1}
+              titulo={`Pedidos de registro (${esperan(datos.pedidos) === 1 ? '1 espera' : `${numero(esperan(datos.pedidos))} esperan`})`}
+              abierto={esperan(datos.pedidos) > 0}
+            >
+              <Pedidos pedidos={datos.pedidos ?? []} resolver={resolver} resolviendo={resolviendo} />
+            </PanelPlegable>
+
+            <PanelPlegable paso={2} titulo={`Cuentas (${numero(datos.cuentas.length)})`} abierto>
               <div className="pg-tabla-wrap">
                 <table className="pg-tabla pn-tabla ad-tabla">
                   <thead>
@@ -280,7 +382,7 @@ export default function Admin() {
               </div>
             </PanelPlegable>
 
-            <PanelPlegable paso={2} titulo={`Consultas cobradas (${numero(datos.consultas.length)})`}>
+            <PanelPlegable paso={3} titulo={`Consultas cobradas (${numero(datos.consultas.length)})`}>
               {datos.consultas.length === 0 ? (
                 <p className="pg-estado">Todavía no hay consultas.</p>
               ) : (
@@ -326,7 +428,7 @@ export default function Admin() {
               )}
             </PanelPlegable>
 
-            <PanelPlegable paso={3} titulo={`Afirmaciones que el Polígrafo no pudo comprobar (${numero(datos.indeterminadas.length)})`}>
+            <PanelPlegable paso={4} titulo={`Afirmaciones que el Polígrafo no pudo comprobar (${numero(datos.indeterminadas.length)})`}>
               {datos.indeterminadas.length === 0 ? (
                 <p className="pg-estado">Ninguna afirmación quedó como Indeterminado.</p>
               ) : (
@@ -368,7 +470,7 @@ export default function Admin() {
               )}
             </PanelPlegable>
 
-            <PanelPlegable paso={4} titulo={`Consultas que no se cobraron (${numero(datos.sinCobrar.length)})`}>
+            <PanelPlegable paso={5} titulo={`Consultas que no se cobraron (${numero(datos.sinCobrar.length)})`}>
               {datos.sinCobrar.length === 0 ? (
                 <p className="pg-estado">No hay consultas sin cobrar.</p>
               ) : (
@@ -409,7 +511,7 @@ export default function Admin() {
               )}
             </PanelPlegable>
 
-            <PanelPlegable paso={5} titulo={`Compras de tokens (${numero(datos.compras.length)})`}>
+            <PanelPlegable paso={6} titulo={`Compras de tokens (${numero(datos.compras.length)})`}>
               {datos.compras.length === 0 ? (
                 <p className="pg-estado">Todavía no hay compras.</p>
               ) : (

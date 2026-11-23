@@ -1,6 +1,7 @@
 import { esAdmin } from '../server/cuentas/admin.js';
 import { baseOError } from '../server/cuentas/cobro.js';
 import { ErrorDeCuenta, consultaGuardada, panel, resumen } from '../server/cuentas/cuenta.js';
+import { pedidosPendientes } from '../server/cuentas/registro.js';
 import { ErrorDeSesion, exigirSesion } from '../server/cuentas/sesion.js';
 import { mercadoPagoDelSitio } from '../server/pagos/mercadopago.js';
 
@@ -9,7 +10,8 @@ import { mercadoPagoDelSitio } from '../server/pagos/mercadopago.js';
  * no cuesta nada.
  *
  * GET /api/cuenta                -> { saldo, precios, ... }: lo justo para la barra y los botones
- *                                (más `admin: true` a quien administra y `compra: true` si se pueden comprar tokens)
+ *                                (más `admin: true` y `pedidos: N` a quien administra -los pedidos de registro que
+ *                                esperan su autorización- y `compra: true` si se pueden comprar tokens)
  * GET /api/cuenta?detalle=1      -> el panel: tokens, consumo por herramienta, consultas guardadas y movimientos
  * GET /api/cuenta?consulta=ID    -> una consulta guardada, entera, para volver a abrirla
  *                                o { apagadas: true } en la copia local sin cuentas configuradas
@@ -47,7 +49,11 @@ export default async function handler(req, res) {
     }
     // a quien administra el sitio se le avisa, para que la página le muestre su pestaña (el candado está en api/admin.js)
     // y si la venta de tokens está habilitada, para que el cartel de "no alcanzan" mande a comprarlos
-    res.status(200).json({ ...(await resumen(base, sesion)), ...(esAdmin(sesion) ? { admin: true } : {}), ...(mercadoPagoDelSitio() ? { compra: true } : {}) });
+    res.status(200).json({
+      ...(await resumen(base, sesion)),
+      ...(esAdmin(sesion) ? { admin: true, pedidos: await pedidosPendientes(base) } : {}),
+      ...(mercadoPagoDelSitio() ? { compra: true } : {}),
+    });
   } catch (e) {
     if (e instanceof ErrorDeSesion || e instanceof ErrorDeCuenta) {
       res.status(e.estadoHttp).json({ error: e.message, codigo: e.codigo });

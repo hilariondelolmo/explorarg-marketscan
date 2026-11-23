@@ -9,8 +9,7 @@ import './Agente.css';
 
 // La página de entrada del Agente (HDO, 22/11/2026): quien toca "Agente" sin estar
 // logueado ve qué es la sección, qué gana registrándose, el lugar del video
-// tutorial y la caja para ingresar. Registrarse e ingresar son el mismo paso: la
-// primera vez, la cuenta se crea sola.
+// tutorial y la caja para ingresar.
 
 // Al usuario se le habla en tokens, no en dólares (HDO, 22/11/2026)
 const bienvenida = enTokens(CREDITO_INICIAL); // "15.000 tokens"
@@ -46,11 +45,21 @@ function Google() {
   );
 }
 
+// La caja para ingresar (HDO, 23/11/2026): con Google, que entra directo, o con mail y contraseña.
+// Quien crea su cuenta con mail y contraseña deja un pedido de registro; alguien de Explora lo
+// autoriza desde el panel de administrador y recién ahí le llega el mail de confirmación. Hasta
+// que lo abre no consulta ni recibe los tokens de bienvenida (el candado está en el servidor).
+// Las caras de la caja: ingresar o crear la cuenta, pedido pendiente, pedido no autorizado,
+// confirmar el mail, pedir una contraseña nueva y el aviso de que ese mail ya salió.
 function CajaDeIngreso() {
   const cuenta = useCuenta();
+  const [modo, setModo] = useState('ingresar'); // ingresar | crear | recuperar
   const [mail, setMail] = useState('');
-  const [enviadoA, setEnviadoA] = useState(null);
+  const [clave, setClave] = useState('');
+  const [verClave, setVerClave] = useState(false);
   const [ocupado, setOcupado] = useState(false);
+  const [recuperoA, setRecuperoA] = useState(null); // a qué mail se mandó el de la contraseña nueva
+  const [reenviado, setReenviado] = useState(false);
 
   const conEspera = async (paso) => {
     setOcupado(true);
@@ -60,16 +69,28 @@ function CajaDeIngreso() {
       setOcupado(false);
     }
   };
-  const mandar = async (e) => {
-    e.preventDefault();
-    const destino = mail.trim();
-    if (!destino || ocupado) return;
-    if (await conEspera(() => cuenta.pedirEnlace(destino))) setEnviadoA(destino);
+  const pasarA = (otro) => {
+    setModo(otro);
+    setRecuperoA(null);
+    cuenta.limpiarError();
   };
-  const terminar = (e) => {
+  const enviar = (e) => {
     e.preventDefault();
-    if (mail.trim() && !ocupado) conEspera(() => cuenta.completarEnlace(mail.trim()));
+    const m = mail.trim();
+    if (!m || !clave || ocupado) return;
+    conEspera(() => (modo === 'crear' ? cuenta.crearCuenta(m, clave) : cuenta.ingresarConClave(m, clave)));
   };
+  const recuperar = async (e) => {
+    e.preventDefault();
+    const m = mail.trim();
+    if (!m || ocupado) return;
+    if (await conEspera(() => cuenta.recuperarClave(m))) setRecuperoA(m);
+  };
+  const error = cuenta.error && (
+    <p className="ag-error" role="alert">
+      {cuenta.error}
+    </p>
+  );
 
   if (cuenta.modo === 'sin_configurar') {
     return (
@@ -80,54 +101,123 @@ function CajaDeIngreso() {
     );
   }
 
-  // abrió el enlace del mail en otro navegador (o en otro dispositivo)
-  if (cuenta.enlacePendiente) {
+  const otraCuenta = (
+    <button
+      type="button"
+      className="ag-enlace"
+      disabled={ocupado}
+      onClick={() => {
+        setReenviado(false);
+        setClave('');
+        conEspera(cuenta.salir);
+      }}
+    >
+      Usar otra cuenta
+    </button>
+  );
+
+  // creó la cuenta con mail y contraseña y el pedido espera que alguien de Explora lo autorice
+  if (cuenta.estado === 'pendiente') {
     return (
       <aside className="ag-ingreso">
-        <h3>Un paso más</h3>
-        <p>Abriste el enlace en otro navegador. Para terminar de entrar, escribí el mail al que te lo mandamos.</p>
-        <form onSubmit={terminar}>
-          <label htmlFor="ag-mail">Tu mail</label>
-          <input id="ag-mail" type="email" autoComplete="email" value={mail} onChange={(e) => setMail(e.target.value)} placeholder="nombre@ejemplo.com" required />
-          <button type="submit" className="pg-boton" disabled={ocupado || !mail.trim()}>
-            {ocupado ? 'Entrando…' : 'Entrar'}
-          </button>
-        </form>
-        {cuenta.error && (
-          <p className="ag-error" role="alert">
-            {cuenta.error}
-          </p>
-        )}
+        <h3>Tu registro está pendiente</h3>
+        <p>
+          Recibimos tu pedido de registro con <strong>{cuenta.usuario?.email}</strong>. Cuando lo autoricemos te va a llegar un mail para
+          confirmar tu dirección: con eso entrás y recibís tus {bienvenida} de bienvenida.
+        </p>
+        {error}
+        <p className="ag-chico">No hace falta que te quedes en esta página.</p>
+        {otraCuenta}
       </aside>
     );
   }
 
-  if (enviadoA) {
+  if (cuenta.estado === 'rechazada') {
     return (
       <aside className="ag-ingreso">
-        <h3>Revisá tu mail</h3>
+        <h3>Tu registro no fue autorizado</h3>
         <p>
-          Te mandamos un enlace a <strong>{enviadoA}</strong>. Abrilo en este mismo navegador y entrás directo, sin contraseña.
+          El pedido de registro con <strong>{cuenta.usuario?.email}</strong> no fue autorizado.
         </p>
+        {error}
+        {otraCuenta}
+      </aside>
+    );
+  }
+
+  // el pedido ya fue autorizado y todavía no abrió el mail de confirmación
+  if (cuenta.estado === 'sin_confirmar') {
+    return (
+      <aside className="ag-ingreso">
+        <h3>Confirmá tu mail</h3>
+        <p>
+          Tu registro ya fue autorizado. Te mandamos un mail a <strong>{cuenta.usuario?.email}</strong>: abrilo y tocá el enlace. Así
+          confirmás que la dirección es tuya y recibís tus {bienvenida} de bienvenida.
+        </p>
+        <button type="button" className="pg-boton" onClick={() => conEspera(cuenta.revisarConfirmacion)} disabled={ocupado}>
+          {ocupado ? 'Revisando…' : 'Ya lo confirmé'}
+        </button>
+        {error}
+        {reenviado && !cuenta.error && <p className="ag-chico">Te lo mandamos de nuevo.</p>}
         <p className="ag-chico">Si no lo ves, fijate en el correo no deseado.</p>
-        <button
-          type="button"
-          className="ag-enlace"
-          onClick={() => {
-            setEnviadoA(null);
-            cuenta.limpiarError();
-          }}
-        >
-          Usar otro mail
+        <div className="ag-enlaces">
+          <button
+            type="button"
+            className="ag-enlace"
+            disabled={ocupado}
+            onClick={async () => {
+              setReenviado(false);
+              if (await conEspera(cuenta.reenviarConfirmacion)) setReenviado(true);
+            }}
+          >
+            Mandármelo de nuevo
+          </button>
+          {otraCuenta}
+        </div>
+      </aside>
+    );
+  }
+
+  if (modo === 'recuperar') {
+    if (recuperoA) {
+      return (
+        <aside className="ag-ingreso">
+          <h3>Revisá tu mail</h3>
+          <p>
+            Si hay una cuenta con <strong>{recuperoA}</strong>, te mandamos un enlace para elegir una contraseña nueva. Después volvé acá e
+            ingresá con ella.
+          </p>
+          <p className="ag-chico">Si no lo ves, fijate en el correo no deseado.</p>
+          <button type="button" className="ag-enlace" onClick={() => pasarA('ingresar')}>
+            Volver a ingresar
+          </button>
+        </aside>
+      );
+    }
+    return (
+      <aside className="ag-ingreso">
+        <h3>Elegir una contraseña nueva</h3>
+        <p>Escribí el mail de tu cuenta y te mandamos un enlace para elegir una contraseña nueva.</p>
+        <form onSubmit={recuperar}>
+          <label htmlFor="ag-mail">Tu mail</label>
+          <input id="ag-mail" type="email" autoComplete="email" value={mail} onChange={(e) => setMail(e.target.value)} placeholder="nombre@ejemplo.com" required />
+          <button type="submit" className="pg-boton" disabled={ocupado || !mail.trim()}>
+            {ocupado ? 'Enviando…' : 'Mandame el mail'}
+          </button>
+        </form>
+        {error}
+        <button type="button" className="ag-enlace" onClick={() => pasarA('ingresar')}>
+          Volver
         </button>
       </aside>
     );
   }
 
+  const creando = modo === 'crear';
   return (
     <aside className="ag-ingreso">
       <h3>Ingresar o registrarte</h3>
-      <p>Es el mismo paso: la primera vez, la cuenta se crea sola. Sin contraseñas.</p>
+      <p>Con tu cuenta de Google, o con tu mail y una contraseña.</p>
 
       <button type="button" className="ag-google" onClick={() => conEspera(cuenta.ingresarConGoogle)} disabled={ocupado}>
         <Google /> Continuar con Google
@@ -137,18 +227,48 @@ function CajaDeIngreso() {
         <span>o con tu mail</span>
       </p>
 
-      <form onSubmit={mandar}>
+      <div className="ag-modos" role="group" aria-label="¿Ya tenés cuenta?">
+        <button type="button" aria-pressed={!creando} onClick={() => pasarA('ingresar')}>
+          Ya tengo cuenta
+        </button>
+        <button type="button" aria-pressed={creando} onClick={() => pasarA('crear')}>
+          Crear cuenta
+        </button>
+      </div>
+
+      <form onSubmit={enviar}>
         <label htmlFor="ag-mail">Tu mail</label>
         <input id="ag-mail" type="email" autoComplete="email" value={mail} onChange={(e) => setMail(e.target.value)} placeholder="nombre@ejemplo.com" required />
-        <button type="submit" className="pg-boton" disabled={ocupado || !mail.trim()}>
-          {ocupado ? 'Enviando…' : 'Mandame el enlace para entrar'}
+        <label htmlFor="ag-clave">{creando ? 'Elegí una contraseña' : 'Tu contraseña'}</label>
+        <div className="ag-clave">
+          <input
+            id="ag-clave"
+            type={verClave ? 'text' : 'password'}
+            autoComplete={creando ? 'new-password' : 'current-password'}
+            value={clave}
+            onChange={(e) => setClave(e.target.value)}
+            minLength={creando ? 6 : undefined}
+            required
+          />
+          <button type="button" onClick={() => setVerClave((v) => !v)} aria-pressed={verClave}>
+            {verClave ? 'Ocultar' : 'Mostrar'}
+          </button>
+        </div>
+        {creando && (
+          <p className="ag-ayuda">
+            Al menos 6 caracteres. El registro con mail se autoriza: cuando esté autorizado te llega un mail para confirmar tu dirección.
+          </p>
+        )}
+        <button type="submit" className="pg-boton" disabled={ocupado || !mail.trim() || !clave}>
+          {ocupado ? (creando ? 'Enviando…' : 'Entrando…') : creando ? 'Pedir mi registro' : 'Ingresar'}
         </button>
       </form>
 
-      {cuenta.error && (
-        <p className="ag-error" role="alert">
-          {cuenta.error}
-        </p>
+      {error}
+      {!creando && (
+        <button type="button" className="ag-enlace" onClick={() => pasarA('recuperar')}>
+          Olvidé mi contraseña
+        </button>
       )}
       <p className="ag-chico">Guardamos tu mail y tus consultas para mostrarte tu historial y tu consumo.</p>
     </aside>

@@ -328,6 +328,82 @@
   cursor: pointer;
 }
 
+.ag .ag-enlace:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+/* dos enlaces en un renglón ("Mandármelo de nuevo" y "Usar otro mail") */
+.ag .ag-enlaces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.2rem;
+}
+
+/* "Ya tengo cuenta" / "Crear cuenta": dos mitades, la elegida en el color del botón */
+.ag .ag-modos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--bg);
+}
+
+.ag .ag-modos button {
+  padding: 0.5rem 0.4rem;
+  border: none;
+  background: none;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ag .ag-modos button[aria-pressed='true'] {
+  background: var(--accent-exp);
+  color: #fff;
+  cursor: default;
+}
+
+.ag .ag-modos button:focus-visible,
+.ag .ag-clave button:focus-visible {
+  outline: 2px solid var(--accent-exp);
+  outline-offset: -2px;
+}
+
+/* la contraseña, con "Mostrar" adentro del campo */
+.ag .ag-clave {
+  position: relative;
+}
+
+.ag .ag-clave input {
+  padding-right: 5.2rem;
+}
+
+.ag .ag-clave button {
+  position: absolute;
+  top: 50%;
+  right: 0.3rem;
+  padding: 0.3rem 0.5rem;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  color: var(--accent-exp);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ag .ag-ingreso .ag-ayuda {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.8rem;
+}
+
 .ag .ag-muestra {
   margin: 1.4rem 0 0;
   padding-top: 1rem;
@@ -601,6 +677,18 @@
 .ad .ad-boton:disabled {
   opacity: 0.5;
   cursor: default;
+}
+
+/* los botones de cada pedido de registro, uno al lado del otro */
+.ad .ad-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: flex-end;
+}
+
+.ad .ad-fila-pendiente td {
+  background: color-mix(in srgb, var(--accent-exp) 6%, transparent);
 }
 
 .ad .ad-boton-suave {

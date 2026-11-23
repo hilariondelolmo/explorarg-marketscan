@@ -6,8 +6,8 @@
 //
 // QUIÉN ES ADMINISTRADOR. La variable CUENTAS_ADMIN trae el mail (o los mails, separados
 // por coma) de quien puede ver este panel. Va en .env.local de esta Mac y en las variables
-// de Vercel; no va en el repositorio, que es público. El mail llega comprobado por Google
-// o por el enlace (sesion.js), así que nadie se lo puede inventar. Sin la variable, nadie
+// de Vercel; no va en el repositorio, que es público. El mail llega comprobado por Google,
+// o confirmado y con el registro autorizado (sesion.js), así que nadie se lo puede inventar. Sin la variable, nadie
 // es administrador.
 //
 // Este archivo no sabe si la base es Firestore o la de prueba: usa lo que ofrece base.js.

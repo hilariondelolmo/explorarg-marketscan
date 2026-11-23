@@ -19,7 +19,8 @@ import './Agente.css';
 // En las dos vale la misma regla: la IA traduce y el programa calcula.
 //
 // Para entrar hay que estar registrado y logueado en explorarg.com (HDO, 22/11/2026):
-//  - sin sesión se ve la página de entrada (AgenteEntrada.jsx);
+//  - sin sesión se ve la página de entrada (AgenteEntrada.jsx); también mientras el registro con
+//    mail y contraseña espera la autorización o la confirmación del mail;
 //  - con ?muestra=1 se ven las herramientas con los ejemplos ya analizados, que no
 //    consultan a la IA, y el formulario apagado;
 //  - con sesión, las herramientas completas.
@@ -80,7 +81,9 @@ function Contenido() {
   const [tutorialAbierto, setTutorialAbierto] = useState(false);
   if (seccion === RAIZ.id) return <Navigate to="/agente" replace />;
   const conPanel = cuenta.estado === 'adentro';
-  const disponibles = conPanel ? [...SECTIONS, PANEL, ...(cuenta.esAdmin ? [ADMIN] : [])] : SECTIONS;
+  // a quien administra, la pestaña le avisa cuántos pedidos de registro esperan su autorización
+  const admin = cuenta.pedidosPendientes > 0 ? { ...ADMIN, label: `Administrador (${cuenta.pedidosPendientes})` } : ADMIN;
+  const disponibles = conPanel ? [...SECTIONS, PANEL, ...(cuenta.esAdmin ? [admin] : [])] : SECTIONS;
   const actual = disponibles.find((s) => s.id === seccion) || RAIZ;
   const { Comp } = actual;
   // Tutorial en video de la herramienta que se está viendo (src/data/tutoriales.json, lo escribe

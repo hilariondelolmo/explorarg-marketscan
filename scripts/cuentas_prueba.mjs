@@ -79,18 +79,92 @@ if (!hayEmulador) {
 } else {
   control('una credencial inventada: 401', await candado({ authorization: 'Bearer abc.def.ghi' }), '401 sesion_vencida');
 
-  // una persona que entra con el enlace del mail, como en la página
-  const mail = `control.${Date.now()}@explorarg.test`;
-  await api('accounts:sendOobCode', { requestType: 'EMAIL_SIGNIN', email: mail, continueUrl: 'http://localhost:5274/agente' });
-  const codigos = await fetch(`${base}/emulator/v1/projects/${PROYECTO_EMULADOR}/oobCodes`).then((r) => r.json());
-  const oobCode = codigos.oobCodes.filter((c) => c.email === mail).pop()?.oobCode;
-  const conEnlace = await api('accounts:signInWithEmailLink', { email: mail, oobCode });
-  control('quien entra con el enlace del mail pasa, y el servidor sabe quién es', await candado({ authorization: `Bearer ${conEnlace.idToken}` }), `pasa (${mail})`);
-  control('la misma credencial, cortada: 401', await candado({ authorization: `Bearer ${String(conEnlace.idToken).slice(0, -6)}` }), '401 sesion_vencida');
+  // ---- El registro (HDO, 23/11/2026). Con Google se entra directo. Con mail y contraseña la persona
+  // deja un pedido; alguien de Explora lo autoriza desde el panel de administrador; recién ahí sale el
+  // mail de confirmación, y con el mail confirmado entra. Se prueba con las funciones del sitio.
+  const { default: registroApi } = await import('../api/registro.js');
+  const { default: adminApi } = await import('../api/admin.js');
+  const { default: cuentaDeApi } = await import('../api/cuenta.js');
+  /** Llama a una función como la llama la página: devuelve [estado http, lo que contestó]. */
+  const llamar = async (funcion, { metodo = 'GET', credencial, cuerpo } = {}) => {
+    let estado = 200;
+    let salida = null;
+    const res = { status: (c) => ((estado = c), res), json: (o) => (salida = o), setHeader: () => {} };
+    await funcion({ method: metodo, url: '/', headers: { origin: 'http://localhost:5274', ...(credencial ? { authorization: `Bearer ${credencial}` } : {}) }, body: cuerpo }, res);
+    return [estado, salida];
+  };
+  /** Los mails de confirmación que Firebase le "mandó" a esa dirección (el emulador los guarda). */
+  const mailsDe = async (direccion) =>
+    (await fetch(`${base}/emulator/v1/projects/${PROYECTO_EMULADOR}/oobCodes`).then((r) => r.json())).oobCodes.filter((c) => c.email === direccion && c.requestType === 'VERIFY_EMAIL');
+  const confirmarMail = async (direccion) => api('accounts:update', { oobCode: (await mailsDe(direccion)).pop()?.oobCode });
+  const entrarCon = (direccion, contrasena) => api('accounts:signInWithPassword', { email: direccion, password: contrasena, returnSecureToken: true });
+  /** Entra con una cuenta de Google de mentira (el emulador la acepta sin firma). */
+  const entrarConGoogle = (direccion) =>
+    api('accounts:signInWithIdp', {
+      postBody: `id_token=${encodeURIComponent(JSON.stringify({ sub: `g-${direccion}`, email: direccion, email_verified: true }))}&providerId=google.com`,
+      requestUri: 'http://localhost',
+      returnSecureToken: true,
+      returnIdpCredential: true,
+    });
+  const sello = Date.now();
+  const clave = `solo-para-el-control-${sello}`;
 
-  // una cuenta con mail y contraseña no tiene el mail comprobado: no consulta
-  const sinComprobar = await api('accounts:signUp', { email: `sin.comprobar.${Date.now()}@explorarg.test`, password: 'solo-para-el-control', returnSecureToken: true });
-  control('una cuenta con el mail sin comprobar no consulta: 403', await candado({ authorization: `Bearer ${sinComprobar.idToken}` }), '403 mail_sin_comprobar');
+  // con Google: directo, sin pedido
+  const mailGoogle = `con.google.${sello}@explorarg.test`;
+  const conGoogle = await entrarConGoogle(mailGoogle);
+  control('quien entra con Google pasa directo, sin pedido ni autorización', await candado({ authorization: `Bearer ${conGoogle.idToken}` }), `pasa (${mailGoogle})`);
+  control('... y para el registro figura como autorizado, sin dejar pedido', (await llamar(registroApi, { metodo: 'POST', credencial: conGoogle.idToken }))[1], { estado: 'autorizada' });
+
+  // con mail y contraseña: queda pendiente
+  const mail = `control.${sello}@explorarg.test`;
+  const recien = await api('accounts:signUp', { email: mail, password: clave, returnSecureToken: true });
+  control('quien se registra con mail y contraseña no consulta: su registro espera autorización', await candado({ authorization: `Bearer ${recien.idToken}` }), '403 registro_pendiente');
+  {
+    const [estado, cuerpo] = await llamar(cuentaDeApi, { credencial: recien.idToken });
+    control('... y tampoco se le abre la cuenta corriente: sin autorización no hay tokens de bienvenida', [estado, cuerpo?.codigo, cuerpo?.saldo], [403, 'registro_pendiente', undefined]);
+  }
+  control('su pedido queda anotado como pendiente', await llamar(registroApi, { metodo: 'POST', credencial: recien.idToken }), [200, { estado: 'pendiente' }]);
+  control('... y todavía no le salió ningún mail', (await mailsDe(mail)).length, 0);
+  control('el registro sin credencial: 401', (await llamar(registroApi, { metodo: 'POST' }))[0], 401);
+
+  // quien administra (acá, una cuenta de Google de mentira) ve el pedido y lo autoriza
+  process.env.CUENTAS_ADMIN = mailGoogle;
+  const pedidoDe = async (direccion) => (await llamar(adminApi, { credencial: conGoogle.idToken }))[1]?.pedidos?.find((x) => x.email === direccion);
+  control('el panel de administrador muestra el pedido pendiente', (await pedidoDe(mail))?.estado, 'pendiente');
+  control('el resumen de la cuenta le avisa a quien administra cuántos pedidos esperan', (await llamar(cuentaDeApi, { credencial: conGoogle.idToken }))[1]?.pedidos >= 1, true);
+  const otroGoogle = await entrarConGoogle(`otro.google.${sello}@explorarg.test`);
+  control('quien no administra no puede autorizar: 403', (await llamar(adminApi, { metodo: 'POST', credencial: otroGoogle.idToken, cuerpo: { accion: 'autorizar', uid: recien.localId } }))[0], 403);
+  {
+    const [estado, cuerpo] = await llamar(adminApi, { metodo: 'POST', credencial: conGoogle.idToken, cuerpo: { accion: 'autorizar', uid: recien.localId } });
+    control('al autorizar el pedido, recién ahí sale el mail de confirmación', [estado, cuerpo?.pedido?.estado, cuerpo?.pedido?.mail, (await mailsDe(mail)).length], [200, 'autorizada', 'enviado', 1]);
+  }
+  control('la persona ve su pedido autorizado', (await llamar(registroApi, { metodo: 'POST', credencial: recien.idToken }))[1], { estado: 'autorizada' });
+  control('autorizado pero con el mail sin confirmar, todavía no consulta', await candado({ authorization: `Bearer ${(await entrarCon(mail, clave)).idToken}` }), '403 mail_sin_comprobar');
+  control('con la contraseña equivocada no entra', (await entrarCon(mail, 'otra-cosa')).idToken, undefined);
+  await confirmarMail(mail);
+  const conCuenta = await entrarCon(mail, clave);
+  control('confirmado el mail, entra con su contraseña, y el servidor sabe quién es', await candado({ authorization: `Bearer ${conCuenta.idToken}` }), `pasa (${mail})`);
+  control('la misma credencial, cortada: 401', await candado({ authorization: `Bearer ${String(conCuenta.idToken).slice(0, -6)}` }), '401 sesion_vencida');
+
+  // el que se saltea el sitio: le pide a Firebase el mail de confirmación por su cuenta y lo confirma
+  const mailVivo = `vivo.${sello}@explorarg.test`;
+  const vivo = await api('accounts:signUp', { email: mailVivo, password: clave, returnSecureToken: true });
+  await llamar(registroApi, { metodo: 'POST', credencial: vivo.idToken });
+  await api('accounts:sendOobCode', { requestType: 'VERIFY_EMAIL', idToken: vivo.idToken });
+  await confirmarMail(mailVivo);
+  control('quien confirma el mail por su cuenta, sin autorización, sigue sin consultar', await candado({ authorization: `Bearer ${(await entrarCon(mailVivo, clave)).idToken}` }), '403 registro_pendiente');
+  {
+    const antes = (await mailsDe(mailVivo)).length;
+    const [estado, cuerpo] = await llamar(adminApi, { metodo: 'POST', credencial: conGoogle.idToken, cuerpo: { accion: 'rechazar', uid: vivo.localId } });
+    control('al rechazar un pedido no sale ningún mail', [estado, cuerpo?.pedido?.estado, (await mailsDe(mailVivo)).length - antes], [200, 'rechazada', 0]);
+  }
+  control(
+    'el rechazado ve su pedido rechazado y no consulta',
+    [(await llamar(registroApi, { metodo: 'POST', credencial: vivo.idToken }))[1], await candado({ authorization: `Bearer ${(await entrarCon(mailVivo, clave)).idToken}` })],
+    [{ estado: 'rechazada' }, '403 registro_pendiente']
+  );
+  control('un pedido que no existe: 404', (await llamar(adminApi, { metodo: 'POST', credencial: conGoogle.idToken, cuerpo: { accion: 'autorizar', uid: 'no-existe' } }))[0], 404);
+  delete process.env.CUENTAS_ADMIN;
 
   // el panel de administrador (api/admin.js): solo para el mail que figura en CUENTAS_ADMIN
   const { default: admin } = await import('../api/admin.js');
@@ -103,18 +177,18 @@ if (!hayEmulador) {
     return [estado, cuerpo?.codigo ?? Object.keys(cuerpo ?? {}).join(',')];
   };
   process.env.CUENTAS_ADMIN = `otro@explorarg.test, ${mail.toUpperCase()}`;
-  control('panel de administrador: entra quien figura en CUENTAS_ADMIN (sin importar mayúsculas)', await pedirPanel(conEnlace.idToken), [200, 'generado,totales,cuentas,consultas,indeterminadas,sinCobrar,compras']);
+  control('panel de administrador: entra quien figura en CUENTAS_ADMIN (sin importar mayúsculas)', await pedirPanel(conCuenta.idToken), [200, 'generado,totales,cuentas,consultas,indeterminadas,sinCobrar,compras,pedidos']);
   process.env.CUENTAS_ADMIN = 'otro@explorarg.test';
-  control('panel de administrador: cualquier otra cuenta recibe un 403', await pedirPanel(conEnlace.idToken), [403, 'no_admin']);
+  control('panel de administrador: cualquier otra cuenta recibe un 403', await pedirPanel(conCuenta.idToken), [403, 'no_admin']);
   delete process.env.CUENTAS_ADMIN;
-  control('panel de administrador: sin CUENTAS_ADMIN nadie entra, y sin sesión tampoco', [await pedirPanel(conEnlace.idToken), await pedirPanel(null)], [[403, 'no_admin'], [401, 'sin_ingreso']]);
+  control('panel de administrador: sin CUENTAS_ADMIN nadie entra, y sin sesión tampoco', [await pedirPanel(conCuenta.idToken), await pedirPanel(null)], [[403, 'no_admin'], [401, 'sin_ingreso']]);
 
   // el resumen de la cuenta (api/cuenta.js) avisa si se pueden comprar tokens: con eso el cartel de
   // "tus tokens no alcanzan" manda a Mi panel (con el emulador hay un Mercado Pago de mentira)
   const { default: cuentaApi } = await import('../api/cuenta.js');
   let resumenApi = null;
   const resCuenta = { status: () => resCuenta, json: (o) => (resumenApi = o), setHeader: () => {} };
-  await cuentaApi({ method: 'GET', url: '/api/cuenta', headers: { authorization: `Bearer ${conEnlace.idToken}` } }, resCuenta);
+  await cuentaApi({ method: 'GET', url: '/api/cuenta', headers: { authorization: `Bearer ${conCuenta.idToken}` } }, resCuenta);
   control('el resumen de la cuenta avisa que se pueden comprar tokens, y a quien no administra no le dice que administra', [Number.isInteger(resumenApi?.saldo), resumenApi?.compra, resumenApi?.admin], [true, true, undefined]);
 }
 
