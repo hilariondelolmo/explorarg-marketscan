@@ -123,6 +123,82 @@
   font-size: 1.1rem;
 }
 
+/* Con el video ya publicado, el lugar es un botón con la portada de YouTube (el reproductor se abre en
+   la ventana del tutorial). Uno por herramienta: con dos, van lado a lado. */
+.ag .ag-videos {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 0.9rem;
+}
+
+.ag .ag-videos-varios {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.ag .ag-videos .ag-video {
+  margin-top: 0;
+}
+
+.ag .ag-video-listo {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: #0b1f4d;
+  color: #fff;
+  font: inherit;
+  font-size: 0.92rem;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.ag .ag-video-listo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.25s;
+}
+
+.ag .ag-video-listo:hover img {
+  transform: scale(1.03);
+}
+
+/* El botón de reproducir va a la derecha: la portada de los tutoriales tiene el título a la izquierda
+   y en el centro lo taparía. */
+.ag .ag-video-listo .ag-video-icono {
+  position: absolute;
+  right: 12%;
+  top: 50%;
+  transform: translateY(-70%);
+  background: rgba(15, 23, 42, 0.78);
+  color: #fff;
+}
+
+.ag .ag-video-listo:hover .ag-video-icono {
+  background: var(--accent-brand);
+}
+
+.ag .ag-video-pie {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(15, 23, 42, 0.82);
+  text-align: left;
+}
+
+.ag .ag-video-duracion {
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
 /* ---------- la caja para ingresar ---------- */
 
 .ag .ag-ingreso {

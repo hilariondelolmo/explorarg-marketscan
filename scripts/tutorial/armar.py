@@ -7,7 +7,11 @@ paso, lo que se ve y el texto literal de la voz.
 Uso:
     python3 scripts/tutorial/armar.py gasoil              # con la voz de output/tutorial/gasoil/voz/
     python3 scripts/tutorial/armar.py gasoil --sin-voz    # solo el video (borrador mudo)
-    python3 scripts/tutorial/armar.py gasoil --solo-guion # solo el markdown
+    python3 scripts/tutorial/armar.py gasoil --solo-guion # solo el markdown, el catálogo y los textos de YouTube
+    python3 scripts/tutorial/armar.py gasoil --solo-guion --escritorio   # y la carpeta "Subir a YouTube - ..." del Escritorio
+
+Los textos para YouTube (título, descripción con capítulos y etiquetas) se escriben siempre, también
+antes de tener el id del video: output/tutorial/<id>/youtube/, un archivo por campo, listo para pegar.
 """
 
 from __future__ import annotations
@@ -108,7 +112,7 @@ def capitulos(G: dict, tiempos: dict) -> list[dict]:
 
 def escribir_catalogo(G: dict, tiempos: dict, caps: list[dict], out: Path) -> None:
     """Deja la entrada del tutorial en src/data/tutoriales.json (lo lee el sitio: botón
-    "Cómo se usa" y página /tutoriales) y el texto para la descripción de YouTube."""
+    "Cómo se usa" y página /tutoriales). Necesita el id de YouTube en el guion."""
     if not G.get("youtube"):
         print("sin «youtube» en el guion: no se escribe el catálogo del sitio")
         return
@@ -127,12 +131,62 @@ def escribir_catalogo(G: dict, tiempos: dict, caps: list[dict], out: Path) -> No
         lista[idx] = entrada
     ruta.write_text(json.dumps(lista, indent=1, ensure_ascii=False) + "\n")
     print(f"catálogo -> {ruta} ({len(lista)} tutorial{'es' if len(lista) != 1 else ''})")
-    lineas = [f"Tutorial · {entrada['titulo']} · Explorarg Marketscan", "", entrada["descripcion"], ""]
+
+
+# Etiquetas de YouTube de cualquier tutorial; el guion suma las suyas en "etiquetas"
+ETIQUETAS = ["Explorarg", "Marketscan", "tutorial", "biodiésel", "biodiesel Argentina", "biocombustibles",
+             "Secretaría de Energía", "datos oficiales", "Argentina"]
+
+
+def escribir_youtube(G: dict, caps: list[dict], out: Path) -> Path:
+    """Los textos para subir el video a YouTube. No hace falta el id: se escriben antes de subirlo.
+
+    Regla de HDO (1/11/2026): lo que se le entrega son archivos con exactamente lo que se pega en
+    cada campo, sin secciones ni instrucciones. Quedan en output/tutorial/<id>/youtube/:
+        01 Titulo - pegar en YouTube.txt
+        02 Descripcion - pegar en YouTube.txt   (con los capítulos "m:ss Título" desde 0:00)
+        03 Etiquetas - pegar en YouTube.txt     (separadas por coma)
+    El título sale de "youtube_titulo" del guion (o "Tutorial · <titulo> · Explorarg Marketscan").
+    youtube.txt, con todo junto, se sigue escribiendo para el handoff."""
+    titulo = G.get("youtube_titulo") or f"Tutorial · {G.get('titulo', G['id'])} · Explorarg Marketscan"
+    lineas = [G.get("descripcion", ""), ""]
     if G.get("pagina"):
         lineas += [f"La página: {G['url'].rstrip('/')}{G['pagina']}", ""]
     lineas += ["Capítulos"] + [f"{mmss(c['t'])} {c['titulo']}" for c in caps]
-    (out / "youtube.txt").write_text("\n".join(lineas) + "\n")
-    print(f"descripción para YouTube -> {out / 'youtube.txt'}")
+    descripcion = "\n".join(lineas) + "\n"
+    vistas = set()
+    etiquetas = ", ".join(e for e in [*G.get("etiquetas", []), *ETIQUETAS] if not (e.lower() in vistas or vistas.add(e.lower())))
+    # límites de YouTube: 100 caracteres de título, 5.000 de descripción, 500 de etiquetas; sin < ni >
+    assert len(titulo) <= 100, f"el título tiene {len(titulo)} caracteres (máximo 100)"
+    assert len(descripcion) <= 5000 and len(etiquetas) <= 500, (len(descripcion), len(etiquetas))
+    assert not any(c in titulo + descripcion for c in "<>"), "YouTube no acepta < ni > en el título ni en la descripción"
+    (out / "youtube.txt").write_text(f"{titulo}\n\n{descripcion}\nEtiquetas\n{etiquetas}\n", encoding="utf-8")
+    carpeta = out / "youtube"
+    carpeta.mkdir(parents=True, exist_ok=True)
+    for nombre, texto in (("01 Titulo", titulo + "\n"), ("02 Descripcion", descripcion), ("03 Etiquetas", etiquetas + "\n")):
+        (carpeta / f"{nombre} - pegar en YouTube.txt").write_text(texto, encoding="utf-8", newline="\n")
+    print(f"textos para YouTube -> {carpeta}")
+    return carpeta
+
+
+def carpeta_del_escritorio(G: dict, out: Path, carpeta: Path) -> None:
+    """--escritorio: deja en el Escritorio "Subir a YouTube - Tutorial <título>" con el mp4 de 1080p, la
+    miniatura (la placa de apertura, 1280x720) y los tres archivos de pegar. Los nombres se escriben
+    definitivos de entrada: un nombre provisorio con punto deja el archivo oculto en el Finder."""
+    import shutil
+    import unicodedata
+    plano = "".join(c for c in unicodedata.normalize("NFD", G.get("titulo", G["id"])) if unicodedata.category(c) != "Mn")
+    destino = Path.home() / "Desktop" / f"Subir a YouTube - Tutorial {plano}"
+    destino.mkdir(parents=True, exist_ok=True)
+    video = out / f"tutorial_{G['id']}_1080p.mp4"
+    if not video.exists():
+        sys.exit(f"falta {video.name}: armá primero el video")
+    for f in sorted(carpeta.glob("*.txt")):
+        shutil.copyfile(f, destino / f.name)
+    shutil.copyfile(video, destino / f"Tutorial - {plano} - 1080p.mp4")
+    subprocess.run(["ffmpeg", "-y", "-v", "error", "-ss", "1.2", "-i", str(video), "-frames:v", "1", "-vf", "scale=1280:720",
+                    "-q:v", "2", str(destino / "miniatura.jpg")], check=True)
+    print(f"carpeta para subir -> {destino}")
 
 
 def main() -> int:
@@ -142,6 +196,7 @@ def main() -> int:
     ap.add_argument("--solo-guion", action="store_true")
     ap.add_argument("--crf", type=int, default=20)
     ap.add_argument("--carpeta", help="otra carpeta de output/tutorial (un borrador grabado con grabar.mjs --out, p. ej. contra la copia local)")
+    ap.add_argument("--escritorio", action="store_true", help='copia el 1080p, la miniatura y los textos a "Subir a YouTube - Tutorial ..." en el Escritorio')
     a = ap.parse_args()
 
     G = json.loads((AQUI / "guiones" / f"{a.id}.json").read_text())
@@ -152,9 +207,14 @@ def main() -> int:
     tiempos = json.loads(tiempos_path.read_text()) if tiempos_path.exists() else None
     guion_md(G, tiempos, out / "guion.md")
     print(f"guion -> {out / 'guion.md'}")
+    textos = None
     if tiempos:
-        escribir_catalogo(G, tiempos, capitulos(G, tiempos), out)
+        caps = capitulos(G, tiempos)
+        escribir_catalogo(G, tiempos, caps, out)
+        textos = escribir_youtube(G, caps, out)
     if a.solo_guion:
+        if a.escritorio and textos:
+            carpeta_del_escritorio(G, out, textos)
         return 0
     if not tiempos:
         sys.exit("falta tiempos.json: grabá primero con grabar.mjs")
@@ -197,6 +257,8 @@ def main() -> int:
     subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", str(salida), "-vf", "scale=1280:-2", "-c:v", "libx264", "-preset", "medium",
                     "-crf", str(a.crf + 2), "-c:a", "copy", "-movflags", "+faststart", str(salida720)], check=True)
     print(f"✓ {salida720.name}")
+    if a.escritorio and textos:
+        carpeta_del_escritorio(G, out, textos)
     return 0
 
 

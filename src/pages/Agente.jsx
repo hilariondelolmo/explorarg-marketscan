@@ -1,6 +1,8 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom';
 import SectionNav from '../components/SectionNav.jsx';
+import TutorialModal from '../components/TutorialModal.jsx';
+import tutoriales from '../data/tutoriales.json';
 import { ProveedorDeCuenta, useCuenta } from '../lib/cuenta/Cuenta.jsx';
 import AgenteEntrada from './AgenteEntrada.jsx';
 import Analista from './Analista.jsx';
@@ -75,10 +77,15 @@ function Contenido() {
   const { seccion } = useParams();
   const [parametros] = useSearchParams();
   const cuenta = useCuenta();
+  const [tutorialAbierto, setTutorialAbierto] = useState(false);
   if (seccion === RAIZ.id) return <Navigate to="/agente" replace />;
   const conPanel = cuenta.estado === 'adentro';
   const disponibles = conPanel ? [...SECTIONS, PANEL, ...(cuenta.esAdmin ? [ADMIN] : [])] : SECTIONS;
-  const { Comp } = disponibles.find((s) => s.id === seccion) || RAIZ;
+  const actual = disponibles.find((s) => s.id === seccion) || RAIZ;
+  const { Comp } = actual;
+  // Tutorial en video de la herramienta que se está viendo (src/data/tutoriales.json, lo escribe
+  // scripts/tutorial/armar.py): el id del tutorial es el de la pestaña. Sin entrada en el catálogo no hay botón.
+  const tutorial = tutoriales.find((t) => t.id === actual.id);
   const muestra = parametros.get('muestra') === '1';
 
   if (cuenta.estado === 'cargando') {
@@ -96,7 +103,12 @@ function Contenido() {
   const secciones = cuenta.puedeConsultar ? disponibles : SECTIONS.map((s) => ({ ...s, to: `${ruta(s)}?muestra=1` }));
   return (
     <>
-      <SectionNav sections={secciones} basePath="/agente" />
+      <SectionNav
+        sections={secciones}
+        basePath="/agente"
+        accion={tutorial && { label: 'Cómo se usa', title: 'Tutorial en video de esta herramienta', onClick: () => setTutorialAbierto(true) }}
+      />
+      <TutorialModal tutorial={tutorial} open={!!tutorial && tutorialAbierto} onClose={() => setTutorialAbierto(false)} />
       <BarraDeCuenta />
       <Suspense fallback={null}>
         <Comp soloEjemplos={!cuenta.puedeConsultar} />

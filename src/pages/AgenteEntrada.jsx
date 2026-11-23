@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CREDITO_INICIAL, enTokens } from '../lib/cuenta/config.js';
 import { useCuenta } from '../lib/cuenta/Cuenta.jsx';
+import TutorialModal, { mmss } from '../components/TutorialModal.jsx';
+import tutoriales from '../data/tutoriales.json';
 import './Page.css';
 import './Agente.css';
 
@@ -153,6 +155,60 @@ function CajaDeIngreso() {
   );
 }
 
+// Los tutoriales en video del Agente, uno por herramienta (src/data/tutoriales.json, que escribe
+// scripts/tutorial/armar.py). Cada uno es la portada de YouTube con su botón: el reproductor recién
+// se carga al abrirlo. Mientras una herramienta no tenga el suyo, no aparece; si no hay ninguno,
+// queda el lugar con "En preparación".
+const HERRAMIENTAS_CON_VIDEO = [
+  { id: 'poligrafo', nombre: 'el Polígrafo' },
+  { id: 'analista', nombre: 'el Analista' },
+];
+
+function VideosDelAgente() {
+  const [abierto, setAbierto] = useState(null);
+  const videos = HERRAMIENTAS_CON_VIDEO.map((h) => ({ ...h, tutorial: tutoriales.find((t) => t.id === h.id) })).filter((h) => h.tutorial);
+  if (!videos.length) {
+    return (
+      <div className="ag-video" role="img" aria-label="Lugar del video tutorial">
+        <span className="ag-video-icono" aria-hidden="true">
+          ▶
+        </span>
+        <span>Video: cómo se usa el Agente</span>
+        <span className="ag-chico">En preparación</span>
+      </div>
+    );
+  }
+  return (
+    <>
+      <div className={`ag-videos ${videos.length > 1 ? 'ag-videos-varios' : ''}`}>
+        {videos.map(({ id, nombre, tutorial }) => (
+          <button type="button" className="ag-video ag-video-listo" key={id} onClick={() => setAbierto(tutorial)} aria-label={`Ver el video: cómo se usa ${nombre}`}>
+            <img
+              src={`https://i.ytimg.com/vi/${tutorial.youtube}/maxresdefault.jpg`}
+              alt=""
+              loading="lazy"
+              onError={(e) => {
+                if (!e.currentTarget.dataset.alt) {
+                  e.currentTarget.dataset.alt = '1';
+                  e.currentTarget.src = `https://i.ytimg.com/vi/${tutorial.youtube}/hqdefault.jpg`;
+                }
+              }}
+            />
+            <span className="ag-video-icono" aria-hidden="true">
+              ▶
+            </span>
+            <span className="ag-video-pie">
+              <span>Video: cómo se usa {nombre}</span>
+              <span className="ag-video-duracion">{mmss(tutorial.duracion)}</span>
+            </span>
+          </button>
+        ))}
+      </div>
+      <TutorialModal tutorial={abierto} open={!!abierto} onClose={() => setAbierto(null)} />
+    </>
+  );
+}
+
 export default function AgenteEntrada() {
   return (
     <section className="page-section pg ag" id="agente">
@@ -194,14 +250,7 @@ export default function AgenteEntrada() {
               ))}
             </ul>
 
-            {/* El tutorial se graba al final, cuando esté todo lo que tiene que mostrar (panel y compra de créditos) */}
-            <div className="ag-video" role="img" aria-label="Lugar del video tutorial">
-              <span className="ag-video-icono" aria-hidden="true">
-                ▶
-              </span>
-              <span>Video: cómo se usa el Agente</span>
-              <span className="ag-chico">En preparación</span>
-            </div>
+            <VideosDelAgente />
           </div>
 
           <CajaDeIngreso />

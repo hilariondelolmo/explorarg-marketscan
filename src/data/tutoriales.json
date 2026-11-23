@@ -341,5 +341,80 @@
     "titulo": "Cierre"
    }
   ]
+ },
+ {
+  "id": "poligrafo",
+  "titulo": "Polígrafo Explorarg",
+  "pagina": "/agente",
+  "youtube": "eKILzNzhMCk",
+  "duracion": 330,
+  "grabado": "2026-11-23",
+  "descripcion": "Cómo se usa el Polígrafo del Agente Explorarg: cómo registrarse e ingresar, cómo se escribe una frase para verificarla, qué significan las preguntas previas, la forma lógica y el resultado afirmación por afirmación, con los datos y el texto de la ley a la vista, y cómo se siguen los tokens y las consultas guardadas en Mi panel.",
+  "capitulos": [
+   {
+    "t": 0,
+    "titulo": "Apertura"
+   },
+   {
+    "t": 19,
+    "titulo": "Cómo se llega: menú Agente"
+   },
+   {
+    "t": 35,
+    "titulo": "Registrarse e ingresar"
+   },
+   {
+    "t": 55,
+    "titulo": "Ya adentro: las pestañas"
+   },
+   {
+    "t": 70,
+    "titulo": "El enunciado, el contexto y el costo"
+   },
+   {
+    "t": 98,
+    "titulo": "Los ejemplos ya analizados"
+   },
+   {
+    "t": 115,
+    "titulo": "1 · Antes de medir: ¿qué quiso decir?"
+   },
+   {
+    "t": 137,
+    "titulo": "2 · La forma lógica que se evalúa"
+   },
+   {
+    "t": 156,
+    "titulo": "3 · Resultado"
+   },
+   {
+    "t": 178,
+    "titulo": "Cada afirmación, con su prueba"
+   },
+   {
+    "t": 200,
+    "titulo": "Cambiar una respuesta"
+   },
+   {
+    "t": 222,
+    "titulo": "Cuando la frase habla de la ley"
+   },
+   {
+    "t": 238,
+    "titulo": "Tu propia frase"
+   },
+   {
+    "t": 267,
+    "titulo": "Llega el resultado"
+   },
+   {
+    "t": 289,
+    "titulo": "Mi panel: tokens y consultas guardadas"
+   },
+   {
+    "t": 309,
+    "titulo": "Cierre"
+   }
+  ]
  }
 ]
