@@ -1,12 +1,7 @@
 /* Analista (Agente Explorarg). Usa los estilos del Polígrafo (.pg) y suma estos,
    que cuelgan de .an para no tocar otras páginas. */
 
-/* Con .page-section para ganarle a `.page-section > .container` de Page.css: tienen el mismo peso y en
-   el sitio publicado el orden de las hojas cambia, así que sin esto la columna quedaba a todo el ancho
-   (23/11/2026; ver la nota de Poligrafo.css). */
-.pg.an.page-section > .container {
-  max-width: 1040px;
-}
+/* La columna va al ancho general del sitio (1280 px), sin angostar: ver la nota de Poligrafo.css. */
 
 .an textarea {
   min-height: 4.6rem;

@@ -1,11 +1,9 @@
 /* Página /poligrafo. Todo cuelga de .pg para no tocar otras páginas. */
 
-/* Con .page-section para ganarle a `.page-section > .container` de Page.css. Las dos reglas pesaban lo
-   mismo: acá ganaba esta porque se carga después, pero al publicar Vite reordena las hojas y ganaba la
-   otra, así que en explorarg.com la columna quedaba de 1280 px en vez de 940 (visto el 23/11/2026). */
-.pg.page-section > .container {
-  max-width: 940px;
-}
+/* El Polígrafo y el Analista van al ancho general del sitio (1280 px, `--max-width`), como las demás
+   páginas: decisión de HDO del 23/11/2026. Hubo acá una regla que los angostaba a 940 y 1040 px; en
+   explorarg.com nunca se aplicó (perdía por el orden de las hojas), y cuando se la hizo valer HDO la
+   descartó: "quedó re chiquitito y es diferente al resto". No volver a angostar la columna. */
 
 /* El caput va justificado y a todo el ancho de la página (regla de HDO, 22/11/2026):
    sin max-width que lo corte antes. Vale también para el Analista, que usa esta clase. */
