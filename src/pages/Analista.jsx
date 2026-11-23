@@ -385,13 +385,38 @@ export default function Analista({ soloEjemplos = false }) {
   return (
     <section className="page-section pg an" id="analista">
       <div className="container">
-        <h2>Pedile un análisis a los datos</h2>
-        <p className="section-intro pg-intro">
-          Escribí qué querés saber del mercado argentino de biodiésel: un ranking, una evolución, una comparación entre
-          dos períodos. El Analista te muestra cómo entendió el pedido y lo calcula con los datos de la Secretaría de
-          Energía procesados por explorarg.com, actualizados a {fmt.monthShort(ctx.ultimo)}. Si no era eso lo que
-          querías, lo corregís con los menús.
-        </p>
+        {/* Título y caput: texto de HDO (23/11/2026). No reescribir.
+            El nombre se escribe "Explorarg", sin RG en mayúscula. */}
+        <h2>Analista Explorarg</h2>
+        <div className="pg-caput">
+          <p>Las buenas decisiones comienzan con buenas preguntas.</p>
+          <p>
+            Toda transacción voluntaria supone que las partes conservan la libertad de rechazarla y que cada una considera que el valor de lo
+            que recibe supera al de aquello que entrega. Esta asimetría de valoraciones, fundada en necesidades, circunstancias y expectativas
+            diferentes, permite que ambas esperen beneficiarse de un mismo intercambio.
+          </p>
+          <p>
+            La calidad de una decisión no se determina por sus resultados futuros, sino por la información disponible al momento de tomarla y
+            el rigor del razonamiento que la sustenta.
+          </p>
+          <p>
+            Pero los datos, por sí solos, no constituyen conocimiento. Es necesario analizarlos, relacionarlos e interpretarlos para
+            identificar tendencias, descubrir relaciones, formular hipótesis y construir conclusiones fundamentadas.
+          </p>
+          <p>
+            El Analista Explorarg pone esa capacidad al alcance de cualquier persona. Te permite investigar el mercado argentino de biodiésel
+            formulando tus propias preguntas y obteniendo respuestas a partir de los datos oficiales de la Secretaría de Energía, procesados
+            por explorarg.com, sin necesidad de trabajar con bases de datos, construir planillas ni tener conocimientos de programación.
+          </p>
+          <p>
+            El Analista no reemplaza la curiosidad ni el criterio de quien investiga: multiplica su capacidad de encontrar respuestas y amplía
+            los horizontes de la investigación.
+          </p>
+          <p>
+            La inteligencia artificial expande el universo de respuestas posibles. La inteligencia humana descubre qué preguntas vale la pena
+            formular.
+          </p>
+        </div>
 
         <form className="pg-form" onSubmit={analizar}>
           <label htmlFor="an-pedido" className="pg-label">
