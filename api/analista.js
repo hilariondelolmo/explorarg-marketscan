@@ -106,7 +106,7 @@ export default async function handler(req, res) {
       };
     }, { pedido });
     const { c, r } = resultado;
-    console.log(`[analista] ${sesion.local ? 'local' : sesion.uid} · ${r.motor} ${r.modelo} · entrada ${r.uso.entrada} (caché ${r.uso.entradaDeCache}) · salida ${r.uso.salida} · ${c.ok ? `${c.consulta.tipo} de ${c.consulta.metrica}` : 'no se puede responder'}${cuenta ? ` · cobrado ${cuenta.cobrado} · saldo ${cuenta.saldo}` : ''}`);
+    console.log(`[analista] ${sesion.local ? 'local' : sesion.uid} · ${r.motor} ${r.modelo} · entrada ${r.uso.entrada} (caché ${r.uso.entradaDeCache}) · salida ${r.uso.salida} · ${c.ok ? `${c.consulta.tipos.join('+')} de ${c.consulta.metricas.join('+')}` : 'no se puede responder'}${cuenta ? ` · cobrado ${cuenta.cobrado} · saldo ${cuenta.saldo}` : ''}`);
     res.setHeader('Cache-Control', 'no-store');
     // El motor, el modelo y los tokens del modelo solo viajan en la copia local (ver api/poligrafo.js)
     const tecnico = process.env.VERCEL ? {} : { motor: r.motor, modelo: r.modelo, uso: r.uso };

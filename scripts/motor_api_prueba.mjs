@@ -137,7 +137,7 @@ for (const p of PRUEBAS) {
   const maximo = MAXIMOS[p.archivo];
   control(`tardó ${r.segundos.toFixed(0)} segundos (el máximo en Vercel es ${maximo})`, r.segundos < maximo * 0.8);
   if (p.herramienta === 'analista') {
-    control(`armó la consulta: ${c.ok ? `${c.consulta?.tipo} de ${c.consulta?.metrica}` : `no se puede responder (${c.aclaracion ?? 's/d'})`}`, c.ok === true);
+    control(`armó la consulta: ${c.ok ? `${c.consulta?.tipos?.join('+')} de ${c.consulta?.metricas?.join('+')}` : `no se puede responder (${c.aclaracion ?? 's/d'})`}`, c.ok === true);
   } else {
     const n = c.analisis?.afirmaciones?.length ?? 0;
     control(`encontró ${n} ${n === 1 ? 'afirmación' : 'afirmaciones'}${c.vueltas > 1 ? ' (dio dos vueltas para sumar un texto)' : ''}${c.textos?.length ? ` · textos a pedido: ${c.textos.join(', ')}` : ''}`, n > 0);

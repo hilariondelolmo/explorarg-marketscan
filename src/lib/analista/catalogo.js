@@ -196,8 +196,8 @@ export const ORDENAR_POR = {
 
 // Filtros que admite cada familia (los de empresa valen para la vendedora en las compras).
 export const FILTROS_DE = {
-  empresas: ['categoria', 'provincia', 'grupo', 'camara', 'empresa'],
-  compras: ['petrolera', 'categoria', 'provincia', 'grupo', 'camara', 'empresa'],
+  empresas: ['categoria', 'provincia', 'localidad', 'grupo', 'camara', 'empresa'],
+  compras: ['petrolera', 'categoria', 'provincia', 'localidad', 'grupo', 'camara', 'empresa'],
   corte: [],
   precios: [],
   aceite: [],

@@ -9,7 +9,7 @@
 import { conNombresPublicos } from '../poligrafo/catalogo.js';
 import { norm, parsearSujeto, resolverPeriodo } from '../poligrafo/motor.js';
 import { DIMENSIONES, EQUIVALENCIAS, FILTROS_DE, METRICAS, ORDENAR_POR, ORDENES, PRODUCTOS, TIEMPOS, TIPOS, TOPE_MAXIMO } from './catalogo.js';
-import { mesesEntre, mesTxt, minuscula, nombreDeLaMedida, sumarMes } from './motor.js';
+import { mesesEntre, mesTxt, minuscula, nombreDeLaMedida, seriesDe, sumarMes } from './motor.js';
 
 export const MAX_PEDIDO = 600;
 const NINGUNO = 'ninguno';
@@ -47,16 +47,22 @@ export const ESQUEMA_CONSULTA = {
 
 const esMes = (s) => typeof s === 'string' && /^\d{4}-(0[1-9]|1[0-2])$/.test(s);
 
-/** Desde y hasta qué mes hay datos para una medida. */
+/** Desde y hasta qué mes hay datos para las medidas del pedido (todas salen del mismo grupo de datos). */
 export function rangoDe(q, ctx) {
-  const familia = METRICAS[q.metrica]?.familia;
+  const familia = METRICAS[q.metricas?.[0]]?.familia;
   if (familia === 'compras' && ctx.compras?.meses?.length) return [ctx.compras.meses[0], ctx.compras.meses[ctx.compras.meses.length - 1]];
   if (familia === 'corte' && ctx.corteMensual?.length) return [ctx.corteMensual[0].fecha, ctx.corteMensual[ctx.corteMensual.length - 1].fecha];
   if (familia === 'aceite' && ctx.aceite?.meses?.length) return [ctx.aceite.meses[0].fecha, ctx.aceite.meses[ctx.aceite.meses.length - 1].fecha];
   if (familia === 'precios' && ctx.precios) {
-    const claves = q.metrica === 'brecha_precio' ? [q.producto, q.productoBase] : [q.producto];
-    const meses = ctx.precios.mesesCon(claves.filter((k) => PRODUCTOS[k]));
-    if (meses.length) return [meses[0], meses[meses.length - 1]];
+    // con varios precios, de la primera fecha a la última en que hay alguno
+    let rango = null;
+    for (const s of seriesDe(q)) {
+      const meses = ctx.precios.mesesCon([s.producto, s.productoBase].filter((k) => PRODUCTOS[k]));
+      if (!meses.length) continue;
+      const ultimo = meses[meses.length - 1];
+      rango = rango ? [meses[0] < rango[0] ? meses[0] : rango[0], ultimo > rango[1] ? ultimo : rango[1]] : [meses[0], ultimo];
+    }
+    if (rango) return rango;
   }
   return [ctx.primerMes, ctx.ultimo];
 }
@@ -66,6 +72,8 @@ export function opcionesDeMenu(ctx) {
   return {
     categoria: ctx.valores.categoria.filter((c) => ctx.empresas.some((e) => e.categoria === c)),
     provincia: ctx.valores.provincia,
+    // la IA puede traducir "las empresas de Rosario" a un filtro por localidad: sin este menú se perdía sin aviso
+    localidad: ctx.valores.localidad,
     grupo: ctx.valores.grupo,
     camara: ctx.valores.camara,
     empresa: ctx.valores.empresa,
@@ -73,71 +81,110 @@ export function opcionesDeMenu(ctx) {
   };
 }
 
-function validarFiltro(tipo, valor, ctx) {
-  if (!valor) return null;
-  const lista = opcionesDeMenu(ctx)[tipo] ?? [];
+function validarFiltro(valor, opciones) {
+  if (!valor || typeof valor !== 'string') return null;
   const v = norm(valor);
-  const exacta = lista.find((o) => norm(o) === v);
+  const exacta = opciones.find((o) => norm(o) === v);
   if (exacta) return exacta;
-  const parecidas = lista.filter((o) => norm(o).includes(v) || v.includes(norm(o)));
+  const parecidas = opciones.filter((o) => norm(o).includes(v) || v.includes(norm(o)));
   return v.length >= 3 && parecidas.length === 1 ? parecidas[0] : null;
 }
+
+// Cada menú de selección múltiple guarda una lista. Una consulta guardada antes del
+// 23/11/2026 (o la que arma la IA) trae un solo valor: se lee igual.
+const lista = (v) => (Array.isArray(v) ? v : v === null || v === undefined || v === '' ? [] : [v]);
+/** Los valores que existen, sin repetir y en el orden del catálogo (no en el orden en que se tildaron). */
+const enOrden = (valores, catalogo) => Object.keys(catalogo).filter((k) => valores.includes(k));
+
+const basePorDefecto = (producto) => {
+  const energia = PRODUCTOS[producto].energia;
+  const base = energia === 'bioetanol' || energia === 'nafta' ? 'nafta_fosil' : 'gasoil_fosil';
+  return producto === base ? (base === 'nafta_fosil' ? 'bioetanol' : 'biodiesel') : base;
+};
 
 /**
  * Deja la consulta coherente: parámetros que existen, compatibles entre sí y dentro
  * de los datos que hay. Devuelve { consulta, avisos }. Es idempotente.
+ *
+ * La consulta que sale tiene siempre esta forma (los menús de selección múltiple son listas):
+ *   tipos, metricas, productos, productosBase, equivalencias, filtros { menú: [valores] },
+ *   agrupar, tiempo, desde, hasta, desde0, hasta0, orden, ordenarPor, ordenMedida, tope.
  */
 export function ajustarConsulta(entrada, ctx) {
   const avisos = [];
-  const q = { ...entrada, filtros: { ...(entrada.filtros ?? {}) } };
-  if (!METRICAS[q.metrica]) q.metrica = 'ventas_cupo';
-  const m = METRICAS[q.metrica];
-  if (!TIPOS[q.tipo]) q.tipo = 'ranking';
+  const q = {};
+
+  // medidas: una o varias, todas del mismo grupo de datos (comparten filtros, agrupación y fechas)
+  let metricas = enOrden(lista(entrada.metricas ?? entrada.metrica), METRICAS);
+  if (!metricas.length) metricas = ['ventas_cupo'];
+  const familia = METRICAS[metricas[0]].familia;
+  if (metricas.some((k) => METRICAS[k].familia !== familia)) {
+    metricas = metricas.filter((k) => METRICAS[k].familia === familia);
+    avisos.push('Las medidas se combinan dentro de un mismo grupo (elaboradoras, corte o precios): quedaron las del primero.');
+  }
+  q.metricas = metricas;
+  const ms = metricas.map((k) => METRICAS[k]);
+  const m = ms[0]; // lo que es igual para todo el grupo: por qué se agrupa y qué filtros admite
+
+  let tipos = enOrden(lista(entrada.tipos ?? entrada.tipo), TIPOS);
+  if (!tipos.length) tipos = ['ranking'];
 
   // productos (solo para precios)
-  if (m.familia === 'precios') {
-    if (!PRODUCTOS[q.producto]) q.producto = 'biodiesel';
-    if (q.metrica === 'brecha_precio') {
-      if (PRODUCTOS[q.producto].soloNivel) q.producto = 'biodiesel';
-      const porDefecto = PRODUCTOS[q.producto].energia === 'bioetanol' || PRODUCTOS[q.producto].energia === 'nafta' ? 'nafta_fosil' : 'gasoil_fosil';
-      if (!PRODUCTOS[q.productoBase] || PRODUCTOS[q.productoBase].soloNivel || q.productoBase === q.producto) {
-        q.productoBase = q.producto === porDefecto ? (porDefecto === 'nafta_fosil' ? 'bioetanol' : 'biodiesel') : porDefecto;
-      }
-      if (!EQUIVALENCIAS[q.equivalencia]) q.equivalencia = 'por_litro';
-    } else {
-      q.productoBase = null;
-      q.equivalencia = null;
+  q.productos = [];
+  q.productosBase = [];
+  q.equivalencias = [];
+  if (familia === 'precios') {
+    const conBrecha = metricas.includes('brecha_precio');
+    const comparable = (k) => !PRODUCTOS[k].soloNivel;
+    let productos = lista(entrada.productos ?? entrada.producto).filter((k) => PRODUCTOS[k]);
+    // la diferencia de precio se mide entre dos precios: los impuestos solos no entran
+    if (!metricas.includes('precio')) productos = productos.filter(comparable);
+    if (!productos.some(comparable) && (conBrecha || !productos.length)) productos.push('biodiesel');
+    q.productos = enOrden(productos, PRODUCTOS);
+    if (conBrecha) {
+      const comparables = q.productos.filter(comparable);
+      let bases = lista(entrada.productosBase ?? entrada.productoBase).filter((k) => PRODUCTOS[k] && comparable(k));
+      // tiene que quedar al menos un par de productos distintos para comparar
+      if (!bases.some((b) => comparables.some((p) => p !== b))) bases = [basePorDefecto(comparables[0])];
+      q.productosBase = enOrden(bases, PRODUCTOS);
+      q.equivalencias = enOrden(lista(entrada.equivalencias ?? entrada.equivalencia), EQUIVALENCIAS);
+      if (!q.equivalencias.length) q.equivalencias = ['por_litro'];
     }
-  } else {
-    q.producto = null;
-    q.productoBase = null;
-    q.equivalencia = null;
   }
 
   // por qué se agrupa
-  if (m.agruparSiempre) q.agrupar = m.agruparSiempre;
-  else if (!m.dims.includes(q.agrupar)) q.agrupar = NINGUNO;
+  q.agrupar = m.agruparSiempre ?? (m.dims.includes(entrada.agrupar) ? entrada.agrupar : NINGUNO);
 
-  // qué tipo de respuesta admite la medida
-  if (m.sinTiempo && (q.tipo === 'evolucion' || q.tipo === 'comparacion')) {
-    avisos.push(`${m.nombre}: el sitio tiene solo la foto más reciente, así que no se puede ver en el tiempo. Se muestra el ranking.`);
-    q.tipo = 'ranking';
+  // qué tipos de respuesta admiten las medidas
+  const sinTiempo = ms.filter((x) => x.sinTiempo);
+  const pideTiempo = (t) => t === 'evolucion' || t === 'comparacion';
+  if (sinTiempo.length === ms.length && tipos.some(pideTiempo)) {
+    avisos.push(`${sinTiempo.map((x) => x.nombre).join(', ')}: el sitio tiene solo la foto más reciente, así que no se puede ver en el tiempo. Se muestra el ranking.`);
+    tipos = tipos.map((t) => (pideTiempo(t) ? 'ranking' : t));
+  } else if (sinTiempo.length && tipos.some(pideTiempo)) {
+    avisos.push(`${sinTiempo.map((x) => x.nombre).join(', ')}: el sitio tiene solo la foto más reciente, así que no entra en la evolución ni en la comparación.`);
   }
-  if (q.tipo === 'ranking' && q.agrupar === NINGUNO) {
+  if (tipos.includes('ranking') && q.agrupar === NINGUNO) {
     if (m.dims.length) q.agrupar = m.dims[0];
-    else q.tipo = 'evolucion';
+    else tipos = tipos.map((t) => (t === 'ranking' ? 'evolucion' : t));
   }
-  if (q.tipo === 'total' && m.agruparSiempre) q.tipo = 'ranking';
+  if (m.agruparSiempre) tipos = tipos.map((t) => (t === 'total' ? 'ranking' : t));
+  q.tipos = enOrden(tipos, TIPOS);
+  const hayEvolucion = q.tipos.includes('evolucion');
+  const hayComparacion = q.tipos.includes('comparacion');
 
-  // filtros: solo los que valen para esa medida, y con valores que existen
-  const permitidos = FILTROS_DE[m.familia];
-  for (const f of Object.keys(q.filtros)) {
-    const valor = permitidos.includes(f) ? validarFiltro(f, q.filtros[f], ctx) : null;
-    if (valor) q.filtros[f] = valor;
-    else delete q.filtros[f];
+  // filtros: solo los que valen para esas medidas, y con valores que existen
+  q.filtros = {};
+  const menus = opcionesDeMenu(ctx);
+  for (const f of FILTROS_DE[familia]) {
+    const pedidos = lista(entrada.filtros?.[f]).map((v) => validarFiltro(v, menus[f]));
+    const validos = menus[f].filter((o) => pedidos.includes(o));
+    if (validos.length) q.filtros[f] = validos;
   }
 
   // período
+  q.desde = entrada.desde;
+  q.hasta = entrada.hasta;
   const [min, max] = rangoDe(q, ctx);
   if (!esMes(q.hasta)) q.hasta = max;
   if (!esMes(q.desde)) q.desde = sumarMes(q.hasta, -11);
@@ -150,12 +197,18 @@ export function ajustarConsulta(entrada, ctx) {
     q.hasta = max;
     q.desde = sumarMes(max, -11) < min ? min : sumarMes(max, -11);
   }
-  if (!m.sinTiempo && (pedido[0] !== q.desde || pedido[1] !== q.hasta)) {
-    avisos.push(`De ${minuscula(nombreDeLaMedida(q))} hay datos de ${mesTxt(min)} a ${mesTxt(max)}: el período se ajustó a eso.`);
+  if (sinTiempo.length < ms.length && (pedido[0] !== q.desde || pedido[1] !== q.hasta)) {
+    const series = seriesDe(q);
+    const deQue = series.length === 1 ? minuscula(nombreDeLaMedida(series[0])) : 'las medidas elegidas';
+    avisos.push(`De ${deQue} hay datos de ${mesTxt(min)} a ${mesTxt(max)}: el período se ajustó a eso.`);
   }
 
-  if (q.tipo === 'comparacion') {
+  q.desde0 = null;
+  q.hasta0 = null;
+  if (hayComparacion) {
     const largo = mesesEntre(q.desde, q.hasta).length;
+    q.desde0 = entrada.desde0;
+    q.hasta0 = entrada.hasta0;
     if (!esMes(q.hasta0) || !esMes(q.desde0)) {
       q.hasta0 = sumarMes(q.desde, -1);
       q.desde0 = sumarMes(q.hasta0, -(largo - 1));
@@ -164,25 +217,24 @@ export function ajustarConsulta(entrada, ctx) {
     if (q.hasta0 > max) q.hasta0 = max;
     if (q.desde0 < min) q.desde0 = min;
     if (q.desde0 > q.hasta0) q.hasta0 = q.desde0;
-    if (mesesEntre(q.desde0, q.hasta0).length !== largo && m.aditiva) {
+    if (mesesEntre(q.desde0, q.hasta0).length !== largo && ms.some((x) => x.aditiva)) {
       avisos.push('Los dos períodos no duran lo mismo: en una medida que se suma, la comparación queda despareja.');
     }
-  } else {
-    q.desde0 = null;
-    q.hasta0 = null;
   }
 
   // en el tiempo
-  if (q.tipo === 'evolucion') {
-    if (!TIEMPOS[q.tiempo]) q.tiempo = mesesEntre(q.desde, q.hasta).length <= 36 ? 'mes' : 'anio';
-  } else {
-    q.tiempo = NINGUNO;
-  }
+  q.tiempo = NINGUNO;
+  if (hayEvolucion) q.tiempo = TIEMPOS[entrada.tiempo] ? entrada.tiempo : mesesEntre(q.desde, q.hasta).length <= 36 ? 'mes' : 'anio';
 
-  if (!ORDENES[q.orden]) q.orden = 'mayor';
-  q.ordenarPor = q.tipo === 'comparacion' ? (ORDENAR_POR[q.ordenarPor] ? q.ordenarPor : 'diferencia') : 'valor';
-  const topePorDefecto = q.tipo === 'evolucion' ? 5 : 20;
-  q.tope = Number.isFinite(q.tope) && q.tope >= 1 ? Math.min(Math.round(q.tope), TOPE_MAXIMO) : topePorDefecto;
+  q.orden = ORDENES[entrada.orden] ? entrada.orden : 'mayor';
+  q.ordenarPor = hayComparacion ? (ORDENAR_POR[entrada.ordenarPor] ? entrada.ordenarPor : 'diferencia') : 'valor';
+  // con varias medidas en un ranking, cuál de ellas ordena la tabla
+  q.ordenMedida = null;
+  if (metricas.length > 1 && q.tipos.includes('ranking') && q.agrupar !== NINGUNO) {
+    q.ordenMedida = metricas.includes(entrada.ordenMedida) ? entrada.ordenMedida : metricas[0];
+  }
+  const topePorDefecto = q.tipos.every((t) => t === 'evolucion') ? 5 : 20;
+  q.tope = Number.isFinite(entrada.tope) && entrada.tope >= 1 ? Math.min(Math.round(entrada.tope), TOPE_MAXIMO) : topePorDefecto;
 
   return { consulta: q, avisos };
 }
@@ -211,13 +263,15 @@ export function desdeModelo(cruda, ctx) {
   };
 
   if (cruda.sujeto && norm(cruda.sujeto) !== 'TOTAL') {
-    const s = parsearSujeto(cruda.sujeto, ctx);
-    if (s.ok) for (const f of s.filtros) q.filtros[f.tipo] = f.valor;
-    else avisos.push(`${s.motivo} Se toman todas las empresas.`);
+    // cada parte se lee por separado: si el sujeto repite un tipo (dos provincias), valen las dos
+    const partes = cruda.sujeto.split('+').map((parte) => parsearSujeto(parte, ctx));
+    const mala = partes.find((s) => !s.ok);
+    if (mala) avisos.push(`${mala.motivo} Se toman todas las empresas.`);
+    else for (const f of partes.flatMap((s) => s.filtros)) q.filtros[f.tipo] = [...(q.filtros[f.tipo] ?? []), f.valor];
   }
   if (cruda.petrolera && cruda.petrolera !== NINGUNO) {
-    const p = validarFiltro('petrolera', cruda.petrolera, ctx);
-    if (p) q.filtros.petrolera = p;
+    const p = validarFiltro(cruda.petrolera, opcionesDeMenu(ctx).petrolera);
+    if (p) q.filtros.petrolera = [p];
     else avisos.push(`No encuentro la petrolera «${texto(cruda.petrolera, 60)}» en los datos del sitio.`);
   }
 

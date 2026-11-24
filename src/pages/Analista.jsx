@@ -13,6 +13,7 @@ import iclIco2Data from '../data/icl_ico2.json';
 import naftasData from '../data/naftas_precios.json';
 import bioetanolData from '../data/bioetanol_precios.json';
 import comprasData from '../data/compras_cupo.json';
+import { MenuMultiple } from '../components/agente/MenuMultiple.jsx';
 import { PanelPlegable } from '../components/agente/Plegable.jsx';
 import { useCuenta } from '../lib/cuenta/Cuenta.jsx';
 import { MINUTOS_DE_TANDA, aproxTokens, enTokens, horaDe } from '../lib/cuenta/config.js';
@@ -20,7 +21,7 @@ import { fmt } from '../lib/format.js';
 import { useChartColors } from '../lib/theme.jsx';
 import { DIMENSIONES, EQUIVALENCIAS, FILTROS_DE, METRICAS, ORDENAR_POR, ORDENES, PRODUCTOS, TIEMPOS, TIPOS } from '../lib/analista/catalogo.js';
 import { ajustarConsulta, MAX_PEDIDO, opcionesDeMenu, rangoDe } from '../lib/analista/consulta.js';
-import { describirConsulta, ejecutarConsulta, etiquetaGrupo, mesesEntre, mesTxt } from '../lib/analista/motor.js';
+import { describirConsulta, etiquetaGrupo, mesesEntre, mesTxt, resolverConsulta } from '../lib/analista/motor.js';
 import { AUTOR, FUENTE_DATOS } from '../lib/poligrafo/catalogo.js';
 import { armarContexto } from '../lib/poligrafo/contexto.js';
 import './Page.css';
@@ -32,6 +33,8 @@ import './Analista.css';
 // /api/analista lo traduce a una consulta con IA y el motor de src/lib/analista la
 // calcula acá, en el navegador, con los mismos JSON de los tableros. Después la
 // consulta se puede corregir con los menús: cada cambio se recalcula sin IA.
+// Los menús de qué mostrar, medida, producto y filtros son de selección múltiple
+// (HDO, 23/11/2026): el motor devuelve un bloque de resultado por cada cosa pedida.
 // Usa los estilos del Polígrafo (.pg) y suma los propios (.an).
 
 // Pedidos de ejemplo ya traducidos: se abren sin consultar a la IA.
@@ -47,7 +50,7 @@ const EJEMPLOS = [
 ];
 
 const FAMILIAS = { empresas: 'Elaboradoras', compras: 'Petroleras', corte: 'Corte obligatorio', precios: 'Precios', aceite: 'Aceite' };
-const ROTULO_FILTRO = { categoria: 'Categoría', provincia: 'Provincia', grupo: 'Grupo económico', camara: 'Cámara', empresa: 'Empresa', petrolera: 'Petrolera' };
+const ROTULO_FILTRO = { categoria: 'Categoría', provincia: 'Provincia', localidad: 'Localidad', grupo: 'Grupo económico', camara: 'Cámara', empresa: 'Empresa', petrolera: 'Petrolera' };
 const TOPES = [5, 10, 15, 20, 30, 60];
 
 const nf = (n, d = 0) => Number(n).toLocaleString('es-AR', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -73,7 +76,7 @@ function descargarCsv(resultado) {
   const lineas = [
     txt(`${resultado.titulo}${resultado.bajada ? ` - ${resultado.bajada}` : ''}`),
     resultado.columnas.map((c) => txt(c.nombre)).join(';'),
-    ...resultado.filas.map((f) => f.celdas.map((v, i) => (resultado.columnas[i].tipo === 'numero' ? num(v, resultado.columnas[i]) : txt(v))).join(';')),
+    ...resultado.filas.map((f) => f.celdas.map((v, i) => (resultado.columnas[i].tipo === 'numero' ? num(v, f.formatos?.[i] ?? resultado.columnas[i]) : txt(v))).join(';')),
     '',
     txt(`${resultado.fuente.origen ?? FUENTE_DATOS} Calculado en www.explorarg.com/agente/analista`),
   ];
@@ -103,7 +106,7 @@ function Grafico({ g }) {
 
   if (g.tipo === 'barrasH') {
     return (
-      <ResponsiveContainer width="100%" height={Math.max(150, datos.length * (varias ? 40 : 28) + 50)}>
+      <ResponsiveContainer width="100%" height={Math.max(150, datos.length * (varias ? 14 + 13 * g.series.length : 28) + 50)}>
         <BarChart data={datos} layout="vertical" margin={{ top: 4, right: 24, bottom: 4, left: 8 }} barCategoryGap={varias ? '22%' : '28%'}>
           <CartesianGrid stroke={C.grid} horizontal={false} />
           <XAxis type="number" tick={tick} stroke={C.axis} tickFormatter={eje} domain={dominioBarras} />
@@ -111,7 +114,7 @@ function Grafico({ g }) {
           <Tooltip formatter={valor} contentStyle={estiloTooltip} cursor={{ fill: C.cursor }} />
           {varias && <Legend wrapperStyle={{ fontSize: 12 }} />}
           {g.series.map((s, k) => (
-            <Bar key={s.nombre} dataKey={`s${k}`} name={s.nombre} fill={varias ? colores[k === 0 ? 6 : 0] : colores[0]} radius={[0, 3, 3, 0]} isAnimationActive={false} />
+            <Bar key={s.nombre} dataKey={`s${k}`} name={s.nombre} fill={g.par ? colores[k === 0 ? 6 : 0] : colores[k % colores.length]} radius={[0, 3, 3, 0]} isAnimationActive={false} />
           ))}
         </BarChart>
       </ResponsiveContainer>
@@ -138,12 +141,15 @@ function Grafico({ g }) {
   );
 }
 
-function Campo({ rotulo, children, ancho }) {
+// `multiple`: el campo lleva un menú con casillas (MenuMultiple). No va dentro de un <label>,
+// porque adentro tiene su propio botón y sus propias casillas.
+function Campo({ rotulo, children, ancho, multiple }) {
+  const Caja = multiple ? 'div' : 'label';
   return (
-    <label className={`an-campo${ancho ? ' an-campo-ancho' : ''}`}>
+    <Caja className={`an-campo${ancho ? ' an-campo-ancho' : ''}`}>
       <span>{rotulo}</span>
       {children}
-    </label>
+    </Caja>
   );
 }
 
@@ -160,72 +166,101 @@ function Opciones({ valor, onChange, opciones, vacio }) {
   );
 }
 
-/** Los menús con que se corrige la consulta. Cada cambio se recalcula en el momento, sin IA. */
+const titulo = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+
+/**
+ * Los menús con que se corrige la consulta. Cada cambio se recalcula en el momento, sin IA.
+ * Los que admiten varias opciones a la vez van con casillas; los que no (un período tiene
+ * un solo comienzo, una tabla se ordena de una sola manera) siguen siendo de una opción.
+ */
 function Controles({ q, ctx, cambiar }) {
-  const m = METRICAS[q.metrica];
+  const m = METRICAS[q.metricas[0]]; // todas las medidas tildadas son del mismo grupo
   const menus = useMemo(() => opcionesDeMenu(ctx), [ctx]);
   const [min, max] = rangoDe(q, ctx);
   const meses = useMemo(() => mesesEntre(min, max).map((x) => [x, mesTxt(x)]), [min, max]);
-  const filtro = (f, valor) => cambiar({ filtros: { ...q.filtros, [f]: valor } });
+  const tiene = (tipo) => q.tipos.includes(tipo);
+  const agrupado = q.agrupar !== 'ninguno';
+  const filtro = (f, valores) => cambiar({ filtros: { ...q.filtros, [f]: valores } });
   const esPrecio = m.familia === 'precios';
-  const productos = Object.entries(PRODUCTOS).filter(([, p]) => q.metrica !== 'brecha_precio' || !p.soloNivel).map(([k, p]) => [k, p.etiqueta.charAt(0).toUpperCase() + p.etiqueta.slice(1)]);
+  const conBrecha = q.metricas.includes('brecha_precio');
+  const comparables = Object.entries(PRODUCTOS).filter(([, p]) => !p.soloNivel).map(([k, p]) => [k, titulo(p.etiqueta)]);
+  // los impuestos se pueden ver solos, pero no comparar contra otro precio
+  const productos = q.metricas.includes('precio') ? Object.entries(PRODUCTOS).map(([k, p]) => [k, titulo(p.etiqueta)]) : comparables;
+  const elegidos = q.productos.filter((k) => !PRODUCTOS[k].soloNivel);
+  // una medida de otro grupo no se puede combinar con las tildadas: las reemplaza
+  const cambiarMedidas = (nuevas, tocada) => cambiar({ metricas: METRICAS[tocada].familia === m.familia ? nuevas : [tocada] });
 
   return (
     <div className="an-controles">
-      <Campo rotulo="Qué mostrar">
-        <Opciones valor={q.tipo} onChange={(v) => cambiar({ tipo: v })} opciones={Object.entries(TIPOS).map(([k, t]) => [k, t.etiqueta])} />
+      <Campo rotulo="Qué mostrar" multiple>
+        <MenuMultiple rotulo="Qué mostrar" elegidas={q.tipos} onChange={(v) => cambiar({ tipos: v })} opciones={Object.entries(TIPOS).map(([k, t]) => [k, t.etiqueta])} />
       </Campo>
-      <Campo rotulo="Medida" ancho>
-        <select value={q.metrica} onChange={(e) => cambiar({ metrica: e.target.value })}>
-          {Object.entries(FAMILIAS).map(([familia, titulo]) => (
-            <optgroup key={familia} label={titulo}>
-              {Object.entries(METRICAS)
-                .filter(([, x]) => x.familia === familia)
-                .map(([k, x]) => (
-                  <option key={k} value={k}>
-                    {x.nombre}
-                  </option>
-                ))}
-            </optgroup>
-          ))}
-        </select>
+      <Campo rotulo="Medida" ancho multiple>
+        <MenuMultiple
+          rotulo="Medida"
+          elegidas={q.metricas}
+          onChange={cambiarMedidas}
+          nota="Se combinan las medidas de un mismo grupo. Al tildar una de otro grupo, reemplaza a las que estaban."
+          opciones={Object.entries(FAMILIAS).map(([familia, nombre]) => ({
+            titulo: nombre,
+            opciones: Object.entries(METRICAS)
+              .filter(([, x]) => x.familia === familia)
+              .map(([k, x]) => [k, x.nombre]),
+          }))}
+        />
       </Campo>
       {esPrecio && (
-        <Campo rotulo={q.metrica === 'brecha_precio' ? 'Producto' : 'De qué'}>
-          <Opciones valor={q.producto} onChange={(v) => cambiar({ producto: v })} opciones={productos} />
+        <Campo rotulo={conBrecha ? 'Producto' : 'De qué'} multiple>
+          <MenuMultiple rotulo={conBrecha ? 'Producto' : 'De qué'} elegidas={q.productos} onChange={(v) => cambiar({ productos: v })} opciones={productos} />
         </Campo>
       )}
-      {q.metrica === 'brecha_precio' && (
+      {conBrecha && (
         <>
-          <Campo rotulo="Contra">
-            <Opciones valor={q.productoBase} onChange={(v) => cambiar({ productoBase: v })} opciones={productos.filter(([k]) => k !== q.producto)} />
+          <Campo rotulo="Contra" multiple>
+            <MenuMultiple
+              rotulo="Contra"
+              elegidas={q.productosBase}
+              onChange={(v) => cambiar({ productosBase: v })}
+              opciones={elegidos.length === 1 ? comparables.filter(([k]) => k !== elegidos[0]) : comparables}
+            />
           </Campo>
-          <Campo rotulo="Cómo se compara">
-            <Opciones valor={q.equivalencia} onChange={(v) => cambiar({ equivalencia: v })} opciones={Object.entries(EQUIVALENCIAS).map(([k, e]) => [k, e.etiqueta.charAt(0).toUpperCase() + e.etiqueta.slice(1)])} />
+          <Campo rotulo="Cómo se compara" multiple>
+            <MenuMultiple
+              rotulo="Cómo se compara"
+              elegidas={q.equivalencias}
+              onChange={(v) => cambiar({ equivalencias: v })}
+              opciones={Object.entries(EQUIVALENCIAS).map(([k, e]) => [k, titulo(e.etiqueta)])}
+            />
           </Campo>
         </>
       )}
       {m.dims.length > 0 && !m.agruparSiempre && (
         <Campo rotulo="Agrupar por">
           <Opciones
-            valor={q.agrupar === 'ninguno' ? '' : q.agrupar}
+            valor={agrupado ? q.agrupar : ''}
             onChange={(v) => cambiar({ agrupar: v ?? 'ninguno' })}
             opciones={m.dims.map((d) => [d, DIMENSIONES[d].titulo])}
-            vacio={q.tipo === 'ranking' ? undefined : 'Sin agrupar'}
+            vacio={tiene('ranking') ? undefined : 'Sin agrupar'}
           />
         </Campo>
       )}
-      {q.tipo === 'evolucion' && (
+      {tiene('evolucion') && (
         <Campo rotulo="En el tiempo">
           <Opciones valor={q.tiempo} onChange={(v) => cambiar({ tiempo: v })} opciones={Object.entries(TIEMPOS)} />
         </Campo>
       )}
       {FILTROS_DE[m.familia].map((f) => (
-        <Campo key={f} rotulo={ROTULO_FILTRO[f]}>
-          <Opciones valor={q.filtros[f]} onChange={(v) => filtro(f, v)} opciones={menus[f].map((v) => [v, etiquetaGrupo(f, v, ctx)])} vacio="Todas" />
+        <Campo key={f} rotulo={ROTULO_FILTRO[f]} multiple>
+          <MenuMultiple
+            rotulo={ROTULO_FILTRO[f]}
+            elegidas={q.filtros[f] ?? []}
+            onChange={(v) => filtro(f, v)}
+            opciones={menus[f].map((v) => [v, etiquetaGrupo(f, v, ctx)])}
+            vacio={f === 'grupo' ? 'Todos' : 'Todas'}
+          />
         </Campo>
       ))}
-      {q.tipo === 'comparacion' && (
+      {tiene('comparacion') && (
         <>
           <Campo rotulo="Período inicial: desde">
             <Opciones valor={q.desde0} onChange={(v) => cambiar({ desde0: v })} opciones={meses} />
@@ -235,32 +270,133 @@ function Controles({ q, ctx, cambiar }) {
           </Campo>
         </>
       )}
-      {!m.sinTiempo && (
+      {q.metricas.some((k) => !METRICAS[k].sinTiempo) && (
         <>
-          <Campo rotulo={q.tipo === 'comparacion' ? 'Período final: desde' : 'Desde'}>
+          <Campo rotulo={tiene('comparacion') ? 'Período final: desde' : 'Desde'}>
             <Opciones valor={q.desde} onChange={(v) => cambiar({ desde: v })} opciones={meses} />
           </Campo>
-          <Campo rotulo={q.tipo === 'comparacion' ? 'Período final: hasta' : 'Hasta'}>
+          <Campo rotulo={tiene('comparacion') ? 'Período final: hasta' : 'Hasta'}>
             <Opciones valor={q.hasta} onChange={(v) => cambiar({ hasta: v })} opciones={meses} />
           </Campo>
         </>
       )}
-      {q.tipo === 'comparacion' && q.agrupar !== 'ninguno' && (
-        <Campo rotulo="Ordenar">
-          <Opciones valor={q.ordenarPor} onChange={(v) => cambiar({ ordenarPor: v })} opciones={Object.entries(ORDENAR_POR).filter(([k]) => k !== 'variacion' || m.unidad !== '%')} />
+      {q.ordenMedida && (
+        <Campo rotulo="Ordenar por la medida">
+          <Opciones valor={q.ordenMedida} onChange={(v) => cambiar({ ordenMedida: v })} opciones={q.metricas.map((k) => [k, METRICAS[k].nombre])} />
         </Campo>
       )}
-      {(q.tipo === 'ranking' || (q.tipo === 'comparacion' && q.agrupar !== 'ninguno')) && (
+      {tiene('comparacion') && agrupado && (
+        <Campo rotulo="Ordenar">
+          <Opciones valor={q.ordenarPor} onChange={(v) => cambiar({ ordenarPor: v })} opciones={Object.entries(ORDENAR_POR).filter(([k]) => k !== 'variacion' || q.metricas.some((x) => METRICAS[x].unidad !== '%'))} />
+        </Campo>
+      )}
+      {(tiene('ranking') || (tiene('comparacion') && agrupado)) && (
         <Campo rotulo="Orden">
           <Opciones valor={q.orden} onChange={(v) => cambiar({ orden: v })} opciones={Object.entries(ORDENES)} />
         </Campo>
       )}
-      {q.agrupar !== 'ninguno' && !m.agruparSiempre && q.tipo !== 'total' && (
+      {agrupado && !m.agruparSiempre && q.tipos.some((t) => t !== 'total') && (
         <Campo rotulo="Cuántas mostrar">
           <Opciones valor={String(q.tope)} onChange={(v) => cambiar({ tope: Number(v) })} opciones={[...new Set([...TOPES, q.tope])].sort((a, b) => a - b).map((n) => [String(n), n === 60 ? 'Todas (hasta 60)' : `Las primeras ${n}`])} />
         </Campo>
       )}
     </div>
+  );
+}
+
+/**
+ * Un bloque de resultado: título, cifra, gráfico, tabla, notas y fuente.
+ * `rotulado`: el pedido trae varios tipos (ranking y evolución, por ejemplo) y cada bloque dice cuál es.
+ */
+function Bloque({ resultado, rotulado }) {
+  const rotulo = rotulado && <p className="an-tipo">{TIPOS[resultado.tipo]?.etiqueta}</p>;
+  if (!resultado.ok) {
+    return (
+      <>
+        {rotulo}
+        <p className="pg-motivo">{resultado.motivo}</p>
+      </>
+    );
+  }
+  const graficos = resultado.graficos ?? (resultado.grafico ? [resultado.grafico] : []);
+  const fuentes = resultado.fuentes ?? [resultado.fuente];
+  const clase = (c) => (c.tipo === 'texto' ? 'an-texto' : c.tipo === 'puesto' ? 'an-puesto' : '');
+  return (
+    <>
+      <div className="an-encabezado">
+        <div>
+          {rotulo}
+          <h4 className="an-titulo">{resultado.titulo}</h4>
+          {resultado.bajada && <p className="an-bajada">{resultado.bajada}</p>}
+        </div>
+        <button type="button" className="an-descarga" onClick={() => descargarCsv(resultado)}>
+          Descargar la tabla
+        </button>
+      </div>
+
+      {resultado.cifra && <p className="an-cifra">{cifraTxt(resultado.cifra)}</p>}
+      {resultado.cifras?.length > 0 && (
+        <dl className="an-cifras">
+          {resultado.cifras.map((c) => (
+            <div key={c.nombre}>
+              <dt>{c.nombre}</dt>
+              <dd>{cifraTxt(c)}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+
+      {graficos.map((g, i) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <div className="an-grafico" key={i}>
+          {g.leyenda && <p className="an-grafico-leyenda">{g.leyenda}</p>}
+          <Grafico g={g} />
+        </div>
+      ))}
+
+      <div className="pg-tabla-wrap an-tabla-wrap">
+        <table className="pg-tabla an-tabla">
+          <thead>
+            <tr>
+              {resultado.columnas.map((c) => (
+                <th key={c.nombre} className={clase(c)}>
+                  {c.nombre}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {resultado.filas.map((f, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <tr key={i} className={f.clase === 'total' ? 'pg-fila-total' : f.clase === 'resto' ? 'an-fila-resto' : ''}>
+                {f.celdas.map((v, j) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <td key={j} className={clase(resultado.columnas[j])}>
+                    {/* una fila puede traer el formato de cada celda (varias medidas con unidades distintas) */}
+                    {celda(v, f.formatos?.[j] ? { ...resultado.columnas[j], ...f.formatos[j] } : resultado.columnas[j])}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {resultado.notas.map((n) => (
+        <p key={n} className="pg-nota">
+          {n}
+        </p>
+      ))}
+      <p className="pg-fuente">
+        {resultado.fuente.origen ?? FUENTE_DATOS} {fuentes.length > 1 ? 'Ver los tableros: ' : 'Ver el tablero: '}
+        {fuentes.map((f, i) => (
+          <span key={f.ruta}>
+            {i > 0 && ' · '}
+            <Link to={f.ruta}>{f.etiqueta}</Link>
+          </span>
+        ))}
+      </p>
+    </>
   );
 }
 
@@ -379,7 +515,8 @@ export default function Analista({ soloEjemplos = false }) {
       return { ...c, consulta, avisos, editado: true };
     });
 
-  const resultado = useMemo(() => (caso ? ejecutarConsulta(caso.consulta, ctx) : null), [caso, ctx]);
+  // un bloque por cada cosa tildada en "Qué mostrar" (y por medida, cuando juntas no se leerían)
+  const bloques = useMemo(() => (caso ? resolverConsulta(caso.consulta, ctx) : []), [caso, ctx]);
   const sinMotor = error?.codigo === 'sin_sesion' || error?.codigo === 'sin_motor';
 
   return (
@@ -510,72 +647,21 @@ export default function Analista({ soloEjemplos = false }) {
                   {caso.aclaracion}
                 </p>
               )}
-              <p className="pg-panel-intro">Si no era esto, cambialo acá: se recalcula en el momento.</p>
+              <p className="pg-panel-intro">
+                Si no era esto, cambialo acá: se recalcula en el momento. En los menús con casillas podés tildar más de una opción para
+                combinar el pedido.
+              </p>
               <Controles q={caso.consulta} ctx={ctx} cambiar={cambiar} />
             </PanelPlegable>
 
-            {/* si el pedido no se pudo calcular, arranca abierto: el motivo no puede quedar escondido */}
-            <PanelPlegable paso={2} titulo="Resultado" abierto={!resultado.ok}>
-              {!resultado.ok ? (
-                <p className="pg-motivo">{resultado.motivo}</p>
-              ) : (
-                <>
-                  <div className="an-encabezado">
-                    <div>
-                      <h4 className="an-titulo">{resultado.titulo}</h4>
-                      {resultado.bajada && <p className="an-bajada">{resultado.bajada}</p>}
-                    </div>
-                    <button type="button" className="an-descarga" onClick={() => descargarCsv(resultado)}>
-                      Descargar la tabla
-                    </button>
-                  </div>
-
-                  {resultado.cifra && <p className="an-cifra">{cifraTxt(resultado.cifra)}</p>}
-
-                  {resultado.grafico && (
-                    <div className="an-grafico">
-                      {resultado.grafico.leyenda && <p className="an-grafico-leyenda">{resultado.grafico.leyenda}</p>}
-                      <Grafico g={resultado.grafico} />
-                    </div>
-                  )}
-
-                  <div className="pg-tabla-wrap an-tabla-wrap">
-                    <table className="pg-tabla an-tabla">
-                      <thead>
-                        <tr>
-                          {resultado.columnas.map((c) => (
-                            <th key={c.nombre} className={c.tipo === 'texto' ? 'an-texto' : c.tipo === 'puesto' ? 'an-puesto' : ''}>
-                              {c.nombre}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {resultado.filas.map((f, i) => (
-                          // eslint-disable-next-line react/no-array-index-key
-                          <tr key={i} className={f.clase === 'total' ? 'pg-fila-total' : f.clase === 'resto' ? 'an-fila-resto' : ''}>
-                            {f.celdas.map((v, j) => (
-                              // eslint-disable-next-line react/no-array-index-key
-                              <td key={j} className={resultado.columnas[j].tipo === 'texto' ? 'an-texto' : resultado.columnas[j].tipo === 'puesto' ? 'an-puesto' : ''}>
-                                {celda(v, resultado.columnas[j])}
-                              </td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-
-                  {resultado.notas.map((n) => (
-                    <p key={n} className="pg-nota">
-                      {n}
-                    </p>
-                  ))}
-                  <p className="pg-fuente">
-                    {resultado.fuente.origen ?? FUENTE_DATOS} Ver el tablero: <Link to={resultado.fuente.ruta}>{resultado.fuente.etiqueta}</Link>
-                  </p>
-                </>
-              )}
+            {/* si algo del pedido no se pudo calcular, arranca abierto: el motivo no puede quedar escondido */}
+            <PanelPlegable paso={2} titulo="Resultado" abierto={bloques.some((b) => !b.ok)}>
+              {bloques.map((b, i) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <div className="an-bloque" key={i}>
+                  <Bloque resultado={b} rotulado={caso.consulta.tipos.length > 1} />
+                </div>
+              ))}
             </PanelPlegable>
 
             <p className="pg-pie">

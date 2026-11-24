@@ -11,6 +11,11 @@
 //      Así un porcentaje de un grupo sale de sus totales, no de promediar porcentajes.
 //   2. presentar: según el tipo de pedido (ranking, evolución, total, comparación)
 //      se arma la tabla, el gráfico y las notas.
+//
+// Desde el 23/11/2026 los menús de la página son de selección múltiple: un pedido
+// puede traer varios tipos, varias medidas y varios valores en cada filtro.
+// resolverConsulta lo abre en bloques: uno por cada tipo, con las medidas juntas
+// en la misma tabla (o un bloque por medida cuando juntas no se leerían).
 
 import { grupoPublico } from '../poligrafo/catalogo.js';
 import { corteDelPeriodo, lindo, norm } from '../poligrafo/motor.js';
@@ -51,8 +56,9 @@ export function etiquetaGrupo(dim, clave, ctx) {
   return clave;
 }
 
+// cada filtro es una lista: pasa la empresa que coincide con alguno de los valores tildados
 const pasaFiltros = (filtros) => (e) =>
-  Object.entries(CAMPO).every(([f, campo]) => !filtros?.[f] || e[campo] === filtros[f]);
+  Object.entries(CAMPO).every(([f, campo]) => !filtros?.[f]?.length || filtros[f].includes(e[campo]));
 
 // ---------------------------------------------------------------- tramos de tiempo
 
@@ -177,7 +183,7 @@ const FAMILIAS = {
       const e = vendedoras[ei];
       if (!e || !pasa(e)) continue;
       const petrolera = d.petroleras[pi];
-      if (q.filtros?.petrolera && petrolera !== q.filtros.petrolera) continue;
+      if (q.filtros?.petrolera?.length && !q.filtros.petrolera.includes(petrolera)) continue;
       const grupo = q.agrupar === 'petrolera' ? petrolera : CAMPO[q.agrupar] ? e[CAMPO[q.agrupar]] : null;
       for (const i of cuales) acc.sumar(grupo, i, { a: t });
     }
@@ -261,6 +267,15 @@ const FAMILIAS = {
 // ---------------------------------------------------------------- presentar
 
 const articulo = (s) => (s.startsWith('nafta') ? 'la' : 'el');
+const mayuscula = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+
+/** "a", "a y b", "a, b y c" (con "e" delante de una palabra que empieza con i). */
+export function enumerar(xs) {
+  if (xs.length <= 1) return xs.join('');
+  const ultimo = String(xs[xs.length - 1]);
+  return `${xs.slice(0, -1).join(', ')} ${/^h?i(?!e)/i.test(ultimo) ? 'e' : 'y'} ${ultimo}`;
+}
+const varios = (xs) => (xs.length > 4 ? `${xs.slice(0, 3).join(', ')} y ${xs.length - 3} más` : enumerar(xs));
 
 export function nombreDeLaMedida(q) {
   const m = METRICAS[q.metrica];
@@ -273,16 +288,64 @@ export function nombreDeLaMedida(q) {
   return m.nombre;
 }
 
+/**
+ * Las medidas del pedido, de a una: cada medida tildada y, en los precios, cada
+ * producto (o cada par de productos, en la diferencia de precio).
+ */
+export function seriesDe(q) {
+  const series = [];
+  for (const metrica of q?.metricas ?? []) {
+    if (metrica === 'precio') {
+      for (const producto of q.productos) series.push({ metrica, producto, productoBase: null, equivalencia: null });
+    } else if (metrica === 'brecha_precio') {
+      for (const producto of q.productos) {
+        if (PRODUCTOS[producto].soloNivel) continue;
+        for (const productoBase of q.productosBase) {
+          if (productoBase === producto) continue;
+          for (const equivalencia of q.equivalencias) series.push({ metrica, producto, productoBase, equivalencia });
+        }
+      }
+    } else {
+      series.push({ metrica, producto: null, productoBase: null, equivalencia: null });
+    }
+  }
+  return series;
+}
+
+/** El nombre de una medida en la columna y en la leyenda, cuando van varias juntas. */
+function nombreCorto(s) {
+  if (s.metrica === 'precio') return mayuscula(PRODUCTOS[s.producto].etiqueta);
+  if (s.metrica === 'brecha_precio') return `${mayuscula(PRODUCTOS[s.producto].etiqueta)} contra ${PRODUCTOS[s.productoBase].etiqueta}${s.equivalencia === 'por_energia' ? ', a igual energía' : ''}`;
+  return nombreDeLaMedida(s);
+}
+
+/** Todas las medidas del pedido en una frase, para el título. */
+function nombresJuntos(series) {
+  if (series.length === 1) return nombreDeLaMedida(series[0]);
+  const precios = series.filter((s) => s.metrica === 'precio');
+  const brechas = series.filter((s) => s.metrica === 'brecha_precio');
+  if (!precios.length && !brechas.length) return enumerar(series.map((s, i) => (i ? minuscula(nombreDeLaMedida(s)) : nombreDeLaMedida(s))));
+  // los precios se dicen juntos ("precio por litro de biodiésel y gas oil"), y las diferencias también
+  const partes = [];
+  const deProducto = precios.filter((s) => !PRODUCTOS[s.producto].soloNivel);
+  if (deProducto.length) partes.push(`precio por litro de ${enumerar(deProducto.map((s) => PRODUCTOS[s.producto].etiqueta))}`);
+  for (const s of precios) if (PRODUCTOS[s.producto].soloNivel) partes.push(minuscula(nombreDeLaMedida(s)));
+  if (brechas.length === 1) partes.push(minuscula(nombreDeLaMedida(brechas[0])));
+  else if (brechas.length) partes.push(`diferencia de precio: ${enumerar(brechas.map((s) => minuscula(nombreCorto(s))))}`);
+  return mayuscula(partes.join('; '));
+}
+
 /** De quiénes habla la consulta, en palabras ("no integradas de Santa Fe"). */
 export function filtrosTxt(q, ctx) {
-  const f = q.filtros ?? {};
+  const de = (f) => q.filtros?.[f] ?? [];
   const partes = [];
-  if (f.empresa) partes.push(f.empresa);
-  if (f.categoria) partes.push((CATEGORIA_TXT[f.categoria] ?? f.categoria).toLowerCase());
-  if (f.grupo) partes.push(grupoPublico(f.grupo));
-  if (f.provincia) partes.push(lindo(f.provincia));
-  if (f.camara) partes.push(`cámara ${f.camara}`);
-  if (f.petrolera) partes.push(`compradas por ${f.petrolera}`);
+  if (de('empresa').length) partes.push(varios(de('empresa')));
+  if (de('categoria').length) partes.push(varios(de('categoria').map((c) => (CATEGORIA_TXT[c] ?? c).toLowerCase())));
+  if (de('grupo').length) partes.push(varios(de('grupo').map((g) => grupoPublico(g))));
+  if (de('provincia').length) partes.push(varios(de('provincia').map((p) => lindo(p))));
+  if (de('localidad').length) partes.push(varios(de('localidad').map((l) => lindo(l))));
+  if (de('camara').length) partes.push(`${de('camara').length > 1 ? 'cámaras' : 'cámara'} ${varios(de('camara'))}`);
+  if (de('petrolera').length) partes.push(`compradas por ${varios(de('petrolera'))}`);
   return partes.join(' · ');
 }
 
@@ -300,38 +363,61 @@ function conBase(grafico, m) {
   return { ...grafico, series: grafico.series.map((s) => ({ ...s, valores: s.valores.map(resta) })), unidad: 'puntos', decimales: 1, leyenda: m.base.leyenda };
 }
 
+const NOTA_GRUPOS = 'Los grupos económicos se arman con las empresas que los integran hoy: el sitio no registra desde cuándo pertenece cada una, así que hacia atrás la cifra de un grupo puede incluir empresas que entonces no eran suyas.';
+
+/** La nota de los grupos económicos vale cuando el pedido los usa y mira más de un año atrás. */
+function notaDeGrupos(q, m, ctx) {
+  const usaGrupos = q.agrupar === 'grupo' || q.filtros?.grupo?.length;
+  const primerMes = q.tipo === 'comparacion' ? q.desde0 : q.desde;
+  return usaGrupos && m.familia !== 'aceite' && primerMes < `${Number(ctx.ultimo.slice(0, 4)) - 1}-01` ? NOTA_GRUPOS : null;
+}
+
+/** El período del pedido y de quiénes habla, para debajo del título. */
+function bajadaDe(q, tramos, sinTiempo, ctx) {
+  const cuando = q.tipo === 'comparacion' ? `${tramos[0].etiqueta} contra ${tramos[1].etiqueta}` : sinTiempo ? '' : periodoTxt(q.desde, q.hasta);
+  return [cuando, filtrosTxt(q, ctx)].filter(Boolean).join(' · ');
+}
+
 /**
- * Resuelve la consulta. Devuelve { ok: true, titulo, bajada, cifra, columnas, filas,
- * grafico, notas, fuente } o { ok: false, motivo }.
- * Las celdas llevan el valor crudo; el formato lo da la página con `columnas`.
+ * Mide una sola medida: el valor de cada grupo y del total en cada tramo de tiempo.
+ * Devuelve { m, tramos, dim, grupos, total, notas } o { error }.
  */
-export function ejecutarConsulta(q, ctx) {
+function medir(q, ctx) {
   const m = METRICAS[q?.metrica];
-  if (!m) return { ok: false, motivo: 'No quedó claro qué medida se pide.' };
+  if (!m) return { error: 'No quedó claro qué medida se pide.' };
   const tramos = armarTramos(q);
-  if (!tramos.length) return { ok: false, motivo: 'El período no tiene ningún mes.' };
+  if (!tramos.length) return { error: 'El período no tiene ningún mes.' };
   const r = FAMILIAS[m.familia](q, ctx, tramos);
-  if (r.error) return { ok: false, motivo: r.error };
+  if (r.error) return { error: r.error };
 
   const dim = q.agrupar !== 'ninguno' ? q.agrupar : null;
-  const u = { unidad: m.unidad, decimales: m.decimales };
   const valores = (comps) => comps.map((c) => r.valor(c));
-  let grupos = [...r.acc.grupos.entries()].map(([clave, comps]) => ({ clave, etiqueta: etiquetaGrupo(dim, clave, ctx), v: valores(comps) }));
+  const grupos = [...r.acc.grupos.entries()].map(([clave, comps]) => ({ clave, etiqueta: etiquetaGrupo(dim, clave, ctx), v: valores(comps) }));
   const total = r.sinTotal ? null : valores(r.acc.total);
   const hayDato = dim ? grupos.some((g) => g.v.some((x) => x !== null && x !== 0)) : total?.some((x) => x !== null);
-  if (!hayDato) return { ok: false, motivo: `El sitio no tiene datos de ${minuscula(m.nombre)} para ese pedido en ${periodoTxt(q.desde, q.hasta)}.` };
+  if (!hayDato) return { error: `El sitio no tiene datos de ${minuscula(m.nombre)} para ese pedido en ${periodoTxt(q.desde, q.hasta)}.` };
+  return { m, tramos, dim, grupos, total, notas: [...r.notas] };
+}
 
-  const notas = [...r.notas];
-  const usaGrupos = dim === 'grupo' || q.filtros?.grupo;
-  const primerMes = q.tipo === 'comparacion' ? q.desde0 : q.desde;
-  if (usaGrupos && m.familia !== 'aceite' && primerMes < `${Number(ctx.ultimo.slice(0, 4)) - 1}-01`) {
-    notas.push('Los grupos económicos se arman con las empresas que los integran hoy: el sitio no registra desde cuándo pertenece cada una, así que hacia atrás la cifra de un grupo puede incluir empresas que entonces no eran suyas.');
-  }
+/**
+ * Resuelve una consulta de un solo tipo y una sola medida. Devuelve { ok: true, titulo,
+ * bajada, cifra, columnas, filas, grafico, notas, fuente } o { ok: false, motivo }.
+ * Las celdas llevan el valor crudo; el formato lo da la página con `columnas`.
+ */
+function ejecutarSimple(q, ctx) {
+  const r = medir(q, ctx);
+  if (r.error) return { ok: false, motivo: r.error };
+  const { m, tramos, dim, total, notas } = r;
+  let { grupos } = r;
+  const u = { unidad: m.unidad, decimales: m.decimales };
+
+  const notaGrupos = notaDeGrupos(q, m, ctx);
+  if (notaGrupos) notas.push(notaGrupos);
   const tope = Math.min(Math.max(1, q.tope || 20), TOPE_MAXIMO);
   const base = {
     ok: true,
     titulo: `${nombreDeLaMedida(q)}${dim && !m.agruparSiempre ? ` ${DIMENSIONES[dim].por.split(' (')[0]}` : ''}`,
-    bajada: [q.tipo === 'comparacion' ? `${tramos[0].etiqueta} contra ${tramos[1].etiqueta}` : m.sinTiempo ? '' : periodoTxt(q.desde, q.hasta), filtrosTxt(q, ctx)].filter(Boolean).join(' · '),
+    bajada: bajadaDe(q, tramos, m.sinTiempo, ctx),
     cifra: null,
     grafico: null,
     notas,
@@ -342,7 +428,7 @@ export function ejecutarConsulta(q, ctx) {
   if (q.tipo === 'total' || (!dim && q.tipo === 'ranking')) {
     const v = total?.[0];
     if (v === null || v === undefined) return { ok: false, motivo: `No hay datos para calcular ${minuscula(m.nombre)} en ${periodoTxt(q.desde, q.hasta)}.` };
-    return { ...base, cifra: { valor: v, ...u }, columnas: [{ nombre: 'Medida', tipo: 'texto' }, col(m.unidad === '%' ? 'Valor' : `Valor (${m.unidad})`, u)], filas: [{ celdas: [nombreDeLaMedida(q), v] }] };
+    return { ...base, titulo: nombreDeLaMedida(q), cifra: { valor: v, ...u }, columnas: [{ nombre: 'Medida', tipo: 'texto' }, col(m.unidad === '%' ? 'Valor' : `Valor (${m.unidad})`, u)], filas: [{ celdas: [nombreDeLaMedida(q), v] }] };
   }
 
   // ---- ranking
@@ -419,6 +505,7 @@ export function ejecutarConsulta(q, ctx) {
             { nombre: tramos[0].etiqueta, valores: enGrafico.map((f) => f.v0) },
             { nombre: tramos[1].etiqueta, valores: enGrafico.map((f) => f.v1) },
           ],
+          par: true,
           ...u,
         },
         m
@@ -462,16 +549,244 @@ export function ejecutarConsulta(q, ctx) {
   };
 }
 
+// ---------------------------------------------------------------- varias medidas juntas
+
+export const MAX_MEDIDAS = 8;
+const UNIDAD_TXT = { t: 'toneladas', '%': 'porcentaje', '$/l': 'pesos por litro', 'm³': 'metros cúbicos', 't/año': 'toneladas por año' };
+const conUnidad = (nombre, m) => (m.unidad === '%' || m.unidad === 'índice' ? nombre : `${nombre} (${m.unidad})`);
+
+/**
+ * Un gráfico por unidad: las medidas que comparten unidad van en el mismo gráfico y
+ * las demás, en otro (toneladas y porcentajes no entran en un mismo eje).
+ * `armar(grupo)` devuelve { tipo, categorias, series } para las medidas de una unidad.
+ */
+function graficosPorUnidad(medidas, armar, { minimo = 1, nombrar = false } = {}) {
+  const porUnidad = new Map();
+  for (const x of medidas) porUnidad.set(x.m.unidad, [...(porUnidad.get(x.m.unidad) ?? []), x]);
+  return [...porUnidad.values()]
+    .filter((grupo) => grupo.length >= minimo)
+    .map((grupo) => {
+      const unidad = grupo[0].m.unidad;
+      const enUnidad = `en ${UNIDAD_TXT[unidad] ?? unidad}`;
+      // con una sola unidad el título ya lo dice todo; con varias, cada gráfico avisa cuál es la suya
+      const leyenda = porUnidad.size === 1 ? undefined : nombrar && grupo.length === 1 ? `${grupo[0].corto}, ${enUnidad}` : mayuscula(enUnidad);
+      return { ...armar(grupo), unidad, decimales: Math.max(...grupo.map((x) => x.m.decimales)), ...(leyenda ? { leyenda } : {}) };
+    });
+}
+
+/**
+ * Varias medidas del mismo pedido en una sola tabla: una columna por medida (ranking y
+ * evolución) o una fila por medida (total y comparación). Todas comparten tipo, período,
+ * filtros y agrupación. Devuelve lo mismo que ejecutarSimple, con `graficos` (uno por
+ * unidad), `cifras` y `fuentes` en plural; una fila puede traer `formatos` cuando sus
+ * celdas no llevan la unidad de la columna.
+ */
+function presentarVarias(simples, ctx, notasPrevias = []) {
+  const q = simples[0]; // lo común a todas: tipo, período, filtros, agrupación, orden
+  const notas = [...notasPrevias];
+  const medidas = [];
+  for (const s of simples) {
+    const r = medir(s, ctx);
+    if (r.error) notas.push(`${nombreDeLaMedida(s)} no se muestra. ${r.error}`);
+    else medidas.push({ ...r, s, corto: nombreCorto(s), u: { unidad: r.m.unidad, decimales: r.m.decimales } });
+  }
+  if (!medidas.length) return { ok: false, motivo: `El sitio no tiene datos de esas medidas para ese pedido en ${periodoTxt(q.desde, q.hasta)}.` };
+  if (medidas.length === 1) {
+    const unica = ejecutarSimple(medidas[0].s, ctx);
+    return unica.ok ? { ...unica, notas: [...notas, ...unica.notas] } : unica;
+  }
+
+  const { tramos, dim } = medidas[0];
+  for (const x of medidas) for (const n of x.notas) if (!notas.includes(n)) notas.push(n);
+  if (medidas.some((x) => x.s.metrica === 'brecha_precio')) notas.push('La diferencia de precio dice cuánto más caro es el primer producto que el segundo, en porcentaje.');
+  const notaGrupos = notaDeGrupos(q, medidas[0].m, ctx);
+  if (notaGrupos) notas.push(notaGrupos);
+  const hayAditiva = medidas.some((x) => x.m.aditiva);
+  const fuentes = medidas.map((x) => x.m.fuente).filter((f, i, todas) => todas.findIndex((g) => g.ruta === f.ruta) === i);
+  const base = {
+    ok: true,
+    titulo: `${nombresJuntos(medidas.map((x) => x.s))}${dim ? ` ${DIMENSIONES[dim].por.split(' (')[0]}` : ''}`,
+    bajada: bajadaDe(q, tramos, medidas.every((x) => x.m.sinTiempo), ctx),
+    cifra: null,
+    grafico: null,
+    notas,
+    fuente: fuentes[0],
+    fuentes,
+  };
+  const columnasDeMedidas = medidas.map((x) => col(conUnidad(x.corto, x.m), x.u));
+
+  // ---- un total: una fila por medida
+  if (q.tipo === 'total' || (!dim && q.tipo === 'ranking')) {
+    const valor = (x) => x.total?.[0] ?? null;
+    return {
+      ...base,
+      titulo: nombresJuntos(medidas.map((x) => x.s)),
+      cifras: medidas.filter((x) => valor(x) !== null).map((x) => ({ nombre: x.corto, valor: valor(x), ...x.u })),
+      columnas: [{ nombre: 'Medida', tipo: 'texto' }, col('Valor')],
+      filas: medidas.map((x) => ({ celdas: [conUnidad(x.corto, x.m), valor(x)], formatos: [null, x.u] })),
+      graficos: graficosPorUnidad(
+        medidas.filter((x) => valor(x) !== null),
+        (grupo) => ({ tipo: 'barrasH', categorias: grupo.map((x) => x.corto), series: [{ nombre: periodoTxt(q.desde, q.hasta), valores: grupo.map(valor) }] }),
+        { minimo: 2 }
+      ),
+    };
+  }
+
+  // ---- ranking: una columna por medida, ordenado por una de ellas
+  if (q.tipo === 'ranking') {
+    const manda = medidas.find((x) => x.s.metrica === q.ordenMedida) ?? medidas[0];
+    const etiquetas = new Map();
+    for (const x of medidas) {
+      x.porClave = new Map(x.grupos.map((g) => [g.clave, g.v[0] ?? null]));
+      for (const g of x.grupos) etiquetas.set(g.clave, g.etiqueta);
+    }
+    const de = (x, clave) => x.porClave.get(clave) ?? null;
+    const todas = [...etiquetas]
+      .map(([clave, etiqueta]) => ({ etiqueta, vs: medidas.map((x) => de(x, clave)), x: de(manda, clave) }))
+      .filter((f) => f.vs.some((v) => v !== null && v !== 0));
+    // las que no tienen dato en la medida que ordena van al final
+    const enOrden = [...ordenar(todas.filter((f) => f.x !== null), 'x', q.orden), ...todas.filter((f) => f.x === null)];
+    const tope = Math.min(Math.max(1, q.tope || 20), TOPE_MAXIMO);
+    const vistos = enOrden.slice(0, tope);
+    const resto = enOrden.slice(tope);
+    const suma = (filas, k) => filas.reduce((t, f) => t + (f.vs[k] || 0), 0);
+    const filas = vistos.map((f, i) => ({ celdas: [i + 1, f.etiqueta, ...f.vs] }));
+    if (resto.length && hayAditiva) filas.push({ celdas: ['', `Otras ${resto.length}`, ...medidas.map((x, k) => (x.m.aditiva ? suma(resto, k) : ''))], clase: 'resto' });
+    else if (resto.length) notas.push(`Se muestran ${vistos.length} de ${enOrden.length}.`);
+    filas.push({ celdas: ['', hayAditiva ? 'Total' : 'Todas juntas', ...medidas.map((x, k) => (x.m.aditiva ? suma(enOrden, k) : x.total?.[0] ?? null))], clase: 'total' });
+    notas.unshift(`La tabla está ordenada por ${minuscula(manda.corto)}.`);
+    const enGrafico = vistos.slice(0, 12);
+    return {
+      ...base,
+      columnas: [{ nombre: '#', tipo: 'puesto' }, { nombre: DIMENSIONES[dim].titulo, tipo: 'texto' }, ...columnasDeMedidas],
+      filas,
+      graficos: graficosPorUnidad(
+        medidas,
+        (grupo) => ({ tipo: 'barrasH', categorias: enGrafico.map((f) => f.etiqueta), series: grupo.map((x) => ({ nombre: x.corto, valores: enGrafico.map((f) => f.vs[medidas.indexOf(x)]) })) }),
+        { nombrar: true }
+      ),
+    };
+  }
+
+  // ---- comparación entre dos períodos, sin agrupar: una fila por medida
+  if (q.tipo === 'comparacion') {
+    const todasPct = medidas.every((x) => x.m.unidad === '%');
+    const fila = (x) => {
+      const [v0, v1] = [x.total?.[0] ?? null, x.total?.[1] ?? null];
+      const dif = v0 !== null && v1 !== null ? v1 - v0 : null;
+      return { v0, v1, dif, variacion: x.m.unidad === '%' || !v0 || dif === null ? null : (dif / v0) * 100 };
+    };
+    if (!todasPct && medidas.some((x) => x.m.unidad === '%')) notas.push('En las medidas en porcentaje la diferencia va en puntos y no lleva variación.');
+    return {
+      ...base,
+      columnas: [
+        { nombre: 'Medida', tipo: 'texto' },
+        col(tramos[0].etiqueta),
+        col(tramos[1].etiqueta),
+        col(todasPct ? 'Diferencia (puntos)' : 'Diferencia', { signo: true }),
+        ...(todasPct ? [] : [col('Variación', { unidad: '%', decimales: 1, signo: true })]),
+      ],
+      filas: medidas.map((x) => {
+        const f = fila(x);
+        return {
+          celdas: [conUnidad(x.corto, x.m), f.v0, f.v1, f.dif, ...(todasPct ? [] : [f.variacion])],
+          formatos: [null, x.u, x.u, { ...x.u, signo: true }, ...(todasPct ? [] : [null])],
+        };
+      }),
+      graficos: graficosPorUnidad(medidas, (grupo) => ({
+        tipo: 'barrasH',
+        categorias: grupo.map((x) => x.corto),
+        series: [
+          { nombre: tramos[0].etiqueta, valores: grupo.map((x) => fila(x).v0) },
+          { nombre: tramos[1].etiqueta, valores: grupo.map((x) => fila(x).v1) },
+        ],
+        par: true,
+      })),
+    };
+  }
+
+  // ---- evolución en el tiempo, sin agrupar: una columna por medida
+  const serie = (x) => tramos.map((_, i) => x.total?.[i] ?? null);
+  return {
+    ...base,
+    columnas: [{ nombre: q.tiempo === 'anio' ? 'Año' : 'Mes', tipo: 'texto' }, ...columnasDeMedidas],
+    filas: [
+      ...tramos.map((t, i) => ({ celdas: [t.etiqueta, ...medidas.map((x) => x.total?.[i] ?? null)] })),
+      ...(hayAditiva && tramos.length > 1 ? [{ celdas: ['Total', ...medidas.map((x) => (x.m.aditiva ? serie(x).reduce((t, v) => t + (v || 0), 0) : ''))], clase: 'total' }] : []),
+    ],
+    graficos: graficosPorUnidad(
+      medidas,
+      (grupo) => ({
+        tipo: grupo.every((x) => x.m.aditiva) && tramos.length <= 24 ? 'barras' : 'lineas',
+        categorias: tramos.map((t) => t.etiqueta),
+        series: grupo.map((x) => ({ nombre: x.corto, valores: serie(x) })),
+      }),
+      { nombrar: true }
+    ),
+  };
+}
+
+// ---------------------------------------------------------------- el pedido entero
+
+/**
+ * Resuelve el pedido tal como sale de ajustarConsulta. Devuelve una lista de bloques,
+ * cada uno { ok: true, tipo, titulo, bajada, columnas, filas, notas, fuente, ... } o
+ * { ok: false, tipo, motivo }:
+ *   - un bloque por cada tipo tildado en "Qué mostrar";
+ *   - con varias medidas, van juntas en la tabla del bloque. La excepción es la evolución
+ *     o la comparación agrupadas (por empresa, por provincia...): ahí cada medida ya trae
+ *     una columna por grupo, así que va un bloque por medida.
+ */
+export function resolverConsulta(q, ctx) {
+  const todas = seriesDe(q);
+  if (!q?.tipos?.length || !todas.length) return [{ ok: false, motivo: 'No quedó claro qué medida se pide.' }];
+  const comun = {
+    agrupar: q.agrupar, tiempo: q.tiempo, filtros: q.filtros, desde: q.desde, hasta: q.hasta, desde0: q.desde0, hasta0: q.hasta0,
+    orden: q.orden, ordenarPor: q.ordenarPor, ordenMedida: q.ordenMedida, tope: q.tope,
+  };
+  const agrupado = q.agrupar !== 'ninguno';
+  const bloques = [];
+  for (const tipo of q.tipos) {
+    const enElTiempo = tipo === 'evolucion' || tipo === 'comparacion';
+    const notas = [];
+    // una medida que es una foto (la capacidad instalada) no entra en lo que se mira en el tiempo
+    let series = enElTiempo ? todas.filter((s) => !METRICAS[s.metrica].sinTiempo) : todas;
+    if (series.length < todas.length) {
+      const fuera = todas.filter((s) => METRICAS[s.metrica].sinTiempo).map((s) => nombreDeLaMedida(s));
+      notas.push(`${enumerar(fuera)} no entra acá: el sitio tiene solo la foto más reciente, así que no se puede ver en el tiempo.`);
+    }
+    if (series.length > MAX_MEDIDAS) {
+      notas.push(`Se muestran las primeras ${MAX_MEDIDAS} de las ${series.length} medidas que salen de lo tildado.`);
+      series = series.slice(0, MAX_MEDIDAS);
+    }
+    const simples = series.map((s) => ({ ...comun, ...s, tipo }));
+    // cada bloque dice a qué tipo responde: con varios tipos tildados, la página lo rotula
+    const conNotas = (b) => ({ ...b, tipo, ...(b.ok && notas.length ? { notas: [...notas, ...b.notas] } : {}) });
+    if (simples.length === 1) bloques.push(conNotas(ejecutarSimple(simples[0], ctx)));
+    else if (simples.length > 1 && agrupado && enElTiempo) simples.forEach((s, i) => bloques.push(i ? { ...ejecutarSimple(s, ctx), tipo } : conNotas(ejecutarSimple(s, ctx))));
+    else if (simples.length > 1) bloques.push({ ...presentarVarias(simples, ctx, notas), tipo });
+  }
+  return bloques.length ? bloques : [{ ok: false, motivo: 'No quedó claro qué medida se pide.' }];
+}
+
+/** El primer bloque del pedido: con un solo tipo y una sola medida, es todo el resultado. */
+export function ejecutarConsulta(q, ctx) {
+  return resolverConsulta(q, ctx)[0];
+}
+
 /** El pedido tal como se va a calcular, en una frase (lo arma el programa, no la IA). */
 export function describirConsulta(q, ctx) {
-  const m = METRICAS[q?.metrica];
-  if (!m) return '';
+  const series = seriesDe(q);
+  if (!q?.tipos?.length || !series.length) return '';
+  const m = METRICAS[q.metricas[0]];
   const dim = q.agrupar !== 'ninguno' && !m.agruparSiempre ? ` ${DIMENSIONES[q.agrupar].por.split(' (')[0]}` : '';
   const quien = filtrosTxt(q, ctx);
-  const cuando = q.tipo === 'comparacion' ? `${periodoTxt(q.desde0, q.hasta0)} contra ${periodoTxt(q.desde, q.hasta)}` : m.sinTiempo ? '' : periodoTxt(q.desde, q.hasta);
-  const como = { ranking: 'Ranking de', evolucion: q.tiempo === 'anio' ? 'Evolución año por año de' : 'Evolución mes por mes de', total: 'Total de', comparacion: 'Comparación de' }[q.tipo];
-  const nombre = nombreDeLaMedida(q);
-  return [`${como} ${minuscula(nombre)}${dim}`, quien, cuando].filter(Boolean).join(' · ');
+  const periodo = periodoTxt(q.desde, q.hasta);
+  const soloComparacion = q.tipos.length === 1 && q.tipos[0] === 'comparacion';
+  const cuando = soloComparacion ? `${periodoTxt(q.desde0, q.hasta0)} contra ${periodo}` : q.metricas.every((k) => METRICAS[k].sinTiempo) ? '' : periodo;
+  const contra = q.tipos.includes('comparacion') && !soloComparacion ? `comparado con ${periodoTxt(q.desde0, q.hasta0)}` : '';
+  const como = { ranking: 'ranking', evolucion: q.tiempo === 'anio' ? 'evolución año por año' : 'evolución mes por mes', total: 'total', comparacion: 'comparación' };
+  return [`${mayuscula(enumerar(q.tipos.map((t) => como[t])))} de ${minuscula(nombresJuntos(series))}${dim}`, quien, cuando, contra].filter(Boolean).join(' · ');
 }
 
 export { EQUIVALENCIAS };

@@ -41,9 +41,11 @@ const usd = (n) => (typeof n === 'number' && Number.isFinite(n) ? Math.round(n *
 function resumenDelAnalista(c) {
   try {
     const q = JSON.parse(c.respuestaJson ?? '{}').consulta;
-    if (!q?.tipo) return '';
-    const medida = METRICAS[q.metrica]?.nombre ?? q.metrica;
-    return `${TIPOS[q.tipo]?.etiqueta ?? q.tipo}${medida ? `: ${medida}` : ''}`;
+    // las guardadas antes de los menús de selección múltiple traen un solo tipo y una sola medida
+    const tipos = q?.tipos ?? (q?.tipo ? [q.tipo] : []);
+    if (!tipos.length) return '';
+    const medidas = (q.metricas ?? (q.metrica ? [q.metrica] : [])).map((k) => METRICAS[k]?.nombre ?? k);
+    return `${tipos.map((t) => TIPOS[t]?.etiqueta ?? t).join(' + ')}${medidas.length ? `: ${medidas.join(' + ')}` : ''}`;
   } catch {
     return '';
   }
