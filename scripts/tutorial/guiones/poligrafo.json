@@ -2,7 +2,7 @@
   "id": "poligrafo",
   "titulo": "Polígrafo Explorarg",
   "pagina": "/agente",
-  "youtube": "eKILzNzhMCk",
+  "youtube": "nTwdcs3L5U0",
   "descripcion": "Cómo se usa el Polígrafo del Agente Explorarg: cómo registrarse e ingresar, cómo se escribe una frase para verificarla, qué significan las preguntas previas, la forma lógica y el resultado afirmación por afirmación, con los datos y el texto de la ley a la vista, y cómo se siguen los tokens y las consultas guardadas en Mi panel.",
   "youtube_titulo": "Tutorial · Polígrafo Explorarg: cómo verificar una frase con los datos oficiales",
   "etiquetas": ["Polígrafo", "Agente Explorarg", "verificación de datos", "chequeo de datos", "fact checking", "inteligencia artificial", "ley de biocombustibles", "Ley 27.640", "corte obligatorio"],
@@ -48,19 +48,21 @@
     {
       "id": "p02",
       "titulo": "Registrarse e ingresar",
-      "texto": "Registrarse e ingresar son el mismo paso, y no hay contraseñas. Podés continuar con tu cuenta de Google, o escribir tu mail y pedir un enlace. El enlace te llega al correo: lo abrís en este mismo navegador y ya estás adentro. Y si antes querés mirar sin registrarte, abajo están los ejemplos ya analizados.",
+      "texto": "Hay dos maneras de entrar. Con tu cuenta de Google, entrás en el momento. O creás una cuenta con tu mail y una contraseña: ese registro se autoriza, y cuando está autorizado te llega un mail para confirmar tu dirección. Y si antes querés mirar sin registrarte, abajo están los ejemplos ya analizados.",
       "acciones": [
         { "tipo": "resaltar", "sel": ".ag-ingreso", "margen": 6 },
-        { "tipo": "esperar", "s": 2.2 },
-        { "tipo": "hover", "sel": ".ag-google", "espera": 1.8 },
+        { "tipo": "esperar", "s": 1.2 },
         { "tipo": "limpiar" },
-        { "tipo": "escribir", "sel": "#ag-mail", "texto": "{mail}", "ritmo": 70, "espera": 0.8 },
-        { "tipo": "click", "sel": ".ag-ingreso button[type=submit]", "espera": 0.6 },
-        { "tipo": "esperar_a", "sel": { "sel": ".ag-ingreso h3", "texto": "Revisá tu mail" }, "max": 30 },
-        { "tipo": "resaltar", "sel": ".ag-ingreso", "margen": 6 },
-        { "tipo": "esperar", "s": 3.0 },
+        { "tipo": "hover", "sel": ".ag-google", "espera": 1.5 },
+        { "tipo": "click", "sel": { "sel": ".ag-modos button", "texto": "Crear cuenta", "exacto": true }, "espera": 0.4 },
+        { "tipo": "hover", "sel": "#ag-mail", "espera": 0.3 },
+        { "tipo": "hover", "sel": "#ag-clave", "espera": 0.3 },
+        { "tipo": "resaltar", "sel": ".ag-ayuda", "margen": 5 },
+        { "tipo": "hover", "sel": ".ag-ayuda", "espera": 3.0 },
+        { "tipo": "limpiar" },
+        { "tipo": "hover", "sel": ".ag-ingreso button[type=submit]", "espera": 0.6 },
         { "tipo": "resaltar", "sel": ".ag-muestra", "margen": 6 },
-        { "tipo": "hover", "sel": ".ag-muestra a", "espera": 1.5 }
+        { "tipo": "hover", "sel": ".ag-muestra a", "espera": 2.3 }
       ]
     },
     {
@@ -72,11 +74,9 @@
         { "tipo": "entrar" },
         { "tipo": "rotulo", "texto": "Polígrafo" },
         { "tipo": "resaltar", "sel": ".section-nav", "margen": 0 },
-        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Polígrafo", "exacto": true }, "espera": 1.0 },
-        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Analista", "exacto": true }, "espera": 1.0 },
-        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Mi panel", "exacto": true }, "espera": 1.8 },
+        { "tipo": "hover", "sel": { "sel": ".section-nav a", "texto": "Mi panel", "exacto": true }, "espera": 4.2 },
         { "tipo": "resaltar", "sel": ".ag-barra-sesion span", "margen": 6 },
-        { "tipo": "esperar", "s": 1.5 }
+        { "tipo": "hover", "sel": ".ag-barra-sesion button", "espera": 1.3 }
       ]
     },
     {

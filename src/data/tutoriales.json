@@ -346,9 +346,9 @@
   "id": "poligrafo",
   "titulo": "Polígrafo Explorarg",
   "pagina": "/agente",
-  "youtube": "eKILzNzhMCk",
-  "duracion": 330,
-  "grabado": "2026-11-23",
+  "youtube": "nTwdcs3L5U0",
+  "duracion": 331,
+  "grabado": "2026-11-24",
   "descripcion": "Cómo se usa el Polígrafo del Agente Explorarg: cómo registrarse e ingresar, cómo se escribe una frase para verificarla, qué significan las preguntas previas, la forma lógica y el resultado afirmación por afirmación, con los datos y el texto de la ley a la vista, y cómo se siguen los tokens y las consultas guardadas en Mi panel.",
   "capitulos": [
    {
@@ -364,15 +364,15 @@
     "titulo": "Registrarse e ingresar"
    },
    {
-    "t": 55,
+    "t": 54,
     "titulo": "Ya adentro: las pestañas"
    },
    {
-    "t": 70,
+    "t": 69,
     "titulo": "El enunciado, el contexto y el costo"
    },
    {
-    "t": 98,
+    "t": 97,
     "titulo": "Los ejemplos ya analizados"
    },
    {
@@ -392,27 +392,27 @@
     "titulo": "Cada afirmación, con su prueba"
    },
    {
-    "t": 200,
+    "t": 199,
     "titulo": "Cambiar una respuesta"
    },
    {
-    "t": 222,
+    "t": 221,
     "titulo": "Cuando la frase habla de la ley"
    },
    {
-    "t": 238,
+    "t": 237,
     "titulo": "Tu propia frase"
    },
    {
-    "t": 267,
+    "t": 268,
     "titulo": "Llega el resultado"
    },
    {
-    "t": 289,
+    "t": 290,
     "titulo": "Mi panel: tokens y consultas guardadas"
    },
    {
-    "t": 309,
+    "t": 311,
     "titulo": "Cierre"
    }
   ]
