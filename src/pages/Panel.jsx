@@ -120,6 +120,13 @@ function Tarjeta({ rotulo, valor, nota }) {
   );
 }
 
+// De dónde salieron los tokens que recibió: la bienvenida, lo comprado y lo que le sumó quien administra
+function deDondeVienen({ bienvenida, comprado, acreditado = 0 }) {
+  const partes = [`${numero(bienvenida)} de bienvenida`, comprado > 0 && `${numero(comprado)} comprados`, acreditado > 0 && `${numero(acreditado)} acreditados`].filter(Boolean);
+  if (partes.length === 1) return 'De bienvenida, al registrarte.';
+  return `${partes.slice(0, -1).join(', ')} y ${partes.at(-1)}.`;
+}
+
 export default function Panel() {
   const cuenta = useCuenta();
   const { cabeceras, anotarSaldo } = cuenta;
@@ -217,11 +224,7 @@ export default function Panel() {
             <div className="pn-tarjetas">
               <Tarjeta rotulo="Te quedan" valor={enTokens(datos.saldo)} nota={`Alcanza para unas ${alcanza.join(' o ')}, si son la primera de cada tanda.`} />
               <Tarjeta rotulo="Usaste" valor={enTokens(datos.gastado)} nota={`En ${datos.consultasHechas} ${datos.consultasHechas === 1 ? 'consulta' : 'consultas'}.`} />
-              <Tarjeta
-                rotulo="Recibiste"
-                valor={enTokens(datos.bienvenida + datos.comprado)}
-                nota={datos.comprado > 0 ? `${numero(datos.bienvenida)} de bienvenida y ${numero(datos.comprado)} comprados.` : 'De bienvenida, al registrarte.'}
-              />
+              <Tarjeta rotulo="Recibiste" valor={enTokens(datos.bienvenida + datos.comprado + (datos.acreditado ?? 0))} nota={deDondeVienen(datos)} />
             </div>
             <ComprarTokens cabeceras={cabeceras} alcanzaPara={(tokens) => `Alcanza para unas ${consultasCon(tokens).join(' o ').replace(' del ', ' consultas del ')}.`} />
 

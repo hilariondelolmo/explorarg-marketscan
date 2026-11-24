@@ -57,7 +57,7 @@ export default defineConfig(({ mode }) => {
   // Las variables del servidor (sin prefijo VITE_) no llegan solas a process.env:
   // se pasan las que usan las funciones locales, si están en .env.local.
   const env = loadEnv(mode, process.cwd(), '');
-  for (const k of ['ANTHROPIC_API_KEY', 'POLIGRAFO_MOTOR', 'POLIGRAFO_MODELO', 'POLIGRAFO_MODELO_LOCAL', 'POLIGRAFO_ESFUERZO', 'POLIGRAFO_CLAUDE_BIN', 'ANALISTA_MODELO', 'ANALISTA_MODELO_LOCAL', 'FIREBASE_PROJECT_ID', 'VITE_FIREBASE_PROJECT_ID', 'VITE_FIREBASE_API_KEY', 'FIREBASE_CLAVE_SERVICIO', 'CUENTAS_COLECCION', 'CUENTAS_ADMIN', 'CUENTAS_PRECIOS', 'MP_ACCESS_TOKEN', 'MP_WEBHOOK_SECRET', 'SITIO_URL', 'DOLAR_FIJO']) {
+  for (const k of ['ANTHROPIC_API_KEY', 'POLIGRAFO_MOTOR', 'POLIGRAFO_MODELO', 'POLIGRAFO_MODELO_LOCAL', 'POLIGRAFO_ESFUERZO', 'POLIGRAFO_CLAUDE_BIN', 'ANALISTA_MODELO', 'ANALISTA_MODELO_LOCAL', 'FIREBASE_PROJECT_ID', 'VITE_FIREBASE_PROJECT_ID', 'VITE_FIREBASE_API_KEY', 'FIREBASE_CLAVE_SERVICIO', 'CUENTAS_COLECCION', 'CUENTAS_ADMIN', 'CUENTAS_PRECIOS', 'CUENTAS_BIENVENIDA', 'MP_ACCESS_TOKEN', 'MP_WEBHOOK_SECRET', 'SITIO_URL', 'DOLAR_FIJO']) {
     if (env[k] && !process.env[k]) process.env[k] = env[k];
   }
   // `vite --mode cuentas`: el sitio local con registro e ingreso, contra el emulador de

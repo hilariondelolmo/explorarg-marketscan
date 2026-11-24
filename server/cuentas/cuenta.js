@@ -1,7 +1,8 @@
 // Cuentas de explorarg.com - la cuenta corriente de cada persona.
 //
 // Es una lista de movimientos, como el resumen de un banco (HDO, 22/11/2026):
-//   - al registrarse, 15.000 tokens de bienvenida (equivalen a US$ 1,50);
+//   - al registrarse, los tokens de bienvenida: 15.000 (equivalen a US$ 1,50), salvo
+//     que al dominio de su mail le toque otra cantidad (bienvenida.js);
 //   - cada consulta resta lo que consumió (precios.js: su costo más un margen, que es
 //     uno para la primera de una tanda y otro para las siguientes dentro de los 5 minutos);
 //   - (más adelante) cada compra de créditos suma.
@@ -25,6 +26,7 @@
 // sabe si la base es Firestore o la de prueba: usa lo que ofrece base.js.
 
 import { CREDITO_INICIAL, HERRAMIENTAS, MINUTOS_DE_TANDA, POR_DOLAR, TOPE_SIN_CARGO_POR_DIA, aproxTokens, enTokens } from '../../src/lib/cuenta/config.js';
+import { bienvenidaPara } from './bienvenida.js';
 import { ErrorDeCuenta } from './errores.js';
 import { estimadoDe } from './precios.js';
 
@@ -36,12 +38,14 @@ const TANDA_MS = MINUTOS_DE_TANDA * 60 * 1000;
 const dia = (fecha) => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Argentina/Buenos_Aires' }).format(fecha);
 
 function cuentaNueva(sesion, ahora) {
+  const bienvenida = bienvenidaPara(sesion.email);
   return {
     unidad: POR_DOLAR, // en qué está la plata de esta ficha: tokens de 1/10.000 de dólar
     email: sesion.email,
     nombre: sesion.nombre ?? null,
     creada: ahora.toISOString(),
-    saldo: CREDITO_INICIAL,
+    saldo: bienvenida,
+    bienvenida, // los tokens con que arrancó (lo que muestra su panel)
     consultas: 0, // las que se cobraron
     gastado: 0, // cobrado en consultas
     comprado: 0, // comprado (etapa de ventas)
@@ -72,8 +76,8 @@ async function abrir(t, sesion, ahora) {
         t.agregarMovimiento({
           tipo: 'credito_inicial',
           detalle: 'Tokens de bienvenida',
-          monto: CREDITO_INICIAL,
-          saldo: CREDITO_INICIAL,
+          monto: u.saldo,
+          saldo: u.saldo,
           fecha: ahora.toISOString(),
           estado: 'hecha',
         }),
@@ -325,8 +329,11 @@ export async function panel(base, sesion, ahora = new Date()) {
     email: u.email,
     creada: u.creada,
     saldo: u.saldo,
-    bienvenida: CREDITO_INICIAL,
+    // las cuentas de antes de que se guardara arrancaron todas con la bienvenida de siempre
+    bienvenida: u.bienvenida ?? CREDITO_INICIAL,
     comprado: u.comprado ?? 0,
+    // tokens que le sumó quien administra, fuera de la bienvenida y de las compras
+    acreditado: u.acreditado ?? 0,
     gastado: u.gastado,
     consultasHechas: u.consultas,
     porHerramienta,

@@ -270,6 +270,44 @@ const masMin = (m) => new Date(T0.getTime() + m * 60 * 1000);
   const s = persona(1);
   const r = await resumen(base, s, T0);
   control('al registrarse: 15.000 tokens de bienvenida, un solo movimiento y precio de primera consulta', [enTokens(r.saldo), (await base.movimientos(s.uid)).map((m) => [m.tipo, m.detalle, m.monto]), r.precios.poligrafo.tandaHasta], ['15.000 tokens', [['credito_inicial', 'Tokens de bienvenida', CREDITO_INICIAL]], null]);
+  {
+    // La bienvenida distinta según el dominio del mail (server/cuentas/bienvenida.js). El dominio y el
+    // monto de verdad van en la variable CUENTAS_BIENVENIDA, fuera del repo: acá, unos de ejemplo.
+    const { bienvenidaPara } = await import('../server/cuentas/bienvenida.js');
+    const abrirCon = async (email) => {
+      const b = baseEnMemoria();
+      const quien = { uid: `u-${email}`, email, nombre: null };
+      const u = await asegurarCuenta(b, quien, T0);
+      const p = await panel(b, quien, T0);
+      return [u.saldo, (await b.movimientos(quien.uid)).map((m) => [m.tipo, m.monto]), p.bienvenida];
+    };
+    control('sin la variable de bienvenida, cualquier dominio arranca con la de siempre', bienvenidaPara('ana@empresa-de-ejemplo.test'), CREDITO_INICIAL);
+    process.env.CUENTAS_BIENVENIDA = JSON.stringify({ 'empresa-de-ejemplo.test': 40000 });
+    control('con la variable, quien se registra con un mail de ese dominio arranca con lo que dice la variable', await abrirCon('Ana@Empresa-de-Ejemplo.test'), [40000, [['credito_inicial', 40000]], 40000]);
+    control('... y los demás, con la bienvenida de siempre', await abrirCon('beto@otro.test'), [CREDITO_INICIAL, [['credito_inicial', CREDITO_INICIAL]], CREDITO_INICIAL]);
+    control(
+      'un dominio parecido no vale: cuenta lo que va después de la arroba, entero',
+      ['x@noempresa-de-ejemplo.test', 'x@empresa-de-ejemplo.test.ar', 'x@sub.empresa-de-ejemplo.test', 'empresa-de-ejemplo.test', ''].map(bienvenidaPara),
+      [CREDITO_INICIAL, CREDITO_INICIAL, CREDITO_INICIAL, CREDITO_INICIAL, CREDITO_INICIAL]
+    );
+    {
+      // se da una sola vez: volver a entrar no suma de nuevo
+      const b = baseEnMemoria();
+      const quien = { uid: 'u-una-vez', email: 'ana@empresa-de-ejemplo.test', nombre: null };
+      await asegurarCuenta(b, quien, T0);
+      const otraVez = await asegurarCuenta(b, quien, masMin(60));
+      control('la bienvenida se da una sola vez: al volver a entrar no se suma de nuevo', [otraVez.saldo, (await b.movimientos(quien.uid)).length], [40000, 1]);
+    }
+    const errores = console.error;
+    console.error = () => {};
+    process.env.CUENTAS_BIENVENIDA = '{esto no es un JSON';
+    const malEscrita = bienvenidaPara('ana@empresa-de-ejemplo.test');
+    process.env.CUENTAS_BIENVENIDA = JSON.stringify({ 'empresa-de-ejemplo.test': 'mucho' });
+    const sinNumero = bienvenidaPara('ana@empresa-de-ejemplo.test');
+    console.error = errores;
+    control('una variable mal escrita, o con algo que no es un número, no rompe nada: la bienvenida de siempre', [malEscrita, sinNumero], [CREDITO_INICIAL, CREDITO_INICIAL]);
+    delete process.env.CUENTAS_BIENVENIDA;
+  }
   await resumen(base, s, T0);
   control('entrar de nuevo no regala el crédito otra vez', (await base.movimientos(s.uid)).length, 1);
 
