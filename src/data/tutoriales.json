@@ -416,5 +416,76 @@
     "titulo": "Cierre"
    }
   ]
+ },
+ {
+  "id": "analista",
+  "titulo": "Analista Explorarg",
+  "pagina": "/agente/analista",
+  "youtube": "nEDkg1xukCM",
+  "duracion": 331,
+  "grabado": "2026-11-23",
+  "descripcion": "Cómo se usa el Analista del Agente Explorarg: cómo se le pide un análisis con tus palabras (un ranking, una evolución, un total o una comparación entre dos períodos), cómo muestra lo que entendió y cómo se corrige con los menús sin volver a consultar, cómo se lee el resultado con su gráfico y su tabla, y cómo se descarga.",
+  "capitulos": [
+   {
+    "t": 0,
+    "titulo": "Apertura"
+   },
+   {
+    "t": 22,
+    "titulo": "Cómo se llega: menú Agente"
+   },
+   {
+    "t": 34,
+    "titulo": "Ingresar y abrir el Analista"
+   },
+   {
+    "t": 48,
+    "titulo": "Para qué sirve"
+   },
+   {
+    "t": 79,
+    "titulo": "El pedido y su costo"
+   },
+   {
+    "t": 102,
+    "titulo": "Los pedidos de ejemplo"
+   },
+   {
+    "t": 116,
+    "titulo": "1 · Así entendí el pedido"
+   },
+   {
+    "t": 137,
+    "titulo": "Los filtros"
+   },
+   {
+    "t": 159,
+    "titulo": "2 · Resultado"
+   },
+   {
+    "t": 177,
+    "titulo": "De ranking a evolución y a comparación"
+   },
+   {
+    "t": 203,
+    "titulo": "No es solo ventas"
+   },
+   {
+    "t": 224,
+    "titulo": "Tu propio pedido"
+   },
+   {
+    "t": 247,
+    "titulo": "Así lo entendió"
+   },
+   {
+    "t": 267,
+    "titulo": "Mi panel"
+   },
+   {
+    "t": 279,
+    "titulo": "Cierre"
+   }
+  ]
  }
 ]
