@@ -6,8 +6,9 @@ import datos from '../../data/situacion_2026_11_19.json';
 /**
  * Edición del 19/11/2026 de "Situación al ...": los dos artículos de HDO de ese día
  * ("La situación del Biodiesel explicada en una carilla", rev. 3, y "Biodiesel: el arte de recibir
- * volumen sin competir, más vivo que nunca.", rev. 3, el de dos carillas) y los dos cortos de la
- * playlist "Lo que se negocia en Diputados".
+ * volumen sin competir, más vivo que nunca.", rev. 3, el de dos carillas) y los cortos de la
+ * playlist "Lo que se negocia en Diputados": los dos de ese día y el tercero ("¿Quién gana con el
+ * acuerdo que se negocia en Diputados?"), publicado y sumado acá el 26/11/2026 por pedido de HDO.
  *
  * El texto es el de HDO. Sobre sus Word, por decisión suya del 19/11/2026: se corrigieron las
  * erratas, la frase de la competencia quedó como en la carilla ("precio por oferta y demanda...")
@@ -34,6 +35,10 @@ const VIDEOS = [
     youtube: 'zSlNoewlBUE', duracion: '1:54', poster: '/situacion/2026-11-19-video-bojanich.jpg',
     titulo: 'En el mejor de los casos para las pymes, Bojanich vende 270.000 t sin competir',
   },
+  {
+    youtube: '1uGekOGZ_ps', duracion: '2:47', poster: '/situacion/2026-11-26-video-acuerdo.jpg',
+    titulo: '¿Quién gana con el acuerdo que se negocia en Diputados?',
+  },
 ];
 
 const DOCS = [
@@ -44,7 +49,7 @@ const DOCS = [
 const VISTAS = [
   { id: 'una-carilla', label: 'En una carilla', nota: 'ocho puntos' },
   { id: 'dos-carillas', label: 'En dos carillas', nota: 'con los datos para tocar' },
-  { id: 'videos', label: 'En video', nota: 'dos cortos, 4 minutos' },
+  { id: 'videos', label: 'En video', nota: 'tres cortos, 7 minutos' },
 ];
 
 /* ── La carilla: ocho puntos, cada uno con su cifra ── */
@@ -158,8 +163,9 @@ function Videos() {
   return (
     <section className="sit-videos" aria-label="Los videos">
       <p className="sit-entrada">
-        Los dos cortos de la lista «Lo que se negocia en Diputados», del canal Explora Biodiesel. El primero explica por qué el tope
-        de 50.000 t deja a la ley expuesta a un planteo de inconstitucionalidad; el segundo, quién se queda con el volumen.
+        Los tres cortos de la lista «Lo que se negocia en Diputados», del canal Explora Biodiesel. El primero explica por qué el tope
+        de 50.000 t deja a la ley expuesta a un planteo de inconstitucionalidad; el segundo, quién se queda con el volumen; el tercero,
+        del 26 de noviembre, quién gana con el acuerdo que se negocia y qué pedimos.
       </p>
       <div className="sit-videos-fila">
         {VIDEOS.map((v) => <Corto key={v.youtube} video={v} />)}

@@ -58,7 +58,7 @@
     { "ruta": "/respuesta-documento-cepreb", "titulo": "Ley de biocombustibles\n¿Nuevamente repartir o finalmente competir?" },
     { "ruta": "/relacion-precio-aceite", "titulo": "Relación del precio del aceite" },
     { "ruta": "/del-dicho-al-dato", "titulo": "Del dicho al dato" },
-    { "ruta": "/situacion", "titulo": "Biodiésel: situación al 19/11/2026\nRecibir volumen sin competir", "descripcion": "La ley de biocombustibles en Diputados: lo que dice cada sector, lo que obtiene y quién paga el ajuste. Dos artículos, dos videos y los datos para tocar." },
+    { "ruta": "/situacion", "titulo": "Biodiésel: situación al 19/11/2026\nRecibir volumen sin competir", "descripcion": "La ley de biocombustibles en Diputados: lo que dice cada sector, lo que obtiene y quién paga el ajuste. Dos artículos, tres videos y los datos para tocar." },
     { "ruta": "/tutoriales", "titulo": "Tutoriales: cómo se usa cada página" },
     { "ruta": "/acerca-de", "titulo": "Acerca de" }
   ]
