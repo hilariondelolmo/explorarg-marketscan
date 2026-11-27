@@ -51,7 +51,7 @@ function Google() {
 // que lo abre no consulta ni recibe los tokens de bienvenida (el candado está en el servidor).
 // Las caras de la caja: ingresar o crear la cuenta, pedido pendiente, pedido no autorizado,
 // confirmar el mail, pedir una contraseña nueva y el aviso de que ese mail ya salió.
-function CajaDeIngreso() {
+export function CajaDeIngreso() {
   const cuenta = useCuenta();
   const [modo, setModo] = useState('ingresar'); // ingresar | crear | recuperar
   const [mail, setMail] = useState('');

@@ -29,6 +29,9 @@
     "api/registro.js": {
       "maxDuration": 30
     },
+    "api/reservada.js": {
+      "maxDuration": 30
+    },
     "api/pago-mp.js": {
       "maxDuration": 30
     }

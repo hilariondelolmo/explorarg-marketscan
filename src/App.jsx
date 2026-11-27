@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect } from 'react';
-import { BrowserRouter, Navigate, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Link, Navigate, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './lib/theme.jsx';
 import Nav from './components/Nav.jsx';
 import Home from './pages/Home.jsx';
@@ -35,6 +35,7 @@ const RelacionPrecioAceite = lazy(() => import('./pages/RelacionPrecioAceite.jsx
 const DichoDato = lazy(() => import('./pages/DichoDato.jsx'));
 const Situacion = lazy(() => import('./pages/Situacion.jsx'));
 const Agente = lazy(() => import('./pages/Agente.jsx'));
+const Suscriptores = lazy(() => import('./pages/Suscriptores.jsx'));
 const Tutoriales = lazy(() => import('./pages/Tutoriales.jsx'));
 const AcercaDe = lazy(() => import('./pages/AcercaDe.jsx'));
 
@@ -86,6 +87,8 @@ export default function App() {
           {/* nombres anteriores y atajos: todo vive en Agente Explorarg */}
           <Route path="/poligrafo" element={<Navigate to="/agente" replace />} />
           <Route path="/analista" element={<Navigate to="/agente/analista" replace />} />
+          {/* Área reservada, de uso interno: hay que estar logueado y autorizado (HDO, 27/11/2026) */}
+          <Route path="/suscriptores/:seccion?" element={<Suscriptores />} />
           <Route path="/tutoriales" element={<Tutoriales />} />
           <Route path="/acerca-de" element={<AcercaDe />} />
           <Route path="/export-grafico/:id" element={<ExportGrafico />} />
@@ -107,6 +110,11 @@ export default function App() {
             El tablero refleja la posición editorial de explorarg sobre el mercado de biodiesel
             en Argentina. Las opiniones son del autor; los datos están verificados contra
             fuentes oficiales.
+          </p>
+          {/* Área reservada, de uso interno (HDO, 27/11/2026). No va en el menú: con un ítem más la barra se
+              parte en dos renglones entre los 1.050 y los 1.170 px de ancho. El contenido lo cuida el servidor. */}
+          <p className="muted">
+            <Link to="/suscriptores">Área de suscriptores</Link>
           </p>
         </div>
       </footer>
