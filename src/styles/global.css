@@ -247,6 +247,38 @@ body.modal-open { overflow: hidden; }
   color: var(--ink);
 }
 
+/* El acceso al área de suscriptores: un botón, lo primero del pie (HDO, 27/11/2026: como enlace
+   chico no se veía). */
+.site-footer .pie-suscriptores {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.4rem;
+  padding: 0.65rem 1.2rem;
+  border-radius: 3px;
+  background: var(--accent-exp);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: filter 0.15s;
+}
+
+/* En el tema oscuro el azul es más claro: la letra va oscura para que se lea */
+:root[data-theme='dark'] .site-footer .pie-suscriptores {
+  color: #0a0e12;
+}
+
+.site-footer .pie-suscriptores:hover {
+  filter: brightness(1.15);
+}
+
+.site-footer .pie-suscriptores:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
 /* Estado de carga de páginas lazy */
 .page-loading {
   min-height: 60vh;

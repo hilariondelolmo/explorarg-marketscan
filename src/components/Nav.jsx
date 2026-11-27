@@ -174,6 +174,16 @@ export default function Nav() {
               Acerca de
             </NavLink>
           </li>
+          {/* Área reservada, de uso interno: último ítem del menú por pedido de HDO (27/11/2026). El enlace lo ve
+              cualquiera; el contenido, solo quien está autorizado (el candado está en el servidor). */}
+          <li>
+            <NavLink
+              to="/suscriptores"
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              Suscriptores
+            </NavLink>
+          </li>
           <li>
             <button
               type="button"

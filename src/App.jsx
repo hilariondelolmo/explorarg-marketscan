@@ -96,6 +96,15 @@ export default function App() {
       </Suspense>
       <footer className="site-footer">
         <div className="container">
+          {/* Área reservada, de uso interno (HDO, 27/11/2026). El acceso está en dos lugares, los dos pedidos
+              por HDO ese día: el último ítem del menú (Nav.jsx) y este botón, lo primero del pie (como enlace
+              chico al final no se veía). El contenido lo cuida el servidor. */}
+          <Link to="/suscriptores" className="pie-suscriptores">
+            <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
+              <path fill="currentColor" d="M8 1a3.5 3.5 0 0 0-3.5 3.5V6H4a1.5 1.5 0 0 0-1.5 1.5v6A1.5 1.5 0 0 0 4 15h8a1.5 1.5 0 0 0 1.5-1.5v-6A1.5 1.5 0 0 0 12 6h-.5V4.5A3.5 3.5 0 0 0 8 1zm2 5H6V4.5a2 2 0 1 1 4 0V6z" />
+            </svg>
+            Área de suscriptores
+          </Link>
           <p>
             Market Analysis, Dashboards and Data Viz by HDO -{' '}
             <strong>
@@ -110,11 +119,6 @@ export default function App() {
             El tablero refleja la posición editorial de explorarg sobre el mercado de biodiesel
             en Argentina. Las opiniones son del autor; los datos están verificados contra
             fuentes oficiales.
-          </p>
-          {/* Área reservada, de uso interno (HDO, 27/11/2026). No va en el menú: con un ítem más la barra se
-              parte en dos renglones entre los 1.050 y los 1.170 px de ancho. El contenido lo cuida el servidor. */}
-          <p className="muted">
-            <Link to="/suscriptores">Área de suscriptores</Link>
           </p>
         </div>
       </footer>
