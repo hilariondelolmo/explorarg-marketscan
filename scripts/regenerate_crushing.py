@@ -184,10 +184,15 @@ def leer_master():
 
 def leer_privadas():
     """Las series de uso interno que declara series_privadas.json: ({día: {campo: valor}},
-    [{id, uso, rotulo, fuente}]). Sin ese archivo, nada. Acá no se nombra ninguna fuente:
-    los nombres, los archivos y las columnas están en ese archivo, fuera del repositorio."""
+    [{id, uso, rotulo, fuente}], [palabras que los datos no pueden nombrar]). Sin ese
+    archivo, nada. Acá no se nombra ninguna fuente: los nombres, los archivos y las columnas
+    están en ese archivo, fuera del repositorio.
+
+    Lo que se declara de cada serie (id, rótulo y fuente) viaja a la página con los datos:
+    dice qué precio es, no de quién. El nombre del archivo leído se avisa por consola y no
+    se guarda."""
     if not PRIVADAS.exists():
-        return {}, []
+        return {}, [], []
     config = json.loads(PRIVADAS.read_text(encoding="utf-8"))
 
     def revision(p):
@@ -209,9 +214,10 @@ def leer_privadas():
                     v = fila.get(campo["columna"], "").strip()
                     if v:
                         dias.setdefault(dia, {})[campo["id"]] = float(v)
+        print(f"  serie privada leída de: {archivo.name}")
         for campo in serie["campos"]:
-            declaradas.append({"id": campo["id"], "uso": campo["uso"], "rotulo": campo["rotulo"], "fuente": f"{campo['fuente']} ({archivo.name})"})
-    return dias, declaradas
+            declaradas.append({"id": campo["id"], "uso": campo["uso"], "rotulo": campo["rotulo"], "fuente": campo["fuente"]})
+    return dias, declaradas, [str(p).lower() for p in config.get("no_nombrar", [])]
 
 
 # ------------------------------------------------------------------ sitio (mensuales)
@@ -236,7 +242,7 @@ def main():
     fob = leer_fob()
     tramos = leer_retenciones()
     master = leer_master()
-    privadas, declaradas = leer_privadas()
+    privadas, declaradas, no_nombrar = leer_privadas()
     campos = CAMPOS + [x["id"] for x in declaradas]
     sitio = leer_sitio()
 
@@ -352,6 +358,12 @@ def main():
     }
     texto = json.dumps(datos, ensure_ascii=False, separators=(",", ":"))
     print(f"  {len(texto) / 1024:.0f} KB")
+    # Estos datos viajan a la página: no pueden nombrar lo que series_privadas.json pide no
+    # nombrar ("no_nombrar"). Si aparece alguna de esas palabras, no se escribe nada.
+    nombradas = [p for p in no_nombrar if p in texto.lower()]
+    if nombradas:
+        sys.exit(f"Los datos nombran lo que no hay que nombrar ({', '.join(nombradas)}): no se escribió nada. "
+                 f"Revisar 'id', 'rotulo' y 'fuente' en {PRIVADAS.name}.")
     if simulacro:
         print("Simulacro: no se escribió nada.")
         return
