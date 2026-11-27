@@ -8,27 +8,37 @@
 
 import { conNombresPublicos } from '../poligrafo/catalogo.js';
 import { norm, parsearSujeto, resolverPeriodo } from '../poligrafo/motor.js';
-import { DIMENSIONES, EQUIVALENCIAS, FILTROS_DE, METRICAS, ORDENAR_POR, ORDENES, PRODUCTOS, TIEMPOS, TIPOS, TOPE_MAXIMO } from './catalogo.js';
-import { mesesEntre, mesTxt, minuscula, nombreDeLaMedida, seriesDe, sumarMes } from './motor.js';
+import { DIMENSIONES, EQUIVALENCIAS, FILTROS_DE, METRICAS, ORDENAR_POR, ORDENES, PRODUCTOS, TIEMPOS, TIPOS, TOPE_MAXIMO, UNIDADES } from './catalogo.js';
+import { mesesConPrecio, serieAuxiliar, unidadPorDefecto } from './productos.js';
+import { enumerar, mesesEntre, mesTxt, minuscula, nombreDeLaMedida, seriesDe, sumarMes } from './motor.js';
 
 export const MAX_PEDIDO = 600;
 const NINGUNO = 'ninguno';
 const conNinguno = (obj) => [...Object.keys(obj), NINGUNO];
 const texto = (v, max = 300) => (typeof v === 'string' ? conNombresPublicos(v.trim()).slice(0, max) : '');
 
-/** Esquema del JSON que tiene que devolver el modelo (salida estructurada). */
+const listaDe = (catalogo) => ({ type: 'array', items: { type: 'string', enum: Object.keys(catalogo) } });
+
+/**
+ * Esquema del JSON que tiene que devolver el modelo (salida estructurada).
+ *
+ * Qué mostrar, la medida y el producto son listas (24/11/2026), como los menús de la página:
+ * un pedido puede traer "la producción y las ventas al cupo" o "el ranking y la evolución".
+ * Las listas van sin mínimo ni máximo de elementos: la salida estructurada de la API no los
+ * admite. Lo que falte o sobre lo arregla el control (desdeModelo y ajustarConsulta).
+ */
 export const ESQUEMA_CONSULTA = {
   type: 'object',
   additionalProperties: false,
   required: [
-    'entendido', 'motivo', 'tipo', 'metrica', 'agrupar', 'tiempo', 'sujeto', 'petrolera', 'periodo', 'periodo_inicial',
-    'orden', 'ordenar_por', 'tope', 'producto', 'producto_base', 'equivalencia', 'aclaracion',
+    'entendido', 'motivo', 'tipos', 'metricas', 'agrupar', 'tiempo', 'sujeto', 'petrolera', 'periodo', 'periodo_inicial',
+    'orden', 'ordenar_por', 'tope', 'productos', 'producto_base', 'equivalencia', 'unidad', 'aclaracion',
   ],
   properties: {
     entendido: { type: 'string', enum: ['si', 'no'] },
     motivo: { type: 'string' },
-    tipo: { type: 'string', enum: Object.keys(TIPOS) },
-    metrica: { type: 'string', enum: conNinguno(METRICAS) },
+    tipos: listaDe(TIPOS),
+    metricas: listaDe(METRICAS),
     agrupar: { type: 'string', enum: conNinguno(DIMENSIONES) },
     tiempo: { type: 'string', enum: conNinguno(TIEMPOS) },
     sujeto: { type: 'string' },
@@ -38,9 +48,10 @@ export const ESQUEMA_CONSULTA = {
     orden: { type: 'string', enum: Object.keys(ORDENES) },
     ordenar_por: { type: 'string', enum: conNinguno(ORDENAR_POR) },
     tope: { anyOf: [{ type: 'number' }, { type: 'null' }] },
-    producto: { type: 'string', enum: conNinguno(PRODUCTOS) },
+    productos: listaDe(PRODUCTOS),
     producto_base: { type: 'string', enum: conNinguno(PRODUCTOS) },
     equivalencia: { type: 'string', enum: conNinguno(EQUIVALENCIAS) },
+    unidad: { type: 'string', enum: conNinguno(UNIDADES) },
     aclaracion: { type: 'string' },
   },
 };
@@ -52,12 +63,16 @@ export function rangoDe(q, ctx) {
   const familia = METRICAS[q.metricas?.[0]]?.familia;
   if (familia === 'compras' && ctx.compras?.meses?.length) return [ctx.compras.meses[0], ctx.compras.meses[ctx.compras.meses.length - 1]];
   if (familia === 'corte' && ctx.corteMensual?.length) return [ctx.corteMensual[0].fecha, ctx.corteMensual[ctx.corteMensual.length - 1].fecha];
+  if (familia === 'gasoil' && ctx.gasoilSectores?.mensual_total?.length) return [ctx.gasoilSectores.mensual_total[0].fecha, ctx.gasoilSectores.mensual_total[ctx.gasoilSectores.mensual_total.length - 1].fecha];
+  if (familia === 'petroleras' && ctx.petroleras?.go_mensual?.length) return [ctx.petroleras.go_mensual[0].fecha, ctx.petroleras.go_mensual[ctx.petroleras.go_mensual.length - 1].fecha];
+  if (familia === 'canales' && ctx.fuentesPrecio?.gasoilPrecios?.meses?.length) return [ctx.fuentesPrecio.gasoilPrecios.meses[0], ctx.fuentesPrecio.gasoilPrecios.meses[ctx.fuentesPrecio.gasoilPrecios.meses.length - 1]];
   if (familia === 'aceite' && ctx.aceite?.meses?.length) return [ctx.aceite.meses[0].fecha, ctx.aceite.meses[ctx.aceite.meses.length - 1].fecha];
   if (familia === 'precios' && ctx.precios) {
     // con varios precios, de la primera fecha a la última en que hay alguno
     let rango = null;
     for (const s of seriesDe(q)) {
-      const meses = ctx.precios.mesesCon([s.producto, s.productoBase].filter((k) => PRODUCTOS[k]));
+      const conProducto = s.metrica === 'precio' || s.metrica === 'brecha_precio';
+      const meses = conProducto ? mesesConPrecio([s.producto, s.productoBase].filter((k) => PRODUCTOS[k]), ctx) : [...serieAuxiliar(s.metrica, ctx).keys()].sort();
       if (!meses.length) continue;
       const ultimo = meses[meses.length - 1];
       rango = rango ? [meses[0] < rango[0] ? meses[0] : rango[0], ultimo > rango[1] ? ultimo : rango[1]] : [meses[0], ultimo];
@@ -78,6 +93,12 @@ export function opcionesDeMenu(ctx) {
     camara: ctx.valores.camara,
     empresa: ctx.valores.empresa,
     petrolera: ctx.compras?.petroleras ?? [],
+    // las ventas de gas oil: los sectores de las tablas de la Secretaría y las petroleras que el sitio identifica
+    sector: ctx.gasoilSectores?.sectores ?? [],
+    // el precio del gas oil por canal: los canales del relevamiento de precios
+    canal: ctx.fuentesPrecio?.gasoilPrecios?.canales_comercializacion ?? [],
+    distribucion: ctx.fuentesPrecio?.gasoilPrecios?.canales_distribucion ?? [],
+    vendedora: [...new Set([...(ctx.gasoilSectores?.mensual_petrolera ?? []).map((x) => x.petrolera), ...(ctx.petroleras?.go_mensual ?? []).flatMap((x) => Object.keys(x).filter((k) => k !== 'fecha'))])].sort((a, b) => a.localeCompare(b, 'es')),
   };
 }
 
@@ -96,9 +117,10 @@ const lista = (v) => (Array.isArray(v) ? v : v === null || v === undefined || v 
 /** Los valores que existen, sin repetir y en el orden del catálogo (no en el orden en que se tildaron). */
 const enOrden = (valores, catalogo) => Object.keys(catalogo).filter((k) => valores.includes(k));
 
+// contra qué se compara un producto cuando el pedido no lo dice: las naftas y el bioetanol,
+// contra la nafta fósil; todo lo demás, contra el gas oil fósil
 const basePorDefecto = (producto) => {
-  const energia = PRODUCTOS[producto].energia;
-  const base = energia === 'bioetanol' || energia === 'nafta' ? 'nafta_fosil' : 'gasoil_fosil';
+  const base = PRODUCTOS[producto].grupo === 'naftas' ? 'nafta_fosil' : 'gasoil_fosil';
   return producto === base ? (base === 'nafta_fosil' ? 'bioetanol' : 'biodiesel') : base;
 };
 
@@ -107,7 +129,7 @@ const basePorDefecto = (producto) => {
  * de los datos que hay. Devuelve { consulta, avisos }. Es idempotente.
  *
  * La consulta que sale tiene siempre esta forma (los menús de selección múltiple son listas):
- *   tipos, metricas, productos, productosBase, equivalencias, filtros { menú: [valores] },
+ *   tipos, metricas, productos, productosBase, equivalencias, unidad, filtros { menú: [valores] },
  *   agrupar, tiempo, desde, hasta, desde0, hasta0, orden, ordenarPor, ordenMedida, tope.
  */
 export function ajustarConsulta(entrada, ctx) {
@@ -129,12 +151,13 @@ export function ajustarConsulta(entrada, ctx) {
   let tipos = enOrden(lista(entrada.tipos ?? entrada.tipo), TIPOS);
   if (!tipos.length) tipos = ['ranking'];
 
-  // productos (solo para precios)
+  // productos (solo para el precio y la diferencia de precio) y la unidad en que se muestra el precio
   q.productos = [];
   q.productosBase = [];
   q.equivalencias = [];
-  if (familia === 'precios') {
-    const conBrecha = metricas.includes('brecha_precio');
+  q.unidad = null;
+  const conBrecha = metricas.includes('brecha_precio');
+  if (metricas.includes('precio') || conBrecha) {
     const comparable = (k) => !PRODUCTOS[k].soloNivel;
     let productos = lista(entrada.productos ?? entrada.producto).filter((k) => PRODUCTOS[k]);
     // la diferencia de precio se mide entre dos precios: los impuestos solos no entran
@@ -149,6 +172,13 @@ export function ajustarConsulta(entrada, ctx) {
       q.productosBase = enOrden(bases, PRODUCTOS);
       q.equivalencias = enOrden(lista(entrada.equivalencias ?? entrada.equivalencia), EQUIVALENCIAS);
       if (!q.equivalencias.length) q.equivalencias = ['por_litro'];
+    }
+    if (metricas.includes('precio')) {
+      q.unidad = UNIDADES[entrada.unidad] ? entrada.unidad : unidadPorDefecto(q.productos);
+      // si el pedido no dice la unidad y los precios vienen en unidades distintas, van todos a una sola
+      if (!UNIDADES[entrada.unidad] && new Set(q.productos.map((k) => PRODUCTOS[k].unidad)).size > 1) {
+        avisos.push(`Esos precios vienen en unidades distintas: se muestran todos en ${minuscula(UNIDADES[q.unidad].etiqueta)}. Se cambia en el menú Unidad.`);
+      }
     }
   }
 
@@ -244,49 +274,88 @@ export function ajustarConsulta(entrada, ctx) {
  * Devuelve { ok: true, consulta, avisos } o { ok: false, motivo }.
  */
 export function desdeModelo(cruda, ctx) {
-  if (!cruda || cruda.entendido === 'no' || !METRICAS[cruda.metrica]) {
+  // las medidas llegan en el orden en que las nombra el pedido: la primera manda
+  const pedidas = [...new Set(lista(cruda?.metricas).filter((k) => METRICAS[k]))];
+  if (!cruda || cruda.entendido === 'no' || !pedidas.length) {
     return { ok: false, motivo: texto(cruda?.motivo) || 'Eso no se puede responder con los datos que el Analista tiene cargados.' };
   }
   const avisos = [];
+  // en una consulta entran medidas de un mismo grupo de datos (comparten filtros, agrupación y fechas):
+  // si el pedido mezcla, quedan las del grupo de la primera y se dice cuáles quedaron afuera
+  const familia = METRICAS[pedidas[0]].familia;
+  const metricas = pedidas.filter((k) => METRICAS[k].familia === familia);
+  const afuera = pedidas.filter((k) => METRICAS[k].familia !== familia);
+  if (afuera.length) {
+    avisos.push(`Quedó afuera lo que sale de otros datos y no se puede combinar con ${minuscula(METRICAS[pedidas[0]].nombre)}: ${minuscula(enumerar(afuera.map((k) => METRICAS[k].nombre)))}. Se pide en otra consulta.`);
+  }
+  const tipos = lista(cruda.tipos).filter((k) => TIPOS[k]);
+  // "por petrolera" es la compradora de biodiésel en las compras y la vendedora de gas oil en las ventas de gas oil
+  const deGasoil = FILTROS_DE[familia].includes('vendedora');
+  let agrupar = cruda.agrupar === 'petrolera' && deGasoil ? 'vendedora' : cruda.agrupar === 'vendedora' && !deGasoil ? 'petrolera' : cruda.agrupar;
+  // lo mismo con el sector (ventas de gas oil) y el canal de venta (precios)
+  if (agrupar === 'sector' && familia === 'canales') agrupar = 'canal';
+  if (agrupar === 'canal' && familia === 'gasoil') agrupar = 'sector';
   const q = {
-    tipo: cruda.tipo,
-    metrica: cruda.metrica,
-    agrupar: cruda.agrupar,
+    tipos,
+    metricas,
+    // en un ranking con varias medidas, ordena la primera que nombró el pedido
+    ordenMedida: metricas[0],
+    agrupar,
     tiempo: cruda.tiempo,
     filtros: {},
     orden: cruda.orden,
     ordenarPor: cruda.ordenar_por,
     tope: typeof cruda.tope === 'number' ? cruda.tope : null,
-    producto: cruda.producto,
+    productos: lista(cruda.productos),
     productoBase: cruda.producto_base,
     equivalencia: cruda.equivalencia,
+    unidad: cruda.unidad,
   };
 
   if (cruda.sujeto && norm(cruda.sujeto) !== 'TOTAL') {
     // cada parte se lee por separado: si el sujeto repite un tipo (dos provincias), valen las dos
-    const partes = cruda.sujeto.split('+').map((parte) => parsearSujeto(parte, ctx));
+    // los sectores y los canales del gas oil no son filtros de empresas: se leen acá, contra las listas del gas oil
+    const deGasoilPartes = [];
+    const deEmpresa = [];
+    for (const parte of cruda.sujeto.split('+')) (/^\s*(sector|canal|distribucion)\s*:/i.test(parte) ? deGasoilPartes : deEmpresa).push(parte);
+    const DONDE = { sector: 'las ventas de gas oil', canal: 'el relevamiento de precios', distribucion: 'el relevamiento de precios' };
+    for (const parte of deGasoilPartes) {
+      let tipo = parte.slice(0, parte.indexOf(':')).trim().toLowerCase();
+      const nombre = parte.slice(parte.indexOf(':') + 1).trim();
+      // "el agro" es un sector en las ventas (volumen) y un canal de venta en los precios: vale el del grupo de la medida
+      if (tipo === 'sector' && familia === 'canales') tipo = 'canal';
+      if (tipo === 'canal' && familia === 'gasoil') tipo = 'sector';
+      const valor = validarFiltro(nombre, opcionesDeMenu(ctx)[tipo]);
+      if (valor) q.filtros[tipo] = [...(q.filtros[tipo] ?? []), valor];
+      else avisos.push(`No encuentro «${texto(nombre, 60)}» en ${DONDE[tipo]}.`);
+    }
+    const partes = deEmpresa.map((parte) => parsearSujeto(parte, ctx));
     const mala = partes.find((s) => !s.ok);
     if (mala) avisos.push(`${mala.motivo} Se toman todas las empresas.`);
     else for (const f of partes.flatMap((s) => s.filtros)) q.filtros[f.tipo] = [...(q.filtros[f.tipo] ?? []), f.valor];
   }
   if (cruda.petrolera && cruda.petrolera !== NINGUNO) {
-    const p = validarFiltro(cruda.petrolera, opcionesDeMenu(ctx).petrolera);
-    if (p) q.filtros.petrolera = [p];
-    else avisos.push(`No encuentro la petrolera «${texto(cruda.petrolera, 60)}» en los datos del sitio.`);
+    // pueden venir varias, unidas con "+": entran las que están en los datos y se avisa de las que no
+    const filtro = deGasoil ? 'vendedora' : 'petrolera';
+    for (const nombre of cruda.petrolera.split('+').map((s) => s.trim()).filter(Boolean)) {
+      const p = validarFiltro(nombre, opcionesDeMenu(ctx)[filtro]);
+      if (p) q.filtros[filtro] = [...(q.filtros[filtro] ?? []), p];
+      else avisos.push(`No encuentro la petrolera «${texto(nombre, 60)}» en ${deGasoil ? 'las ventas de gas oil' : 'los datos'} del sitio.`);
+    }
   }
 
   const per = cruda.periodo ? resolverPeriodo(cruda.periodo, ctx) : null;
   if (per?.ok) {
     q.desde = per.desde;
     q.hasta = per.hasta;
-  } else if (METRICAS[cruda.metrica].sinTiempo !== true) {
+  } else if (metricas.some((k) => METRICAS[k].sinTiempo !== true)) {
     avisos.push(per?.motivo ? `${per.motivo} Se toman los últimos 12 meses.` : 'El pedido no decía el período: se toman los últimos 12 meses con datos.');
   }
   const per0 = cruda.periodo_inicial ? resolverPeriodo(cruda.periodo_inicial, ctx) : null;
   if (per0?.ok) {
     q.desde0 = per0.desde;
     q.hasta0 = per0.hasta;
-  } else if (cruda.tipo === 'comparacion') {
+  } else if (tipos.includes('comparacion')) {
     avisos.push('El pedido no decía contra qué período comparar: se toma el período anterior, del mismo largo.');
   }
 

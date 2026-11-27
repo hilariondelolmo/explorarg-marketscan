@@ -33,7 +33,7 @@ const MODELO = process.env.ANALISTA_MODELO || 'claude-sonnet-5-5';
 const MODELO_LOCAL = process.env.ANALISTA_MODELO_LOCAL || 'sonnet';
 
 // Lo que necesita el Analista de src/data (no los textos legales ni la votación)
-const ARCHIVOS = ['empresas', 'mercado', 'corte', 'capacidad', 'aceite', 'tecnicos', 'gasoilPrecios', 'gasoilRanking', 'iclIco2', 'naftas', 'bioetanol', 'compras'];
+const ARCHIVOS = ['empresas', 'mercado', 'corte', 'capacidad', 'aceite', 'tecnicos', 'gasoilPrecios', 'gasoilRanking', 'iclIco2', 'naftas', 'bioetanol', 'compras', 'evidencia', 'petroleras', 'goSectores'];
 const DATOS = ARCHIVOS.map((nombre) => [nombre, DATOS_DEL_SITIO[nombre]]);
 const ruta = (archivo) => path.join(process.cwd(), 'src', 'data', `${archivo}.json`);
 let cache = null; // { sello, ctx, consigna }

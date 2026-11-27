@@ -19,7 +19,8 @@
 
 import { grupoPublico } from '../poligrafo/catalogo.js';
 import { corteDelPeriodo, lindo, norm } from '../poligrafo/motor.js';
-import { DIMENSIONES, EQUIVALENCIAS, METRICAS, PRODUCTOS, TOPE_MAXIMO } from './catalogo.js';
+import { DIMENSIONES, EQUIVALENCIAS, METRICAS, OTRAS_EMPRESAS, PRODUCTOS, TOPE_MAXIMO, UNIDADES } from './catalogo.js';
+import { MESES_SIN_PRECIO_DE_GASOIL, brechaDe, mesesConPrecio, motivoSinConversion, notaDelDato, notaDeMesesSinPrecio, notasDeConversion, notasDeDensidad, precioDe, serieAuxiliar, tableroDe, vienePorVolumen } from './productos.js';
 
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 export const mesTxt = (iso) => `${MESES[Number(iso.slice(5, 7)) - 1]} ${iso.slice(0, 4)}`;
@@ -53,6 +54,9 @@ export function etiquetaGrupo(dim, clave, ctx) {
   if (dim === 'categoria') return CATEGORIA_TXT[clave] ?? lindo(clave);
   if (dim === 'provincia' || dim === 'localidad') return lindo(clave);
   if (dim === 'zona') return ctx.aceite?.resumen?.find((z) => z.zona === clave)?.rotulo ?? clave;
+  if (dim === 'sector') return clave === 'S/N' ? 'Sin sector informado' : clave;
+  if (dim === 'vendedora') return clave === OTRAS_EMPRESAS ? 'Otras empresas' : clave;
+  if (dim === 'canal') return clave === 'N/D' ? 'Sin canal informado' : clave;
   return clave;
 }
 
@@ -119,6 +123,25 @@ class Acumulador {
     for (const k of this.claves) this.total[tramo][k] += componentes[k] || 0;
   }
 }
+
+const NOTAS_DE_SERIE = {
+  tipo_cambio: 'Tipo de cambio: pesos por dólar, promedio de cada mes. Es el que usa el sitio para pasar los precios de dólares a pesos.',
+  retencion: 'Derecho de exportación (retención) vigente en cada mes, en porcentaje del valor exportado.',
+  margen_biodiesel: 'Margen = precio oficial del biodiésel menos aceite de soja FAS teórico oficial (FOB oficial menos retención), los dos en dólares por tonelada. Es la misma cuenta de la página Márgenes.',
+  margen_biodiesel_pct: 'Margen = precio oficial del biodiésel menos aceite de soja FAS teórico oficial, como porcentaje del precio del biodiésel. Es la misma cuenta de la página Márgenes.',
+  crack_biodiesel: 'Crack spread 10:9:1 = 0,9 x biodiésel + 0,1 x glicerina - aceite de soja, en dólares por tonelada de aceite: diez de aceite dan nueve de biodiésel y una de glicerina. Es la misma cuenta de la página Márgenes.',
+  crack_biodiesel_pct: 'Crack spread 10:9:1 = 0,9 x biodiésel + 0,1 x glicerina - aceite de soja, como porcentaje del precio del aceite. Es la misma cuenta de la página Márgenes.',
+};
+
+// el relevamiento por canal: [mes, canal dist, canal com, vol2, surt2, conimp2, sinimp2, vol3, surt3, conimp3, sinimp3]
+const COLUMNAS_DE_CANAL = {
+  precio_canal: { vol: 3, precio: 6 },
+  precio_canal_con_impuestos: { vol: 3, precio: 5 },
+  precio_canal_g3: { vol: 7, precio: 10 },
+  precio_canal_g3_con_impuestos: { vol: 7, precio: 9 },
+};
+
+const NOTA_CON_CUPO = 'Entran solo las petroleras con cupo de biodiésel asignado en el período: las revendedoras compran el gas oil ya cortado y no tienen obligación propia de mezcla.';
 
 const FAMILIAS = {
   empresas(q, ctx, tramos) {
@@ -191,6 +214,25 @@ const FAMILIAS = {
   },
 
   corte(q, ctx, tramos) {
+    // el gas oil importado: los despachos de importación, solos o contra el gas oil vendido
+    if (q.metrica === 'gasoil_importado' || q.metrica === 'gasoil_importado_pct') {
+      const ranking = ctx.fuentesPrecio?.gasoilRanking;
+      if (!ranking?.importaciones?.length) return { error: 'El sitio no tiene cargadas las importaciones de gas oil.' };
+      const acc = new Acumulador(tramos.length, ['ton', 'go', 'n']);
+      const porMes = tramosPorMes(tramos);
+      const vendido = new Map(ctx.corteMensual.map((c) => [c.fecha, c.go_m3]));
+      for (const m of ranking.importaciones) {
+        const cuales = porMes.get(m.fecha);
+        if (!cuales) continue;
+        for (const i of cuales) acc.sumar(null, i, { ton: m.ton || 0, go: vendido.get(m.fecha) || 0, n: 1 });
+      }
+      const notas = ['Gas oil importado: toneladas de los despachos de importación de cada mes, sin las compras de CAMMESA para las usinas.'];
+      const ultimo = ranking.importaciones[ranking.importaciones.length - 1].fecha;
+      if (tramos[tramos.length - 1].hasta > ultimo) notas.push(`Hay importaciones cargadas hasta ${mesTxt(ultimo)}: los meses que siguen no cuentan.`);
+      if (q.metrica === 'gasoil_importado') return { acc, valor: (c) => (c.n > 0 ? c.ton : null), notas };
+      notas.push(`Las toneladas importadas se pasan a metros cúbicos con la densidad del gas oil (${String(ranking.densidad_go).replace('.', ',')}) y se comparan con el gas oil grado 2 y grado 3 vendido en esos meses, sin bunker ni usinas.`);
+      return { acc, valor: (c) => (c.go > 0 ? (c.ton / ranking.densidad_go / c.go) * 100 : null), notas };
+    }
     const acc = new Acumulador(tramos.length, ['bio', 'go', 'oblig', 'falt']);
     tramos.forEach((t, i) => {
       const c = corteDelPeriodo(ctx, t);
@@ -213,36 +255,242 @@ const FAMILIAS = {
     return { acc, valor: valores[q.metrica], notas: [notas[q.metrica]] };
   },
 
-  precios(q, ctx, tramos) {
-    const P = ctx.precios;
-    if (!P) return { error: 'El sitio no tiene cargados los precios.' };
-    const a = PRODUCTOS[q.producto];
-    const b = PRODUCTOS[q.productoBase];
-    const acc = new Acumulador(tramos.length, ['suma', 'n']);
-    const notas = [a.nota];
-    let factor = 1;
-    if (q.metrica === 'brecha_precio') {
-      notas.push(b.nota);
-      if (q.equivalencia === 'por_energia') {
-        const ea = ctx.energia?.get(a.energia);
-        const eb = ctx.energia?.get(b.energia);
-        if (!ea || !eb) return { error: 'El sitio no tiene el contenido energético de esos productos.' };
-        factor = eb.mj / ea.mj;
-        if (factor !== 1) notas.push(`A igual energía: un litro de ${ea.nombre.toLowerCase()} tiene ${ea.mj} MJ y uno de ${eb.nombre.toLowerCase()}, ${eb.mj} MJ (Directiva (UE) 2018/2001).`);
+  // Ventas de gas oil por sector y por petrolera (go_sectores.json: tablas de ventas de la Secretaría de Energía).
+  gasoil(q, ctx, tramos) {
+    const d = ctx.gasoilSectores;
+    if (!d?.mensual_total?.length) return { error: 'El sitio no tiene cargadas las ventas de gas oil por sector.' };
+    const acc = new Acumulador(tramos.length, ['a']);
+    const porMes = tramosPorMes(tramos);
+    const sectores = q.filtros?.sector?.length ? q.filtros.sector : d.sectores;
+    const elegidas = q.filtros?.vendedora ?? [];
+    const grupoDe = (sector, petrolera) => (q.agrupar === 'sector' ? sector : q.agrupar === 'vendedora' ? petrolera : null);
+    const notas = ['Gas oil grado 2 y grado 3 vendido en el país, según las tablas de ventas de la Secretaría de Energía. Entran todos los sectores, también bunker y usinas eléctricas, que no llevan corte.'];
+    if (q.agrupar !== 'vendedora' && !elegidas.length) {
+      // sin abrir por petrolera: el total del sistema, con todas las empresas
+      for (const fila of d.mensual_total) {
+        const cuales = porMes.get(fila.fecha);
+        if (!cuales) continue;
+        for (const sec of sectores) if (fila[sec]) for (const i of cuales) acc.sumar(grupoDe(sec, null), i, { a: fila[sec] });
       }
-      if (Boolean(a.conImpuestos) !== Boolean(b.conImpuestos)) notas.push('Uno de los dos precios incluye impuestos y el otro no: la diferencia mezcla precio e impuestos.');
+      return { acc, valor: (c) => c.a, notas };
     }
+    // por petrolera: las que el sitio identifica por nombre; el resto del total va junto
+    const identificado = new Map(); // "mes|sector" -> m³ de las identificadas
+    for (const fila of d.mensual_petrolera) {
+      const cuales = porMes.get(fila.fecha);
+      if (!cuales) continue;
+      for (const sec of sectores) {
+        const v = fila[sec];
+        if (!v) continue;
+        const k = `${fila.fecha}|${sec}`;
+        identificado.set(k, (identificado.get(k) || 0) + v);
+        if (elegidas.length && !elegidas.includes(fila.petrolera)) continue;
+        for (const i of cuales) acc.sumar(grupoDe(sec, fila.petrolera), i, { a: v });
+      }
+    }
+    if (!elegidas.length) {
+      for (const fila of d.mensual_total) {
+        const cuales = porMes.get(fila.fecha);
+        if (!cuales) continue;
+        for (const sec of sectores) {
+          const resto = (fila[sec] || 0) - (identificado.get(`${fila.fecha}|${sec}`) || 0);
+          if (resto > 0.5) for (const i of cuales) acc.sumar(grupoDe(sec, OTRAS_EMPRESAS), i, { a: resto });
+        }
+      }
+      notas.push('«Otras empresas» junta lo que vendieron las que el sitio no identifica por nombre.');
+    }
+    return { acc, valor: (c) => c.a, notas };
+  },
+
+  // El corte de cada petrolera (petroleras.json): la misma cuenta que el tablero Cumplimiento Corte, Petroleras.
+  petroleras(q, ctx, tramos) {
+    const d = ctx.petroleras;
+    const densidad = ctx.fuentesPrecio?.densidadBio;
+    if (!d?.go_mensual?.length || !densidad) return { error: 'El sitio no tiene cargado el gas oil vendido por petrolera.' };
+    const elegidas = q.filtros?.vendedora ?? [];
+    const pasa = (p) => !elegidas.length || elegidas.includes(p);
+    const porMes = tramosPorMes(tramos);
+    const obligatorio = new Map(ctx.corteMensual.map((c) => [c.fecha, c.obligatorio]));
+    const vendidoPais = new Map(ctx.corteMensual.map((c) => [c.fecha, c.go_m3]));
+    // por petrolera y por tramo: gas oil vendido, biodiésel que le exigía el corte, biodiésel comprado y cupo asignado
+    const base = new Acumulador(tramos.length, ['go', 'req', 'bio', 'cupo']);
+    const resto = tramos.map(() => 0);
+    for (const fila of d.go_mensual) {
+      const cuales = porMes.get(fila.fecha);
+      const o = obligatorio.get(fila.fecha);
+      if (!cuales || o === null || o === undefined) continue;
+      let identificado = 0;
+      for (const [p, v] of Object.entries(fila)) {
+        if (p === 'fecha' || !v) continue;
+        identificado += v;
+        if (pasa(p)) for (const i of cuales) base.sumar(p, i, { go: v, req: v * o });
+      }
+      const pais = vendidoPais.get(fila.fecha) || 0;
+      for (const i of cuales) resto[i] += Math.max(0, pais - identificado);
+    }
+    for (const fila of d.mensual ?? []) {
+      const cuales = porMes.get(fila.fecha);
+      if (!cuales) continue;
+      for (const [p, t] of Object.entries(fila)) if (p !== 'fecha' && t && base.grupos.has(p)) for (const i of cuales) base.sumar(p, i, { bio: t });
+    }
+    for (const r of d.cumplimiento ?? []) {
+      const cuales = porMes.get(r.fecha);
+      if (cuales && r.cupo > 0 && base.grupos.has(r.petrolera)) for (const i of cuales) base.sumar(r.petrolera, i, { cupo: r.cupo });
+    }
+
+    const acc = new Acumulador(tramos.length, ['a', 'b', 'n']);
+    const grupo = (p) => (q.agrupar === 'vendedora' ? p : null);
+    const deVolumen = q.metrica === 'gasoil_petrolera' || q.metrica === 'biodiesel_petrolera';
+    for (const [p, comps] of base.grupos) {
+      comps.forEach((c, i) => {
+        if (q.metrica === 'gasoil_petrolera') {
+          if (c.go) acc.sumar(grupo(p), i, { a: c.go, n: 1 });
+        } else if (q.metrica === 'biodiesel_petrolera') {
+          if (c.bio) acc.sumar(grupo(p), i, { a: c.bio, n: 1 });
+        } else if (c.cupo > 0 && c.go > 0) {
+          // el corte se le mide solo a la que tiene cupo: las revendedoras compran el gas oil ya cortado
+          if (q.metrica === 'corte_petrolera') acc.sumar(grupo(p), i, { a: c.bio / densidad, b: c.go, n: 1 });
+          else if (q.metrica === 'cumplimiento_petrolera') acc.sumar(grupo(p), i, { a: c.bio / densidad, b: c.req, n: 1 });
+          else acc.sumar(grupo(p), i, { a: Math.max(0, (c.req - c.bio / densidad) * densidad), n: 1 });
+        }
+      });
+    }
+    const notas = ['Son las petroleras que el sitio identifica en las ventas de gas oil, como en el tablero Cumplimiento Corte. El gas oil es grado 2 y grado 3, sin bunker ni usinas.'];
+    if (q.metrica === 'gasoil_petrolera' && !elegidas.length) {
+      resto.forEach((v, i) => {
+        if (v > 0.5) acc.sumar(grupo(OTRAS_EMPRESAS), i, { a: v, n: 1 });
+      });
+      notas.push('«Otras empresas» junta lo que vendieron las que el sitio no identifica por nombre.');
+    }
+    if (deVolumen || q.metrica === 'faltante_petrolera') {
+      if (q.metrica === 'faltante_petrolera') notas.push('Lo que faltó = el biodiésel que le exigía el corte obligatorio de cada mes por sus ventas de gas oil, menos el que compró en el período. Si compró de más, es cero.');
+      if (!deVolumen) notas.push(NOTA_CON_CUPO);
+      return { acc, valor: (c) => (c.n > 0 ? c.a : null), notas };
+    }
+    notas.push(
+      q.metrica === 'corte_petrolera'
+        ? `Corte real de la petrolera = el biodiésel que compró (pasado a metros cúbicos con la densidad ${String(densidad).replace('.', ',')}) sobre el gas oil que vendió.`
+        : `Cumplimiento = el biodiésel que compró (pasado a metros cúbicos con la densidad ${String(densidad).replace('.', ',')}) sobre el que le exigía el corte obligatorio de cada mes por sus ventas de gas oil.`
+    );
+    notas.push(NOTA_CON_CUPO);
+    return { acc, valor: (c) => (c.b > 0 ? (c.a / c.b) * 100 : null), notas };
+  },
+
+  // El precio del gas oil según a quién se le vende y por qué canal (relevamiento Res. 1104/2004, gasoil_precios.json).
+  canales(q, ctx, tramos) {
+    const rel = ctx.fuentesPrecio?.gasoilPrecios;
+    if (!rel?.canales?.length) return { error: 'El sitio no tiene cargado el relevamiento de precios por canal.' };
+    const col = COLUMNAS_DE_CANAL[q.metrica];
+    const deCanal = q.filtros?.canal ?? [];
+    const deDistribucion = q.filtros?.distribucion ?? [];
+    const porMes = tramosPorMes(tramos);
+    const anomalos = new Set(MESES_SIN_PRECIO_DE_GASOIL);
+    // el precio de cada mes, ponderado por volumen: de cada grupo y de todo lo que pasa los filtros
+    const delMes = new Map(); // mes -> Map(grupo o null -> { num, den })
+    for (const fila of rel.canales) {
+      const mes = rel.meses[fila[0]];
+      if (!porMes.has(mes) || anomalos.has(mes) || !fila[col.vol] || !fila[col.precio]) continue;
+      const distribucion = rel.canales_distribucion[fila[1]];
+      const canal = rel.canales_comercializacion[fila[2]];
+      if ((deDistribucion.length && !deDistribucion.includes(distribucion)) || (deCanal.length && !deCanal.includes(canal))) continue;
+      if (!delMes.has(mes)) delMes.set(mes, new Map());
+      const grupo = q.agrupar === 'canal' ? canal : q.agrupar === 'distribucion' ? distribucion : undefined;
+      for (const k of grupo === undefined ? [null] : [null, grupo]) {
+        const a = delMes.get(mes).get(k) ?? { num: 0, den: 0 };
+        a.num += fila[col.vol] * fila[col.precio];
+        a.den += fila[col.vol];
+        delMes.get(mes).set(k, a);
+      }
+    }
+    // en un tramo de varios meses, el promedio simple de los precios de cada mes (como los demás precios)
+    const acc = new Acumulador(tramos.length, ['suma', 'n']);
+    for (const [mes, grupos] of delMes) {
+      for (const [k, a] of grupos) {
+        const destino = k === null ? acc.total : acc.grupos.get(k) ?? acc.grupos.set(k, acc.vacio()).get(k);
+        for (const i of porMes.get(mes)) {
+          destino[i].suma += a.num / a.den;
+          destino[i].n += 1;
+        }
+      }
+    }
+    const promedio = (c) => (c.n > 0 ? c.suma / c.n : null);
+    const notas = ['Precio del relevamiento de la Secretaría de Energía (Res. 1104/2004), ponderado por el volumen que declaró cada boca. Canal de venta es a quién se le vende (al público, agro, transporte, reventa) y canal de distribución, si es mayorista o minorista.'];
+    if (tramos.some((t) => t.desde !== t.hasta)) notas.push('En un tramo de varios meses es el promedio simple de los precios de cada mes, en pesos corrientes.');
+    const sinPrecio = MESES_SIN_PRECIO_DE_GASOIL.filter((m) => porMes.has(m));
+    if (sinPrecio.length) notas.push(`Sin los precios de gas oil de ${sinPrecio.join(', ')}: en esos meses el relevamiento trae valores anómalos y el sitio no los usa.`);
+    const valores = [...acc.total, ...[...acc.grupos.values()].flat()].map(promedio).filter((v) => v);
+    const minimo = valores.length ? Math.min(...valores) : 1000;
+    return { acc, valor: promedio, notas, m: { decimales: minimo >= 1000 ? 0 : minimo >= 100 ? 1 : 2 } };
+  },
+
+  precios(q, ctx, tramos) {
+    if (!ctx.precios) return { error: 'El sitio no tiene cargados los precios.' };
+    const acc = new Acumulador(tramos.length, ['suma', 'n']);
+    const promedio = (c) => (c.n > 0 ? c.suma / c.n : null);
+    const variosMeses = tramos.some((t) => t.desde !== t.hasta);
+
+    // el tipo de cambio y las retenciones: una serie por mes, sin producto
+    if (q.metrica !== 'precio' && q.metrica !== 'brecha_precio') {
+      const serie = serieAuxiliar(q.metrica, ctx);
+      tramos.forEach((t, i) => {
+        for (const mes of mesesEntre(t.desde, t.hasta)) if (serie.has(mes)) acc.sumar(null, i, { suma: serie.get(mes), n: 1 });
+      });
+      const notas = [NOTAS_DE_SERIE[q.metrica] ?? NOTAS_DE_SERIE.retencion];
+      if (q.metrica.startsWith('crack_')) notas.push('La glicerina es la cruda FOB Rosario; cuando no cotiza, la de Estados Unidos y, si tampoco, el precio de venta de Explora.');
+      if (variosMeses) notas.push('En un tramo de varios meses es el promedio simple de los valores de cada mes.');
+      return { acc, valor: promedio, notas };
+    }
+
+    const a = PRODUCTOS[q.producto];
+    const notas = [a.nota];
+    const sinPrecio = (productos) => notaDeMesesSinPrecio(productos, tramos[0].desde, tramos[tramos.length - 1].hasta);
+
+    if (q.metrica === 'precio') {
+      const unidad = UNIDADES[q.unidad] ? q.unidad : 'pesos_litro';
+      const sinConversion = motivoSinConversion(q.producto, unidad, ctx);
+      if (sinConversion) return { error: sinConversion };
+      tramos.forEach((t, i) => {
+        for (const mes of mesesConPrecio([q.producto], ctx, t.desde, t.hasta)) {
+          const v = precioDe(q.producto, mes, unidad, ctx);
+          if (v !== null) acc.sumar(null, i, { suma: v, n: 1 });
+        }
+      });
+      notas.push(...notasDeConversion([q.producto], unidad, ctx));
+      if (variosMeses) notas.push(`En un tramo de varios meses es el promedio simple de los precios de cada mes, en ${UNIDADES[unidad].moneda === 'ars' ? 'pesos' : 'dólares'} corrientes.`);
+      if (sinPrecio([q.producto])) notas.push(sinPrecio([q.producto]));
+      if (notaDelDato(q.producto, ctx)) notas.push(notaDelDato(q.producto, ctx));
+      // los decimales, según el tamaño de los valores: un precio de 3 pesos por litro (2010) no se redondea a entero
+      const valores = acc.total.map(promedio).filter((v) => v !== null && v !== 0).map(Math.abs);
+      const minimo = valores.length ? Math.min(...valores) : 1000;
+      const decimales = minimo >= 1000 ? 0 : minimo >= 100 ? 1 : minimo >= 1 ? 2 : 3;
+      return { acc, valor: promedio, notas, m: { unidad: UNIDADES[unidad].simbolo, decimales, fuente: tableroDe(q.producto) } };
+    }
+
+    const b = PRODUCTOS[q.productoBase];
+    notas.push(b.nota);
+    let factor = 1;
+    if (q.equivalencia === 'por_energia') {
+      const ea = ctx.energia?.get(a.energia);
+      const eb = ctx.energia?.get(b.energia);
+      if (!ea || !eb) return { error: 'El sitio no tiene el contenido energético de esos productos.' };
+      factor = eb.mj / ea.mj;
+      if (factor !== 1) notas.push(`A igual energía: un litro de ${ea.nombre.toLowerCase()} tiene ${ea.mj} MJ y uno de ${eb.nombre.toLowerCase()}, ${eb.mj} MJ (Directiva (UE) 2018/2001).`);
+    }
+    const par = [q.producto, q.productoBase];
+    // litro contra litro o tonelada contra tonelada: los que vienen en la otra medida se pasan con la densidad
+    const aPasar = par.filter((k) => vienePorVolumen(k) === (q.equivalencia === 'por_tonelada'));
+    notas.push(...notasDeDensidad(aPasar, ctx));
+    if (Boolean(a.conImpuestos) !== Boolean(b.conImpuestos)) notas.push('Uno de los dos precios incluye impuestos y el otro no: la diferencia mezcla precio e impuestos.');
     tramos.forEach((t, i) => {
-      const claves = q.metrica === 'brecha_precio' ? [q.producto, q.productoBase] : [q.producto];
-      for (const mes of P.mesesCon(claves, t.desde, t.hasta)) {
-        const v = q.metrica === 'brecha_precio' ? P.brecha(mes, q.producto, q.productoBase, factor) : P.de(mes)[q.producto];
-        if (v !== null && v !== undefined) acc.sumar(null, i, { suma: v, n: 1 });
+      for (const mes of mesesConPrecio(par, ctx, t.desde, t.hasta)) {
+        const v = brechaDe(q.producto, q.productoBase, mes, q.equivalencia, ctx, factor);
+        if (v !== null) acc.sumar(null, i, { suma: v, n: 1 });
       }
     });
-    if (tramos.some((t) => t.desde !== t.hasta)) {
-      notas.push(q.metrica === 'brecha_precio' ? 'En un tramo de varios meses es el promedio de las diferencias de cada mes.' : 'En un tramo de varios meses es el promedio simple de los precios de cada mes, en pesos corrientes.');
-    }
-    return { acc, valor: (c) => (c.n > 0 ? c.suma / c.n : null), notas };
+    if (variosMeses) notas.push('En un tramo de varios meses es el promedio de las diferencias de cada mes.');
+    if (sinPrecio(par)) notas.push(sinPrecio(par));
+    for (const k of par) if (notaDelDato(k, ctx) && !notas.includes(notaDelDato(k, ctx))) notas.push(notaDelDato(k, ctx));
+    return { acc, valor: promedio, notas, m: { fuente: tableroDe(q.producto) } };
   },
 
   aceite(q, ctx, tramos) {
@@ -266,7 +514,11 @@ const FAMILIAS = {
 
 // ---------------------------------------------------------------- presentar
 
-const articulo = (s) => (s.startsWith('nafta') ? 'la' : 'el');
+const femenino = (s) => /^(nafta|glicerina)/.test(s);
+const articulo = (s) => (femenino(s) ? 'la' : 'el');
+/** "litro", "tonelada", "metro cúbico" o "barril": por qué cantidad va el precio del pedido. */
+const porQue = (q) => (UNIDADES[q?.unidad] ?? UNIDADES.pesos_litro).porTxt;
+const COMO = { por_energia: ', a igual energía', por_tonelada: ', tonelada contra tonelada' };
 const mayuscula = (t) => t.charAt(0).toUpperCase() + t.slice(1);
 
 /** "a", "a y b", "a, b y c" (con "e" delante de una palabra que empieza con i). */
@@ -279,11 +531,14 @@ const varios = (xs) => (xs.length > 4 ? `${xs.slice(0, 3).join(', ')} y ${xs.len
 
 export function nombreDeLaMedida(q) {
   const m = METRICAS[q.metrica];
-  if (q.metrica === 'precio') return q.producto === 'impuestos_gasoil' ? 'Impuestos por litro de gas oil' : `Precio por litro de ${PRODUCTOS[q.producto].etiqueta}`;
+  if (q.metrica === 'precio') {
+    const p = PRODUCTOS[q.producto];
+    return p.soloNivel ? `${p.nombreSolo} por ${porQue(q)} de gas oil` : `Precio por ${porQue(q)} de ${p.etiqueta}`;
+  }
   if (q.metrica === 'brecha_precio') {
     const a = PRODUCTOS[q.producto].etiqueta;
     const b = PRODUCTOS[q.productoBase].etiqueta;
-    return `Cuánto más caro es el ${a} que ${articulo(b)} ${b}${q.equivalencia === 'por_energia' ? ', a igual energía' : ''}`;
+    return `Cuánto más ${femenino(a) ? 'cara' : 'caro'} es ${articulo(a)} ${a} que ${articulo(b)} ${b}${COMO[q.equivalencia] ?? ''}`;
   }
   return m.nombre;
 }
@@ -296,7 +551,7 @@ export function seriesDe(q) {
   const series = [];
   for (const metrica of q?.metricas ?? []) {
     if (metrica === 'precio') {
-      for (const producto of q.productos) series.push({ metrica, producto, productoBase: null, equivalencia: null });
+      for (const producto of q.productos) series.push({ metrica, producto, productoBase: null, equivalencia: null, unidad: q.unidad ?? null });
     } else if (metrica === 'brecha_precio') {
       for (const producto of q.productos) {
         if (PRODUCTOS[producto].soloNivel) continue;
@@ -315,23 +570,33 @@ export function seriesDe(q) {
 /** El nombre de una medida en la columna y en la leyenda, cuando van varias juntas. */
 function nombreCorto(s) {
   if (s.metrica === 'precio') return mayuscula(PRODUCTOS[s.producto].etiqueta);
-  if (s.metrica === 'brecha_precio') return `${mayuscula(PRODUCTOS[s.producto].etiqueta)} contra ${PRODUCTOS[s.productoBase].etiqueta}${s.equivalencia === 'por_energia' ? ', a igual energía' : ''}`;
+  if (METRICAS[s.metrica].corto) return METRICAS[s.metrica].corto;
+  if (s.metrica === 'brecha_precio') return `${mayuscula(PRODUCTOS[s.producto].etiqueta)} contra ${PRODUCTOS[s.productoBase].etiqueta}${COMO[s.equivalencia] ?? ''}`;
   return nombreDeLaMedida(s);
 }
 
 /** Todas las medidas del pedido en una frase, para el título. */
 function nombresJuntos(series) {
   if (series.length === 1) return nombreDeLaMedida(series[0]);
+  // varias medidas de un mismo grupo que se nombran igual (las de las petroleras, las del precio por canal):
+  // los nombres cortos y, una sola vez, de qué son
+  const [antes, despues] = METRICAS[series[0].metrica].juntas ?? [];
+  if (antes !== undefined && series.every((s) => METRICAS[s.metrica].juntas?.[0] === antes && METRICAS[s.metrica].juntas?.[1] === despues)) {
+    const cortos = enumerar(series.map((s) => minuscula(METRICAS[s.metrica].corto)));
+    return `${antes}${antes ? cortos : mayuscula(cortos)}${despues}`;
+  }
   const precios = series.filter((s) => s.metrica === 'precio');
   const brechas = series.filter((s) => s.metrica === 'brecha_precio');
   if (!precios.length && !brechas.length) return enumerar(series.map((s, i) => (i ? minuscula(nombreDeLaMedida(s)) : nombreDeLaMedida(s))));
   // los precios se dicen juntos ("precio por litro de biodiésel y gas oil"), y las diferencias también
   const partes = [];
   const deProducto = precios.filter((s) => !PRODUCTOS[s.producto].soloNivel);
-  if (deProducto.length) partes.push(`precio por litro de ${enumerar(deProducto.map((s) => PRODUCTOS[s.producto].etiqueta))}`);
+  if (deProducto.length) partes.push(`precio por ${porQue(deProducto[0])} de ${enumerar(deProducto.map((s) => PRODUCTOS[s.producto].etiqueta))}`);
   for (const s of precios) if (PRODUCTOS[s.producto].soloNivel) partes.push(minuscula(nombreDeLaMedida(s)));
   if (brechas.length === 1) partes.push(minuscula(nombreDeLaMedida(brechas[0])));
   else if (brechas.length) partes.push(`diferencia de precio: ${enumerar(brechas.map((s) => minuscula(nombreCorto(s))))}`);
+  // el tipo de cambio y las retenciones, que se pueden pedir junto con los precios
+  for (const s of series) if (s.metrica !== 'precio' && s.metrica !== 'brecha_precio') partes.push(minuscula(nombreDeLaMedida(s)));
   return mayuscula(partes.join('; '));
 }
 
@@ -346,6 +611,10 @@ export function filtrosTxt(q, ctx) {
   if (de('localidad').length) partes.push(varios(de('localidad').map((l) => lindo(l))));
   if (de('camara').length) partes.push(`${de('camara').length > 1 ? 'cámaras' : 'cámara'} ${varios(de('camara'))}`);
   if (de('petrolera').length) partes.push(`compradas por ${varios(de('petrolera'))}`);
+  if (de('vendedora').length) partes.push(varios(de('vendedora')));
+  if (de('distribucion').length) partes.push(`canal ${varios(de('distribucion').map((x) => x.toLowerCase()))}`);
+  if (de('canal').length) partes.push(`venta a: ${varios(de('canal').map((x) => etiquetaGrupo('canal', x, ctx).toLowerCase()))}`);
+  if (de('sector').length) partes.push(`${de('sector').length > 1 ? 'sectores' : 'sector'} ${varios(de('sector').map((x) => etiquetaGrupo('sector', x, ctx).toLowerCase()))}`);
   return partes.join(' · ');
 }
 
@@ -383,12 +652,14 @@ function bajadaDe(q, tramos, sinTiempo, ctx) {
  * Devuelve { m, tramos, dim, grupos, total, notas } o { error }.
  */
 function medir(q, ctx) {
-  const m = METRICAS[q?.metrica];
-  if (!m) return { error: 'No quedó claro qué medida se pide.' };
+  const deCatalogo = METRICAS[q?.metrica];
+  if (!deCatalogo) return { error: 'No quedó claro qué medida se pide.' };
   const tramos = armarTramos(q);
   if (!tramos.length) return { error: 'El período no tiene ningún mes.' };
-  const r = FAMILIAS[m.familia](q, ctx, tramos);
+  const r = FAMILIAS[deCatalogo.familia](q, ctx, tramos);
   if (r.error) return { error: r.error };
+  // un precio se muestra en la unidad del pedido: la unidad, los decimales y el tablero salen de la cuenta
+  const m = r.m ? { ...deCatalogo, ...r.m } : deCatalogo;
 
   const dim = q.agrupar !== 'ninguno' ? q.agrupar : null;
   const valores = (comps) => comps.map((c) => r.valor(c));
@@ -416,7 +687,7 @@ function ejecutarSimple(q, ctx) {
   const tope = Math.min(Math.max(1, q.tope || 20), TOPE_MAXIMO);
   const base = {
     ok: true,
-    titulo: `${nombreDeLaMedida(q)}${dim && !m.agruparSiempre ? ` ${DIMENSIONES[dim].por.split(' (')[0]}` : ''}`,
+    titulo: `${nombreDeLaMedida(q)}${dim && !m.agruparSiempre && !m.nombraGrupo ? ` ${DIMENSIONES[dim].por.split(' (')[0]}` : ''}`,
     bajada: bajadaDe(q, tramos, m.sinTiempo, ctx),
     cifra: null,
     grafico: null,
@@ -552,7 +823,10 @@ function ejecutarSimple(q, ctx) {
 // ---------------------------------------------------------------- varias medidas juntas
 
 export const MAX_MEDIDAS = 8;
-const UNIDAD_TXT = { t: 'toneladas', '%': 'porcentaje', '$/l': 'pesos por litro', 'm³': 'metros cúbicos', 't/año': 'toneladas por año' };
+const UNIDAD_TXT = {
+  t: 'toneladas', '%': 'porcentaje', '$/l': 'pesos por litro', 'm³': 'metros cúbicos', 't/año': 'toneladas por año', '$/US$': 'pesos por dólar',
+  ...Object.fromEntries(Object.values(UNIDADES).map((u) => [u.simbolo, minuscula(u.etiqueta)])),
+};
 const conUnidad = (nombre, m) => (m.unidad === '%' || m.unidad === 'índice' ? nombre : `${nombre} (${m.unidad})`);
 
 /**
@@ -605,7 +879,7 @@ function presentarVarias(simples, ctx, notasPrevias = []) {
   const fuentes = medidas.map((x) => x.m.fuente).filter((f, i, todas) => todas.findIndex((g) => g.ruta === f.ruta) === i);
   const base = {
     ok: true,
-    titulo: `${nombresJuntos(medidas.map((x) => x.s))}${dim ? ` ${DIMENSIONES[dim].por.split(' (')[0]}` : ''}`,
+    titulo: `${nombresJuntos(medidas.map((x) => x.s))}${dim && !medidas.every((x) => x.m.nombraGrupo) ? ` ${DIMENSIONES[dim].por.split(' (')[0]}` : ''}`,
     bajada: bajadaDe(q, tramos, medidas.every((x) => x.m.sinTiempo), ctx),
     cifra: null,
     grafico: null,
@@ -779,7 +1053,7 @@ export function describirConsulta(q, ctx) {
   const series = seriesDe(q);
   if (!q?.tipos?.length || !series.length) return '';
   const m = METRICAS[q.metricas[0]];
-  const dim = q.agrupar !== 'ninguno' && !m.agruparSiempre ? ` ${DIMENSIONES[q.agrupar].por.split(' (')[0]}` : '';
+  const dim = q.agrupar !== 'ninguno' && !m.agruparSiempre && !q.metricas.every((k) => METRICAS[k].nombraGrupo) ? ` ${DIMENSIONES[q.agrupar].por.split(' (')[0]}` : '';
   const quien = filtrosTxt(q, ctx);
   const periodo = periodoTxt(q.desde, q.hasta);
   const soloComparacion = q.tipos.length === 1 && q.tipos[0] === 'comparacion';

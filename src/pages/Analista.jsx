@@ -13,13 +13,16 @@ import iclIco2Data from '../data/icl_ico2.json';
 import naftasData from '../data/naftas_precios.json';
 import bioetanolData from '../data/bioetanol_precios.json';
 import comprasData from '../data/compras_cupo.json';
+import evidenciaData from '../data/evidencia.json';
+import petrolerasData from '../data/petroleras.json';
+import goSectoresData from '../data/go_sectores.json';
 import { MenuMultiple } from '../components/agente/MenuMultiple.jsx';
 import { PanelPlegable } from '../components/agente/Plegable.jsx';
 import { useCuenta } from '../lib/cuenta/Cuenta.jsx';
 import { MINUTOS_DE_TANDA, aproxTokens, enTokens, horaDe } from '../lib/cuenta/config.js';
 import { fmt } from '../lib/format.js';
 import { useChartColors } from '../lib/theme.jsx';
-import { DIMENSIONES, EQUIVALENCIAS, FILTROS_DE, METRICAS, ORDENAR_POR, ORDENES, PRODUCTOS, TIEMPOS, TIPOS } from '../lib/analista/catalogo.js';
+import { DIMENSIONES, EQUIVALENCIAS, FILTROS_DE, GRUPOS_PRODUCTO, METRICAS, ORDENAR_POR, ORDENES, PRODUCTOS, TIEMPOS, TIPOS, UNIDADES } from '../lib/analista/catalogo.js';
 import { ajustarConsulta, MAX_PEDIDO, opcionesDeMenu, rangoDe } from '../lib/analista/consulta.js';
 import { describirConsulta, etiquetaGrupo, mesesEntre, mesTxt, resolverConsulta } from '../lib/analista/motor.js';
 import { AUTOR, FUENTE_DATOS } from '../lib/poligrafo/catalogo.js';
@@ -49,8 +52,8 @@ const EJEMPLOS = [
   { id: 'capacidad', titulo: 'Cuánto usan de su capacidad las integradas y las no integradas', consulta: { tipo: 'evolucion', metrica: 'uso_capacidad', agrupar: 'categoria', tiempo: 'anio', desde: '2010-01' } },
 ];
 
-const FAMILIAS = { empresas: 'Elaboradoras', compras: 'Petroleras', corte: 'Corte obligatorio', precios: 'Precios', aceite: 'Aceite' };
-const ROTULO_FILTRO = { categoria: 'Categoría', provincia: 'Provincia', localidad: 'Localidad', grupo: 'Grupo económico', camara: 'Cámara', empresa: 'Empresa', petrolera: 'Petrolera' };
+const FAMILIAS = { empresas: 'Elaboradoras', compras: 'Petroleras', corte: 'Corte obligatorio y gas oil del país', gasoil: 'Ventas de gas oil', petroleras: 'Corte de cada petrolera', precios: 'Precios y márgenes', canales: 'Precio del gas oil por canal', aceite: 'Aceite' };
+const ROTULO_FILTRO = { categoria: 'Categoría', provincia: 'Provincia', localidad: 'Localidad', grupo: 'Grupo económico', camara: 'Cámara', empresa: 'Empresa', petrolera: 'Petrolera', vendedora: 'Petrolera', sector: 'Sector', canal: 'Canal de venta', distribucion: 'Canal de distribución' };
 const TOPES = [5, 10, 15, 20, 30, 60];
 
 const nf = (n, d = 0) => Number(n).toLocaleString('es-AR', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -181,12 +184,17 @@ function Controles({ q, ctx, cambiar }) {
   const tiene = (tipo) => q.tipos.includes(tipo);
   const agrupado = q.agrupar !== 'ninguno';
   const filtro = (f, valores) => cambiar({ filtros: { ...q.filtros, [f]: valores } });
-  const esPrecio = m.familia === 'precios';
+  const conPrecio = q.metricas.includes('precio');
   const conBrecha = q.metricas.includes('brecha_precio');
-  const comparables = Object.entries(PRODUCTOS).filter(([, p]) => !p.soloNivel).map(([k, p]) => [k, titulo(p.etiqueta)]);
+  // los productos van por grupo (biodiésel, gas oil, crudos...): son más de sesenta
+  const porGrupo = (pasa) =>
+    Object.entries(GRUPOS_PRODUCTO)
+      .map(([grupo, nombre]) => ({ titulo: nombre, opciones: Object.entries(PRODUCTOS).filter(([k, p]) => p.grupo === grupo && pasa(k, p)).map(([k, p]) => [k, titulo(p.etiqueta)]) }))
+      .filter((g) => g.opciones.length);
   // los impuestos se pueden ver solos, pero no comparar contra otro precio
-  const productos = q.metricas.includes('precio') ? Object.entries(PRODUCTOS).map(([k, p]) => [k, titulo(p.etiqueta)]) : comparables;
+  const productos = porGrupo((k, p) => conPrecio || !p.soloNivel);
   const elegidos = q.productos.filter((k) => !PRODUCTOS[k].soloNivel);
+  const contra = porGrupo((k, p) => !p.soloNivel && !(elegidos.length === 1 && k === elegidos[0]));
   // una medida de otro grupo no se puede combinar con las tildadas: las reemplaza
   const cambiarMedidas = (nuevas, tocada) => cambiar({ metricas: METRICAS[tocada].familia === m.familia ? nuevas : [tocada] });
 
@@ -209,9 +217,14 @@ function Controles({ q, ctx, cambiar }) {
           }))}
         />
       </Campo>
-      {esPrecio && (
-        <Campo rotulo={conBrecha ? 'Producto' : 'De qué'} multiple>
+      {(conPrecio || conBrecha) && (
+        <Campo rotulo={conBrecha ? 'Producto' : 'De qué'} ancho multiple>
           <MenuMultiple rotulo={conBrecha ? 'Producto' : 'De qué'} elegidas={q.productos} onChange={(v) => cambiar({ productos: v })} opciones={productos} />
+        </Campo>
+      )}
+      {conPrecio && (
+        <Campo rotulo="Unidad">
+          <Opciones valor={q.unidad} onChange={(v) => cambiar({ unidad: v })} opciones={Object.entries(UNIDADES).map(([k, u]) => [k, u.etiqueta])} />
         </Campo>
       )}
       {conBrecha && (
@@ -221,7 +234,7 @@ function Controles({ q, ctx, cambiar }) {
               rotulo="Contra"
               elegidas={q.productosBase}
               onChange={(v) => cambiar({ productosBase: v })}
-              opciones={elegidos.length === 1 ? comparables.filter(([k]) => k !== elegidos[0]) : comparables}
+              opciones={contra}
             />
           </Campo>
           <Campo rotulo="Cómo se compara" multiple>
@@ -256,7 +269,7 @@ function Controles({ q, ctx, cambiar }) {
             elegidas={q.filtros[f] ?? []}
             onChange={(v) => filtro(f, v)}
             opciones={menus[f].map((v) => [v, etiquetaGrupo(f, v, ctx)])}
-            vacio={f === 'grupo' ? 'Todos' : 'Todas'}
+            vacio={['grupo', 'sector', 'canal', 'distribucion'].includes(f) ? 'Todos' : 'Todas'}
           />
         </Campo>
       ))}
@@ -421,6 +434,9 @@ export default function Analista({ soloEjemplos = false }) {
         naftas: naftasData,
         bioetanol: bioetanolData,
         compras: comprasData,
+        evidencia: evidenciaData,
+        petroleras: petrolerasData,
+        goSectores: goSectoresData,
       }),
     []
   );

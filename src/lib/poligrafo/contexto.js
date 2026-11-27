@@ -58,5 +58,17 @@ export function armarContexto(d) {
   // zona, y las compras de cada petrolera a cada elaboradora (pueden faltar).
   ctx.aceite = d.aceite ?? null;
   ctx.compras = d.compras ?? null;
+  // El gas oil vendido por sector y por petrolera, y lo que compra y vende cada petrolera (para su corte).
+  ctx.gasoilSectores = d.goSectores ?? null;
+  ctx.petroleras = d.petroleras ?? null;
+  // Y todas las series de precio del sitio, tal como vienen (src/lib/analista/productos.js las pasa de unidad).
+  ctx.fuentesPrecio = {
+    gasoilPrecios: d.gasoilPrecios ?? null,
+    gasoilRanking: d.gasoilRanking ?? null,
+    naftas: d.naftas ?? null,
+    iclIco2: d.iclIco2 ?? null,
+    evidencia: d.evidencia ?? null,
+    densidadBio: d.corte?.densidad_bio ?? null,
+  };
   return ctx;
 }
